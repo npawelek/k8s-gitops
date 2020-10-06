@@ -10,8 +10,8 @@ image:
 registry:
   rps: 50
   burst: 50
-# additionalArgs:
-# - --connect=ws://fluxcloud
+additionalArgs:
+- --connect=ws://fluxcloud
 # prometheus:
 #   enabled: true
 #   serviceMonitor:
