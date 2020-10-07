@@ -32,8 +32,6 @@ spec:
     # - storage
     # - system
     # - usb
-
-    # node-feature-discovery configuration - see https://github.com/kubernetes-sigs/node-feature-discovery/blob/master/nfd-worker.conf.example for example
     config: |
       sources:
         custom:
