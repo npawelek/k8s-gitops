@@ -1,0 +1,39 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: semver:~v1.
+spec:
+  releaseName: cert-manager
+  rollback:
+    enable: false
+  chart:
+    repository: https://charts.jetstack.io/
+    name: cert-manager
+    version: v1.0.3
+  values:
+    installCRDs: true
+    webhook:
+      enabled: true
+    extraArgs:
+    - --dns01-recursive-nameservers-only
+    - --dns01-recursive-nameservers=1.1.1.1:53
+    volumeMounts:
+    - mountPath: /.aws
+      name: creds
+      readOnly: true
+    volumes:
+    - name: creds
+      secret:
+        secretName: aws-credentials
+    cainjector:
+      replicaCount: 1
+    # prometheus:
+    #   enabled: true
+    #   servicemonitor:
+    #     enabled: true
+    #     prometheusInstance: monitoring

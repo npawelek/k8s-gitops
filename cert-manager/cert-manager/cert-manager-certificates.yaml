@@ -1,0 +1,19 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nathanpawelek-com
+  namespace: cert-manager
+spec:
+  secretName: nathanpawelek-com-tls
+  duration: 2160h
+  renewBefore: 576h
+  privateKey:
+    rotationPolicy: Always
+    size: 4096
+    algorithm: RSA
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - '*.nathanpawelek.com'
