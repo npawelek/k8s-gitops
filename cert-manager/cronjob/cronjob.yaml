@@ -1,0 +1,66 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: distribute-letsencrypt-certs
+  namespace: cert-manager
+spec:
+  schedule: "0 0 * * 1"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 600
+      backoffLimit: 2
+      template:
+        spec:
+          initContainers:
+          - name: clone-repo
+            image: alpine:latest
+            command:
+            - "sh"
+            - "-c"
+            - "apk add --update git openssh-client; git clone git@github.com:npawelek/letsencrypt-distribute.git /repo"
+            volumeMounts:
+            - name: repo-dir
+              mountPath: /repo
+            - name: ssh-key
+              mountPath: /root/.ssh/id_rsa
+              subPath: id_rsa
+              readOnly: true
+            - name: ssh-config
+              mountPath: /root/.ssh/config
+              subPath: config
+              readOnly: true
+          containers:
+          - name: ansible
+            image: npawelek/ansible-docker:latest
+            workingDir: /repo/ansible
+            command:
+            - ansible-playbook
+            args:
+            - main.yml
+            volumeMounts:
+            - name: repo-dir
+              mountPath: /repo
+            - name: ssh-key
+              mountPath: /root/.ssh/id_rsa
+              subPath: id_rsa
+              readOnly: true
+            - name: ssh-config
+              mountPath: /root/.ssh/config
+              subPath: config
+              readOnly: true
+          volumes:
+          - name: ssh-key
+            secret:
+              secretName: cronjob-ssh-secrets
+              defaultMode: 0400
+          - name: repo-dir
+            emptyDir: {}
+          - name: ssh-config
+            configMap:
+              name: ssh-config
+          serviceAccountName: letsencrypt-ansible
+          restartPolicy: OnFailure
