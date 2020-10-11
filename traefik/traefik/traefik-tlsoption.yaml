@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: secure-tlsoptions
+  namespace: traefik
+spec:
+  sniStrict: true
+  minVersion: VersionTLS13
+  curvePreferences:
+  - CurveP521
+  - CurveP384
+  # Ciphers are not configurable for TLS1.3
+  # preferServerCipherSuites: true
+  # cipherSuites:
+  # - TLS_AES_256_GCM_SHA384
+  # - TLS_CHACHA20_POLY1305_SHA256

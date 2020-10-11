@@ -1,0 +1,369 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web
+  namespace: traefik
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: HostRegexp(`{any:.+}`)
+    priority: 10
+    services:
+    - kind: TraefikService
+      name: noop@internal
+    middlewares:
+    - name: redirect-https
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: websecure
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`in.nathanpawelek.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    services:
+    - kind: TraefikService
+      name: api@internal
+    middlewares:
+    - name: default-middlewares-chain
+  - match: Host(`in.nathanpawelek.com`) && PathPrefix(`/ping`)
+    kind: Rule
+    services:
+    - name: ping@internal
+      kind: TraefikService
+    middlewares:
+    - name: default-middlewares-chain
+  - kind: Rule
+    match: PathPrefix(`/metrics`)
+    priority: 15
+    services:
+    - name: prometheus@internal
+      namespace: traefik
+      kind: TraefikService
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-forward-auth
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`auth.nathanpawelek.com`)
+    kind: Rule
+    services:
+    - name: traefik-forward-auth
+      namespace: traefik
+      port: 4181
+    middlewares:
+    - name: traefik-sso
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+#########################################################################
+# IngressRoutes below are temporary until services are migrated to Flux #
+#########################################################################
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: (Host(`in.nathanpawelek.com`) && PathPrefix(`/admin`) || Host(`pihole.nathanpawelek.com`))
+    kind: Rule
+    services:
+    - name: pihole-admin
+      namespace: pihole
+      port: 80
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nzbget
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`nzbget.nathanpawelek.com`)
+    services:
+    - name: nzbget
+      port: 8080
+      namespace: nzbget
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sonarr
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`sonarr.nathanpawelek.com`)
+    services:
+    - name: sonarr
+      port: 8081
+      namespace: sonarr
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`radarr.nathanpawelek.com`)
+    services:
+    - name: radarr
+      port: 8082
+      namespace: radarr
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tautulli
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`tautulli.nathanpawelek.com`)
+    services:
+    - name: tautulli
+      port: 8083
+      namespace: tautulli
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hydra
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`hydra.nathanpawelek.com`)
+    services:
+    - name: hydra
+      port: 8084
+      namespace: hydra
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rss
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`rss.nathanpawelek.com`)
+    services:
+    - name: freshrss
+      port: 8085
+      namespace: freshrss
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`nextcloud.nathanpawelek.com`)
+    services:
+    - name: nextcloud
+      port: 8086
+      namespace: nextcloud
+    middlewares:
+    - name: default-headers
+    - name: nextcloud-redirectregex
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lazylibrarian
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`librarian.nathanpawelek.com`)
+    services:
+    - name: lazylibrarian
+      port: 8087
+      namespace: lazylibrarian
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: calibre
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`calibre.nathanpawelek.com`)
+    services:
+    - name: lazylibrarian
+      port: 8088
+      namespace: lazylibrarian
+    middlewares:
+    - name: default-middlewares-chain
+    - name: calibre-headers
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`grafana.nathanpawelek.com`)
+    services:
+    - name: grafana
+      port: 3000
+      namespace: monitoring
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`prometheus.nathanpawelek.com`)
+    services:
+    - name: prometheus
+      port: 9090
+      namespace: monitoring
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hass
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`hass.nathanpawelek.com`)
+    services:
+    - name: hass
+      port: 8091
+      namespace: hass
+    middlewares:
+    - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+######################################
+# End temporary IngressRoute section #
+######################################

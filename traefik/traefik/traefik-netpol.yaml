@@ -1,0 +1,305 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-traefik-ingress
+  namespace: traefik
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 192.168.0.0/24
+    - ipBlock:
+        cidr: 192.168.30.101/32
+    - ipBlock:
+        cidr: 192.168.30.102/32
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
+  - from:
+    - ipBlock:
+        cidr: 192.168.40.101/32
+    - ipBlock:
+        cidr: 192.168.40.102/32
+    ports:
+    - protocol: TCP
+      port: 443
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: monitoring
+      podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - port: 443
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-traefik-sso-ingress
+  namespace: traefik
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik-forward-auth
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+    - protocol: TCP
+      port: 4181
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-traefik-egress
+  namespace: traefik
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.0/24
+    ports:
+    - port: 6443
+      protocol: TCP
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik-forward-auth
+    ports:
+    - port: 4181
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: pihole
+      podSelector:
+        matchLabels:
+          app: pihole
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 80
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: nzbget
+      podSelector:
+        matchLabels:
+          app: nzbget
+    ports:
+    - port: 6789
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app: sonarr
+    ports:
+    - port: 8989
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app: radarr
+    ports:
+    - port: 7878
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: tautulli
+      podSelector:
+        matchLabels:
+          app: tautulli
+    ports:
+    - port: 8181
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: hydra
+      podSelector:
+        matchLabels:
+          app: hydra
+    ports:
+    - port: 5076
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: freshrss
+      podSelector:
+        matchLabels:
+          app: freshrss
+    ports:
+    - port: 80
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: nextcloud
+      podSelector:
+        matchLabels:
+          app: nextcloud
+    ports:
+    - port: 80
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: lazylibrarian
+      podSelector:
+        matchLabels:
+          app: lazylibrarian
+    ports:
+    - port: 5299
+      protocol: TCP
+    - port: 8083
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: monitoring
+      podSelector:
+        matchLabels:
+          app: grafana
+    ports:
+    - port: 3000
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: monitoring
+      podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - port: 9090
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: hass
+      podSelector:
+        matchLabels:
+          app: hass
+    ports:
+    - port: 8123
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 53
+      protocol: UDP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-traefik-sso-egress
+  namespace: traefik
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik-forward-auth
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: pihole
+      podSelector:
+        matchLabels:
+          app: pihole
+    ports:
+    - port: 53
+      protocol: UDP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - port: 443
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: traefik
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
