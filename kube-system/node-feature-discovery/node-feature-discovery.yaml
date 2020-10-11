@@ -11,6 +11,7 @@ metadata:
 spec:
   releaseName: node-feature-discovery
   helmVersion: v3
+  maxHistory: 3
   chart:
     repository: https://k8s-at-home.com/charts/
     name: node-feature-discovery

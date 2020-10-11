@@ -10,6 +10,7 @@ metadata:
 spec:
   releaseName: flux
   helmVersion: v3
+  maxHistory: 3
   chart:
     repository: https://charts.fluxcd.io/
     name: flux
