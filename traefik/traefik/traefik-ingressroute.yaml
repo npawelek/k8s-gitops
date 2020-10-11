@@ -9,6 +9,12 @@ spec:
   - web
   routes:
   - kind: Rule
+    match: Path(`/metrics`)
+    priority: 15
+    services:
+    - name: prometheus@internal
+      kind: TraefikService
+  - kind: Rule
     match: HostRegexp(`{any:.+}`)
     priority: 10
     services:
@@ -40,13 +46,6 @@ spec:
       kind: TraefikService
     middlewares:
     - name: default-middlewares-chain
-  - kind: Rule
-    match: PathPrefix(`/metrics`)
-    priority: 15
-    services:
-    - name: prometheus@internal
-      namespace: traefik
-      kind: TraefikService
   tls:
     secretName: nathanpawelek-com-tls
     options:

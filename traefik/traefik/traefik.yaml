@@ -36,8 +36,17 @@ spec:
     - --global.checknewversion=false
     - --global.sendanonymoususage=false
     additionalArguments:
-    - --metrics.prometheus.entrypoint=websecure
+    - --metrics.prometheus.entrypoint=web
     ports:
+      traefik:
+        expose: false
+        port: 9000
+        protocol: TCP
+      web:
+        expose: true
+        exposedPort: 80
+        port: 8000
+        protocol: TCP
       websecure:
         expose: true
         exposedPort: 443
