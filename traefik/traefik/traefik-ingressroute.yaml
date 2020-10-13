@@ -9,12 +9,6 @@ spec:
   - web
   routes:
   - kind: Rule
-    match: Path(`/metrics`)
-    priority: 15
-    services:
-    - name: prometheus@internal
-      kind: TraefikService
-  - kind: Rule
     match: HostRegexp(`{any:.+}`)
     priority: 10
     services:
