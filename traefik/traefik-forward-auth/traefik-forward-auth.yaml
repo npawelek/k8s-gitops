@@ -21,7 +21,7 @@ spec:
     fullnameOverride: traefik-forward-auth
     replicaCount: 3
     image:
-      repository: npawelek/traefik-forward-auth
+      repository: raspbernetes/traefik-forward-auth
       tag: v2.2.0
       pullPolicy: IfNotPresent
     logging:
