@@ -19,9 +19,12 @@ spec:
           - name: clone-repo
             image: alpine:latest
             command:
-            - "sh"
-            - "-c"
-            - "apk add --update git openssh-client; git clone git@github.com:npawelek/letsencrypt-distribute.git /repo"
+            - sh
+            - -c
+            - |
+              set -e
+              apk add --update git openssh-client
+              git clone git@github.com:npawelek/letsencrypt-distribute.git /repo
             volumeMounts:
             - name: repo-dir
               mountPath: /repo
