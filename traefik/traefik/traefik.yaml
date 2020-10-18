@@ -27,8 +27,8 @@ spec:
       value: America/Chicago
     installCRDs: true
     ingressClass:
-      enabled: false
-      isDefaultClass: false
+      enabled: true
+      isDefaultClass: "true"
     ingressRoute:
       dashboard:
         enabled: false
