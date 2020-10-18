@@ -73,28 +73,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: pihole
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - match: (Host(`in.nathanpawelek.com`) && PathPrefix(`/admin`) || Host(`pihole.nathanpawelek.com`))
-    kind: Rule
-    services:
-    - name: pihole-admin
-      namespace: pihole
-      port: 80
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: nzbget
   namespace: traefik
 spec:

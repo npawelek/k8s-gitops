@@ -1,0 +1,221 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: adguard-home
+  namespace: adguard
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: semver:~v2
+spec:
+  releaseName: adguard-home
+  helmVersion: v3
+  rollback:
+    enable: false
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: adguard-home
+    version: 2.2.0
+  values:
+    image:
+      repository: adguard/adguardhome
+      tag: v0.103.3
+    persistence:
+      config:
+        enabled: false
+      work:
+        enabled: true
+        size: 5Gi
+        skipUninstall: true
+        existingClaim: adguard-work
+    timezone: America/Chicago
+    replicas: 1
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+      path: /
+      hosts: [adguard.nathanpawelek.com]
+      tls:
+      - secretName: nathanpawelek-com-tls
+    service:
+      type: ClusterIP
+    serviceTCP:
+      enabled: false
+    serviceUDP:
+      enabled: true
+      externalTrafficPolicy: Local
+      type: LoadBalancer
+      loadBalancerIP: "192.168.0.10"
+    serviceDNSOverTLS:
+      enabled: false
+    serviceDHCP:
+      enabled: false
+    serviceMonitor:
+      enabled: false
+    resources:
+      requests:
+        memory: 500Mi
+        cpu: 15m
+      limits:
+        memory: 750Mi
+    podAnnotations:
+      prometheus.io/scrape: "false"
+    configAsCode:
+      enabled: true
+      image:
+        repository: busybox
+        tag: latest
+      # https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration
+      config:
+        bind_host: 0.0.0.0
+        bind_port: 3000
+        users: []
+        http_proxy: ""
+        language: en
+        rlimit_nofile: 0
+        debug_pprof: false
+        web_session_ttl: 720
+        dns:
+          bind_host: 0.0.0.0
+          port: 53
+          statistics_interval: 7
+          querylog_enabled: true
+          querylog_file_enabled: true
+          querylog_interval: 7
+          querylog_size_memory: 1000
+          anonymize_client_ip: false
+          protection_enabled: true
+          blocking_mode: default
+          blocking_ipv4: ""
+          blocking_ipv6: ""
+          blocked_response_ttl: 10
+          parental_block_host: family-block.dns.adguard.com
+          safebrowsing_block_host: standard-block.dns.adguard.com
+          ratelimit: 0
+          ratelimit_whitelist: []
+          refuse_any: true
+          upstream_dns:
+          - tls://1.1.1.1
+          - tls://1.0.0.1
+          bootstrap_dns:
+          - "1.1.1.1"
+          - "1.0.0.1"
+          all_servers: false
+          fastest_addr: true
+          allowed_clients: []
+          disallowed_clients: []
+          blocked_hosts: []
+          cache_size: 4194304
+          cache_ttl_min: 0
+          cache_ttl_max: 0
+          bogus_nxdomain: []
+          aaaa_disabled: false
+          enable_dnssec: false
+          edns_client_subnet: true
+          filtering_enabled: true
+          filters_update_interval: 1
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          safebrowsing_cache_size: 1048576
+          safesearch_cache_size: 1048576
+          parental_cache_size: 1048576
+          cache_time: 30
+          rewrites: []
+          blocked_services: []
+        tls:
+          enabled: false
+          server_name: ""
+          force_https: true
+          port_https: 443
+          port_dns_over_tls: 853
+          allow_unencrypted_doh: false
+          strict_sni_check: false
+          certificate_chain: ""
+          private_key: ""
+          certificate_path: ""
+          private_key_path: ""
+        filters:
+        - enabled: true
+          url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+          name: AdGuard DNS filter
+          id: 1
+        - enabled: true
+          url: https://adaway.org/hosts.txt
+          name: AdAway
+          id: 2
+        - enabled: true
+          url: https://mirror1.malwaredomains.com/files/justdomains
+          name: MalwareDomains
+          id: 3
+        - enabled: true
+          url: https://www.malwaredomainlist.com/hostslist/hosts.txt
+          name: MalwareDomainList.com Hosts List
+          id: 4
+        - enabled: true
+          url: http://sysctl.org/cameleon/hosts
+          name: Sysctl Hosts List
+          id: 5
+        - enabled: true
+          url: https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+          name: Disconnect.me Simple Tracking
+          id: 6
+        - enabled: true
+          url: https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+          name: Disconnect.me Simple Ads
+          id: 7
+        - enabled: true
+          url: https://raw.githubusercontent.com/evankrob/hosts-filenetrehost/master/ad_servers.txt
+          name: Evan K Rob Hosts File (Re-host)
+          id: 8
+        - enabled: true
+          url: https://dbl.oisd.nl/
+          name: Domain Blocklists (oisd.nl)
+          id: 9
+        whitelist_filters: []
+        user_rules:
+        - '||metrics.icloud.com^'
+        - '||collector.tinybeans.com^'
+        - '||min-api.cryptocompare.com^'
+        - '||ads-serve.brave.com^'
+        - '||graph.facebook.com^'
+        - '||adzooma.com^'
+        - '@@||v.w-x.co^'
+        - '@@||fls-na.amazon.com^'
+        - '@@||kinesis.us-east-1.amazonaws.com^'
+        # - '||example.org^ # block'
+        # - '@@||example.org^ # unblock'
+        dhcp:
+          enabled: false
+          interface_name: ""
+          gateway_ip: ""
+          subnet_mask: ""
+          range_start: ""
+          range_end: ""
+          lease_duration: 86400
+          icmp_timeout_msec: 1000
+        clients:
+        - name: Jessie
+          ids:
+          - 192.168.30.201
+          - 192.168.30.202
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          blocked_services: []
+          upstreams: []
+        log_compress: false
+        log_localtime: true
+        log_max_backups: 0
+        log_max_size: 100
+        log_max_age: 3
+        log_file: ""
+        verbose: false
+        schema_version: 6
