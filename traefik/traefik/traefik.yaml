@@ -59,12 +59,6 @@ spec:
         loadBalancerIP: 192.168.0.15
         externalTrafficPolicy: Local
     dnsPolicy: ClusterFirst
-    dnsConfig:
-      nameservers:
-      - 192.168.0.10
-      options:
-      - name: ndots
-        value: "1"
     logs:
       general:
         level: INFO
