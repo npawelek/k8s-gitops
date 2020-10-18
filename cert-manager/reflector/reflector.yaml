@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-reflector
+  namespace: cert-manager
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: cert-reflector
+  template:
+    metadata:
+      labels:
+        app: cert-reflector
+    spec:
+      serviceAccountName: cert-reflector
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: ns-watch
+        image: boxboat/kubectl:latest
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          while true; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') starting watch loop"
+            kubectl get ns -w --field-selector=status.phase==Active --no-headers -o custom-columns=:metadata.name | \
+            while read NS; do
+              if echo "$EXCLUDED_NS" | grep -vw "$NS" > /dev/null; then
+                echo "$(date '+%Y-%m-%d %H:%M:%S') namespace - $NS"
+                kubectl -n cert-manager get secret nathanpawelek-com-tls -o json | \
+                  jq 'del(.metadata.namespace, .metadata.managedFields, .metadata.uid, .metadata.selfLink, .metadata.resourceVersion, .metadata.creationTimestamp)' | kubectl -n "$NS" apply -f -
+              fi
+            done
+          done
+        env:
+        - name: EXCLUDED_NS
+          value: "cert-manager kube-system kube-node-lease kube-public default rclone metallb-system intel-gpu flux"
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: 128m
+      - name: secret-watch
+        image: boxboat/kubectl:latest
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          sleep 10
+          while true; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') starting watch loop"
+            kubectl -n cert-manager get secret nathanpawelek-com-tls -w --no-headers -o custom-columns=:metadata.name | \
+            while read SECRET; do
+              EXPORT=$(kubectl -n cert-manager get secret $SECRET -o json | jq 'del(.metadata.namespace, .metadata.managedFields, .metadata.uid, .metadata.selfLink, .metadata.resourceVersion, .metadata.creationTimestamp)')
+              for NS in $(kubectl get ns --field-selector=status.phase==Active --no-headers -o custom-columns=:metadata.name); do
+                if echo "$EXCLUDED_NS" | grep -vw "$NS" > /dev/null; then
+                  echo "$(date '+%Y-%m-%d %H:%M:%S') namespace - $NS"
+                  echo "$EXPORT" | kubectl -n "$NS" apply -f -
+                fi
+              done
+            done
+          done
+        env:
+        - name: EXCLUDED_NS
+          value: "cert-manager kube-system kube-node-lease kube-public default rclone metallb-system intel-gpu flux"
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: 128m
