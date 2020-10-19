@@ -269,13 +269,15 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: pihole
+          ns: adguard
       podSelector:
         matchLabels:
-          app: pihole
+          app.kubernetes.io/name: adguard-home
     ports:
     - port: 53
       protocol: UDP
+    - port: 53
+      protocol: TCP
   - to:
     - ipBlock:
         cidr: 192.168.0.10/32
