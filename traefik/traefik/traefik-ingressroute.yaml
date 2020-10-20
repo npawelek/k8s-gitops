@@ -95,28 +95,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: radarr
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`radarr.nathanpawelek.com`)
-    services:
-    - name: radarr
-      port: 8082
-      namespace: radarr
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: tautulli
   namespace: traefik
 spec:
