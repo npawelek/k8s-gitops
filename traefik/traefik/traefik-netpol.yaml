@@ -105,6 +105,8 @@ spec:
     ports:
     - port: 53
       protocol: UDP
+    - port: 53
+      protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
@@ -133,7 +135,7 @@ spec:
           ns: sonarr
       podSelector:
         matchLabels:
-          app: sonarr
+          app.kubernetes.io/name: sonarr
     ports:
     - port: 8989
       protocol: TCP

@@ -1,0 +1,112 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-sonarr-ingress
+  namespace: sonarr
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: traefik
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+    - protocol: TCP
+      port: 8989
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-sonarr-egress
+  namespace: sonarr
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: adguard
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: adguard-home
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: nzbget
+      podSelector:
+        matchLabels:
+          app: nzbget
+    ports:
+    - port: 6789
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: hydra
+      podSelector:
+        matchLabels:
+          app: hydra
+    ports:
+    - port: 8888
+      protocol: TCP
+    - port: 5076
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: plex
+      podSelector:
+        matchLabels:
+          app: plex
+    ports:
+    - port: 32400
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP

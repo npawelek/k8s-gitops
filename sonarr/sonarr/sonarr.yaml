@@ -1,0 +1,65 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: sonarr
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:3.0
+spec:
+  releaseName: sonarr
+  helmVersion: v3
+  rollback:
+    enable: true
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: sonarr
+    version: 6.0.2
+  values:
+    sonarr:
+      image:
+        organization: linuxserver
+        repository: sonarr
+        tag: 3.0.4.986-ls66
+      env:
+        TZ: America/Chicago
+        PUID: "1024"
+        PGID: "100"
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: sonarr.nathanpawelek.com
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
+      service:
+        type: ClusterIP
+        port: 8989
+      configPath: /config
+      persistence:
+        type: statefulset
+        config:
+          enabled: true
+          existingClaim: sonarr-config
+        media:
+          enabled: false
+      additionalVolumes:
+      - name: complete
+        nfs:
+          path: /volume1/Complete
+          server: 192.168.0.150
+      additionalVolumeMounts:
+      - mountPath: /complete
+        name: complete
+      resources:
+        requests:
+          memory: 250Mi
+        limits:
+          memory: 500Mi
