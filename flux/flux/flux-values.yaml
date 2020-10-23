@@ -7,7 +7,6 @@ git:
 image:
   repository: docker.io/raspbernetes/flux
   tag: 1.21.0
-  pullSecret: registry-creds-secret
 registry:
   automationInterval: 6h
   rps: 25
