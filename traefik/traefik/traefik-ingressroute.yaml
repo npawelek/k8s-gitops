@@ -73,28 +73,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: nzbget
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`nzbget.nathanpawelek.com`)
-    services:
-    - name: nzbget
-      port: 8080
-      namespace: nzbget
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: tautulli
   namespace: traefik
 spec:

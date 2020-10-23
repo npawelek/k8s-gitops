@@ -1,0 +1,122 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: nzbget
+  namespace: nzbget
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/chart-image: regex:^(v[0-9]+\.[0-9]+-r[0-9]+-ls.*)$
+spec:
+  releaseName: nzbget
+  helmVersion: v3
+  rollback:
+    enable: true
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: nzbget
+    version: 5.0.1
+  values:
+    nzbget:
+      image:
+        organization: linuxserver
+        repository: nzbget
+        tag: v21.1-r2311-ls9
+      env:
+        TZ: America/Chicago
+        PUID: "1024"
+        PGID: "100"
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: nzbget.nathanpawelek.com
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
+      service:
+        type: ClusterIP
+        port: 6789
+      configPath: /config
+      persistence:
+        type: statefulset
+        config:
+          enabled: true
+          existingClaim: nzbget-config
+        media:
+          enabled: false
+      additionalVolumes:
+      - name: complete
+        nfs:
+          path: /volume1/Complete/Temp
+          server: 192.168.0.150
+      additionalVolumeMounts:
+      - mountPath: /complete/Temp
+        name: complete
+      resources:
+        requests:
+          memory: 250Mi
+        limits:
+          memory: 500Mi
+      additionalContainers:
+      - name: vpn
+        image: qmcgaw/private-internet-access:latest
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        env:
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: USERNAME
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: PASSWORD
+        - name: REGION
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: REGION
+        - name: PIA_ENCRYPTION
+          value: strong
+        - name: PROTOCOL
+          value: tcp
+        - name: EXTRA_SUBNETS
+          value: "10.96.0.0/12,192.168.0.10/32"
+        - name: DOT
+          value: "off"
+        - name: DNS_KEEP_NAMESERVER
+          value: "off"
+        - name: DNS_PLAINTEXT_ADDRESS
+          value: "10.96.0.10"
+        - name: PORT_FORWARDING
+          value: "off"
+        - name: TINYPROXY
+          value: "off"
+        - name: SHADOWSOCKS
+          value: "off"
+        - name: TZ
+          value: America/Chicago
+        livenessProbe:
+          exec:
+            command:
+            - "ping"
+            - "-W3"
+            - "-c1"
+            - "-q"
+            - "-s8"
+            - "1.1.1.1"
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 20
+          timeoutSeconds: 5

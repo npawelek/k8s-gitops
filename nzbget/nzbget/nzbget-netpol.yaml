@@ -2,12 +2,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-sonarr-ingress
-  namespace: sonarr
+  name: allow-nzbget-ingress
+  namespace: nzbget
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: sonarr
+      app.kubernetes.io/name: nzbget
   policyTypes:
   - Ingress
   ingress:
@@ -19,20 +19,60 @@ spec:
         matchLabels:
           app.kubernetes.io/name: traefik
     ports:
-    - protocol: TCP
-      port: 8989
+    - port: 6789
+      protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    ports:
+    - port: 6789
+      protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr
+    ports:
+    - port: 6789
+      protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: lazylibrarian
+      podSelector:
+        matchLabels:
+          app: lazylibrarian
+    ports:
+    - port: 6789
+      protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: hydra
+      podSelector:
+        matchLabels:
+          app: hydra
+    ports:
+    - port: 6789
+      protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-sonarr-egress
-  namespace: sonarr
+  name: allow-nzbget-egress
+  namespace: nzbget
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: sonarr
+      app.kubernetes.io/name: nzbget
   egress:
   - to:
     - namespaceSelector:
@@ -52,7 +92,7 @@ spec:
           ns: adguard
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: adguard-home
+          app.kubernetes.io/name: adguard-work
     ports:
     - port: 53
       protocol: UDP
@@ -67,38 +107,6 @@ spec:
     - port: 53
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: nzbget
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbget
-    ports:
-    - port: 6789
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: hydra
-      podSelector:
-        matchLabels:
-          app: hydra
-    ports:
-    - port: 8888
-      protocol: TCP
-    - port: 5076
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: plex
-      podSelector:
-        matchLabels:
-          app: plex
-    ports:
-    - port: 32400
-      protocol: TCP
-  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
@@ -106,7 +114,9 @@ spec:
         - 172.16.0.0/12
         - 192.168.0.0/16
     ports:
-    - port: 443
+    - port: 501
       protocol: TCP
-    - port: 80
+    - port: 563
+      protocol: TCP
+    - port: 443
       protocol: TCP

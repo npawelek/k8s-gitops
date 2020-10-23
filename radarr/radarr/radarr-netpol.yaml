@@ -72,7 +72,7 @@ spec:
           ns: nzbget
       podSelector:
         matchLabels:
-          app: nzbget
+          app.kubernetes.io/name: nzbget
     ports:
     - port: 6789
       protocol: TCP
