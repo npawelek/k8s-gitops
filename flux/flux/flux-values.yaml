@@ -2,14 +2,16 @@
 helmOperator:
   create: false
 git:
-  url: "git@github.com:npawelek/k8s-gitops"
-  branch: "master"
+  url: git@github.com:npawelek/k8s-gitops
+  branch: master
 image:
   repository: docker.io/raspbernetes/flux
-  tag: 1.20.2
+  tag: 1.21.0
+  pullSecret: registry-creds-secret
 registry:
-  rps: 50
-  burst: 50
+  automationInterval: 6h
+  rps: 25
+  burst: 25
 additionalArgs:
 - --connect=ws://fluxcloud
 # prometheus:
@@ -26,8 +28,6 @@ syncGarbageCollection:
 #   enabled: true
 dnsPolicy: ClusterFirst
 dnsConfig:
-  nameservers:
-  - 192.168.0.10
   options:
   - name: ndots
     value: "1"
