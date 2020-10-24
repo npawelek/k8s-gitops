@@ -63,7 +63,7 @@ spec:
     middlewares:
     - name: traefik-sso
   tls:
-    secretName: nathanpawelek-com-tls
+    secretName: auth-nathanpawelek-com-tls
     options:
       name: secure-tlsoptions
 #########################################################################
