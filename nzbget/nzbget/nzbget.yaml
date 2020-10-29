@@ -66,7 +66,7 @@ spec:
           memory: 500Mi
       additionalContainers:
       - name: vpn
-        image: qmcgaw/private-internet-access:latest
+        image: qmcgaw/private-internet-access:subnets
         securityContext:
           capabilities:
             add:
@@ -91,8 +91,8 @@ spec:
           value: strong
         - name: PROTOCOL
           value: tcp
-        - name: EXTRA_SUBNETS
-          value: "10.96.0.0/12,192.168.0.10/32"
+        - name: FIREWALL_OUTBOUND_SUBNETS
+          value: "10.96.0.0/12"
         - name: DOT
           value: "off"
         - name: DNS_KEEP_NAMESERVER
