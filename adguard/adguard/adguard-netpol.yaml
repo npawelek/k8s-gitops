@@ -80,14 +80,3 @@ spec:
       protocol: TCP
     - port: 853
       protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default-deny-all
-  namespace: adguard
-spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
-  - Egress
