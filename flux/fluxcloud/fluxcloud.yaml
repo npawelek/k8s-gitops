@@ -29,6 +29,8 @@ spec:
       labels:
         name: fluxcloud
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       securityContext:
         runAsUser: 999
       containers:
