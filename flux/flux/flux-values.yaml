@@ -11,6 +11,9 @@ registry:
   automationInterval: 6h
   rps: 25
   burst: 25
+  dockercfg:
+    enabled: true
+    secretName: dockerhub-registrycreds
 additionalArgs:
 - --connect=ws://fluxcloud
 # prometheus:
