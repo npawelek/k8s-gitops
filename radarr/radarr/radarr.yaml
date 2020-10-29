@@ -22,7 +22,7 @@ spec:
         organization: linuxserver
         repository: radarr
         tag: 3.0.0.3966-ls26
-        pullSecret: dockerhub-registrycreds
+      imagePullSecrets: dockerhub-registrycreds
       env:
         TZ: America/Chicago
         UMASK_SET: "022"

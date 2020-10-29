@@ -22,7 +22,7 @@ spec:
         organization: linuxserver
         repository: nzbget
         tag: v21.1-r2311-ls9
-        pullSecret: dockerhub-registrycreds
+      imagePullSecrets: dockerhub-registrycreds
       env:
         TZ: America/Chicago
         PUID: "1024"

@@ -22,7 +22,7 @@ spec:
         organization: linuxserver
         repository: sonarr
         tag: 3.0.4.986-ls66
-        pullSecret: dockerhub-registrycreds
+      imagePullSecrets: dockerhub-registrycreds
       env:
         TZ: America/Chicago
         PUID: "1024"
