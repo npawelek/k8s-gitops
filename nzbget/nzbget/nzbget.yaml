@@ -21,8 +21,8 @@ spec:
       image:
         organization: linuxserver
         repository: nzbget
-        tag: v21.1-r2311-ls9
-      imagePullSecrets: dockerhub-registrycreds
+        tag: v21.1-r2311-ls11
+      #imagePullSecrets: dockerhub-registrycreds
       env:
         TZ: America/Chicago
         PUID: "1024"
@@ -66,7 +66,7 @@ spec:
           memory: 500Mi
       additionalContainers:
       - name: vpn
-        image: qmcgaw/private-internet-access:v3.7.0
+        image: qmcgaw/private-internet-access:latest
         securityContext:
           capabilities:
             add:
@@ -101,7 +101,7 @@ spec:
           value: "10.96.0.10"
         - name: PORT_FORWARDING
           value: "off"
-        - name: TINYPROXY
+        - name: HTTPPROXY
           value: "off"
         - name: SHADOWSOCKS
           value: "off"
