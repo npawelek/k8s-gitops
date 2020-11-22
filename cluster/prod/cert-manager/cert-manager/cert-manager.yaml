@@ -1,26 +1,26 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cert-manager
   namespace: cert-manager
-  annotations:
-    fluxcd.io/automated: "false"
-    fluxcd.io/tag.chart-image: semver:~v1.
 spec:
-  releaseName: cert-manager
-  helmVersion: v3
   maxHistory: 3
-  rollback:
-    enable: false
+  interval: 10m0s
+  suspend: false
+  releaseName: cert-manager
   chart:
-    repository: https://charts.jetstack.io/
-    name: cert-manager
-    version: v1.0.3
+    spec:
+      chart: cert-manager
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack-charts
+        namespace: flux-system
+      version: v1.0.3
   values:
     installCRDs: true
-    webhook:
-      enabled: true
+    # webhook:
+    #   enabled: true
     extraArgs:
     - --dns01-recursive-nameservers-only
     - --dns01-recursive-nameservers=1.1.1.1:53
