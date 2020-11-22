@@ -1,28 +1,28 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: nzbget
   namespace: nzbget
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/chart-image: regex:^(v[0-9]+\.[0-9]+-r[0-9]+-ls.*)$
 spec:
+  maxHistory: 3
+  interval: 10m0s
+  suspend: false
   releaseName: nzbget
-  helmVersion: v3
-  rollback:
-    enable: true
   chart:
-    repository: https://k8s-at-home.com/charts/
-    name: nzbget
-    version: 5.0.1
+    spec:
+      chart: nzbget
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      version: 5.0.1
   values:
     nzbget:
       image:
         organization: linuxserver
         repository: nzbget
         tag: v21.1-r2311-ls11
-      #imagePullSecrets: dockerhub-registrycreds
       env:
         TZ: America/Chicago
         PUID: "1024"
