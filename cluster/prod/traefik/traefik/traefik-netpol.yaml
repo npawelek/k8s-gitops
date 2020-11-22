@@ -135,7 +135,7 @@ spec:
           ns: tautulli
       podSelector:
         matchLabels:
-          app: tautulli
+          app.kubernetes.io/name: tautulli
     ports:
     - port: 8181
       protocol: TCP

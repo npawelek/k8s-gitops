@@ -73,28 +73,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: tautulli
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`tautulli.nathanpawelek.com`)
-    services:
-    - name: tautulli
-      port: 8083
-      namespace: tautulli
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: hydra
   namespace: traefik
 spec:
