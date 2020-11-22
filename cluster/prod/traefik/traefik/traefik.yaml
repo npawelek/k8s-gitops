@@ -1,26 +1,26 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: traefik
   namespace: traefik
-  annotations:
-    fluxcd.io/automated: "false"
-    fluxcd.io/tag.chart-image: semver:~v2.3
 spec:
-  releaseName: traefik
-  helmVersion: v3
   maxHistory: 3
-  rollback:
-    enable: false
+  interval: 10m0s
+  suspend: false
+  releaseName: traefik
   chart:
-    repository: https://helm.traefik.io/traefik
-    name: traefik
-    version: 9.4.3
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      version: 9.4.3
   values:
     image:
       repository: traefik
-      tag: 2.3.1
+      tag: 2.3.3
       pullPolicy: IfNotPresent
     env:
     - name: TZ
