@@ -155,7 +155,7 @@ spec:
           ns: freshrss
       podSelector:
         matchLabels:
-          app: freshrss
+          app.kubernetes.io/name: freshrss
     ports:
     - port: 80
       protocol: TCP
