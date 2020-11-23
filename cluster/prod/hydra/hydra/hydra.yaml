@@ -1,0 +1,136 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hydra
+  namespace: hydra
+spec:
+  maxHistory: 3
+  interval: 10m0s
+  suspend: false
+  releaseName: nzbhydra2
+  chart:
+    spec:
+      chart: nzbhydra2
+      version: 4.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  values:
+    image:
+      repository: linuxserver/nzbhydra2
+      tag: v3.5.1-ls1
+    env:
+      TZ: America/Chicago
+      PUID: "1024"
+      PGID: "100"
+      UMASK_SET: "022"
+    controllerType: statefulset
+    strategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+    service:
+      enabled: true
+      type: ClusterIP
+      port:
+        port: 5076
+        protocol: TCP
+      additionalPorts:
+      - name: tinyproxy
+        port: 8888
+        protocol: TCP
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+      hosts:
+      - host: hydra.nathanpawelek.com
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - secretName: nathanpawelek-com-tls
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: hydra-config
+    resources:
+      limits:
+        memory: 512Mi
+    additionalContainers:
+    - name: vpn
+      image: qmcgaw/private-internet-access:latest
+      securityContext:
+        capabilities:
+          add:
+          - NET_ADMIN
+      env:
+      - name: USER
+        valueFrom:
+          secretKeyRef:
+            name: pia-secrets
+            key: USERNAME
+      - name: PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: pia-secrets
+            key: PASSWORD
+      - name: REGION
+        valueFrom:
+          secretKeyRef:
+            name: pia-secrets
+            key: REGION
+      - name: PIA_ENCRYPTION
+        value: strong
+      - name: PROTOCOL
+        value: tcp
+      - name: FIREWALL_OUTBOUND_SUBNETS
+        value: "10.96.0.0/12"
+      - name: DOT
+        value: "off"
+      - name: DNS_KEEP_NAMESERVER
+        value: "off"
+      - name: DNS_PLAINTEXT_ADDRESS
+        value: "10.96.0.10"
+      - name: PORT_FORWARDING
+        value: "off"
+      - name: HTTPPROXY
+        value: "on"
+      - name: HTTPPROXY_PORT
+        value: "8888"
+      - name: HTTPPROXY_USER
+        valueFrom:
+          secretKeyRef:
+            name: hydra-proxy
+            key: USER
+      - name: HTTPPROXY_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: hydra-proxy
+            key: PASS
+      - name: SHADOWSOCKS
+        value: "off"
+      - name: TZ
+        value: America/Chicago
+      ports:
+      - containerPort: 8888
+        protocol: TCP
+      livenessProbe:
+        exec:
+          command:
+          - "ping"
+          - "-W3"
+          - "-c1"
+          - "-q"
+          - "-s8"
+          - "1.1.1.1"
+        initialDelaySeconds: 20
+        failureThreshold: 3
+        successThreshold: 1
+        periodSeconds: 20
+        timeoutSeconds: 5

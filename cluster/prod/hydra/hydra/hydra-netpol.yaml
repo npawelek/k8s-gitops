@@ -2,12 +2,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-sonarr-ingress
-  namespace: sonarr
+  name: allow-hydra-ingress
+  namespace: hydra
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: sonarr
+      app.kubernetes.io/name: nzbhydra2
   policyTypes:
   - Ingress
   ingress:
@@ -20,19 +20,55 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 8989
+      port: 5076
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    ports:
+    - protocol: TCP
+      port: 5076
+    - protocol: TCP
+      port: 8888
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr
+    ports:
+    - protocol: TCP
+      port: 5076
+    - protocol: TCP
+      port: 8888
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: lazylibrarian
+      podSelector:
+        matchLabels:
+          app: lazylibrarian
+    ports:
+    - protocol: TCP
+      port: 5076
+    - protocol: TCP
+      port: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-sonarr-egress
-  namespace: sonarr
+  name: allow-hydra-egress
+  namespace: hydra
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: sonarr
+      app.kubernetes.io/name: nzbhydra2
   egress:
   - to:
     - namespaceSelector:
@@ -52,7 +88,7 @@ spec:
           ns: adguard
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: adguard-home
+          app.kubernetes.io/name: adguard-work
     ports:
     - port: 53
       protocol: UDP
@@ -77,34 +113,6 @@ spec:
     - port: 6789
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: hydra
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbhydra2
-    ports:
-    - port: 8888
-      protocol: TCP
-    - port: 5076
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: plex
-      podSelector:
-        matchLabels:
-          app: plex
-    ports:
-    - port: 32400
-      protocol: TCP
-  - to:
-    - ipBlock:
-        cidr: 192.168.0.11/32
-    ports:
-    - port: 443
-      protocol: TCP
-  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
@@ -112,7 +120,7 @@ spec:
         - 172.16.0.0/12
         - 192.168.0.0/16
     ports:
-    - port: 443
+    - port: 501
       protocol: TCP
-    - port: 80
+    - port: 443
       protocol: TCP

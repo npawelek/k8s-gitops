@@ -145,7 +145,7 @@ spec:
           ns: hydra
       podSelector:
         matchLabels:
-          app: hydra
+          app.kubernetes.io/name: nzbhydra2
     ports:
     - port: 5076
       protocol: TCP
