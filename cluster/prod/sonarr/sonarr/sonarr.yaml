@@ -35,6 +35,7 @@ spec:
       type: ClusterIP
       port:
         port: 8989
+        protocol: TCP
     ingress:
       enabled: true
       annotations:
