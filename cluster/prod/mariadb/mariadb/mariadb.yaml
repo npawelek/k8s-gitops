@@ -1,0 +1,155 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mariadb
+  namespace: mariadb
+spec:
+  maxHistory: 3
+  interval: 10m0s
+  suspend: false
+  releaseName: mariadb
+  chart:
+    spec:
+      chart: mariadb
+      version: 9.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  values:
+    image:
+      registry: docker.io
+      repository: mariadb
+      tag: 10.5.8
+    clusterDomain: cluster.local
+    architecture: standalone
+    primary:
+      command: []
+      args: []
+      configuration: |-
+        [mysqld]
+        bind-address=0.0.0.0
+        port=3306
+        skip-name-resolve
+        explicit_defaults_for_timestamp
+        basedir=/usr
+        datadir=/var/lib/mysql
+        # plugin_dir=/opt/bitnami/mariadb/plugin
+        socket=/run/mysqld/mysqld.sock
+        tmpdir=/tmp
+        max_allowed_packet=16M
+        pid-file=/run/mysqld/mysqld.pid
+        log-error=/var/log/mysql/mysqld.log
+        character-set-server=utf8mb4
+        collation-server=utf8mb4_unicode_ci
+        init-connect='SET NAMES utf8mb4'
+        transaction_isolation=READ-COMMITTED
+        default_storage_engine=InnoDB
+        innodb_buffer_pool_size=256M
+        innodb_log_buffer_size=8M
+        innodb_file_per_table=1
+        innodb_open_files=400
+        innodb_io_capacity=400
+        innodb_flush_method=O_DIRECT
+        query_cache_limit=128K
+        query_cache_size=64M
+        max_connections=1000
+        connect_timeout=5
+        wait_timeout=600
+        max_allowed_packet=16M
+        thread_cache_size=128
+        sort_buffer_size=4M
+        bulk_insert_buffer_size=16M
+        tmp_table_size=32M
+        max_heap_table_size=32M
+        skip-external-locking
+
+        [client]
+        port=3306
+        socket=/run/mysqld/mysqld.sock
+        default-character-set=UTF8
+        # plugin_dir=/opt/bitnami/mariadb/plugin
+
+        [manager]
+        port=3306
+        socket=/run/mysqld/mysqld.sock
+        pid-file=/run/mysqld/mysqld.pid
+      updateStrategy: RollingUpdate
+      podSecurityContext:
+        enabled: true
+        fsGroup: 999
+      containerSecurityContext:
+        enabled: true
+        runAsUser: 999
+      resources:
+        limits: {}
+        requests: {}
+      livenessProbe:
+        enabled: true
+        initialDelaySeconds: 120
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+        successThreshold: 1
+      readinessProbe:
+        enabled: true
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 1
+        failureThreshold: 3
+        successThreshold: 1
+      extraEnvVars:
+      - name: TZ
+        value: America/Chicago
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mariadb-secrets
+            key: MYSQL_ROOT_PASSWORD
+      - name: MYSQL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mariadb-secrets
+            key: MYSQL_PASSWORD
+      - name: MYSQL_USER
+        valueFrom:
+          secretKeyRef:
+            name: mariadb-secrets
+            key: MYSQL_USER
+      - name: MYSQL_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: mariadb-secrets
+            key: MYSQL_DATABASE
+      persistence:
+        enabled: false
+      extraVolumes:
+      - name: mariadb-data
+        persistentVolumeClaim:
+          claimName: mariadb-data
+      extraVolumeMounts:
+      - mountPath: /var/lib/mysql
+        name: mariadb-data
+      service:
+        type: ClusterIP
+        port: 3306
+        annotations: {}
+    serviceAccount:
+      create: true
+    rbac:
+      create: false
+    volumePermissions:
+      enabled: true
+      image:
+        registry: docker.io
+        repository: debian
+        tag: buster-slim
+        pullPolicy: Always
+    metrics:
+      enabled: false
+  valuesFrom:
+  - kind: Secret
+    name: mariadb-helm-values
+    valuesKey: values.yaml
+    optional: false
