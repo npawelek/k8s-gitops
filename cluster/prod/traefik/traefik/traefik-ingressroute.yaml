@@ -73,6 +73,29 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
+  name: nextcloud
+  namespace: traefik
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`nextcloud.nathanpawelek.com`)
+    services:
+    - name: nextcloud
+      port: 8086
+      namespace: nextcloud
+    middlewares:
+    - name: default-headers
+    - name: nextcloud-redirectregex
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
   name: lazylibrarian
   namespace: traefik
 spec:
