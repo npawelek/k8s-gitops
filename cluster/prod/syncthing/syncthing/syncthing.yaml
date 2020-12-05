@@ -11,7 +11,8 @@ spec:
   replicas: 1
   revisionHistoryLimit: 2
   strategy:
-    type: RollingUpdate
+    # type: RollingUpdate
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: syncthing
@@ -47,7 +48,7 @@ spec:
         #   periodSeconds: 20
         #   timeoutSeconds: 5
         volumeMounts:
-        - mountPath: /var/syncthing/config
+        - mountPath: /config
           name: config
         - mountPath: /data
           name: backup
