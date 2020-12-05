@@ -181,28 +181,28 @@ spec:
     secretName: nathanpawelek-com-tls
     options:
       name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: hass
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`hass.nathanpawelek.com`)
-    services:
-    - name: hass
-      port: 8091
-      namespace: hass
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: hass
+#   namespace: traefik
+# spec:
+#   entryPoints:
+#   - websecure
+#   routes:
+#   - kind: Rule
+#     match: Host(`hass.nathanpawelek.com`)
+#     services:
+#     - name: hass
+#       port: 8091
+#       namespace: hass
+#     middlewares:
+#     - name: default-middlewares-chain
+#   tls:
+#     secretName: nathanpawelek-com-tls
+#     options:
+#       name: secure-tlsoptions
 ######################################
 # End temporary IngressRoute section #
 ######################################
