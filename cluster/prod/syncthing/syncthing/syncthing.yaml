@@ -23,7 +23,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: syncthing
-        image: syncthing/syncthing:1.11
+        image: syncthing/syncthing:1.12
         ports:
         - containerPort: 8384
           protocol: TCP
@@ -36,8 +36,6 @@ spec:
           value: "1024"
         - name: GID
           value: "100"
-        - name: STGUIADDRESS
-          value: "0.0.0.0:8384"
         # livenessProbe:
         #   httpGet:
         #     port: 32400
@@ -49,9 +47,14 @@ spec:
         #   periodSeconds: 20
         #   timeoutSeconds: 5
         volumeMounts:
+        - mountPath: /var/syncthing/config
+          name: config
         - mountPath: /data
           name: backup
       volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: syncthing-config
       - name: backup
         nfs:
           path: /volume1/Backup
