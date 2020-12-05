@@ -36,6 +36,8 @@ spec:
           value: "1024"
         - name: GID
           value: "100"
+        - name: STGUIADDRESS
+          value: "0.0.0.0:8384"
         # livenessProbe:
         #   httpGet:
         #     port: 32400
