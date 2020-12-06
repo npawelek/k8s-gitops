@@ -1,0 +1,61 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rclone-backup
+  namespace: rclone
+  labels:
+    app.kubernetes.io/name: rclone-backup
+    app.kubernetes.io/instance: rclone-backup
+spec:
+  schedule: "30 7 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 7
+  successfulJobsHistoryLimit: 7
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 3600
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: rclone-backup
+            app.kubernetes.io/instance: rclone-backup
+        spec:
+          containers:
+          - name: rclone
+            image: rclone/rclone:latest
+            workingDir: /data
+            command:
+            - rclone
+            args:
+            - sync
+            - /data
+            - s3:npawelek-s3-backup-rclone
+            - --transfers
+            - "4"
+            - --ignore-checksum
+            - --fast-list
+            - --update
+            - --use-server-modtime
+            - --progress
+            - --exclude
+            - /#recycle/**
+            - --delete-excluded
+            volumeMounts:
+            - mountPath: /data
+              name: nfs-backup
+              readOnly: true
+            - name: rclone-config
+              mountPath: /config/rclone/rclone.conf
+              subPath: rclone.conf
+              readOnly: true
+          volumes:
+          - name: nfs-backup
+            nfs:
+              path: /volume1/Backup
+              server: 192.168.0.150
+          - name: rclone-config
+            secret:
+              secretName: rclone-config
+          restartPolicy: Never
