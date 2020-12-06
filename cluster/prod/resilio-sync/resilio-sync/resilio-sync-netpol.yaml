@@ -1,0 +1,129 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-resilio-ingress
+  namespace: resilio
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: resilio-sync
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: traefik
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+    - protocol: TCP
+      port: 8888
+  - ports:
+    - protocol: TCP
+      port: 55555
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-resilio-egress
+  namespace: resilio
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: resilio-sync
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: adguard
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: adguard-home
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.196/32
+    ports:
+    - port: 55555
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.30.101/32
+    ports:
+    - port: 55555
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.30.102/32
+    ports:
+    - port: 55555
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.40.101/32
+    ports:
+    - port: 55555
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.40.102/32
+    ports:
+    - port: 55555
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+    - port: 3000
+      protocol: TCP
+    - port: 3000
+      protocol: UDP
+    - port: 3001
+      protocol: TCP
+    - port: 3001
+      protocol: UDP
+    - port: 4000
+      protocol: TCP
+    - port: 4000
+      protocol: UDP
+    - port: 3838
+      protocol: TCP
+    - port: 3838
+      protocol: UDP
