@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: resilio-sync
+  namespace: resilio
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: HostSNI(`resilio-sync.nathanpawelek.com`)
+    services:
+    - name: resilio-sync
+      port: 55555
+      weight: 10
+      terminationDelay: 400
+    # middlewares:
+    # - name: default-middlewares-chain
+  tls:
+    secretName: nathanpawelek-com-tls
+    options:
+      name: secure-tlsoptions
+      namespace: traefik
