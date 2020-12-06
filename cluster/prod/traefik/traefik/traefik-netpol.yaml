@@ -172,6 +172,18 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: resilio
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: resilio-sync
+    ports:
+    - port: 8888
+      protocol: TCP
+    - port: 55555
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: lazylibrarian
       podSelector:
         matchLabels:
