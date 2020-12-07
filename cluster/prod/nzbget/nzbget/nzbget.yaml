@@ -30,6 +30,18 @@ spec:
       rollingUpdate:
         partition: 0
       type: RollingUpdate
+    affinity:
+      podAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            topologyKey: affinity
+            labelSelector:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+          weight: 100
     service:
       enabled: true
       type: ClusterIP
