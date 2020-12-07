@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lazylibrarian-config
+  namespace: lazylibrarian
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      name: lazylibrarian-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: calibre-config
+  namespace: lazylibrarian
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      name: calibre-config

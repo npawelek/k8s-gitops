@@ -187,12 +187,12 @@ spec:
           ns: lazylibrarian
       podSelector:
         matchLabels:
-          app: lazylibrarian
+          app.kubernetes.io/name: lazylibrarian
     ports:
     - port: 5299
       protocol: TCP
-    - port: 8083
-      protocol: TCP
+    # - port: 8083
+    #   protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:

@@ -1,0 +1,97 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lazylibrarian
+  namespace: lazylibrarian
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: lazylibrarian
+      version: 2.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: linuxserver/lazylibrarian
+      tag: e3508ffb-ls3
+    timezone: America/Chicago
+    puid: 1024
+    pgid: 100
+    # Linuxserver.io additional layers.
+    # Enables additional features for the image, at the cost of increased size and
+    # possible incompatabilities with certain architectures. Disabled by default.
+    #
+    # To enable, set enabled to true, and follow the guide at: https://github.com/linuxserver/docker-lazylibrarian#application-setup
+    # to configure the application.
+    dockerMods:
+      # Enable the Calibre Docker Mod to allow Calibredb import
+      calibre:
+        enabled: true
+        image:
+          repository: linuxserver/calibre-web
+          tag: 0.6.9-ls89
+      # Enable the FFMpeg Docker Mod. This allows using the audiobook conversion features of LazyLibrarian.
+      ffmpeg:
+        enabled: false
+        image:
+          repository: linuxserver/mods
+          tag: lazylibrarian-ffmpeg
+    persistence:
+      enabled: true
+      existingClaim: lazylibrarian-config
+      # Any extra volumes to define for the pod
+      # Volumes will be mounted to the folder specified under mountPath
+      # If no mountPath is set it will be mounted to /mnt/<name>
+      extraVolumes:
+      - name: downloads
+        nfs:
+          path: /volume1/Complete/Temp/postprocess/books
+          server: 192.168.0.150
+      - name: books
+        nfs:
+          path: /volume1/Backup/Resilio/Books
+          server: 192.168.0.150
+      - name: audiobooks
+        nfs:
+          path: /volume1/Backup/Resilio/Audiobooks
+          server: 192.168.0.150
+    service:
+      type: ClusterIP
+      port: 5299
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+      hosts:
+      - host: librarian.nathanpawelek.com
+        paths:
+        - /
+      tls:
+      - secretName: nathanpawelek-com-tls
+    resources: {}
+    probes:
+      liveness:
+        enabled: true
+        scheme: HTTP
+        initialDelaySeconds: 60
+        failureThreshold: 5
+        timeoutSeconds: 10
+      readiness:
+        enabled: true
+        scheme: HTTP
+        initialDelaySeconds: 60
+        failureThreshold: 5
+        timeoutSeconds: 10
+      startup:
+        enabled: true
+        scheme: HTTP
+        initialDelaySeconds: 60
+        failureThreshold: 30
+        periodSeconds: 10

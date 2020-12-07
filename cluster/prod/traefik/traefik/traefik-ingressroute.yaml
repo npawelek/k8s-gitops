@@ -69,51 +69,51 @@ spec:
 #########################################################################
 # IngressRoutes below are temporary until services are migrated to Flux #
 #########################################################################
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: lazylibrarian
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`librarian.nathanpawelek.com`)
-    services:
-    - name: lazylibrarian
-      port: 8087
-      namespace: lazylibrarian
-    middlewares:
-    - name: default-middlewares-chain
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: calibre
-  namespace: traefik
-spec:
-  entryPoints:
-  - websecure
-  routes:
-  - kind: Rule
-    match: Host(`calibre.nathanpawelek.com`)
-    services:
-    - name: lazylibrarian
-      port: 8088
-      namespace: lazylibrarian
-    middlewares:
-    - name: default-middlewares-chain
-    - name: calibre-headers
-  tls:
-    secretName: nathanpawelek-com-tls
-    options:
-      name: secure-tlsoptions
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: lazylibrarian
+#   namespace: traefik
+# spec:
+#   entryPoints:
+#   - websecure
+#   routes:
+#   - kind: Rule
+#     match: Host(`librarian.nathanpawelek.com`)
+#     services:
+#     - name: lazylibrarian
+#       port: 8087
+#       namespace: lazylibrarian
+#     middlewares:
+#     - name: default-middlewares-chain
+#   tls:
+#     secretName: nathanpawelek-com-tls
+#     options:
+#       name: secure-tlsoptions
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: calibre
+#   namespace: traefik
+# spec:
+#   entryPoints:
+#   - websecure
+#   routes:
+#   - kind: Rule
+#     match: Host(`calibre.nathanpawelek.com`)
+#     services:
+#     - name: lazylibrarian
+#       port: 8088
+#       namespace: lazylibrarian
+#     middlewares:
+#     - name: default-middlewares-chain
+#     - name: calibre-headers
+#   tls:
+#     secretName: nathanpawelek-com-tls
+#     options:
+#       name: secure-tlsoptions
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
