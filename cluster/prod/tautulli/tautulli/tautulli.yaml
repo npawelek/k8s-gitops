@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: linuxserver/tautulli
-      tag: v2.6.1-ls15
+      tag: v2.6.2-ls16
     env:
       TZ: America/Chicago
       PUID: "1024"
