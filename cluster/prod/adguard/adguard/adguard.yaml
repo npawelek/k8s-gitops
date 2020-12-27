@@ -65,10 +65,10 @@ spec:
       enabled: false
     resources:
       requests:
-        memory: 500Mi
+        memory: 750Mi
         cpu: 15m
       limits:
-        memory: 750Mi
+        memory: 1000Mi
     podAnnotations:
       prometheus.io/scrape: "false"
     configAsCode:
