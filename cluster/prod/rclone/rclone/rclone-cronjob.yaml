@@ -41,6 +41,10 @@ spec:
             - --progress
             - --exclude
             - /#recycle/**
+            - --exclude
+            - /Camera/.pending-*
+            - --exclude
+            - /Camera/.trashed-*
             - --delete-excluded
             volumeMounts:
             - mountPath: /data
