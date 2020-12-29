@@ -1,13 +1,7 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ./gotk-components.yaml
 - ./gotk-sync.yaml
-- ./helm-repositories/bitnami-charts.yaml
-- ./helm-repositories/jetstack-charts.yaml
-- ./helm-repositories/k8s-at-home.yaml
-- ./helm-repositories/kubernetes-charts.yaml
-- ./helm-repositories/traefik-charts.yaml
-- ./slack-notifications/alerts.yaml
-- ./slack-notifications/providers.yaml
-- ./slack-notifications/slack-url-secret.yaml
+- ./gotk-custom-kustomization.yaml
