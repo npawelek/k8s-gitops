@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: linuxserver/freshrss
-      tag: 1.17.0-ls74
+      tag: 1.17.0-ls80
     env:
       TZ: America/Chicago
     controllerType: statefulset
