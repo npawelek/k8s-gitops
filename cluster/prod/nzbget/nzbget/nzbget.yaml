@@ -81,7 +81,7 @@ spec:
         memory: 1536Mi
     additionalContainers:
     - name: vpn
-      image: qmcgaw/private-internet-access:latest
+      image: qmcgaw/private-internet-access:v3.8.1
       securityContext:
         capabilities:
           add:
