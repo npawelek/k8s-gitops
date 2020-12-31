@@ -94,7 +94,7 @@ spec:
           ns: plex
       podSelector:
         matchLabels:
-          app: plex
+          app.kubernetes.io/name: plex
     ports:
     - port: 32400
       protocol: TCP
