@@ -220,6 +220,9 @@ spec:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+              suspend:
+                description: This flag tells the controller to suspend the reconciliation of this source.
+                type: boolean
               timeout:
                 default: 20s
                 description: The timeout for download operations, defaults to 20s.
@@ -370,6 +373,13 @@ spec:
           spec:
             description: GitRepositorySpec defines the desired state of a Git repository.
             properties:
+              gitImplementation:
+                default: go-git
+                description: Determines which git client library to use. Defaults to go-git, valid values are ('go-git', 'libgit2').
+                enum:
+                - go-git
+                - libgit2
+                type: string
               ignore:
                 description: Ignore overrides the set of excluded patterns in the .sourceignore format (which is the same as .gitignore). If not provided, a default will be used, consult the documentation for your version to find out what those are.
                 type: string
@@ -400,6 +410,9 @@ spec:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+              suspend:
+                description: This flag tells the controller to suspend the reconciliation of this source.
+                type: boolean
               timeout:
                 default: 20s
                 description: The timeout for remote Git operations like cloning, defaults to 20s.
@@ -606,6 +619,9 @@ spec:
                 - kind
                 - name
                 type: object
+              suspend:
+                description: This flag tells the controller to suspend the reconciliation of this source.
+                type: boolean
               valuesFile:
                 description: Alternative values file to use as the default chart values, expected to be a relative path in the SourceRef. Ignored when omitted.
                 type: string
@@ -769,6 +785,9 @@ spec:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+              suspend:
+                description: This flag tells the controller to suspend the reconciliation of this source.
+                type: boolean
               timeout:
                 default: 60s
                 description: The timeout of index downloading, defaults to 60s.
@@ -922,12 +941,13 @@ spec:
         - --log-json
         - --enable-leader-election
         - --storage-path=/data
+        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.cluster.local.
         env:
         - name: RUNTIME_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/source-controller-arm64:v0.3.0
+        image: ghcr.io/fluxcd/source-controller:v0.5.6
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -959,7 +979,7 @@ spec:
         - mountPath: /tmp
           name: tmp
       nodeSelector:
-        kubernetes.io/arch: arm64
+        kubernetes.io/arch: amd64
         kubernetes.io/os: linux
       terminationGracePeriodSeconds: 10
       volumes:
@@ -1070,8 +1090,28 @@ spec:
                   - name
                   type: object
                 type: array
+              images:
+                description: A list of images used to override or set the name and tag for container images.
+                items:
+                  description: Image contains the name, new name and new tag that will replace the original container image.
+                  properties:
+                    name:
+                      description: Name of the image to be replaced.
+                      type: string
+                    newName:
+                      description: NewName is the name of the image used to replace the original one.
+                      type: string
+                    newTag:
+                      description: NewTag is the image tag used to replace the original tag.
+                      type: string
+                  required:
+                  - name
+                  - newName
+                  - newTag
+                  type: object
+                type: array
               interval:
-                description: The interval at which to reconcile the kustomization.
+                description: The interval at which to reconcile the Kustomization.
                 type: string
               kubeConfig:
                 description: The KubeConfig for reconciling the Kustomization on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName.
@@ -1085,8 +1125,7 @@ spec:
                     type: object
                 type: object
               path:
-                description: Path to the directory containing the kustomization file.
-                pattern: ^\./
+                description: Path to the directory containing the kustomization.yaml file, or the set of plain YAMLs a kustomization.yaml should be generated for. Defaults to 'None', which translates to the root path of the SourceRef.
                 type: string
               prune:
                 description: Prune enables garbage collection.
@@ -1136,7 +1175,6 @@ spec:
                 type: string
             required:
             - interval
-            - path
             - prune
             - sourceRef
             type: object
@@ -1273,7 +1311,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/kustomize-controller-arm64:v0.3.0
+        image: ghcr.io/fluxcd/kustomize-controller:v0.5.3
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -1304,11 +1342,11 @@ spec:
         - mountPath: /tmp
           name: temp
       nodeSelector:
-        kubernetes.io/arch: arm64
+        kubernetes.io/arch: amd64
         kubernetes.io/os: linux
       securityContext:
         fsGroup: 1337
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 60
       volumes:
       - emptyDir: {}
         name: temp
@@ -1430,6 +1468,9 @@ spec:
               install:
                 description: Install holds the configuration for Helm install actions for this HelmRelease.
                 properties:
+                  createNamespace:
+                    description: CreateNamespace tells the Helm install action to create the HelmReleaseSpec.TargetNamespace if it does not exist yet. On uninstall, the namespace will not be garbage collected.
+                    type: boolean
                   disableHooks:
                     description: DisableHooks prevents hooks from running during the Helm install action.
                     type: boolean
@@ -1466,7 +1507,7 @@ spec:
                 description: Interval at which to reconcile the Helm release.
                 type: string
               kubeConfig:
-                description: KubeConfig for reconciling the HelmRelease on a remote cluster.
+                description: KubeConfig for reconciling the HelmRelease on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName.
                 properties:
                   secretRef:
                     description: SecretRef holds the name to a secret that contains a 'value' key with the kubeconfig file as the value. It must be in the same namespace as the HelmRelease. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the HelmRelease.
@@ -1506,6 +1547,9 @@ spec:
                     description: Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm rollback action. Defaults to 'HelmReleaseSpec.Timeout'.
                     type: string
                 type: object
+              serviceAccountName:
+                description: The name of the Kubernetes service account to impersonate when reconciling this HelmRelease.
+                type: string
               suspend:
                 description: Suspend tells the controller to suspend reconciliation for this HelmRelease, it does not apply to already started reconciliations. Defaults to false.
                 type: boolean
@@ -1752,16 +1796,23 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/helm-controller-arm64:v0.3.0
+        image: ghcr.io/fluxcd/helm-controller:v0.4.4
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
-            path: /metrics
-            port: http-prom
+            path: /healthz
+            port: healthz
         name: manager
         ports:
         - containerPort: 8080
           name: http-prom
+        - containerPort: 9440
+          name: healthz
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: healthz
         resources:
           limits:
             cpu: 1000m
@@ -1776,9 +1827,9 @@ spec:
         - mountPath: /tmp
           name: temp
       nodeSelector:
-        kubernetes.io/arch: arm64
+        kubernetes.io/arch: amd64
         kubernetes.io/os: linux
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 600
       volumes:
       - emptyDir: {}
         name: temp
@@ -1874,6 +1925,9 @@ spec:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+              summary:
+                description: Short description of the impact and affected cluster.
+                type: string
               suspend:
                 description: This flag tells the controller to suspend subsequent events dispatching. Defaults to false.
                 type: boolean
@@ -2014,6 +2068,7 @@ spec:
                 - github
                 - gitlab
                 - bitbucket
+                - azuredevops
                 type: string
               username:
                 description: Bot username for this provider
@@ -2318,12 +2373,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/notification-controller-arm64:v0.3.0
+        image: ghcr.io/fluxcd/notification-controller:v0.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
-            path: /metrics
-            port: http-prom
+            path: /healthz
+            port: healthz
         name: manager
         ports:
         - containerPort: 9090
@@ -2332,6 +2387,13 @@ spec:
           name: http-webhook
         - containerPort: 8080
           name: http-prom
+        - containerPort: 9440
+          name: healthz
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: healthz
         resources:
           limits:
             cpu: 1000m
@@ -2346,7 +2408,7 @@ spec:
         - mountPath: /tmp
           name: temp
       nodeSelector:
-        kubernetes.io/arch: arm64
+        kubernetes.io/arch: amd64
         kubernetes.io/os: linux
       terminationGracePeriodSeconds: 10
       volumes:
