@@ -1,9 +1,16 @@
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: certificates
+  namespace: plex
+automountServiceAccountToken: true
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: plex-secrets-role
-  namespace: cert-manager
+  namespace: plex
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -13,7 +20,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: plex-secrets-binding
-  namespace: cert-manager
+  namespace: plex
 subjects:
 - kind: ServiceAccount
   name: certificates
