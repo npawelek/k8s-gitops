@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: raspbernetes/node-feature-discovery
-      tag: v0.6.0
+      tag: v0.7.0
       pullPolicy: IfNotPresent
     sources:
     # - cpu
@@ -41,6 +41,11 @@ spec:
           - pciId:
               class: ["0300"]
               vendor: ["8086"]
+        - name: "amd-gpu"
+          matchOn:
+          - pciId:
+              class: ["0300"]
+              vendor: ["1002"]
     master:
       replicaCount: 1
       tolerations:
