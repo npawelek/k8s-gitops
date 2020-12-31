@@ -64,18 +64,18 @@ spec:
         memory: 512Mi
     additionalContainers:
     - name: vpn
-      image: qmcgaw/private-internet-access:v3.8.1
+      image: qmcgaw/gluetun:latest
       securityContext:
         capabilities:
           add:
           - NET_ADMIN
       env:
-      - name: USER
+      - name: OPENVPN_USER
         valueFrom:
           secretKeyRef:
             name: pia-secrets
             key: USERNAME
-      - name: PASSWORD
+      - name: OPENVPN_PASSWORD
         valueFrom:
           secretKeyRef:
             name: pia-secrets
