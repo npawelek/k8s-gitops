@@ -1,0 +1,110 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-galera-ingress
+  namespace: galera
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: mariadb-galera
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: galera
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: mariadb-galera
+    ports:
+    - protocol: TCP
+      port: 3306
+    - protocol: TCP
+      port: 4567
+    - protocol: TCP
+      port: 4568
+    - protocol: TCP
+      port: 4444
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: hass
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: hass
+    ports:
+    - protocol: TCP
+      port: 3306
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: monitoring
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prometheus
+    ports:
+    - protocol: TCP
+      port: 9104
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-galera-egress
+  namespace: galera
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: mariadb-galera
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: adguard
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: adguard-home
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: galera
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: mariadb-galera
+    ports:
+    - protocol: TCP
+      port: 3306
+    - protocol: TCP
+      port: 4567
+    - protocol: TCP
+      port: 4568
+    - protocol: TCP
+      port: 4444
