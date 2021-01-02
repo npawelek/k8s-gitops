@@ -103,16 +103,10 @@ spec:
         value: "on"
       - name: HTTPPROXY_PORT
         value: "8888"
-      - name: HTTPPROXY_USER
-        valueFrom:
-          secretKeyRef:
-            name: hydra-proxy
-            key: USER
-      - name: HTTPPROXY_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: hydra-proxy
-            key: PASS
+      - name: HTTPPROXY_STEALTH
+        value: "on"
+      - name: HTTPPROXY_LOG
+        value: "on"
       - name: SHADOWSOCKS
         value: "off"
       - name: TZ
