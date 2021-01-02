@@ -11,6 +11,7 @@ spec:
   releaseName: mariadb-galera
   chart:
     spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: mariadb-galera
       version: 5.3.4
       sourceRef:

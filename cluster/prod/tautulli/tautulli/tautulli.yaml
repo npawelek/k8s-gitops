@@ -11,6 +11,7 @@ spec:
   releaseName: tautulli
   chart:
     spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: tautulli
       version: 5.4.0
       sourceRef:

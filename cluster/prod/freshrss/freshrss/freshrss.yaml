@@ -11,6 +11,7 @@ spec:
   releaseName: freshrss
   chart:
     spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: freshrss
       version: 1.0.0
       sourceRef:

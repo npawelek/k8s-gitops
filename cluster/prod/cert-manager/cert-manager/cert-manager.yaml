@@ -11,12 +11,13 @@ spec:
   releaseName: cert-manager
   chart:
     spec:
+      # renovate: registryUrl=https://charts.jetstack.io
       chart: cert-manager
+      version: v1.0.4
       sourceRef:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
-      version: v1.0.4
   values:
     installCRDs: true
     # webhook:

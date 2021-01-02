@@ -11,6 +11,7 @@ spec:
   releaseName: nzbhydra2
   chart:
     spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: nzbhydra2
       version: 4.4.0
       sourceRef:
