@@ -13,7 +13,7 @@ spec:
       chart: node-feature-discovery
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-at-home-charts
         namespace: flux-system
       version: 2.0.0
   values:
