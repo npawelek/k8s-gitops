@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: linuxserver/radarr
-      tag: 3.0.1.4259-ls88
+      tag: 3.0.1.4263-ls4
     env:
       TZ: America/Chicago
       UMASK_SET: "022"
