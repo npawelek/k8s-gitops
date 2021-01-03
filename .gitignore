@@ -3,3 +3,4 @@ stage/
 .DS_Store
 *.retry
 Thumbs.db
+bin/
