@@ -13,6 +13,14 @@
   "helm-values": {
     "fileMatch": ["cluster/.+\\.yaml$"]
   },
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/prod/intel-gpu/.+\\.yaml$",
+      "cluster/prod/resilio-sync/.+\\.yaml$",
+      "cluster/prod/plex/.+\\.yaml$"
+    ],
+    "datasourceTemplate": "docker"
+  },
   "regexManagers": [
     {
       "fileMatch": ["cluster/.+\\.yaml$"],
