@@ -10,9 +10,7 @@
   // do not rebase PRs
   "rebaseWhen": "conflicted",
   "assignees": ["@npawelek"],
-  "helm-values": {
-    "fileMatch": ["cluster/.+\\.yaml$"]
-  },
+  // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
   "kubernetes": {
     "fileMatch": [
       "cluster/prod/intel-gpu/.+\\.yaml$",
@@ -20,6 +18,9 @@
       "cluster/prod/plex/.+\\.yaml$"
     ],
     "datasourceTemplate": "docker"
+  },
+  "helm-values": {
+    "fileMatch": ["cluster/.+\\.yaml$"]
   },
   "regexManagers": [
     {
