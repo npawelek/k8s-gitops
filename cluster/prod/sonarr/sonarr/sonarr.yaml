@@ -20,16 +20,16 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: linuxserver/sonarr
-      tag: preview-3.0.4.1039-ls17
+      repository: k8sathome/sonarr
+      tag: v3.0.4.1042
     env:
       TZ: America/Chicago
-      PUID: "1024"
-      PGID: "100"
+    podSecurityContext:
+      runAsUser: 1024
+      runAsGroup: 100
+      fsGroup: 100
     controllerType: statefulset
     strategy:
-      rollingUpdate:
-        partition: 0
       type: RollingUpdate
     service:
       enabled: true

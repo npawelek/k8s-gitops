@@ -74,8 +74,6 @@
       "datasources": ["docker"],
       "packageNames": [
         "plexinc/pms-docker",
-        "linuxserver/radarr",
-        "linuxserver/sonarr",
         "linuxserver/nzbget",
         "linuxserver/nzbhydra2",
         "linuxserver/lazylibrarian",

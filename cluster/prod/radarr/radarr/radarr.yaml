@@ -20,17 +20,16 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: linuxserver/radarr
-      tag: 3.0.1.4263-ls4
+      repository: k8sathome/radarr
+      tag: v3.0.1.4259
     env:
       TZ: America/Chicago
-      UMASK_SET: "022"
-      PUID: "1024"
-      PGID: "100"
+    podSecurityContext:
+      runAsUser: 1024
+      runAsGroup: 100
+      fsGroup: 100
     controllerType: statefulset
     strategy:
-      rollingUpdate:
-        partition: 0
       type: RollingUpdate
     service:
       enabled: true
