@@ -78,7 +78,8 @@
         "linuxserver/nzbget",
         "linuxserver/nzbhydra2",
         "linuxserver/lazylibrarian",
-        "linuxserver/freshrss"
+        "linuxserver/freshrss",
+        "linuxserver/resilio-sync"
       ],
       "versioning": "loose"
     }
