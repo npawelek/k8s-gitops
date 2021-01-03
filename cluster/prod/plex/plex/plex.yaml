@@ -24,7 +24,7 @@ spec:
       automountServiceAccountToken: false
       initContainers:
       - name: generate-cert
-        image: python:3.8-alpine
+        image: python:3.9-alpine
         command:
         - sh
         - -c
