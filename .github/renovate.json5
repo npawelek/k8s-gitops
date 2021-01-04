@@ -12,11 +12,7 @@
   "assignees": ["@npawelek"],
   // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
   "kubernetes": {
-    "fileMatch": [
-      "cluster/prod/intel-gpu/.+\\.yaml$",
-      "cluster/prod/resilio-sync/.+\\.yaml$",
-      "cluster/prod/plex/.+\\.yaml$"
-    ],
+    "fileMatch": ["cluster/.+\\.yaml$"],
     "datasourceTemplate": "docker"
   },
   "helm-values": {
