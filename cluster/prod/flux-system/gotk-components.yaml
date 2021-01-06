@@ -2417,4 +2417,3 @@ spec:
   podSelector: {}
   policyTypes:
   - Ingress
----
