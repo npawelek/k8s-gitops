@@ -34,6 +34,14 @@
       "commitMessageTopic": "Helm chart {{depName}}",
       "separateMinorPatch": true
     },
+    {
+      "datasources": ["docker"],
+      "commitMessageTopic": "Docker image {{depName}}",
+      "commitMessageExtra": "{{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      "updateTypes": ["major", "minor", "patch"],
+      "enabled": true,
+      "separateMinorPatch": true
+    },
     // Add labels according to package and update types
     {
       "datasources": ["docker"],
