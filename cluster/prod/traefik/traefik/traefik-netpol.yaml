@@ -162,16 +162,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: nextcloud
-      podSelector:
-        matchLabels:
-          app: nextcloud
-    ports:
-    - port: 80
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: resilio
       podSelector:
         matchLabels:
