@@ -186,6 +186,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: longhorn-system
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: longhorn
+    ports:
+    - port: 8000
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: monitoring
       podSelector:
         matchLabels:
