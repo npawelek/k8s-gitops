@@ -21,7 +21,7 @@ spec:
     persistence:
       defaultClass: true
       defaultClassReplicaCount: 3
-      reclaimPolicy: Delete
+      reclaimPolicy: Retain
     defaultSettings:
       backupstorePollInterval: 300
       backupTarget: nfs://192.168.0.150:/volume1/LonghornBackupstore
