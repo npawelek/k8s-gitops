@@ -26,6 +26,7 @@ spec:
       backupstorePollInterval: 300
       backupTarget: nfs://192.168.0.150:/volume1/LonghornBackupstore
       createDefaultDiskLabeledNodes: true
+      defaultDataLocality: best-effort
       defaultDataPath: /var/lib/longhorn
       defaultReplicaCount: 3
       replicaSoftAntiAffinity: false
