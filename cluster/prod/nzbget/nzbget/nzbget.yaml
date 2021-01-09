@@ -28,8 +28,6 @@ spec:
       PGID: "100"
     controllerType: statefulset
     strategy:
-      rollingUpdate:
-        partition: 0
       type: RollingUpdate
     affinity:
       podAffinity:
@@ -66,7 +64,10 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: nzbget-config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        skipuninstall: true
     additionalVolumes:
     - name: complete
       nfs:
