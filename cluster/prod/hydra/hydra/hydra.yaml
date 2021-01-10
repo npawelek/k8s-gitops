@@ -59,7 +59,10 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: hydra-config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        skipuninstall: true
     resources:
       limits:
         memory: 512Mi
