@@ -54,7 +54,10 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: sonarr-config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        skipuninstall: true
     additionalVolumes:
     - name: complete
       nfs:
