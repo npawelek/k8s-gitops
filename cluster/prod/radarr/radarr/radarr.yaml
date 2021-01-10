@@ -54,7 +54,10 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: radarr-config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        skipuninstall: true
     additionalVolumes:
     - name: complete
       nfs:
