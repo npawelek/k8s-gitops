@@ -27,9 +27,10 @@ spec:
         enabled: false
       work:
         enabled: true
-        size: 5Gi
-        skipUninstall: true
-        existingClaim: adguard-work
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        skipuninstall: true
     timezone: America/Chicago
     replicas: 1
     ingress:
