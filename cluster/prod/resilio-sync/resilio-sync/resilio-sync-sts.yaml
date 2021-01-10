@@ -51,10 +51,17 @@ spec:
       - name: config-file
         configMap:
           name: resilio-config-file
-      - name: config
-        persistentVolumeClaim:
-          claimName: resilio-config
       - name: backup
         nfs:
           path: /volume1/Backup
           server: 192.168.0.150
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
