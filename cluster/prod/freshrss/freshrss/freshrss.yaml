@@ -26,8 +26,6 @@ spec:
       TZ: America/Chicago
     controllerType: statefulset
     strategy:
-      rollingUpdate:
-        partition: 0
       type: RollingUpdate
     service:
       enabled: true
@@ -52,7 +50,10 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: freshrss-config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        skipuninstall: true
     resources:
       limits:
         memory: 512Mi
