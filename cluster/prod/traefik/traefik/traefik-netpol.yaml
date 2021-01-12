@@ -132,6 +132,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: readarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: readarr
+    ports:
+    - port: 8787
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: tautulli
       podSelector:
         matchLabels:

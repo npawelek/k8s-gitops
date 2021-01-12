@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: readarr
+  namespace: readarr
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: readarr
+      version: 1.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: hotio/readarr
+      tag: nightly-0.1.0.386
+    env:
+      TZ: America/Chicago
+      PUID: 1024
+      PGID: 100
+    controllerType: statefulset
+    strategy:
+      type: RollingUpdate
+    service:
+      enabled: true
+      type: ClusterIP
+      port:
+        port: 8787
+        protocol: TCP
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+      hosts:
+      - host: readarr.nathanpawelek.com
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - secretName: nathanpawelek-com-tls
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        skipuninstall: true
+    additionalVolumes:
+    - name: books
+      nfs:
+        path: /volume1/Backup/Resilio/Books
+        server: 192.168.0.150
+    additionalVolumeMounts:
+    - mountPath: /books
+      name: books
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
