@@ -57,18 +57,6 @@ spec:
       port: 5076
     - protocol: TCP
       port: 8888
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: lazylibrarian
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: lazylibrarian
-    ports:
-    - protocol: TCP
-      port: 5076
-    - protocol: TCP
-      port: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

@@ -184,18 +184,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: lazylibrarian
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: lazylibrarian
-    ports:
-    - port: 5299
-      protocol: TCP
-    # - port: 8083
-    #   protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: longhorn-system
       podSelector:
         matchLabels:
