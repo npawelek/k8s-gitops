@@ -28,7 +28,7 @@ spec:
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
       defaultDataPath: /var/lib/longhorn
-      defaultReplicaCount: 3
+      defaultReplicaCount: 2
       replicaSoftAntiAffinity: false
       storageMinimalAvailablePercentage: 10
     ingress:
