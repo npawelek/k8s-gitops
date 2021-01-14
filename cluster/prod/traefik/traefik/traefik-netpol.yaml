@@ -214,12 +214,14 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: hass
+          ns: home-automation
       podSelector:
         matchLabels:
-          app: hass
+          app: home-assistant
     ports:
     - port: 8123
+      protocol: TCP
+    - port: 12321
       protocol: TCP
   - to:
     - ipBlock:
