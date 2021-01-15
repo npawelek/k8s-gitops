@@ -217,7 +217,7 @@ spec:
           ns: home-automation
       podSelector:
         matchLabels:
-          app: home-assistant
+          app.kubernetes.io/name: home-assistant
     ports:
     - port: 8123
       protocol: TCP
