@@ -22,11 +22,16 @@ spec:
       tag: 2021.1.3
     env:
       TZ: America/Chicago
+    envFrom:
+    - secretRef:
+        name: home-assistant-env-secrets
     service:
       port:
         port: 8123
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
+    securityContext:
+      privileged: false
     ingress:
       enabled: true
       annotations:
@@ -93,14 +98,17 @@ spec:
     #     volumeMounts:
     #     - name: config
     #       mountPath: /config
+    #     - name: deploykey
+    #       mountPath: /root/.ssh/id_rsa
+    #       subPath: id_rsa
     resources:
       limits:
         memory: 2500Mi
       requests:
         cpu: 100m
         memory: 1000Mi
-  # valuesFrom:
-  # - kind: Secret
-  #   name: home-assistant-helm-values
-  #   valuesKey: values.yaml
-  #   optional: false
+  valuesFrom:
+  - kind: Secret
+    name: home-assistant-helm-values
+    valuesKey: values.yaml
+    optional: false
