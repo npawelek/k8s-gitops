@@ -12,8 +12,11 @@
   "assignees": ["@npawelek"],
   // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
   "kubernetes": {
+    "datasourceTemplate": "docker",
     "fileMatch": ["cluster/.+\\.yaml$"],
-    "datasourceTemplate": "docker"
+    "ignorePaths": [
+      "cluster/flux-system/",
+    ]
   },
   "helm-values": {
     "fileMatch": ["cluster/.+\\.yaml$"]
