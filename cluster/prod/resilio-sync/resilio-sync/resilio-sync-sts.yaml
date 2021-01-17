@@ -23,7 +23,7 @@ spec:
         app.kubernetes.io/name: resilio-sync
     spec:
       containers:
-      - image: linuxserver/resilio-sync:2.7.2.1375-ls76
+      - image: linuxserver/resilio-sync:2.7.2.1375-ls77
         name: resilio-sync
         env:
         - name: TZ
