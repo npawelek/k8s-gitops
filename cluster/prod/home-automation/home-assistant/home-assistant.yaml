@@ -58,49 +58,47 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 10Gi
-    # addons:
-    #   codeserver:
-    #     enabled: true
-    #     image:
-    #       repository: codercom/code-server
-    #       tag: 3.8.0
-    #     workingDir: /config
-    #     args:
-    #     - --user-data-dir
-    #     - /config/.vscode
-    #     - --auth
-    #     - none
-    #     env:
-    #       TZ: America/Chicago
-    #       HASS_SERVER: http://localhost:8123
-    #     ingress:
-    #       enabled: true
-    #       annotations:
-    #         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    #         traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-    #         traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-    #       hosts:
-    #       - host: hass-code.nathanpawelek.com
-    #         paths:
-    #         - path: /
-    #           pathType: Prefix
-    #       tls:
-    #       - secretName: nathanpawelek-com-tls
-    #     service:
-    #       enabled: true
-    #       type: ClusterIP
-    #       port:
-    #         port: 12321
-    #         protocol: TCP
-    #     volumeMounts:
-    #     - name: config
-    #       mountPath: /config
-    #     - name: deploykey
-    #       mountPath: /root/.ssh/id_rsa
-    #       subPath: id_rsa
+        existingClaim: home-assistant-config
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.8.0
+        workingDir: /config
+        args:
+        - --user-data-dir
+        - /config/.vscode
+        - --auth
+        - none
+        env:
+          TZ: America/Chicago
+          HASS_SERVER: http://localhost:8123
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+            traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hosts:
+          - host: hass-code.nathanpawelek.com
+            paths:
+            - path: /
+              pathType: Prefix
+          tls:
+          - secretName: nathanpawelek-com-tls
+        service:
+          enabled: true
+          type: ClusterIP
+          port:
+            port: 12321
+            protocol: TCP
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: deploykey
+          mountPath: /root/.ssh/id_rsa
+          subPath: id_rsa
     resources:
       limits:
         memory: 2500Mi
