@@ -15,7 +15,7 @@
     "datasourceTemplate": "docker",
     "fileMatch": ["cluster/.+\\.yaml$"],
     "ignorePaths": [
-      "cluster/flux-system/",
+      "cluster/prod/flux-system/",
     ]
   },
   "helm-values": {
