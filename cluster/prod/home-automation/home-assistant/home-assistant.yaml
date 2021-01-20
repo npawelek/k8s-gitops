@@ -31,8 +31,6 @@ spec:
       externalTrafficPolicy: Local
       port:
         port: 8123
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
     securityContext:
       privileged: false
     ingress:
