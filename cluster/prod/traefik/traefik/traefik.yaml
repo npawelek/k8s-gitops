@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: traefik
-      tag: 2.3.7
+      tag: 2.4.0
       pullPolicy: IfNotPresent
     env:
     - name: TZ
