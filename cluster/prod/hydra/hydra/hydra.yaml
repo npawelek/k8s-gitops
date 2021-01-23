@@ -68,7 +68,7 @@ spec:
         memory: 512Mi
     additionalContainers:
     - name: vpn
-      image: qmcgaw/gluetun:v3.11.1
+      image: qmcgaw/gluetun:v3.12.0
       securityContext:
         capabilities:
           add:
