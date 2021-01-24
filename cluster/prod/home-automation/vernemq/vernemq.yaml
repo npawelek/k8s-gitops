@@ -26,9 +26,9 @@ spec:
       loadBalancerIP: 192.168.0.14
       externalTrafficPolicy: Local
       mqtt:
-        enable: false
+        enabled: false
       mqtts:
-        enable: true
+        enabled: true
       # ws:
       #   enabled: true
     persistentVolume:
