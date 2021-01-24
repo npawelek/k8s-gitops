@@ -30,6 +30,24 @@ spec:
     - protocol: TCP
       port: 9100
     - protocol: TCP
+      port: 9101
+    - protocol: TCP
+      port: 9102
+    - protocol: TCP
+      port: 9103
+    - protocol: TCP
+      port: 9104
+    - protocol: TCP
+      port: 9105
+    - protocol: TCP
+      port: 9106
+    - protocol: TCP
+      port: 9107
+    - protocol: TCP
+      port: 9108
+    - protocol: TCP
+      port: 9109
+    - protocol: TCP
       port: 44053
   - from:
     - ipBlock:
@@ -114,6 +132,24 @@ spec:
       port: 8888
     - protocol: TCP
       port: 9100
+    - protocol: TCP
+      port: 9101
+    - protocol: TCP
+      port: 9102
+    - protocol: TCP
+      port: 9103
+    - protocol: TCP
+      port: 9104
+    - protocol: TCP
+      port: 9105
+    - protocol: TCP
+      port: 9106
+    - protocol: TCP
+      port: 9107
+    - protocol: TCP
+      port: 9108
+    - protocol: TCP
+      port: 9109
     - protocol: TCP
       port: 44053
   - to:
