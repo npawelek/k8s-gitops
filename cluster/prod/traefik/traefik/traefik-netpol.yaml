@@ -223,16 +223,6 @@ spec:
       protocol: TCP
     - port: 12321
       protocol: TCP
-  # Account for hostNetwork: true
-  # NetworkPolicy PodSelector does not work for the host network
-  - to:
-    - ipBlock:
-        cidr: 192.168.0.0/24
-    ports:
-    - port: 8123
-      protocol: TCP
-    - port: 12321
-      protocol: TCP
   - to:
     - ipBlock:
         cidr: 0.0.0.0/0

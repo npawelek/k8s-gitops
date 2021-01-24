@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vernemq
+  namespace: home-automation
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://vernemq.github.io/docker-vernemq
+      chart: vernemq
+      version: 1.6.7
+      sourceRef:
+        kind: HelmRepository
+        name: vernemq-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: vernemq/vernemq
+      tag: 1.11.0-alpine
+    replicaCount: 2
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 192.168.0.14
+      externalTrafficPolicy: Local
+      mqtt:
+        enable: false
+      mqtts:
+        enable: true
+      # ws:
+      #   enabled: true
+    persistentVolume:
+      enabled: true
+      size: 5Gi
+      storageClass: longhorn
+    secretMounts:
+    - name: vernemq-certificates
+      secretName: mqtt-nathanpawelek-com-tls
+      path: /etc/ssl/vernemq
+    # - name: vernemq-auth
+    #   secretName: vernemq-secrets
+    #   path: /vernemq/auth
+    additionalEnv:
+    - name: DOCKER_VERNEMQ_ACCEPT_EULA
+      value: "yes"
+    - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
+      value: "on"
+    - name: DOCKER_VERNEMQ_LISTENER__SSL__CAFILE
+      value: "/etc/ssl/vernemq/tls.crt"
+    - name: DOCKER_VERNEMQ_LISTENER__SSL__CERTFILE
+      value: "/etc/ssl/vernemq/tls.crt"
+    - name: DOCKER_VERNEMQ_LISTENER__SSL__KEYFILE
+      value: "/etc/ssl/vernemq/tls.key"
+    # - name: DOCKER_VERNEMQ_VMQ_PASSWD__PASSWORD_FILE
+    #   value: /vernemq/auth/vmq.passwd
+    # - name: DOCKER_VERNEMQ_VMQ_ACL__ACL_FILE
+    #   value: /vernemq/auth/vmq.acl
+    podAntiAffinity: hard

@@ -2,49 +2,67 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-home-assistant-ingress
+  name: allow-vernemq-ingress
   namespace: home-automation
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: home-assistant
+      app.kubernetes.io/name: vernemq
   policyTypes:
   - Ingress
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          ns: traefik
+          ns: home-automation
     - podSelector:
         matchLabels:
-          app.kubernetes.io/name: traefik
+          app.kubernetes.io/name: vernemq
     ports:
     - protocol: TCP
-      port: 8123
+      port: 4369
     - protocol: TCP
-      port: 12321
+      port: 8443
+    - protocol: TCP
+      port: 8883
+    - protocol: TCP
+      port: 8888
+    - protocol: TCP
+      port: 9100
+    - protocol: TCP
+      port: 44053
   - from:
     - ipBlock:
         cidr: 192.168.0.0/24
-    - ipBlock:
-        cidr: 192.168.30.101/32
-    - ipBlock:
-        cidr: 192.168.30.102/32
     ports:
     - protocol: TCP
-      port: 8123
+      port: 8443
+    - protocol: TCP
+      port: 8883
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: home-assistant
+    ports:
+    - protocol: TCP
+      port: 8443
+    - protocol: TCP
+      port: 8883
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-home-assistant-egress
+  name: allow-vernemq-egress
   namespace: home-automation
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: home-assistant
+      app.kubernetes.io/name: vernemq
   egress:
   - to:
     - namespaceSelector:
@@ -87,16 +105,24 @@ spec:
           app.kubernetes.io/name: vernemq
     ports:
     - protocol: TCP
+      port: 4369
+    - protocol: TCP
       port: 8443
     - protocol: TCP
       port: 8883
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: galera
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: mariadb-galera
-    ports:
     - protocol: TCP
-      port: 3306
+      port: 8888
+    - protocol: TCP
+      port: 9100
+    - protocol: TCP
+      port: 44053
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.21/32
+    - ipBlock:
+        cidr: 192.168.0.22/32
+    - ipBlock:
+        cidr: 192.168.0.23/32
+    ports:
+    - port: 6443
+      protocol: TCP
