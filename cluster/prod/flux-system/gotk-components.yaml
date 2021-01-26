@@ -1,6 +1,4 @@
 ---
-# GitOps Toolkit revision v0.7.2
-# Components: source-controller,kustomize-controller,helm-controller,notification-controller
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -2543,4 +2541,3 @@ spec:
   policyTypes:
   - Ingress
   - Egress
----
