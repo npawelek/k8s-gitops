@@ -100,6 +100,15 @@ spec:
         - name: deploykey
           mountPath: /root/.ssh/id_rsa
           subPath: id_rsa
+          readOnly: true
+        - name: ssh-config
+          mountPath: /root/.ssh/config
+          subPath: config
+          readOnly: true
+    additionalVolumes:
+    - name: ssh-config
+      configMap:
+        name: ssh-config
     resources:
       limits:
         memory: 2500Mi
