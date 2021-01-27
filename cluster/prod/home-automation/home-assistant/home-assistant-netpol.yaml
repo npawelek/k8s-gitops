@@ -114,3 +114,9 @@ spec:
       protocol: TCP
     - port: 443
       protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.30.86/32
+    ports:
+    - port: 54321
+      protocol: UDP
