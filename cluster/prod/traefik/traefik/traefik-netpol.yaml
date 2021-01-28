@@ -224,6 +224,16 @@ spec:
     - port: 12321
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: esphome
+    ports:
+    - port: 6052
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
