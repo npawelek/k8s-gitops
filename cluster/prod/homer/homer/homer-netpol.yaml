@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-homer-ingress
-  namespace: homer
+  namespace: dash
 spec:
   podSelector:
     matchLabels:
@@ -28,7 +28,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-homer-egress
-  namespace: homer
+  namespace: dash
 spec:
   policyTypes:
   - Egress
