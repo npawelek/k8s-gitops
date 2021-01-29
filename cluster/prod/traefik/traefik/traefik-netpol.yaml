@@ -234,6 +234,18 @@ spec:
     - port: 6052
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: homer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: homer
+    ports:
+    - port: 8080
+      protocol: TCP
+    - protocol: TCP
+      port: 12321
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
