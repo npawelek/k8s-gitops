@@ -22,6 +22,8 @@ spec:
       labels:
         app.kubernetes.io/instance: plex
         app.kubernetes.io/name: plex
+      annotations:
+        secret.reloader.stakater.com/reload: nathanpawelek-com-tls
     spec:
       nodeSelector:
         kubernetes.io/hostname: nuc

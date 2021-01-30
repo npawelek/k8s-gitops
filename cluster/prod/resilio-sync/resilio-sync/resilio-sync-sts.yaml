@@ -21,6 +21,8 @@ spec:
       labels:
         app.kubernetes.io/instance: resilio-sync
         app.kubernetes.io/name: resilio-sync
+      annotations:
+        configmap.reloader.stakater.com/reload: resilio-config-file
     spec:
       containers:
       - image: linuxserver/resilio-sync:2.7.2.1375-ls78

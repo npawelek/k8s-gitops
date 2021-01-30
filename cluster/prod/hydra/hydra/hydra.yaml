@@ -63,6 +63,8 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         skipuninstall: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: pia-secrets
     resources:
       limits:
         memory: 512Mi

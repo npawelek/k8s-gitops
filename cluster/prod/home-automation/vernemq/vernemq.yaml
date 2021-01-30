@@ -58,3 +58,5 @@ spec:
     # - name: DOCKER_VERNEMQ_VMQ_ACL__ACL_FILE
     #   value: /vernemq/auth/vmq.acl
     podAntiAffinity: hard
+    podAnnotations:
+      secret.reloader.stakater.com/reload: mqtt-nathanpawelek-com-tls

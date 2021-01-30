@@ -31,6 +31,8 @@ spec:
     providers:
       google:
         enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: traefik-forward-auth-secrets
     env:
     - name: TZ
       value: America/Chicago
