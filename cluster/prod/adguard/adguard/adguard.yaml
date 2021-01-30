@@ -29,7 +29,7 @@ spec:
         enabled: true
         storageClass: longhorn
         accessMode: ReadWriteOnce
-        size: 2Gi
+        size: 10Gi
         skipuninstall: true
     timezone: America/Chicago
     replicas: 1
