@@ -69,3 +69,8 @@ spec:
   - to:
     - ipBlock:
         cidr: 192.168.10.0/24
+    ports:
+    - port: 8266
+      protocol: TCP
+    - port: 6052
+      protocol: TCP
