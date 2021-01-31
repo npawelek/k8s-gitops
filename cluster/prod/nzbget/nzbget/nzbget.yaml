@@ -109,7 +109,7 @@ spec:
       - name: PIA_ENCRYPTION
         value: strong
       - name: PROTOCOL
-        value: tcp
+        value: udp
       - name: FIREWALL_OUTBOUND_SUBNETS
         value: "10.96.0.0/12"
       - name: DOT
