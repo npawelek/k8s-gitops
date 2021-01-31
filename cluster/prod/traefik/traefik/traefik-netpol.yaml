@@ -236,6 +236,12 @@ spec:
     - port: 6052
       protocol: TCP
   - to:
+    - ipBlock:
+        cidr: 192.168.0.0/24
+    ports:
+    - port: 6052
+      protocol: TCP
+  - to:
     - namespaceSelector:
         matchLabels:
           ns: dash
