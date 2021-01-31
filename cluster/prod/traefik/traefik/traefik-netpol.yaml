@@ -15,6 +15,8 @@ spec:
     - ipBlock:
         cidr: 192.168.0.0/24
     - ipBlock:
+        cidr: 192.168.30.100/32
+    - ipBlock:
         cidr: 192.168.30.101/32
     - ipBlock:
         cidr: 192.168.30.102/32
@@ -243,8 +245,8 @@ spec:
     ports:
     - port: 8080
       protocol: TCP
-    - protocol: TCP
-      port: 12321
+    - port: 12321
+      protocol: TCP
   - to:
     - ipBlock:
         cidr: 0.0.0.0/0

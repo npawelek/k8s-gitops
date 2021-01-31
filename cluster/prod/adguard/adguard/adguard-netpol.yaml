@@ -27,15 +27,7 @@ spec:
     - ipBlock:
         cidr: 10.96.0.0/12
     - ipBlock:
-        cidr: 192.168.0.0/24
-    - ipBlock:
-        cidr: 192.168.20.0/24
-    - ipBlock:
-        cidr: 192.168.30.0/24
-    - ipBlock:
-        cidr: 192.168.40.0/24
-    - ipBlock:
-        cidr: 192.168.50.0/24
+        cidr: 192.168.0.0/16
     ports:
     - port: 53
       protocol: UDP
