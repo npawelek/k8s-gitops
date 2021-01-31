@@ -68,4 +68,4 @@ spec:
       protocol: TCP
   - to:
     - ipBlock:
-        cidr: 192.168.20.0/24
+        cidr: 192.168.10.0/24
