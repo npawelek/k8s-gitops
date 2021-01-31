@@ -59,7 +59,7 @@ spec:
       port: 8883
   - from:
     - ipBlock:
-        cidr: 192.168.30.100/32
+        cidr: 192.168.10.0/24
     ports:
     - protocol: TCP
       port: 8443
@@ -67,7 +67,7 @@ spec:
       port: 8883
   - from:
     - ipBlock:
-        cidr: 192.168.10.0/24
+        cidr: 192.168.30.100/32
     ports:
     - protocol: TCP
       port: 8443
