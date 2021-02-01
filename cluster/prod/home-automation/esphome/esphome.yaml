@@ -22,7 +22,7 @@ spec:
       tag: 1.15.3
     env:
       TZ: America/Chicago
-      ESPHOME_DASHBOARD_USE_PING: true
+      ESPHOME_DASHBOARD_USE_PING: "true"
     hostNetwork: true
     ingress:
       enabled: true
