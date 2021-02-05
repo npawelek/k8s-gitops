@@ -29,6 +29,8 @@ spec:
     - ipBlock:
         cidr: 192.168.10.0/24
     - ipBlock:
+        cidr: 192.168.20.0/24
+    - ipBlock:
         cidr: 192.168.30.100/32
     - ipBlock:
         cidr: 192.168.30.101/32
@@ -123,7 +125,4 @@ spec:
         cidr: 192.168.10.0/24
   - to:
     - ipBlock:
-        cidr: 192.168.20.86/32
-    ports:
-    - port: 54321
-      protocol: UDP
+        cidr: 192.168.20.0/24
