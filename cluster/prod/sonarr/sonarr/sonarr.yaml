@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: k8sathome/sonarr
-      tag: v3.0.4.1117
+      tag: v3.0.4.1118
     env:
       TZ: America/Chicago
     podSecurityContext:
