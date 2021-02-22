@@ -22,7 +22,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/mariadb-galera
-      tag: 10.5.8
+      tag: 10.5.9
     clusterDomain: cluster.local
     podManagementPolicy: OrderedReady
     updateStrategy:
