@@ -60,9 +60,9 @@ spec:
   - from:
     - ipBlock:
         cidr: 192.168.10.0/24
+    - ipBlock:
+        cidr: 192.168.20.0/24
     ports:
-    - protocol: TCP
-      port: 8443
     - protocol: TCP
       port: 8883
   - from:
