@@ -95,6 +95,8 @@ spec:
           app.kubernetes.io/name: vernemq
     ports:
     - protocol: TCP
+      port: 1883
+    - protocol: TCP
       port: 8443
     - protocol: TCP
       port: 8883
