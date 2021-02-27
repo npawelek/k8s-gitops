@@ -54,6 +54,8 @@ spec:
         cidr: 192.168.0.0/24
     ports:
     - protocol: TCP
+      port: 1883
+    - protocol: TCP
       port: 8443
     - protocol: TCP
       port: 8883
@@ -64,11 +66,15 @@ spec:
         cidr: 192.168.20.0/24
     ports:
     - protocol: TCP
+      port: 1883
+    - protocol: TCP
       port: 8883
   - from:
     - ipBlock:
         cidr: 192.168.30.100/32
     ports:
+    - protocol: TCP
+      port: 1883
     - protocol: TCP
       port: 8443
     - protocol: TCP
@@ -81,6 +87,8 @@ spec:
         matchLabels:
           app.kubernetes.io/name: home-assistant
     ports:
+    - protocol: TCP
+      port: 1883
     - protocol: TCP
       port: 8443
     - protocol: TCP
