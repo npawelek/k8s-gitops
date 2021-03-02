@@ -47,6 +47,10 @@ spec:
       value: "yes"
     - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
       value: "off"
+    - name: DOCKER_VERNEMQ_PLUGINS__VMQ_PASSWD
+      value: "on"
+    - name: DOCKER_VERNEMQ_PLUGINS__VMQ_ACL
+      value: "on"
     - name: DOCKER_VERNEMQ_LISTENER__SSL__CAFILE
       value: "/etc/ssl/vernemq/tls.crt"
     - name: DOCKER_VERNEMQ_LISTENER__SSL__CERTFILE
