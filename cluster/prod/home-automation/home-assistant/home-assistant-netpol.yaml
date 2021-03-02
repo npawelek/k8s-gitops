@@ -101,6 +101,16 @@ spec:
     - protocol: TCP
       port: 8883
   - to:
+    - ipBlock:
+        cidr: 192.168.0.14/32
+    ports:
+    - protocol: TCP
+      port: 1883
+    - protocol: TCP
+      port: 8443
+    - protocol: TCP
+      port: 8883
+  - to:
     - namespaceSelector:
         matchLabels:
           ns: galera
