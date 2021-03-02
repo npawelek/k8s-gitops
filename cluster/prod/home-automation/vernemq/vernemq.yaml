@@ -63,4 +63,4 @@ spec:
       value: /vernemq/auth/vmq.acl
     podAntiAffinity: hard
     podAnnotations:
-      secret.reloader.stakater.com/reload: mqtt-nathanpawelek-com-tls,vernemq-secrets
+      secret.reloader.stakater.com/reload: mqtt-nathanpawelek-com-tls
