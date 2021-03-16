@@ -20,7 +20,7 @@ spec:
     image:
       repository: vernemq/vernemq
       tag: 1.11.0-alpine
-    replicaCount: 2
+    replicaCount: 3
     service:
       type: LoadBalancer
       loadBalancerIP: 192.168.0.14
@@ -37,13 +37,13 @@ spec:
       storageClass: longhorn
     statefulset:
       livenessProbe:
-        initialDelaySeconds: 15
+        initialDelaySeconds: 10
         periodSeconds: 10
         timeoutSeconds: 5
         successThreshold: 1
         failureThreshold: 3
       readinessProbe:
-        initialDelaySeconds: 15
+        initialDelaySeconds: 10
         periodSeconds: 10
         timeoutSeconds: 5
         successThreshold: 1
