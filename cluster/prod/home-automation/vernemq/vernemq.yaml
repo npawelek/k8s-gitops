@@ -35,6 +35,19 @@ spec:
       enabled: true
       size: 5Gi
       storageClass: longhorn
+    statefulset:
+      livenessProbe:
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 3
+      readinessProbe:
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 3
     secretMounts:
     - name: vernemq-certificates
       secretName: mqtt-nathanpawelek-com-tls
