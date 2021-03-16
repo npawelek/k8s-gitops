@@ -140,3 +140,23 @@ spec:
   - to:
     - ipBlock:
         cidr: 192.168.20.0/24
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: nzbget
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: nzbget
+    ports:
+    - protocol: TCP
+      port: 6789
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    ports:
+    - protocol: TCP
+      port: 8989

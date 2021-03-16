@@ -61,6 +61,16 @@ spec:
     ports:
     - port: 6789
       protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: home-assistant
+    ports:
+    - port: 6789
+      protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
