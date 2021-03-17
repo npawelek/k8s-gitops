@@ -160,3 +160,9 @@ spec:
     ports:
     - protocol: TCP
       port: 8989
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.4/32
+    ports:
+    - port: 8443
+      protocol: TCP
