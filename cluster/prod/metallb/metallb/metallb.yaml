@@ -35,4 +35,4 @@ spec:
       image:
         registry: docker.io
         repository: metallb/speaker
-        tag: v0.9.5
+        tag: v0.9.6
