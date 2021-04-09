@@ -20,7 +20,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
       - name: ns-watch
-        image: boxboat/kubectl:1.20.1
+        image: boxboat/kubectl:1.21.0
         command:
         - sh
         - -c
@@ -45,7 +45,7 @@ spec:
             memory: 128Mi
             cpu: 128m
       - name: secret-watch
-        image: boxboat/kubectl:1.20.1
+        image: boxboat/kubectl:1.21.0
         command:
         - sh
         - -c
