@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbget
-      tag: v21.1-r2311-ls9
+      tag: 161
     env:
       TZ: America/Chicago
       PUID: "1024"
