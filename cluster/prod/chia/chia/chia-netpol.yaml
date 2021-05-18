@@ -2,6 +2,22 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: allow-chia-ingress
+  namespace: chia
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: chia
+  policyTypes:
+  - Ingress
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 8444
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: allow-chia-egress
   namespace: chia
 spec:
