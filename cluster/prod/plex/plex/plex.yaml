@@ -86,6 +86,8 @@ spec:
         - mountPath: /data
           name: complete
           readOnly: true
+        - mountPath: /media
+          name: media
         - mountPath: /data/Audiobooks
           name: audiobooks
           readOnly: true
@@ -112,6 +114,10 @@ spec:
         nfs:
           path: /volume1/Backup/Resilio/Audiobooks
           server: 192.168.0.150
+      - name: media
+        nfs:
+          path: /volume1/media
+          server: 192.168.0.151
   volumeClaimTemplates:
   - metadata:
       name: config
