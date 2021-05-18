@@ -53,5 +53,7 @@ spec:
     ports:
     - port: 80
       protocol: TCP
+    - port: 443
+      protocol: TCP
     - port: 8444
       protocol: TCP
