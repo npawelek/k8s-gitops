@@ -59,13 +59,13 @@ spec:
         size: 2Gi
         skipuninstall: true
     additionalVolumes:
-    - name: complete
+    - name: media
       nfs:
-        path: /volume1/Complete
-        server: 192.168.0.150
+        path: /volume1/media
+        server: 192.168.0.151
     additionalVolumeMounts:
     - mountPath: /complete
-      name: complete
+      name: media
     resources:
       requests:
         memory: 250Mi
