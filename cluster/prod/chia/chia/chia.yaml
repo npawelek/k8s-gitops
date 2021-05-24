@@ -22,6 +22,8 @@ spec:
       labels:
         app.kubernetes.io/instance: chia
         app.kubernetes.io/name: chia
+      annotations:
+        secret.reloader.stakater.com/reload: chia-secrets
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
@@ -32,6 +34,16 @@ spec:
         env:
         - name: keys
           value: /priv/keys
+        livenessProbe:
+          tcpSocket:
+            port: 8444
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        startupProbe:
+          tcpSocket:
+            port: 8444
+          failureThreshold: 20
+          periodSeconds: 5
         volumeMounts:
         - name: priv
           mountPath: /priv
@@ -40,6 +52,7 @@ spec:
           name: chia-config
         - mountPath: /plots
           name: plots
+          readOnly: true
       volumes:
       - name: plots
         nfs:
