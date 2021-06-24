@@ -150,7 +150,7 @@ spec:
       enabled: false
     tls:
       enabled: false
-    podAntiAffinityPreset: soft
+    podAntiAffinityPreset: hard
     nodeSelector:
       kubernetes.io/arch: amd64
   valuesFrom:
