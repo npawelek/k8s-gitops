@@ -5,7 +5,7 @@ metadata:
   name: distribute-letsencrypt-certs
   namespace: cert-manager
 spec:
-  schedule: "0 0 * * 1"
+  schedule: "*/10 * * * *"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 3
   successfulJobsHistoryLimit: 3
