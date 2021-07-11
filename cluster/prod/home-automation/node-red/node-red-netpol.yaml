@@ -67,6 +67,16 @@ spec:
     - port: 53
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: home-assistant
+    ports:
+    - port: 8123
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

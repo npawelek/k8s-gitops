@@ -24,6 +24,16 @@ spec:
     - protocol: TCP
       port: 12321
   - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: node-red
+    ports:
+    - protocol: TCP
+      port: 8123
+  - from:
     - ipBlock:
         cidr: 192.168.0.0/24
     - ipBlock:
