@@ -25,19 +25,21 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: nathanpawelek-com-tls
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: nuc
       automountServiceAccountToken: false
-      affinity:
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              topologyKey: affinity
-              labelSelector:
-                matchExpressions:
-                - key: feature.node.kubernetes.io/custom-intel-gpu
-                  operator: In
-                  values:
-                  - "true"
-            weight: 100
+      # affinity:
+      #   podAffinity:
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - podAffinityTerm:
+      #         topologyKey: affinity
+      #         labelSelector:
+      #           matchExpressions:
+      #           - key: feature.node.kubernetes.io/custom-intel-gpu
+      #             operator: In
+      #             values:
+      #             - "true"
+      #       weight: 100
       initContainers:
       - name: generate-cert
         image: python:3.9-alpine
