@@ -65,7 +65,7 @@ spec:
           mountPath: /tls
       containers:
       - name: plex
-        image: plexinc/pms-docker:1.23.5.4841-549599676
+        image: plexinc/pms-docker:1.23.5.4862-0f739d462
         ports:
         - containerPort: 32400
           protocol: TCP
