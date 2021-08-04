@@ -8,3 +8,5 @@ data:
   config: |-
     Host github.com
       StrictHostKeyChecking no
+    Host udmp.nathanpawelek.com
+      StrictHostKeyChecking no
