@@ -9,6 +9,7 @@ data:
     {
       "listening_port": 55555,
       "storage_path": "/config",
+      "use_upnp": false,
       "directory_root_policy": "belowroot",
       "directory_root": "/sync/",
       "files_default_path": "/downloads",
