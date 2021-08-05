@@ -34,7 +34,7 @@ spec:
           value: "1024"
         - name: PGID
           value: "100"
-        - name: UMASK_SET
+        - name: UMASK
           value: "022"
         ports:
         - containerPort: 8888
