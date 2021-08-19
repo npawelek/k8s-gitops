@@ -22,20 +22,24 @@ spec:
       repository: raspbernetes/node-feature-discovery
       tag: v0.8.1
       pullPolicy: IfNotPresent
-    sources:
-    # - cpu
-    - custom
-    # - iommu
-    # - kernel
-    # - local
-    # - memory
-    # - network
-    # - pci
-    # - storage
-    # - system
-    # - usb
     config: |
+      core:
+        sleepInterval: 60s
+        sources:
+        - custom
       sources:
+        usb:
+          deviceClassWhitelist:
+          - "02"
+          - "03"
+          - "0e"
+          - "ef"
+          - "fe"
+          - "ff"
+          deviceLabelFields:
+          - "class"
+          - "vendor"
+          - "device"
         custom:
         - name: "intel-gpu"
           matchOn:
@@ -47,15 +51,13 @@ spec:
           - pciId:
               class: ["0300"]
               vendor: ["1002"]
+        - name: "ups-tripplite"
+          matchOn:
+          - usbId:
+              class: ["03"]
+              vendor: ["09ae"]
+              device: ["3015"]
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "node-feature-discovery"
     master:
-      replicaCount: 1
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Equal
-        value: ""
-        effect: NoSchedule
-    worker:
-      tolerations:
-      - key: kubernetes.io/arch
-        operator: Equal
-        value: amd64
+      replicaCount: 2
