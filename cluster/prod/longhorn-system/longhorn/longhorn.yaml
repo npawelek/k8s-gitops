@@ -20,7 +20,7 @@ spec:
   values:
     persistence:
       defaultClass: true
-      defaultClassReplicaCount: 2
+      defaultClassReplicaCount: 3
       reclaimPolicy: Retain
     defaultSettings:
       backupstorePollInterval: 300
@@ -28,7 +28,7 @@ spec:
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
       defaultDataPath: /var/lib/longhorn
-      defaultReplicaCount: 2
+      defaultReplicaCount: 3
       replicaSoftAntiAffinity: false
       storageMinimalAvailablePercentage: 10
     ingress:
