@@ -10,7 +10,7 @@ https://toolkit.fluxcd.io/guides/installation/#bootstrap-upgrade
 [k8s-gitops]$ flux bootstrap github \
   --owner npawelek \
   --repository k8s-gitops \
-  --path "./cluster/prod/" \
+  --path "./cluster/base/" \
   --branch master \
   --personal \
   --arch amd64 \
