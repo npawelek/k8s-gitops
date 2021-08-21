@@ -8,5 +8,5 @@ data:
   config: |-
     Host github.com
       StrictHostKeyChecking no
-    Host udmp.nathanpawelek.com
+    Host udmp.${DOMAIN}
       StrictHostKeyChecking no
