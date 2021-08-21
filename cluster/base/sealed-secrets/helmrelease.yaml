@@ -5,9 +5,6 @@ metadata:
   name: sealed-secrets
   namespace: kube-system
 spec:
-  dependsOn:
-  - name: flux-system-helm-repositories
-    namespace: flux-system
   maxHistory: 3
   interval: 10m0s
   suspend: false
