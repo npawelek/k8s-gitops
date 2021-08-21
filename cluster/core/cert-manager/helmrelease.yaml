@@ -6,7 +6,7 @@ metadata:
   namespace: cert-manager
 spec:
   dependsOn:
-  - name: sealed-secret
+  - name: sealed-secrets
     namespace: kube-system
   maxHistory: 3
   interval: 10m0s
