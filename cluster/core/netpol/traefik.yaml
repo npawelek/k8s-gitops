@@ -136,16 +136,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: readarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: readarr
-    ports:
-    - port: 8787
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: tautulli
       podSelector:
         matchLabels:
@@ -162,16 +152,6 @@ spec:
           app.kubernetes.io/name: nzbhydra2
     ports:
     - port: 5076
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: freshrss
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: freshrss
-    ports:
-    - port: 80
       protocol: TCP
   - to:
     - namespaceSelector:

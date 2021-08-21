@@ -27,13 +27,13 @@ spec:
   - websecure
   routes:
   - kind: Rule
-    match: Host(`in.nathanpawelek.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    match: Host(`in.${DOMAIN}`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
     services:
     - kind: TraefikService
       name: api@internal
     middlewares:
     - name: default-middlewares-chain
-  - match: Host(`in.nathanpawelek.com`) && PathPrefix(`/ping`)
+  - match: Host(`in.${DOMAIN}`) && PathPrefix(`/ping`)
     kind: Rule
     services:
     - name: ping@internal
@@ -54,7 +54,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`auth.nathanpawelek.com`)
+  - match: Host(`auth.${DOMAIN}`)
     kind: Rule
     services:
     - name: traefik-forward-auth

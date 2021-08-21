@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - sealed-secrets
 - cert-manager
+- traefik

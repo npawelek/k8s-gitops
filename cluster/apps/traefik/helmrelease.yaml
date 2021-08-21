@@ -5,6 +5,9 @@ metadata:
   name: traefik
   namespace: traefik
 spec:
+  dependsOn:
+  - name: cert-manager
+    namespace: cert-manager
   maxHistory: 3
   interval: 10m0s
   suspend: false
@@ -13,23 +16,24 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.traefik.io/traefik
       chart: traefik
-      version: 9.12.3
+      version: 10.3.1
       sourceRef:
         kind: HelmRepository
         name: traefik-charts
         namespace: flux-system
   values:
     image:
-      repository: traefik
-      tag: 2.3.7
-      pullPolicy: IfNotPresent
+      name: ghcr.io/k8s-at-home/traefik
+    deployment:
+      kind: Deployment
+      replicas: 1
     env:
     - name: TZ
       value: America/Chicago
-    installCRDs: true
     ingressClass:
       enabled: true
-      isDefaultClass: "true"
+      isDefaultClass: true
+      fallbackApiVersion: v1
     ingressRoute:
       dashboard:
         enabled: false
@@ -57,7 +61,7 @@ spec:
       enabled: true
       type: LoadBalancer
       spec:
-        loadBalancerIP: 192.168.0.15
+        loadBalancerIP: "${TRAEFIK_LB}"
         externalTrafficPolicy: Local
     dnsPolicy: ClusterFirst
     logs:
@@ -67,3 +71,13 @@ spec:
         enabled: true
     pilot:
       enabled: false
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - traefik
+          topologyKey: kubernetes.io/hostname

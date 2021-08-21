@@ -5,6 +5,8 @@ metadata:
   name: traefik-forward-auth
   namespace: traefik
 spec:
+  dependsOn:
+  - name: traefik
   maxHistory: 3
   interval: 10m0s
   suspend: false
@@ -13,7 +15,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: traefik-forward-auth
-      version: 1.0.5
+      version: 1.0.10
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -93,3 +95,13 @@ spec:
       port: 4181
     ingress:
       enabled: false
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - traefik
+          topologyKey: kubernetes.io/hostname
