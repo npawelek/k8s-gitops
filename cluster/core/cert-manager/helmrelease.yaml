@@ -5,6 +5,9 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
+  dependsOn:
+  - name: sealed-secret
+    namespace: kube-system
   maxHistory: 3
   interval: 10m0s
   suspend: false
@@ -13,18 +16,18 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.jetstack.io
       chart: cert-manager
-      version: v1.1.0
+      version: v1.5.2
       sourceRef:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
   values:
-    installCRDs: true
-    # webhook:
-    #   enabled: true
+    installCRDs: false
+    webhook:
+      enabled: true
     extraArgs:
     - --dns01-recursive-nameservers-only
-    - --dns01-recursive-nameservers=1.1.1.1:53
+    - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
     # This option will delete tls secrets upon deletion of certificate object
     # - --enable-certificate-owner-ref
     volumeMounts:
