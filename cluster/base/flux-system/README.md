@@ -13,7 +13,6 @@ https://toolkit.fluxcd.io/guides/installation/#bootstrap-upgrade
   --path "./cluster/base/" \
   --branch master \
   --personal \
-  --arch amd64 \
   --network-policy \
   --namespace flux-system
 
