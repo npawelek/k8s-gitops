@@ -5,6 +5,10 @@
 https://toolkit.fluxcd.io/guides/installation/#bootstrap-upgrade
 
 ```
+[k8s-gitops]$ ansible-vault decrypt cluster/core/sealed-secrets/sealed-secrets-key.yaml
+[k8s-gitops]$ k apply -f cluster/core/sealed-secrets/sealed-secrets-key.yaml
+[k8s-gitops]$ ansible-vault encrypt cluster/core/sealed-secrets/sealed-secrets-key.yaml
+
 [k8s-gitops]$  export GITHUB_TOKEN=xxxx
 
 [k8s-gitops]$ flux bootstrap github \
