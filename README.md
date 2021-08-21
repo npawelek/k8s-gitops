@@ -15,16 +15,13 @@ Welcome to my homelab Kubernetes cluster. This repo contains the code I use for 
 
 ## Hardware
 
-This cluster runs on the following hardware. All nodes are running Ubuntu 20.04 on bare-metal, deployed with kubeadm.
+This cluster runs on the following hardware. All nodes are running Ubuntu 21.04 on bare-metal, deployed with kubeadm.
 
 | Device              | Architecture | OS Disk Size | Data Disk Size | Ram  | Role       |
 |---------------------|--------------|--------------|----------------|------|------------|
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Master |
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Master |
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Master |
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Worker |
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Worker |
-| Raspberry Pi 4B     | arm64        | 64GB sdcard  | N/A            | 4GB  | k8s Worker |
+| Raspberry Pi 4B     | arm64        | 16GB eMMC    | N/A            | 4GB  | k8s Master |
+| Raspberry Pi 4B     | arm64        | 16GB eMMC    | N/A            | 4GB  | k8s Master |
+| Raspberry Pi 4B     | arm64        | 16GB eMMC    | N/A            | 4GB  | k8s Master |
 | Intel NUC6i5SYH     | amd64        | 120GB SSD    | 512GB NVMe     | 16GB | k8s Worker |
 | ASRockInd BOX-4800U | amd64        | 250GB SSD    | 1TB NVMe       | 32GB | k8s Worker |
 | Intel NUC11TNHi5    | amd64        | 250GB SSD    | 1TB NVMe       | 32GB | k8s Worker |
