@@ -24,8 +24,7 @@ spec:
       - name: default
         protocol: layer2
         addresses:
-        - 192.168.0.10-192.168.0.16
-        - 192.168.0.51-192.168.0.60
+        - "${METALLB_ADDR_RANGE}"
     controller:
       image:
         registry: docker.io

@@ -5,3 +5,4 @@ resources:
 - ./cert-manager.yaml
 - ./traefik.yaml
 - ./plex.yaml
+- ./metallb.yaml
