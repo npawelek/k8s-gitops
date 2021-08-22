@@ -6,3 +6,4 @@ resources:
 - ./traefik.yaml
 - ./plex.yaml
 - ./metallb.yaml
+- ./intel-gpu.yaml

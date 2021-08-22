@@ -10,3 +10,4 @@ resources:
 - netpol
 - node-feature-discovery
 - reloader
+- intel-gpu
