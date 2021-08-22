@@ -11,3 +11,4 @@ resources:
 - node-feature-discovery
 - reloader
 - intel-gpu
+- longhorn-system

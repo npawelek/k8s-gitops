@@ -7,3 +7,4 @@ resources:
 - ./plex.yaml
 - ./metallb.yaml
 - ./intel-gpu.yaml
+- ./longhorn-system.yaml

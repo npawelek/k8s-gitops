@@ -11,7 +11,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.longhorn.io
       chart: longhorn
-      version: 1.1.0
+      version: 1.1.2
       sourceRef:
         kind: HelmRepository
         name: longhorn-charts
@@ -24,9 +24,11 @@ spec:
       reclaimPolicy: Retain
     defaultSettings:
       backupstorePollInterval: 300
-      backupTarget: nfs://192.168.0.150:/volume1/LonghornBackupstore
+      backupTarget: nfs://192.168.0.151:/volume1/LonghornBackupstore
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
+      nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
       defaultDataPath: /var/lib/longhorn
       defaultReplicaCount: 3
       replicaSoftAntiAffinity: false
