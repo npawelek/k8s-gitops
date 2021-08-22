@@ -13,3 +13,5 @@ resources:
 - ./homer.yaml
 - ./galera-default.yaml
 - ./galera.yaml
+- ./plex-default.yaml
+- ./plex.yaml
