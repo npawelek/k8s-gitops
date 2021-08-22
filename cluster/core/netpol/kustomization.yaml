@@ -5,3 +5,5 @@ resources:
 - ./traefik-default.yaml
 - ./traefik.yaml
 - ./traefik-forward-auth.yaml
+- ./adguard-default.yaml
+- ./adguard.yaml

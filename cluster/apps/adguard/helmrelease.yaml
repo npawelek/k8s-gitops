@@ -5,6 +5,9 @@ metadata:
   name: adguard-home
   namespace: adguard
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
   maxHistory: 3
   interval: 10m0s
   suspend: false
@@ -193,7 +196,6 @@ spec:
         - '||ads-serve.brave.com^'
         - '||graph.facebook.com^'
         - '||adzooma.com^'
-        - '^b39892^'
         - '@@||v.w-x.co^'
         - '@@||fls-na.amazon.com^'
         - '@@||kinesis.us-east-1.amazonaws.com^'

@@ -8,3 +8,4 @@ resources:
 - ./metallb.yaml
 - ./intel-gpu.yaml
 - ./longhorn-system.yaml
+- ./adguard.yaml
