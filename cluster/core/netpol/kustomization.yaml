@@ -21,3 +21,5 @@ resources:
 - ./nzbget.yaml
 - ./hydra-default.yaml
 - ./hydra.yaml
+- ./sonarr.default.yaml
+- ./sonarr.yaml

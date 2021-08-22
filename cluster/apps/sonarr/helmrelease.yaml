@@ -5,6 +5,15 @@ metadata:
   name: sonarr
   namespace: sonarr
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: nzbget
+    namespace: nzbget
+  - name: hydra
+    namespace: hydra
   maxHistory: 3
   interval: 10m0s
   suspend: false
