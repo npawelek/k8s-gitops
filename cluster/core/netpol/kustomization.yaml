@@ -15,3 +15,5 @@ resources:
 - ./galera.yaml
 - ./plex-default.yaml
 - ./plex.yaml
+- ./tautulli-default.yaml
+- ./tautulli.yaml

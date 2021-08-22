@@ -5,6 +5,11 @@ metadata:
   name: tautulli
   namespace: tautulli
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
   maxHistory: 3
   interval: 10m0s
   suspend: false

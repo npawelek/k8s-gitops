@@ -12,3 +12,4 @@ resources:
 - ./chia.yaml
 - ./homer.yaml
 - ./galera.yaml
+- ./tautulli.yaml
