@@ -10,3 +10,4 @@ resources:
 - ./longhorn-system.yaml
 - ./adguard.yaml
 - ./chia.yaml
+- ./homer.yaml

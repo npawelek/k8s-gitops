@@ -236,7 +236,7 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: dash
+          ns: homer
       podSelector:
         matchLabels:
           app.kubernetes.io/name: homer
