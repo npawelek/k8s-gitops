@@ -11,3 +11,5 @@ resources:
 - ./chia.yaml
 - ./homer-default.yaml
 - ./homer.yaml
+- ./galera-default.yaml
+- ./galera.yaml

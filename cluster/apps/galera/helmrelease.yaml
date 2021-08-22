@@ -5,6 +5,9 @@ metadata:
   name: mariadb-galera
   namespace: galera
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
   maxHistory: 3
   interval: 10m0s
   suspend: false

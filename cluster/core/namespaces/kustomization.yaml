@@ -11,3 +11,4 @@ resources:
 - ./adguard.yaml
 - ./chia.yaml
 - ./homer.yaml
+- ./galera.yaml
