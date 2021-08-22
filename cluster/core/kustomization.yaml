@@ -8,3 +8,4 @@ resources:
 - cert-manager
 - metallb
 - netpol
+- node-feature-discovery
