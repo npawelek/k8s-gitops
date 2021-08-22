@@ -103,5 +103,5 @@ spec:
             - key: app.kubernetes.io/name
               operator: In
               values:
-              - traefik
+              - traefik-forward-auth
           topologyKey: kubernetes.io/hostname
