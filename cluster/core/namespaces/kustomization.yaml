@@ -13,3 +13,4 @@ resources:
 - ./homer.yaml
 - ./galera.yaml
 - ./tautulli.yaml
+- ./hydra.yaml

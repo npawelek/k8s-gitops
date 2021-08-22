@@ -5,6 +5,13 @@ metadata:
   name: hydra
   namespace: hydra
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: nzbget
+    namespace: nzbget
   maxHistory: 3
   interval: 10m0s
   suspend: false

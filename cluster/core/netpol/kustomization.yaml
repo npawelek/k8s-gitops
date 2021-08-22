@@ -17,3 +17,5 @@ resources:
 - ./plex.yaml
 - ./tautulli-default.yaml
 - ./tautulli.yaml
+- ./hydra-default.yaml
+- ./hydra.yaml
