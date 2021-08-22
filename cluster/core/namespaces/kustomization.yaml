@@ -17,3 +17,4 @@ resources:
 - ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
+- ./resilio.yaml

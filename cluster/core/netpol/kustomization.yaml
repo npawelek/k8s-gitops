@@ -25,3 +25,5 @@ resources:
 - ./sonarr.yaml
 - ./radarr-default.yaml
 - ./radarr.yaml
+- ./resilio-default.yaml
+- ./resilio.yaml
