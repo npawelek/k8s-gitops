@@ -16,3 +16,4 @@ resources:
 - ./nzbget.yaml
 - ./hydra.yaml
 - ./sonarr.yaml
+- ./radarr.yaml
