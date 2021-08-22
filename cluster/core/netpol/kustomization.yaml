@@ -7,3 +7,5 @@ resources:
 - ./traefik-forward-auth.yaml
 - ./adguard-default.yaml
 - ./adguard.yaml
+- ./chia-default.yaml
+- ./chia.yaml

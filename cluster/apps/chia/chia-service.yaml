@@ -14,5 +14,5 @@ spec:
     port: 8444
     targetPort: 8444
   type: LoadBalancer
-  loadBalancerIP: 192.168.0.16
+  loadBalancerIP: ${CHIA_LB}
   externalTrafficPolicy: Local

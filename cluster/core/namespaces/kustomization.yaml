@@ -9,3 +9,4 @@ resources:
 - ./intel-gpu.yaml
 - ./longhorn-system.yaml
 - ./adguard.yaml
+- ./chia.yaml
