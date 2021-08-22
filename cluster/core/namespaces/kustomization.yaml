@@ -13,4 +13,5 @@ resources:
 - ./homer.yaml
 - ./galera.yaml
 - ./tautulli.yaml
+- ./nzbget.yaml
 - ./hydra.yaml

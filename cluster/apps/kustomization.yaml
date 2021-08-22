@@ -10,4 +10,5 @@ resources:
 - galera
 - plex
 - tautulli
+- nzbget
 - hydra
