@@ -5,6 +5,11 @@ metadata:
   name: vernemq
   namespace: home-automation
 spec:
+  dependsOn:
+  - name: metallb
+    namespace: metallb-system
+  - name: longhorn
+    namespace: longhorn-system
   interval: 5m
   chart:
     spec:
@@ -23,7 +28,7 @@ spec:
     replicaCount: 3
     service:
       type: LoadBalancer
-      loadBalancerIP: 192.168.0.14
+      loadBalancerIP: ${VERNEMQ_LB}
       externalTrafficPolicy: Local
       mqtt:
         enabled: true

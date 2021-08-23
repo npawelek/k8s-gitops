@@ -5,6 +5,15 @@ metadata:
   name: home-assistant
   namespace: home-automation
 spec:
+  dependsOn:
+  - name: metallb
+    namespace: metallb-system
+  - name: longhorn
+    namespace: longhorn-system
+  - name: mariadb-galera
+    namespace: galera
+  - name: vernemq
+    namespace: home-automation
   interval: 5m
   chart:
     spec:
@@ -27,7 +36,7 @@ spec:
         name: home-assistant-env-secrets
     service:
       type: LoadBalancer
-      loadBalancerIP: 192.168.0.13
+      loadBalancerIP: ${HOME_ASSISTANT_LB}
       externalTrafficPolicy: Local
       port:
         port: 8123

@@ -18,3 +18,4 @@ resources:
 - ./sonarr.yaml
 - ./radarr.yaml
 - ./resilio.yaml
+- ./home-automation.yaml
