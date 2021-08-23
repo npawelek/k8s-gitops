@@ -19,3 +19,4 @@ resources:
 - ./vernemq.yaml
 - ./home-assistant.yaml
 - ./esphome.yaml
+- ./node-red.yaml
