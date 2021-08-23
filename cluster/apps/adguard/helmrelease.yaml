@@ -6,6 +6,8 @@ metadata:
   namespace: adguard
 spec:
   dependsOn:
+  - name: metallb
+    namespace: metallb-system
   - name: longhorn
     namespace: longhorn-system
   maxHistory: 3
@@ -52,14 +54,14 @@ spec:
       enabled: true
       externalTrafficPolicy: Local
       type: LoadBalancer
-      loadBalancerIP: "192.168.0.10"
+      loadBalancerIP: ${ADGUARD_LB}
       annotations:
         metallb.universe.tf/allow-shared-ip: adguard-home-dns
     serviceUDP:
       enabled: true
       externalTrafficPolicy: Local
       type: LoadBalancer
-      loadBalancerIP: "192.168.0.10"
+      loadBalancerIP: ${ADGUARD_LB}
       annotations:
         metallb.universe.tf/allow-shared-ip: adguard-home-dns
     serviceDNSOverTLS:
