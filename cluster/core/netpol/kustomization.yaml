@@ -18,3 +18,4 @@ resources:
 - ./home-automation.yaml
 - ./vernemq.yaml
 - ./home-assistant.yaml
+- ./esphome.yaml

@@ -20,6 +20,7 @@ spec:
     /cluster/prod
     # exclude file extensions from deploy
     /cluster/**/*.md
+    /cluster/**/*.jpeg
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization

@@ -5,6 +5,11 @@ metadata:
   name: esphome
   namespace: home-automation
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: home-assistant
+    namespace: home-automation
   interval: 5m
   chart:
     spec:
