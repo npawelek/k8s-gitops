@@ -1,13 +1,18 @@
 {
-  "enabled": true,
+  "extends": [
+    ":enableRenovate",
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separatePatchReleases",
+    "docker:enableMajor",
+    "github>npawelek/k8s-gitops//.github/renovate/commitMessage",
+    "github>npawelek/k8s-gitops//.github/renovate/labels",
+    "github>npawelek/k8s-gitops//.github/renovate/semanticCommits"
+  ],
   "timezone": "America/Chicago",
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "commitMessageSuffix": "[ci-skip]",
-  "commitBody": "Signed-off-by: Nathan Pawelek <npawelek@users.noreply.github.com>",
-  // Do not notify on closed unmerged PRs
   "suppressNotifications": ["prIgnoreNotification"],
-  // do not rebase PRs
   "rebaseWhen": "conflicted",
   "assignees": ["@npawelek"],
   // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
@@ -74,37 +79,6 @@
       "commitMessageTopic": "Docker image {{depName}}",
       "commitMessageExtra": "{{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "updateTypes": ["major", "minor", "patch"]
-    },
-    // Add labels according to package and update types
-    {
-      "matchDatasources": ["docker"],
-      "updateTypes": ["major"],
-      "labels": ["renovate/image-release", "dependency/major"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "updateTypes": ["minor"],
-      "labels": ["renovate/image-release", "dependency/minor"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "updateTypes": ["patch"],
-      "labels": ["renovate/image-release", "dependency/patch"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "updateTypes": ["major"],
-      "labels": ["renovate/helm-release", "dependency/major"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "updateTypes": ["minor"],
-      "labels": ["renovate/helm-release", "dependency/minor"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "updateTypes": ["patch"],
-      "labels": ["renovate/helm-release", "dependency/patch"]
     },
     // Version strategies
     {
