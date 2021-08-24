@@ -16,3 +16,4 @@ resources:
 - radarr
 - resilio
 - home-automation
+- rclone

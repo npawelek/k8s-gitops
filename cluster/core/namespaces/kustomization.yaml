@@ -19,3 +19,4 @@ resources:
 - ./radarr.yaml
 - ./resilio.yaml
 - ./home-automation.yaml
+- ./rclone.yaml
