@@ -14,5 +14,5 @@ spec:
     port: 443
     targetPort: 32400
   type: LoadBalancer
-  loadBalancerIP: 192.168.0.11
+  loadBalancerIP: ${PLEX_LB}
   externalTrafficPolicy: Local
