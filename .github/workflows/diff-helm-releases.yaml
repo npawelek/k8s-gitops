@@ -15,12 +15,14 @@ env:
 jobs:
   changes:
     name: Detect changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     outputs:
       files: "${{ steps.extract.outputs.files }}"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Get changes
         uses: dorny/paths-filter@v2
         id: filter
@@ -29,22 +31,26 @@ jobs:
           filters: |
             changed:
               - '**'
+
       - name: Keep HelmReleases only
         id: extract
         run: |
           filtered=$(grep -zl "kind: HelmRelease.*registryUrl=" ${{ steps.filter.outputs.changed_files }} \
             | jq -nR '[inputs | select(length>0)]')
           echo ::set-output name=files::${filtered}
+
   helm:
     name: Template HelmReleases
     runs-on: ubuntu-latest
     if: ${{ needs.changes.outputs.files != '[]' }}
     needs:
       - changes
+
     strategy:
       matrix:
         file: ${{ fromJson(needs.changes.outputs.files) }}
       fail-fast: false
+
     steps:
       - name: Setup Kubernetes Tools
         uses: yokawasa/action-setup-kube-tools@v0.8.0
@@ -52,15 +58,18 @@ jobs:
           setup-tools: |
             helm
             yq
+
       - name: Checkout live branch
         uses: actions/checkout@v2
         with:
           ref: ${{ env.conf_live_branch }}
           path: live
+
       - name: Checkout PR branch
         uses: actions/checkout@v2
         with:
           path: pr
+
       - name: Create diff
         id: diff
         run: |
@@ -115,6 +124,7 @@ jobs:
             message="$message"'```diff'$'\n'"$diff"$'\n''```'
           fi
           echo "::set-output name=message::$(echo "$message" | jq --raw-input --slurp)"
+
       - name: Add PR Comment
         uses: mshick/add-pr-comment@v1
         with:
