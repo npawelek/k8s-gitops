@@ -79,7 +79,7 @@ spec:
     - name: media
       nfs:
         path: /volume1/media/Temp
-        server: 192.168.0.151
+        server: ${RACKNAS_ADDR}
     additionalVolumeMounts:
     - mountPath: /complete/Temp
       name: media

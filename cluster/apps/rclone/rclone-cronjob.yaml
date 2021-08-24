@@ -58,7 +58,7 @@ spec:
           - name: nfs-backup
             nfs:
               path: /volume1/Backup
-              server: 192.168.0.150
+              server: ${DERPNAS_ADDR}
           - name: rclone-config
             secret:
               secretName: rclone-config

@@ -64,11 +64,11 @@ spec:
       - name: plots
         nfs:
           path: /volume1/Complete/chia
-          server: 192.168.0.150
+          server: ${DERPNAS_ADDR}
       - name: plots2
         nfs:
           path: /volume1/chia
-          server: 192.168.0.151
+          server: ${RACKNAS_ADDR}
       - name: priv
         secret:
           secretName: chia-secrets
