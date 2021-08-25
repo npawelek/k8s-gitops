@@ -20,11 +20,8 @@ jobs:
       files: "${{ steps.extract.outputs.files }}"
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Get changes
-        uses: dorny/paths-filter@v2
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
         id: filter
         with:
           list-files: shell
@@ -41,22 +38,20 @@ jobs:
 
   helm:
     name: Template HelmReleases
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: ${{ needs.changes.outputs.files != '[]' }}
     needs:
       - changes
-
     strategy:
       matrix:
         file: ${{ fromJson(needs.changes.outputs.files) }}
       fail-fast: false
-
     steps:
       - name: Setup Kubernetes Tools
         uses: yokawasa/action-setup-kube-tools@v0.8.0
         with:
           setup-tools: |
-            helm
+            helmv3
             yq
 
       - name: Checkout live branch
