@@ -1,4 +1,5 @@
-name: Create diff on updated HelmReleases
+---
+name: Diff on updated HelmReleases
 
 on:
   pull_request:
