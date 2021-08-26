@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - "clusters/**.yaml"
+      - "cluster/**.yaml"
 
 env:
   conf_live_branch: master
