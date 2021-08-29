@@ -21,3 +21,4 @@ resources:
 - ./esphome.yaml
 - ./node-red.yaml
 - ./rclone.yaml
+- ./smt-reader.yaml
