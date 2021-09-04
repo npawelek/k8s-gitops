@@ -18,7 +18,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: tautulli
-      version: 7.2.1
+      version:  11.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -30,54 +30,57 @@ spec:
     env:
       TZ: America/Chicago
     podSecurityContext:
-      runAsUser: 1024
-      runAsGroup: 100
-      fsGroup: 100
-    controllerType: statefulset
-    strategy:
-      type: RollingUpdate
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    controller:
+      type: statefulset
+      replicas: 1
     service:
-      enabled: true
-      type: ClusterIP
-      port:
-        port: 8181
-        protocol: TCP
+      main:
+        enabled: true
+        type: ClusterIP
+        port:
+          port: 8181
+          protocol: TCP
     ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-      hosts:
-      - host: tautulli.nathanpawelek.com
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - secretName: nathanpawelek-com-tls
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: tautulli.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
     persistence:
       config:
         enabled: true
-        mountPath: /config
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 2Gi
-        skipuninstall: true
-    additionalVolumes:
-    - name: plex-scripts
-      emptyDir: {}
-    additionalVolumeMounts:
-    - name: plex-scripts
-      mountPath: /opt/plex-scripts
-      readOnly: true
-    initContainers:
-    - name: jbops
-      image: alpine:latest
-      command:
-      - ash
-      - -c
-      - wget -q https://raw.githubusercontent.com/blacktwin/JBOPS/master/killstream/kill_stream.py
-      workingDir: /opt/plex-scripts
-      volumeMounts:
-      - name: plex-scripts
+        existingClaim: pvc-1e5f716f-96eb-4541-8024-2ea81ea1f344
+      shared:
+        enabled: true
+        type: emptyDir
         mountPath: /opt/plex-scripts
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
+      limits:
+        memory: 750Mi
+    initContainers:
+      jbops:
+        name: jbops
+        image: alpine:latest
+        command:
+        - ash
+        - -c
+        - wget -q https://raw.githubusercontent.com/blacktwin/JBOPS/master/killstream/kill_stream.py
+        workingDir: /opt/plex-scripts
+        volumeMounts:
+        - name: shared
+          mountPath: /opt/plex-scripts
