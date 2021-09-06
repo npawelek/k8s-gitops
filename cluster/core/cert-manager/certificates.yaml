@@ -15,6 +15,12 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        name: nathanpawelek-com-pkcs12
+        key: key
   dnsNames:
   - "*.${DOMAIN}"
 ---
