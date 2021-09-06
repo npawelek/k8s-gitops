@@ -15,7 +15,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: node-red
-      version: 7.4.0
+      version: 9.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -31,24 +31,24 @@ spec:
       NODE_RED_ENABLE_PROJECTS: "true"
       NODE_RED_ENABLE_SAFE_MODE: "false"
     service:
-      type: ClusterIP
-      ports:
-        port: 1880
+      main:
+        enabled: true
     securityContext:
       privileged: false
     ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-      hosts:
-      - host: nodered.nathanpawelek.com
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - secretName: nathanpawelek-com-tls
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: nodered.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
     probes:
       liveness:
         enabled: true
@@ -59,10 +59,7 @@ spec:
     persistence:
       data:
         enabled: true
-        mountPath: /data
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 5Gi
+        existingClaim: node-red-data
     resources:
       limits:
         memory: 1000Mi
@@ -70,12 +67,13 @@ spec:
         cpu: 100m
         memory: 500Mi
     initContainers:
-    - name: chmod
-      image: alpine:latest
-      command:
-      - sh
-      - -c
-      - chown -R 1000:1000 /data
-      volumeMounts:
-      - name: data
-        mountPath: /data
+      chmod:
+        name: chmod
+        image: alpine:latest
+        command:
+        - sh
+        - -c
+        - chown -R 1000:1000 /data
+        volumeMounts:
+        - name: data
+          mountPath: /data
