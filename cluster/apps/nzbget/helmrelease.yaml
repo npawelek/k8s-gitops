@@ -18,7 +18,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: nzbget
-      version: 8.2.1
+      version: 12.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -31,117 +31,100 @@ spec:
       TZ: America/Chicago
       PUID: "1024"
       PGID: "100"
-    controllerType: statefulset
-    strategy:
-      type: RollingUpdate
-    affinity:
-      podAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - podAffinityTerm:
-            topologyKey: affinity
-            labelSelector:
-              matchExpressions:
-              - key: kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-          weight: 100
+    controller:
+      type: statefulset
+      replicas: 1
     service:
-      enabled: true
-      type: ClusterIP
-      port:
-        port: 6789
-        protocol: TCP
+      main:
+        enabled: true
     ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-      hosts:
-      - host: nzbget.nathanpawelek.com
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - secretName: nathanpawelek-com-tls
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: nzbget.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
     persistence:
       config:
         enabled: true
-        mountPath: /config
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        skipuninstall: true
+        existingClaim: nzbget-config
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            path: /volume1/media/Temp
+            server: ${RACKNAS_ADDR}
+        mountPath: /complete/Temp
     podAnnotations:
       secret.reloader.stakater.com/reload: pia-secrets
-    additionalVolumes:
-    - name: media
-      nfs:
-        path: /volume1/media/Temp
-        server: ${RACKNAS_ADDR}
-    additionalVolumeMounts:
-    - mountPath: /complete/Temp
-      name: media
     resources:
       requests:
         memory: 250Mi
       limits:
-        memory: 1536Mi
+        memory: 1500Mi
     additionalContainers:
-    - name: vpn
-      image: qmcgaw/gluetun:v3.15.0
-      securityContext:
-        capabilities:
-          add:
-          - NET_ADMIN
-      env:
-      - name: OPENVPN_USER
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: USERNAME
-      - name: OPENVPN_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: PASSWORD
-      - name: REGION
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: REGION
-      - name: PIA_ENCRYPTION
-        value: strong
-      - name: PROTOCOL
-        value: tcp
-      - name: FIREWALL_OUTBOUND_SUBNETS
-        value: "10.96.0.0/12"
-      - name: DOT
-        value: "off"
-      - name: DNS_KEEP_NAMESERVER
-        value: "off"
-      - name: DNS_PLAINTEXT_ADDRESS
-        value: "10.96.0.10"
-      - name: PORT_FORWARDING
-        value: "off"
-      - name: HTTPPROXY
-        value: "off"
-      - name: SHADOWSOCKS
-        value: "off"
-      - name: TZ
-        value: America/Chicago
-      livenessProbe:
-        exec:
-          command:
-          - "ping"
-          - "-W3"
-          - "-c1"
-          - "-q"
-          - "-s8"
-          - "1.1.1.1"
-        initialDelaySeconds: 20
-        failureThreshold: 3
-        successThreshold: 1
-        periodSeconds: 20
-        timeoutSeconds: 5
+      vpn:
+        name: vpn
+        image: qmcgaw/gluetun:v3.15.0
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        env:
+        - name: OPENVPN_USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: USERNAME
+        - name: OPENVPN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: PASSWORD
+        - name: REGION
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: REGION
+        - name: PIA_ENCRYPTION
+          value: strong
+        - name: PROTOCOL
+          value: tcp
+        - name: FIREWALL_OUTBOUND_SUBNETS
+          value: "10.96.0.0/12"
+        - name: DOT
+          value: "off"
+        - name: DNS_KEEP_NAMESERVER
+          value: "off"
+        - name: DNS_PLAINTEXT_ADDRESS
+          value: "10.96.0.10"
+        - name: PORT_FORWARDING
+          value: "off"
+        - name: HTTPPROXY
+          value: "off"
+        - name: SHADOWSOCKS
+          value: "off"
+        - name: TZ
+          value: America/Chicago
+        livenessProbe:
+          exec:
+            command:
+            - "ping"
+            - "-W3"
+            - "-c1"
+            - "-q"
+            - "-s8"
+            - "1.1.1.1"
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 20
+          timeoutSeconds: 5
