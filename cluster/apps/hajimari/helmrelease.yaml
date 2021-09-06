@@ -29,7 +29,7 @@ spec:
       name: "Nathan"
       customApps:
       - name: traefik
-        url: https://in.${DOMAIN}/dashboard
+        url: https://in.${DOMAIN}/dashboard/#/
         icon: directions-fork
         group: network
       - name: plex
