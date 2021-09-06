@@ -116,10 +116,6 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        # - name: deploykey
-        #   mountPath: /root/.ssh/id_rsa
-        #   subPath: id_rsa
-        #   readOnly: true
         - name: sshconfig
           mountPath: /root/.ssh/config
           subPath: config
