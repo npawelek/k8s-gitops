@@ -85,7 +85,6 @@
       "matchDatasources": ["docker"],
       "automerge": true,
       "matchPackageNames": [
-        "plexinc/pms-docker",
         "linuxserver/nzbget",
         "linuxserver/nzbhydra2",
         "linuxserver/resilio-sync"
@@ -99,6 +98,7 @@
       "requiredStatusChecks": null,
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": [
+        "ghcr.io/k8s-at-home/plex",
         "ghcr.io/k8s-at-home/radarr",
         "ghcr.io/k8s-at-home/sonarr"
       ]
