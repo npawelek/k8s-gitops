@@ -61,7 +61,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: pvc-1e5f716f-96eb-4541-8024-2ea81ea1f344
+        existingClaim: tautulli-config
       shared:
         enabled: true
         type: emptyDir
