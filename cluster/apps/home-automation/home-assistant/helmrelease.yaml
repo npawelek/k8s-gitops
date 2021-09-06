@@ -19,7 +19,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: home-assistant
-      version: 6.3.1
+      version: 10.1.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -35,26 +35,27 @@ spec:
     - secretRef:
         name: home-assistant-env-secrets
     service:
-      type: LoadBalancer
-      loadBalancerIP: ${HOME_ASSISTANT_LB}
-      externalTrafficPolicy: Local
-      port:
-        port: 8123
+      main:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${HOME_ASSISTANT_LB}
+        externalTrafficPolicy: Local
     securityContext:
       privileged: false
     ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-headers@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-      hosts:
-      - host: hass.nathanpawelek.com
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - secretName: nathanpawelek-com-tls
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-headers@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: hass.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
     prometheus:
       serviceMonitor:
         enabled: false
@@ -69,6 +70,12 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
+      sshconfig:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: ssh-config
     podAnnotations:
       secret.reloader.stakater.com/reload: home-assistant-env-secrets
       configmap.reloader.stakater.com/reload: ssh-config
@@ -94,7 +101,7 @@ spec:
             traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
             traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hosts:
-          - host: hass-code.nathanpawelek.com
+          - host: hass-code.${DOMAIN}
             paths:
             - path: /
               pathType: Prefix
@@ -109,18 +116,14 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        - name: deploykey
-          mountPath: /root/.ssh/id_rsa
-          subPath: id_rsa
-          readOnly: true
-        - name: ssh-config
+        # - name: deploykey
+        #   mountPath: /root/.ssh/id_rsa
+        #   subPath: id_rsa
+        #   readOnly: true
+        - name: sshconfig
           mountPath: /root/.ssh/config
           subPath: config
           readOnly: true
-    additionalVolumes:
-    - name: ssh-config
-      configMap:
-        name: ssh-config
     resources:
       limits:
         memory: 2500Mi
