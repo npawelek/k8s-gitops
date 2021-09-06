@@ -10,7 +10,6 @@ resources:
 - ./longhorn-system.yaml
 - ./adguard.yaml
 - ./chia.yaml
-- ./homer.yaml
 - ./hajimari.yaml
 - ./galera.yaml
 - ./tautulli.yaml

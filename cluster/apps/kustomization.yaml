@@ -6,7 +6,6 @@ resources:
 - traefik-forward-auth
 - adguard
 - chia
-- homer
 - hajimari
 - galera
 - plex

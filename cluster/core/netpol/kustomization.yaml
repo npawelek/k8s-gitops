@@ -6,7 +6,6 @@ resources:
 - ./traefik-forward-auth.yaml
 - ./adguard.yaml
 - ./chia.yaml
-- ./homer.yaml
 - ./hajimari.yaml
 - ./galera.yaml
 - ./plex.yaml
