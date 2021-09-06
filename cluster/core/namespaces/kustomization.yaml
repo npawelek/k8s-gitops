@@ -11,6 +11,7 @@ resources:
 - ./adguard.yaml
 - ./chia.yaml
 - ./homer.yaml
+- ./hajimari.yaml
 - ./galera.yaml
 - ./tautulli.yaml
 - ./nzbget.yaml

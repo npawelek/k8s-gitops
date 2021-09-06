@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hajimari
+  namespace: hajimari
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://hajimari.io
+      chart: hajimari
+      version: 1.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: hajimari-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/toboshii/hajimari
+      tag: v0.1.0
+    env:
+      TZ: America/Chicago
+    hajimari:
+      defaultEnable: false
+      namespaceSelector:
+        any: true
+      name: "Nathan"
+      customApps:
+      - name: traefik
+        url: https://in.${DOMAIN}/dashboard
+        icon: directions-fork
+        group: network
+      - name: plex
+        url: https://plex.${DOMAIN}
+        icon: plex
+        group: media
+      groups:
+      - name: code
+        links:
+        - name: GitOps
+          url: https://github.com/npawelek/k8s-gitops
+        - name: Home Assistant Config
+          url: https://github.com/npawelek/hass-config
+        - name: Renovate
+          url: https://app.renovatebot.com/dashboard#github/npawelek/k8s-gitops
+      - name: network
+        links:
+        - name: UniFi Network
+          url: https://udmp.${DOMAIN}/network/default/dashboard
+        - name: UniFi Protect
+          url: https://udmp.${DOMAIN}/protect/dashboard
+      - name: storage
+        links:
+        - name: Synology DS1512+
+          url: https://derpnas.${DOMAIN}:8079
+        - name: Synology RS1221+
+          url: https://racknas.${DOMAIN}:8079
+      - name: entertainment
+        links:
+        - name: Trakt (Discover)
+          url: https://trakt.tv/discover
+        - name: Hacker News
+          url: https://news.ycombinator.com
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: hajimari.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - hajimari.${DOMAIN}
+        - secretName: nathanpawelek-com-tls
+    persistence:
+      data:
+        enabled: true
+        existingClaim: hajimari-config
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: hajimari-settings
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M

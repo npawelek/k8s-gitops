@@ -44,12 +44,17 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: download-circle
+          hajimari.io/group: downloads
         hosts:
         - host: nzbget.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
+        - hosts:
+          - nzbget.${DOMAIN}
         - secretName: nathanpawelek-com-tls
     persistence:
       config:

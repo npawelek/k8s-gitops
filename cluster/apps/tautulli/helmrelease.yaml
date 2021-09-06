@@ -51,12 +51,17 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: graph-outline
+          hajimari.io/group: media
         hosts:
         - host: tautulli.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
+        - hosts:
+          - tautulli.${DOMAIN}
         - secretName: nathanpawelek-com-tls
     persistence:
       config:

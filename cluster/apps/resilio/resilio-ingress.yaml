@@ -8,13 +8,17 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+    hajimari.io/enable: "true"
+    hajimari.io/icon: sync-circle
+    hajimari.io/group: network
+    hajimari.io/appName: resilio
   labels:
     app.kubernetes.io/instance: resilio-sync
     app.kubernetes.io/name: resilio-sync
 spec:
   ingressClassName: traefik
   rules:
-  - host: resilio.nathanpawelek.com
+  - host: resilio.${DOMAIN}
     http:
       paths:
       - backend:
@@ -25,4 +29,6 @@ spec:
         path: /
         pathType: ImplementationSpecific
   tls:
+  - hosts:
+    - resilio.${DOMAIN}
   - secretName: nathanpawelek-com-tls

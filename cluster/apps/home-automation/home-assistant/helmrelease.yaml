@@ -49,12 +49,18 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-headers@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: home-automation
+          hajimari.io/group: "home automation"
+          hajimari.io/appName: "home assistant"
         hosts:
         - host: hass.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
+        - hosts:
+          - hass.${DOMAIN}
         - secretName: nathanpawelek-com-tls
     prometheus:
       serviceMonitor:
@@ -100,12 +106,18 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
             traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
             traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+            hajimari.io/enable: "true"
+            hajimari.io/icon: microsoft-visual-studio-code
+            hajimari.io/group: "home automation"
+            hajimari.io/appName: "home assistant code"
           hosts:
           - host: hass-code.${DOMAIN}
             paths:
             - path: /
               pathType: Prefix
           tls:
+          - hosts:
+            - hass-code.${DOMAIN}
           - secretName: nathanpawelek-com-tls
         service:
           enabled: true

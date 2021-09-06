@@ -189,26 +189,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: monitoring
-      podSelector:
-        matchLabels:
-          app: grafana
-    ports:
-    - port: 3000
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: monitoring
-      podSelector:
-        matchLabels:
-          app: prometheus
-    ports:
-    - port: 9090
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: home-automation
       podSelector:
         matchLabels:
@@ -255,6 +235,16 @@ spec:
     - port: 8080
       protocol: TCP
     - port: 12321
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: hajimari
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: hajimari
+    ports:
+    - port: 3000
       protocol: TCP
   - to:
     - ipBlock:
