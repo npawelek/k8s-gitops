@@ -20,7 +20,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: nzbhydra2
-      version: 6.2.1
+      version: 10.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -34,110 +34,111 @@ spec:
       PUID: "1024"
       PGID: "100"
       UMASK_SET: "022"
-    controllerType: statefulset
-    strategy:
-      rollingUpdate:
-        partition: 0
-      type: RollingUpdate
+    controller:
+      type: statefulset
+      replicas: 1
     service:
-      enabled: true
-      type: ClusterIP
-      port:
-        port: 5076
-        protocol: TCP
-      additionalPorts:
-      - name: tinyproxy
-        port: 8888
-        protocol: TCP
+      main:
+        enabled: true
+      proxy:
+        enabled: true
+        primary: false
+        type: ClusterIP
+        ports:
+          tinyproxy:
+            enabled: true
+            port: 8888
+            protocol: TCP
     ingress:
-      enabled: true
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-      hosts:
-      - host: hydra.nathanpawelek.com
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - secretName: nathanpawelek-com-tls
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: hydra.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - secretName: nathanpawelek-com-tls
     persistence:
       config:
         enabled: true
-        mountPath: /config
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        skipuninstall: true
+        existingClaim: nzbhydra2-config
     podAnnotations:
       secret.reloader.stakater.com/reload: pia-secrets
     resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
       limits:
-        memory: 512Mi
+        memory: 1500Mi
     additionalContainers:
-    - name: vpn
-      image: qmcgaw/gluetun:v3.15.0
-      securityContext:
-        capabilities:
-          add:
-          - NET_ADMIN
-      env:
-      - name: OPENVPN_USER
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: USERNAME
-      - name: OPENVPN_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: PASSWORD
-      - name: REGION
-        valueFrom:
-          secretKeyRef:
-            name: pia-secrets
-            key: REGION
-      - name: PIA_ENCRYPTION
-        value: strong
-      - name: PROTOCOL
-        value: tcp
-      - name: FIREWALL_OUTBOUND_SUBNETS
-        value: "10.96.0.0/12"
-      - name: DOT
-        value: "off"
-      - name: DNS_KEEP_NAMESERVER
-        value: "off"
-      - name: DNS_PLAINTEXT_ADDRESS
-        value: "10.96.0.10"
-      - name: PORT_FORWARDING
-        value: "off"
-      - name: HTTPPROXY
-        value: "on"
-      - name: HTTPPROXY_PORT
-        value: "8888"
-      - name: HTTPPROXY_STEALTH
-        value: "on"
-      - name: HTTPPROXY_LOG
-        value: "on"
-      - name: SHADOWSOCKS
-        value: "off"
-      - name: TZ
-        value: America/Chicago
-      ports:
-      - containerPort: 8888
-        protocol: TCP
-      livenessProbe:
-        exec:
-          command:
-          - "ping"
-          - "-W3"
-          - "-c1"
-          - "-q"
-          - "-s8"
-          - "1.1.1.1"
-        initialDelaySeconds: 20
-        failureThreshold: 3
-        successThreshold: 1
-        periodSeconds: 20
-        timeoutSeconds: 5
+      vpn:
+        name: vpn
+        image: qmcgaw/gluetun:v3.15.0
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        env:
+        - name: OPENVPN_USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: USERNAME
+        - name: OPENVPN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: PASSWORD
+        - name: REGION
+          valueFrom:
+            secretKeyRef:
+              name: pia-secrets
+              key: REGION
+        - name: PIA_ENCRYPTION
+          value: strong
+        - name: PROTOCOL
+          value: tcp
+        - name: FIREWALL_OUTBOUND_SUBNETS
+          value: "10.96.0.0/12"
+        - name: DOT
+          value: "off"
+        - name: DNS_KEEP_NAMESERVER
+          value: "off"
+        - name: DNS_PLAINTEXT_ADDRESS
+          value: "10.96.0.10"
+        - name: PORT_FORWARDING
+          value: "off"
+        - name: HTTPPROXY
+          value: "on"
+        - name: HTTPPROXY_PORT
+          value: "8888"
+        - name: HTTPPROXY_STEALTH
+          value: "on"
+        - name: HTTPPROXY_LOG
+          value: "on"
+        - name: SHADOWSOCKS
+          value: "off"
+        - name: TZ
+          value: America/Chicago
+        ports:
+        - containerPort: 8888
+          protocol: TCP
+        livenessProbe:
+          exec:
+            command:
+            - "ping"
+            - "-W3"
+            - "-c1"
+            - "-q"
+            - "-s8"
+            - "1.1.1.1"
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 20
+          timeoutSeconds: 5
