@@ -45,6 +45,8 @@ spec:
           url: https://github.com/npawelek/hass-config
         - name: Renovate
           url: https://app.renovatebot.com/dashboard#github/npawelek/k8s-gitops
+        - name: k8s@home Docs
+          url: https://docs.k8s-at-home.com
       - name: network
         links:
         - name: UniFi Network
