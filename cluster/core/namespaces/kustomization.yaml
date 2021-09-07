@@ -16,6 +16,7 @@ resources:
 - ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
+- ./overseerr.yaml
 - ./resilio.yaml
 - ./home-automation.yaml
 - ./rclone.yaml

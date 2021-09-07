@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
-  namespace: radarr
+  namespace: overseerr
 spec:
   podSelector: {}
   policyTypes:
@@ -13,12 +13,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-radarr-ingress
-  namespace: radarr
+  name: allow-overseerr-ingress
+  namespace: overseerr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: radarr
+      app.kubernetes.io/name: overseerr
   policyTypes:
   - Ingress
   ingress:
@@ -31,29 +31,19 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: overseerr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: overseerr
-    ports:
-    - protocol: TCP
-      port: 7878
+      port: 5055
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-radarr-egress
-  namespace: radarr
+  name: allow-overseerr-egress
+  namespace: overseerr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: radarr
+      app.kubernetes.io/name: overseerr
   egress:
   - to:
     - namespaceSelector:
@@ -90,24 +80,22 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: nzbget
+          ns: sonarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: nzbget
+          app.kubernetes.io/name: sonarr
     ports:
-    - port: 6789
+    - port: 8989
       protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: hydra
+          ns: radarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: nzbhydra2
+          app.kubernetes.io/name: radarr
     ports:
-    - port: 8888
-      protocol: TCP
-    - port: 5076
+    - port: 7878
       protocol: TCP
   - to:
     - namespaceSelector:
