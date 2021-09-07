@@ -10,5 +10,5 @@ resources:
 - netpol
 - node-feature-discovery
 - reloader
-- intel-gpu
+- intel-gpu-plugin
 - longhorn-system
