@@ -61,3 +61,14 @@ spec:
     middlewares:
     - name: traefik-sso
     - name: default-headers
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: external-middlewares-chain
+  namespace: traefik
+spec:
+  chain:
+    middlewares:
+    - name: default-compress
+    - name: default-headers
