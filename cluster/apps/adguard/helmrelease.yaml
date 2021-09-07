@@ -32,10 +32,7 @@ spec:
         enabled: false
       work:
         enabled: true
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        skipuninstall: true
+        existingClaim: adguard-home-work
     timezone: America/Chicago
     replicas: 1
     ingress:
