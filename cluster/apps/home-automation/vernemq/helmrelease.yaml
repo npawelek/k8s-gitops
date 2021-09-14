@@ -34,8 +34,13 @@ spec:
         enabled: true
       mqtts:
         enabled: true
-      # ws:
-      #   enabled: true
+    ingress:
+      enabled: false
+    securityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+      fsGroupChangePolicy: OnRootMismatch
     persistentVolume:
       enabled: true
       size: 5Gi
