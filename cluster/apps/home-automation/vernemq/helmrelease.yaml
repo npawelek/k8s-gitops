@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: vernemq/vernemq
-      tag: 1.12.3-alpine
+      tag: 1.12.1-alpine
     replicaCount: 3
     service:
       type: LoadBalancer
@@ -34,8 +34,13 @@ spec:
         enabled: true
       mqtts:
         enabled: true
-      # ws:
-      #   enabled: true
+    ingress:
+      enabled: false
+    securityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+      fsGroupChangePolicy: OnRootMismatch
     persistentVolume:
       enabled: true
       size: 5Gi
