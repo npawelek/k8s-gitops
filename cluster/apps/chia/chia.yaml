@@ -30,7 +30,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: chia
-        image: ghcr.io/chia-network/chia:1.1.7
+        image: ghcr.io/chia-network/chia:1.2.6
         env:
         - name: keys
           value: /priv/keys
