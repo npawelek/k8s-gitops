@@ -53,6 +53,8 @@ spec:
           url: https://udmp.${DOMAIN}/network/default/dashboard
         - name: UniFi Protect
           url: https://udmp.${DOMAIN}/protect/dashboard
+        - name: UDM-Pro
+          url: https://udmp.${DOMAIN}/settings/updates
       - name: storage
         links:
         - name: Synology DS1512+
