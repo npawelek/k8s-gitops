@@ -66,6 +66,7 @@ spec:
     - name: vernemq-auth
       secretName: vernemq-secrets
       path: /vernemq/auth
+    envFrom: []
     additionalEnv:
     - name: DOCKER_VERNEMQ_ACCEPT_EULA
       value: "yes"
