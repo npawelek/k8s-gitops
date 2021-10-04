@@ -57,6 +57,8 @@ spec:
     - ipBlock:
         cidr: 192.168.30.102/32
     - ipBlock:
+        cidr: 192.168.30.201/32
+    - ipBlock:
         cidr: 192.168.90.0/24
     ports:
     - protocol: TCP
