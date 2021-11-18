@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbget
-      tag: 2021.10.28
+      tag: 2021.11.18
     env:
       TZ: America/Chicago
       PUID: "1024"
