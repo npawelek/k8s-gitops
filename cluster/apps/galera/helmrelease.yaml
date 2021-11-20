@@ -27,7 +27,8 @@ spec:
       repository: bitnami/mariadb-galera
       tag: 10.6.5
     clusterDomain: cluster.local
-    podManagementPolicy: OrderedReady
+    # Parallel to force bootstrap a specific node, OrderedReady to start normally
+    podManagementPolicy: Parallel
     updateStrategy:
       type: RollingUpdate
     replicaCount: 3
