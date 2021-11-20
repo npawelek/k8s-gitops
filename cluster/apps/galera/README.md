@@ -29,12 +29,35 @@ podManagementPolicy: Parallel
 4. Commit
 5. Push
 6. Reconcile
-7. Scale to galera nodes to 3
+7. Scale to galera nodes to 0 (this will ensure proper state for reverting configs)
 
 ```
-k scale -n galera sts mariadb-galera --replicas 3
+k scale -n galera sts mariadb-galera --replicas 2
+# wait
+k scale -n galera sts mariadb-galera --replicas 1
+# wait
+k scale -n galera sts mariadb-galera --replicas 0
 ```
 
-9. Revert configs
-10. Commit
-11. Push
+9. Suspend Flux
+
+```
+flux suspend kustomization --all
+```
+
+10. Delete sts, hr, and helm secret
+
+```
+k delete -n galera secret galera-helm-values
+k delete -n galera sts mariadb-galera
+k delete -n galera hr mariadb-galera
+```
+
+11. Revert configs
+12. Commit
+13. Push
+14. Resume Flux
+
+```
+flux resume kustomization --all
+```
