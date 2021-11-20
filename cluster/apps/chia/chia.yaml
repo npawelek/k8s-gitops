@@ -48,7 +48,7 @@ spec:
         startupProbe:
           tcpSocket:
             port: 8444
-          failureThreshold: 20
+          failureThreshold: 60
           periodSeconds: 5
         volumeMounts:
         - name: priv
