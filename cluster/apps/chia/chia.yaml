@@ -38,6 +38,8 @@ spec:
           value: America/Chicago
         - name: plots_dir
           value: /plots:/plots2
+        - name: upnp
+          value: "false"
         livenessProbe:
           tcpSocket:
             port: 8444
