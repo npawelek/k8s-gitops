@@ -80,9 +80,11 @@ k delete -n galera hr mariadb-galera
 12. Revert configs
 13. Commit
 14. Push
-15. Recon
-16. Resume Flux
+15. Resume Flux
 
 ```
+flux resume source git flux-system
 flux resume kustomization --all
 ```
+
+16. Reconcile
