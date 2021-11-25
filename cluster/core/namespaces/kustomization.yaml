@@ -20,3 +20,4 @@ resources:
 - ./resilio.yaml
 - ./home-automation.yaml
 - ./rclone.yaml
+- ./photoprism.yaml
