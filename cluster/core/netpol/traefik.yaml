@@ -235,24 +235,22 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: homer
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: homer
-    ports:
-    - port: 8080
-      protocol: TCP
-    - port: 12321
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: hajimari
       podSelector:
         matchLabels:
           app.kubernetes.io/name: hajimari
     ports:
     - port: 3000
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: photoprism
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: photoprism
+    ports:
+    - port: 2342
       protocol: TCP
   - to:
     - ipBlock:
