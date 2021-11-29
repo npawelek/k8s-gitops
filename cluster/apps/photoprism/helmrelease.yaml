@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: photoprism/photoprism
-      tag: "20211018"
+      tag: "20211128"
       registry: docker.io
     env:
       TZ: America/Chicago
