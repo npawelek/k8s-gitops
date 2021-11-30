@@ -80,7 +80,7 @@ spec:
     - ipBlock:
         cidr: 192.168.10.130/32
     ports:
-    - port: 8090
+    - port: 443
       protocol: TCP
   - to:
     - ipBlock:
