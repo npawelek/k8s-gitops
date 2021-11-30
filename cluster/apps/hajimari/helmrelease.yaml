@@ -63,8 +63,8 @@ spec:
           url: https://racknas.${DOMAIN}:8079
       - name: entertainment
         links:
-        - name: Trakt (Discover)
-          url: https://trakt.tv/discover
+        - name: HyperHDR Samsung 55
+          url: https://hyp-samsung55.${DOMAIN}
         - name: Hacker News
           url: https://news.ycombinator.com
     ingress:
