@@ -93,8 +93,8 @@ spec:
               operator: In
               values:
               # - nuc
-              # - donnager
-              - hammurabi
+              - donnager
+              # - hammurabi
     resources:
       requests:
         gpu.intel.com/i915: 1
