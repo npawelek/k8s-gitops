@@ -92,9 +92,9 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-              - nuc
+              # - nuc
               # - donnager
-              # - hammurabi
+              - hammurabi
     resources:
       requests:
         gpu.intel.com/i915: 1
