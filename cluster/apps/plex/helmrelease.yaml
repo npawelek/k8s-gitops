@@ -76,7 +76,6 @@ spec:
             path: /volume1/media
             server: ${RACKNAS_ADDR}
         mountPath: /data
-        readOnly: true
       transcode:
         enabled: true
         type: emptyDir
