@@ -35,6 +35,8 @@ spec:
     - secretRef:
         name: plex-secrets
     podSecurityContext:
+      # Required for passthrough of /dev/dri devices from NFD
+      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
       supplementalGroups:
         - 44
         - 109
@@ -96,7 +98,6 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-              # - nuc
               # - donnager
               - hammurabi
     resources:
