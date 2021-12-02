@@ -34,6 +34,10 @@ spec:
     envFrom:
     - secretRef:
         name: plex-secrets
+    podSecurityContext:
+      supplementalGroups:
+        - 44
+        - 109
     podAnnotations:
       secret.reloader.stakater.com/reload: nathanpawelek-com-tls,plex-secrets
     controller:
