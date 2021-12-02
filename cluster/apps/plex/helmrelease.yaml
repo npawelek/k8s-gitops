@@ -98,7 +98,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-              # - donnager
+              - donnager
               - hammurabi
     resources:
       requests:
