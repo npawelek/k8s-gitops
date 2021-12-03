@@ -21,3 +21,4 @@ resources:
 - ./home-automation.yaml
 - ./rclone.yaml
 - ./photoprism.yaml
+- ./tdarr.yaml
