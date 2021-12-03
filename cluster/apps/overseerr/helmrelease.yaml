@@ -5,6 +5,15 @@ metadata:
   name: overseerr
   namespace: overseerr
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: sonarr
+    namespace: sonarr
+  - name: radarr
+    namespace: radarr
   interval: 5m
   chart:
     spec:
