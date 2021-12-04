@@ -24,3 +24,4 @@ resources:
 - ./rclone.yaml
 - ./smt-reader.yaml
 - ./photoprism.yaml
+- ./tdarr.yaml

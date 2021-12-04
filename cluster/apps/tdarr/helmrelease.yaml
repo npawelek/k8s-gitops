@@ -10,6 +10,8 @@ spec:
     namespace: longhorn-system
   - name: traefik
     namespace: traefik
+  - name: node-feature-discovery
+    namespace: kube-system
   maxHistory: 3
   interval: 5m
   suspend: false
