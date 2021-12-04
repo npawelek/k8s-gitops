@@ -46,6 +46,11 @@ spec:
         repository: haveagitgat/tdarr_node
         tag: 2.00.11
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          gpu.intel.com/i915: 1
+        limits:
+          gpu.intel.com/i915: 1
     persistence:
       data:
         enabled: true
@@ -123,8 +128,4 @@ spec:
             topologyKey: kubernetes.io/hostname
             namespaces:
             - plex
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-      limits:
-        gpu.intel.com/i915: 1
+    resources: {}
