@@ -48,9 +48,10 @@ spec:
         pullPolicy: IfNotPresent
       resources:
         requests:
-          gpu.intel.com/i915: 1
-        limits:
-          gpu.intel.com/i915: 1
+          cpu: "1"
+          # gpu.intel.com/i915: 1
+        # limits:
+          # gpu.intel.com/i915: 1
     persistence:
       data:
         enabled: true
