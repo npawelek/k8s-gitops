@@ -27,9 +27,10 @@ spec:
       interval: 5m
   values:
     image:
-      repository: haveagitgat/tdarr
-      tag: 2.00.11
-      pullPolicy: IfNotPresent
+      repository: haveagitgat/tdarr_acc
+      tag: dev
+      # pullPolicy: IfNotPresent
+      pullPolicy: Always
     env:
       TZ: America/Chicago
       serverIP: 0.0.0.0
@@ -43,9 +44,10 @@ spec:
       enabled: true
       id: node
       image:
-        repository: haveagitgat/tdarr_node
-        tag: 2.00.11
-        pullPolicy: IfNotPresent
+        repository: haveagitgat/tdarr_node_acc
+        tag: dev
+        # pullPolicy: IfNotPresent
+        pullPolicy: Always
       resources:
         requests:
           gpu.intel.com/i915: 1
