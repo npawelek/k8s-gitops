@@ -19,7 +19,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: tdarr
-      version: 4.1.3
+      version: 4.1.4
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -27,14 +27,13 @@ spec:
       interval: 5m
   values:
     image:
-      repository: haveagitgat/tdarr_acc
-      tag: dev
-      # pullPolicy: IfNotPresent
-      pullPolicy: Always
+      repository: haveagitgat/tdarr
+      tag: 2.00.12
+      pullPolicy: IfNotPresent
     env:
       TZ: America/Chicago
       serverIP: 0.0.0.0
-      ffmpegPath: ffmpeg
+      ffmpegPath: /usr/bin/ffmpeg
     podSecurityContext:
       # Required for passthrough of /dev/dri devices from NFD
       # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
@@ -45,10 +44,9 @@ spec:
       enabled: true
       id: node
       image:
-        repository: haveagitgat/tdarr_node_acc
-        tag: dev
-        # pullPolicy: IfNotPresent
-        pullPolicy: Always
+        repository: haveagitgat/tdarr_node
+        tag: 2.00.12
+        pullPolicy: IfNotPresent
       resources:
         requests:
           gpu.intel.com/i915: 1
