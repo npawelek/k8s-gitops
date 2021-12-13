@@ -32,3 +32,9 @@ Settings configured as follows:
 - Comfort parameters:
   - Temp low: `20.00`
   - Temp high: `22.77`
+
+### Xiaomi HHCCJCY01 (MiFlora, Huahuacaocao)
+
+Use the [Flower Care app](https://apps.apple.com/us/app/flower-care/id1095274672) to update the firmware. It's confirmed that battery levels are not reported as of firmware version 3.2.1. Use the standard [ATC tool](https://atc1441.github.io/TelinkFlasher.html) to pair with the device, then use bluetooth settings under MacOS to determine the underlying BLE address.
+
+Link to previously purchased devices that seem to work: [AliExpress (Smart Version)](https://www.aliexpress.com/item/4001264603672.html). I received a green one which seems to indicate a CN version, and it seems to work fine in ESPHome.
