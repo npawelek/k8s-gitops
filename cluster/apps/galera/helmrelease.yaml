@@ -46,7 +46,7 @@ spec:
       storageClass: longhorn
       accessModes:
       - ReadWriteOnce
-      size: 15Gi
+      size: 20Gi
     mariadbConfiguration: |-
       [client]
       port=3306
