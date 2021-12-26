@@ -158,6 +158,8 @@ spec:
       protocol: TCP
     - port: 443
       protocol: TCP
+    - port: 46030
+      protocol: TCP
   - to:
     - ipBlock:
         cidr: 192.168.10.0/24
