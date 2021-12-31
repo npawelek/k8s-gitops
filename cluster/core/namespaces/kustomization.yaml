@@ -8,7 +8,6 @@ resources:
 - ./metallb.yaml
 - ./longhorn-system.yaml
 - ./adguard.yaml
-- ./chia.yaml
 - ./hajimari.yaml
 - ./galera.yaml
 - ./tautulli.yaml
