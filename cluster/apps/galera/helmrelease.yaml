@@ -25,7 +25,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/mariadb-galera
-      tag: 10.6.5
+      tag: 10.6.5-debian-10-r42
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
     podManagementPolicy: OrderedReady
@@ -107,14 +107,12 @@ spec:
       # Per https://www.percona.com/blog/2006/08/04/innodb-double-write/
       innodb_doublewrite=1
       innodb_flush_method=O_DIRECT
-      innodb_log_files_in_group=2
       innodb_log_file_size=128M
       innodb_flush_log_at_trx_commit=1
       innodb_file_per_table=1
       # 80% Memory is default reco.
       # Need to re-evaluate when DB size grows
       innodb_buffer_pool_size=2G
-      innodb_file_format=Barracuda
 
       ## Logging
       log_error=/opt/bitnami/mariadb/logs/mysqld.log
