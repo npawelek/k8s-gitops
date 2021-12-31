@@ -16,7 +16,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: mariadb-galera
-      version: 6.0.6
+      version: 6.1.1
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -25,7 +25,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/mariadb-galera
-      tag: 10.6.4
+      tag: 10.6.5
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
     podManagementPolicy: OrderedReady
