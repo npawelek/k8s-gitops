@@ -5,6 +5,7 @@ resources:
 - traefik
 - traefik-forward-auth
 - adguard
+- adguard-home
 - hajimari
 - galera
 - plex
