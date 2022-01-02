@@ -51,7 +51,7 @@ spec:
     cloneStaticSiteFromGit:
       enabled: true
       repository: https://github.com/npawelek/firmware.git
-      branch: master
+      branch: main
     extraEnvVars:
     - name: TZ
       value: America/Chicago
