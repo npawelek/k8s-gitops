@@ -33,16 +33,11 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
-        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-int-middlewares-chain@kubernetescrd
       hostname: int.${DOMAIN}
       path: /
       pathType: Prefix
-      extraTls:
-      - hosts:
-        - int.${DOMAIN}
-      - secretName: nathanpawelek-com-tls
     serviceAccount:
       create: false
     cloneStaticSiteFromGit:

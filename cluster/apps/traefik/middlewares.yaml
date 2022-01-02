@@ -35,6 +35,29 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
+  name: http-headers
+  namespace: traefik
+spec:
+  headers:
+    browserXssFilter: true
+    contentTypeNosniff: true
+    customResponseHeaders:
+      server: ""
+      x-applicationversion: ""
+      x-ua-compatible: ""
+      x-robots-tag: none
+    frameDeny: true
+    customFrameOptionsValue: SAMEORIGIN
+    sslRedirect: false
+    stsSeconds: 31536000
+    stsPreload: true
+    forceSTSHeader: true
+    referrerPolicy: no-referrer
+    isDevelopment: false
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
   name: default-compress
   namespace: traefik
 spec:
@@ -72,3 +95,14 @@ spec:
     middlewares:
     - name: default-compress
     - name: default-headers
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: int-middlewares-chain
+  namespace: traefik
+spec:
+  chain:
+    middlewares:
+    - name: default-compress
+    - name: http-headers

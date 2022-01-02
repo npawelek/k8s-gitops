@@ -8,8 +8,8 @@
 4. Use the Shelly OTA URL which points to the locally served file.
     ```
     # Shelly Flood (SHWT-1) Example
-    http http://192.168.10.X/ota?url=https://int.nathanpawelek.com/shelly/SHWT-1/v1.11.7.zip
+    http http://192.168.10.X/ota?url=http://int.nathanpawelek.com/shelly/SHWT-1/v1.11.7.zip
 
     # Shelly Motion (SHMOS-01) Example
-    http http://192.168.10.X/ota?url=https://int.nathanpawelek.com/shelly/SHMOS-01/v2.0.5.zip
+    http http://192.168.10.X/ota?url=http://int.nathanpawelek.com/shelly/SHMOS-01/v2.0.5.zip
     ```

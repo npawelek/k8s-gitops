@@ -43,7 +43,7 @@ spec:
         cidr: 192.168.10.0/24
     ports:
     - protocol: TCP
-      port: 8443
+      port: 8000
   - from:
     - ipBlock:
         cidr: 192.168.40.101/32
