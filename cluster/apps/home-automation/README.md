@@ -1,0 +1,15 @@
+# home-automation
+
+## Shelly Offline Firmware Update
+
+1. Download the firmware you need from the [Shelly Forum Firmware Topic](https://www.shelly-support.eu/index.php?shelly-firmware-archive/).
+2. Add it to repository [npawelek/firmware](https://github.com/npawelek/firmware).
+3. The [nginx deployment](https://github.com/npawelek/k8s-gitops/tree/master/cluster/apps/nginx) will automatically sync the firmware repository every `60s`.
+4. Use the Shelly OTA URL which points to the locally served file.
+    ```
+    # Shelly Flood (SHWT-1) Example
+    http http://192.168.10.X/ota?url=https://int.nathanpawelek.com/shelly/SHWT-1/v1.11.7.zip
+
+    # Shelly Motion (SHMOS-01) Example
+    http http://192.168.10.X/ota?url=https://int.nathanpawelek.com/shelly/SHMOS-01/v2.0.5.zip
+    ```
