@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  dependsOn:
+  - name: traefik
+    namespace: traefik
+  maxHistory: 3
+  interval: 10m0s
+  suspend: false
+  releaseName: nginx
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: nginx
+      version: 9.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  values:
+    image:
+      registry: docker.io
+      repository: bitnami/nginx
+      tag: 1.21.5
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 8080
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: int.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - int.${DOMAIN}
+        - secretName: nathanpawelek-com-tls
+    serviceAccount:
+      create: false
+    extraEnvVars:
+    - name: TZ
+      value: America/Chicago
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 300Mi

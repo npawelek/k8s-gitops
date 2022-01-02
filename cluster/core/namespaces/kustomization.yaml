@@ -21,3 +21,4 @@ resources:
 - ./rclone.yaml
 - ./photoprism.yaml
 - ./tdarr.yaml
+- ./nginx.yaml

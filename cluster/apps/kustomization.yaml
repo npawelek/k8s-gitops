@@ -19,3 +19,4 @@ resources:
 - rclone
 - photoprism
 - tdarr
+- nginx
