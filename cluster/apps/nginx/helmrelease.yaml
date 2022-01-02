@@ -31,21 +31,18 @@ spec:
       type: ClusterIP
       port: 8080
     ingress:
-      main:
-        enabled: true
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
-          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-        hosts:
-        - host: int.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
-        tls:
-        - hosts:
-          - int.${DOMAIN}
-        - secretName: nathanpawelek-com-tls
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+        traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+      hostname: int.${DOMAIN}
+      path: /
+      pathType: Prefix
+      extraTls:
+      - hosts:
+        - int.${DOMAIN}
+      - secretName: nathanpawelek-com-tls
     serviceAccount:
       create: false
     cloneStaticSiteFromGit:
