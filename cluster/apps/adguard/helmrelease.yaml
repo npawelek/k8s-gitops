@@ -202,6 +202,7 @@ spec:
         - '||ads-serve.brave.com^'
         - '||graph.facebook.com^'
         - '||adzooma.com^'
+        - '||piwpak.com^'
         - '@@||v.w-x.co^'
         - '@@||fls-na.amazon.com^'
         - '@@||kinesis.us-east-1.amazonaws.com^'
