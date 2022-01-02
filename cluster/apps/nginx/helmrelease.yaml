@@ -49,19 +49,29 @@ spec:
       enabled: true
       repository: https://github.com/npawelek/firmware.git
       branch: main
-    # serverBlock: |-
-    #   server {
-    #     listen 0.0.0.0:8080;
-    #     autoindex on;
+    serverBlock: |-
+      server {
+        server_name int.${DOMAIN};
+        listen 8080;
+        root /opt/bitnami/nginx/html/;
+        index no_index;
 
-    #     location / {
-    #       root /opt/bitnami/nginx/html;
-    #     }
+        location / {
+          autoindex on;
+        }
 
-    #     location ~ /\.git {
-    #       deny all;
-    #     }
-    #   }
+        location ~ /\.git {
+          deny all;
+        }
+
+        location ~ /README.md {
+          deny all;
+        }
+
+        location ~ /LICENSE {
+          deny all;
+        }
+      }
     extraEnvVars:
     - name: TZ
       value: America/Chicago
