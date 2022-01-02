@@ -1,6 +1,8 @@
 # home-automation
 
-## Shelly Offline Firmware Update
+## Shelly
+
+### Offline Firmware Update
 
 1. Download the firmware you need from the [Shelly Forum Firmware Topic](https://www.shelly-support.eu/index.php?shelly-firmware-archive/).
 2. Add it to repository [npawelek/firmware](https://github.com/npawelek/firmware).
