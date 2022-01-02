@@ -48,6 +48,10 @@ spec:
         - secretName: nathanpawelek-com-tls
     serviceAccount:
       create: false
+    cloneStaticSiteFromGit:
+      enabled: true
+      repository: https://github.com/npawelek/firmware.git
+      branch: master
     extraEnvVars:
     - name: TZ
       value: America/Chicago
