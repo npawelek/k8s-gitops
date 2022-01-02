@@ -263,6 +263,16 @@ spec:
     - port: 8265
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: nginx
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: nginx
+    ports:
+    - port: 8080
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
