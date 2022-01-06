@@ -31,7 +31,7 @@ spec:
     podManagementPolicy: OrderedReady
     updateStrategy:
       type: RollingUpdate
-    replicaCount: 3
+    replicaCount: 1
     service:
       type: ClusterIP
       port: 3306
