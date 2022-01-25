@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.107.2
+      tag: v0.107.3
 
     env:
       TZ: America/Chicago
