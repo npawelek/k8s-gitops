@@ -25,7 +25,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/nginx
-      tag: 1.21.5
+      tag: 1.21.6
     replicaCount: 1
     service:
       type: ClusterIP
