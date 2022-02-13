@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
       - name: smt
-        image: scadaguru/pysmtreader:latest
+        image: npawelek/pysmtreader:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: 128Mi
