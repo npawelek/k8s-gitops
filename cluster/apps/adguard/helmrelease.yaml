@@ -208,6 +208,7 @@ spec:
         - '@@||kinesis.us-east-1.amazonaws.com^'
         - '@@||kinesis.us-west-2.amazonaws.com^'
         - '@@||app.townsq.io^'
+        - '@@||fast.wistia.com^'
         # - '||example.org^ # block'
         # - '@@||example.org^ # unblock'
         dhcp:
