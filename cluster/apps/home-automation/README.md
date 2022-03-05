@@ -15,8 +15,11 @@
       PASS=
 
     # Shelly Flood (SHWT-1) Example
-    http --auth $USER:$PASS http://$ADDR/ota?url=http://int.nathanpawelek.com/shelly/SHWT-1/v1.11.7.zip
+    http --auth $USER:$PASS http://$ADDR/ota?url=http://int.nathanpawelek.com/shelly/SHWT-1/v1.11.8.zip
 
     # Shelly Motion (SHMOS-01) Example
     http --auth $USER:$PASS http://$ADDR/ota?url=http://int.nathanpawelek.com/shelly/SHMOS-01/v2.0.5.zip
+
+    # Shelly Door/Window 2 (SHDW-2) Example
+    http --auth $USER:$PASS http://$ADDR/ota?url=http://int.nathanpawelek.com/shelly/SHDW-2/v1.11.8.zip
     ```
