@@ -200,7 +200,6 @@ spec:
         - '||collector.tinybeans.com^'
         - '||min-api.cryptocompare.com^'
         - '||ads-serve.brave.com^'
-        - '||graph.facebook.com^'
         - '||adzooma.com^'
         - '||piwpak.com^'
         - '@@||v.w-x.co^'
@@ -209,6 +208,8 @@ spec:
         - '@@||kinesis.us-west-2.amazonaws.com^'
         - '@@||app.townsq.io^'
         - '@@||fast.wistia.com^'
+        - '@@||graph.facebook.com^$client="Jessie"'
+        - '||graph.facebook.com^'
         # - '||example.org^ # block'
         # - '@@||example.org^ # unblock'
         dhcp:
