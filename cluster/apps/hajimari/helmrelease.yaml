@@ -65,8 +65,8 @@ spec:
         links:
         - name: HyperHDR Samsung 55
           url: https://hyp-samsung55.${DOMAIN}
-        - name: Hacker News
-          url: https://news.ycombinator.com
+        - name: Octoprint
+          url: https://octopi.${DOMAIN}
     ingress:
       main:
         enabled: true
