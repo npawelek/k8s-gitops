@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: haveagitgat/tdarr
-      tag: 2.00.13
+      tag: 2.00.16
       pullPolicy: IfNotPresent
     env:
       TZ: America/Chicago
