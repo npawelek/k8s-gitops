@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbhydra2
-      tag: 4.2.1
+      tag: 4.3.0
     env:
       TZ: America/Chicago
       PUID: "1024"
