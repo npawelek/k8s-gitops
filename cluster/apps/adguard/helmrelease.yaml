@@ -124,7 +124,7 @@ spec:
         blocking_mode: default
         blocking_ipv4: ""
         blocking_ipv6: ""
-        blocked_response_ttl: 10
+        blocked_response_ttl: 300
         parental_block_host: family-block.dns.adguard.com
         safebrowsing_block_host: standard-block.dns.adguard.com
         ratelimit: 0
@@ -236,6 +236,8 @@ spec:
         icmp_timeout_msec: 1000
       clients:
       - name: Jessie
+        tags:
+        - device_phone
         ids:
         - 192.168.30.201
         - 192.168.30.202
