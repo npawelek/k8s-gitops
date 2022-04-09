@@ -36,11 +36,7 @@ spec:
     persistence:
       config:
         enabled: true
-        # existingClaim:
-        size: 5Gi
-        mountPath: /opt/adguardhome/conf
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
+        existingClaim: adguard-home-config
 
     service:
       main:
