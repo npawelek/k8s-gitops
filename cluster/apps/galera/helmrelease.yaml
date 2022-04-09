@@ -35,8 +35,8 @@ spec:
     service:
       type: ClusterIP
       port: 3306
-      headless:
-        publishNotReadyAddresses: true
+      # headless:
+      #   publishNotReadyAddresses: true
     serviceAccount:
       create: false
     extraEnvVars:
