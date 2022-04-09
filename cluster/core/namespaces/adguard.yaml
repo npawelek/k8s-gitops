@@ -1,7 +1,7 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: adguard
-#   labels:
-#     ns: adguard
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: adguard
+  labels:
+    ns: adguard
