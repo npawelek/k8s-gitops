@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - traefik
 - traefik-forward-auth
-- adguard
+# - adguard
 # - adguard-home
 - hajimari
 - galera
