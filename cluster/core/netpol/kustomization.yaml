@@ -24,3 +24,4 @@ resources:
 - ./smt-reader.yaml
 - ./photoprism.yaml
 - ./nginx.yaml
+- ./tdarr.yaml
