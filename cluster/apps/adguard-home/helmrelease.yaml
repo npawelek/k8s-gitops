@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguard-home2
+  name: adguard-home
   namespace: adguard
 spec:
   dependsOn:
@@ -15,12 +15,12 @@ spec:
   maxHistory: 3
   interval: 10m0s
   suspend: false
-  releaseName: adguard-home2
+  releaseName: adguard-home
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: adguard-home
-      version: 5.1.0
+      version: 5.2.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -37,7 +37,7 @@ spec:
       config:
         enabled: true
         # existingClaim:
-        size: 10Gi
+        size: 5Gi
         mountPath: /opt/adguardhome/conf
         storageClass: longhorn
         accessMode: ReadWriteOnce
@@ -50,9 +50,9 @@ spec:
         enabled: true
         externalTrafficPolicy: Local
         type: LoadBalancer
-        loadBalancerIP: ${ADGUARD2_LB}
+        loadBalancerIP: ${ADGUARD_LB}
         annotations:
-          metallb.universe.tf/allow-shared-ip: adguard2-home-dns
+          metallb.universe.tf/allow-shared-ip: adguard-home-dns
         ports:
           tcp:
             enabled: true
@@ -75,15 +75,15 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: shield-check
           hajimari.io/group: network
-          hajimari.io/appName: adguard2
+          hajimari.io/appName: adguard
         hosts:
-        - host: adguard2.${DOMAIN}
+        - host: adguard.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - adguard2.${DOMAIN}
+          - adguard.${DOMAIN}
         - secretName: nathanpawelek-com-tls
 
     resources:
