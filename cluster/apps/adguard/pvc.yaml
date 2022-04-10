@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: adguard-home-config
+  name: adguard-home-data
   namespace: adguard
 spec:
   accessModes:

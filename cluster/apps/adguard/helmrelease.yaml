@@ -35,8 +35,11 @@ spec:
 
     persistence:
       config:
+        enabled: false
+      data:
         enabled: true
-        existingClaim: adguard-home-config
+        existingClaim: adguard-home-data
+        mountPath: /opt/adguardhome/work
 
     service:
       main:
@@ -97,6 +100,9 @@ spec:
         cpu: 15m
       limits:
         memory: 1000Mi
+
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: adguard-home-config
 
     config: |-
       bind_host: 0.0.0.0
