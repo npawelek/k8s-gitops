@@ -35,7 +35,9 @@ spec:
 
     persistence:
       config:
-        enabled: false
+        enabled: true
+        type: emptyDir
+        mountPath: /opt/adguardhome/conf
       data:
         enabled: true
         existingClaim: adguard-home-data
