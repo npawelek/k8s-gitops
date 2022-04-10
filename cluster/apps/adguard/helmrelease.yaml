@@ -212,6 +212,10 @@ spec:
       - '||ads-serve.brave.com^'
       - '||adzooma.com^'
       - '||piwpak.com^'
+      - '||test.huedatastore.com^'
+      - '||diag.meethue.com^'
+      - '||diagnostics.meethue.com^'
+      - '||web.diagnostic.networking.aws.dev^'
       - '||graph.facebook.com^$ctag=~device_phone'
       - '@@||v.w-x.co^'
       - '@@||fls-na.amazon.com^'
@@ -237,6 +241,19 @@ spec:
         ids:
         - 192.168.30.201
         - 192.168.30.202
+        use_global_settings: true
+        filtering_enabled: false
+        parental_enabled: false
+        safesearch_enabled: false
+        safebrowsing_enabled: false
+        use_global_blocked_services: true
+        blocked_services: []
+        upstreams: []
+      - name: Nathan
+        ids:
+        - 192.168.30.100
+        - 192.168.30.101
+        - 192.168.30.102
         use_global_settings: true
         filtering_enabled: false
         parental_enabled: false
