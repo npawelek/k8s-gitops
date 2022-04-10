@@ -246,6 +246,7 @@ spec:
       - name: Jessie
         tags:
         - device_phone
+        - user_regular
         ids:
         - 192.168.30.201
         - 192.168.30.202
@@ -258,6 +259,8 @@ spec:
         blocked_services: []
         upstreams: []
       - name: Nathan
+        tags:
+        - user_admin
         ids:
         - 192.168.30.100
         - 192.168.30.101
@@ -270,9 +273,31 @@ spec:
         use_global_blocked_services: true
         blocked_services: []
         upstreams: []
-      - name: Nathan Work
+      - name: NoT
         ids:
-        - 192.168.40.102
+        - 192.168.10.0/24
+        use_global_settings: true
+        filtering_enabled: false
+        parental_enabled: false
+        safesearch_enabled: false
+        safebrowsing_enabled: false
+        use_global_blocked_services: true
+        blocked_services: []
+        upstreams: []
+      - name: IoT
+        ids:
+        - 192.168.20.0/24
+        use_global_settings: true
+        filtering_enabled: false
+        parental_enabled: false
+        safesearch_enabled: false
+        safebrowsing_enabled: false
+        use_global_blocked_services: true
+        blocked_services: []
+        upstreams: []
+      - name: Work
+        ids:
+        - 192.168.40.0/24
         use_global_settings: true
         filtering_enabled: false
         parental_enabled: false
