@@ -25,3 +25,4 @@ resources:
 - ./photoprism.yaml
 - ./nginx.yaml
 - ./tdarr.yaml
+- ./uptime.yaml
