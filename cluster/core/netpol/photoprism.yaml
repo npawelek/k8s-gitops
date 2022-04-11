@@ -32,6 +32,16 @@ spec:
     ports:
     - protocol: TCP
       port: 2342
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime-kuma
+    ports:
+    - protocol: TCP
+      port: 2342
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

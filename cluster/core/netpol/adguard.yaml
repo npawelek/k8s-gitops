@@ -33,6 +33,16 @@ spec:
     - port: 3000
       protocol: TCP
   - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime-kuma
+    ports:
+    - protocol: TCP
+      port: 3000
+  - from:
     - ipBlock:
         cidr: 10.32.0.0/12
     - ipBlock:

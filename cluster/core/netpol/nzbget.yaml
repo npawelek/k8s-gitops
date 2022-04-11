@@ -55,16 +55,6 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          ns: readarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: readarr
-    ports:
-    - port: 6789
-      protocol: TCP
-  - from:
-    - namespaceSelector:
-        matchLabels:
           ns: hydra
       podSelector:
         matchLabels:
@@ -82,6 +72,16 @@ spec:
     ports:
     - port: 6789
       protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime-kuma
+    ports:
+    - protocol: TCP
+      port: 6789
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

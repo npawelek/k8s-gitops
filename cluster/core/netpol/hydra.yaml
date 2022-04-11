@@ -68,6 +68,16 @@ spec:
       port: 5076
     - protocol: TCP
       port: 8888
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime-kuma
+    ports:
+    - protocol: TCP
+      port: 5076
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
