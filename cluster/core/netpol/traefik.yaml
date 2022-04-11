@@ -297,6 +297,16 @@ spec:
     - port: 8080
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime
+    ports:
+    - port: 3001
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
