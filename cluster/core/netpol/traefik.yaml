@@ -302,7 +302,7 @@ spec:
           ns: uptime
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: uptime
+          app.kubernetes.io/name: uptime-kuma
     ports:
     - port: 3001
       protocol: TCP
