@@ -250,6 +250,7 @@ spec:
         ids:
         - 192.168.30.201
         - 192.168.30.202
+        - 192.168.30.203
         use_global_settings: true
         filtering_enabled: false
         parental_enabled: false
