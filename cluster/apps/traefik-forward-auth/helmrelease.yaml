@@ -15,7 +15,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: traefik-forward-auth
-      version: 1.0.10
+      version: 2.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -24,77 +24,63 @@ spec:
     fullnameOverride: traefik-forward-auth
     replicaCount: 3
     image:
-      repository: raspbernetes/traefik-forward-auth
-      tag: v2.2.0
+      repository: thomseddon/traefik-forward-auth
+      tag: 2.2.0
       pullPolicy: IfNotPresent
-    logging:
-      level: info
-      format: text
-    providers:
-      google:
-        enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: traefik-forward-auth-secrets
-    env:
-    - name: TZ
-      value: America/Chicago
-    - name: PROVIDERS_GOOGLE_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: CLIENT_ID
-    - name: PROVIDERS_GOOGLE_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: CLIENT_SECRET
-    - name: SECRET
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: SECRET
-    - name: AUTH_HOST
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: AUTH_HOST
-    - name: URL_PATH
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: URL_PATH
-    - name: COOKIE_DOMAIN
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: COOKIE_DOMAIN
-    - name: DOMAIN
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: DOMAIN
-    - name: WHITELIST
-      valueFrom:
-        secretKeyRef:
-          name: traefik-forward-auth-secrets
-          key: EMAIL
-    serviceAccount:
-      create: false
-    livenessProbe:
-      enabled: true
-      tcpSocket:
-        port: http
-      periodSeconds: 20
-    readinessProbe:
-      enabled: true
-      tcpSocket:
-        port: http
-      periodSeconds: 10
-    service:
-      type: ClusterIP
-      port: 4181
-    ingress:
+    middleware:
       enabled: false
+    service:
+      main:
+        ports:
+          http:
+            port: 4181
+    env:
+      TZ: America/Chicago
+      LOG_LEVEL: debug
+      LOG_FORMAT: text
+      DEFAULT_PROVIDER: google
+      SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: SECRET
+      PROVIDERS_GOOGLE_CLIENT_ID:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: CLIENT_ID
+      PROVIDERS_GOOGLE_CLIENT_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: CLIENT_SECRET
+      AUTH_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: AUTH_HOST
+      URL_PATH:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: URL_PATH
+      COOKIE_DOMAIN:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: COOKIE_DOMAIN
+      DOMAIN:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: DOMAIN
+      WHITELIST:
+        valueFrom:
+          secretKeyRef:
+            name: traefik-forward-auth-secrets
+            key: EMAIL
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
