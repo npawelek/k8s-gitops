@@ -32,7 +32,7 @@ spec:
       repository: ghcr.io/k8s-at-home/sonarr
       tag: v3.0.7.1477
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
     podSecurityContext:
       runAsUser: 1024
       supplementalGroups:

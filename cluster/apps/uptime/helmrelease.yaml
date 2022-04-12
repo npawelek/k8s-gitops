@@ -29,7 +29,7 @@ spec:
       repository: louislam/uptime-kuma
       tag: 1.14.0-alpine
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: 0
     controller:
       type: deployment

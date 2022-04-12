@@ -30,7 +30,7 @@ spec:
       repository: linuxserver/nzbhydra2
       tag: 4.3.0
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       PUID: "1024"
       PGID: "100"
       UMASK_SET: "022"

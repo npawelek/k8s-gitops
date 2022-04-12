@@ -30,7 +30,7 @@ spec:
       repository: homeassistant/home-assistant
       tag: 2022.4.2
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
     envFrom:
     - secretRef:
         name: home-assistant-env-secrets
@@ -98,7 +98,7 @@ spec:
         - --auth
         - none
         env:
-          TZ: America/Chicago
+          TZ: ${TIMEZONE}
           HASS_SERVER: http://localhost:8123
         ingress:
           enabled: true

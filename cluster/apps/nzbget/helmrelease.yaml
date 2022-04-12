@@ -28,7 +28,7 @@ spec:
       repository: linuxserver/nzbget
       tag: 2021.11.25
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       PUID: "1024"
       PGID: "100"
     controller:
@@ -85,7 +85,7 @@ spec:
             tag: v1.0.20210914
         configFileSecret: primary-conf16
         env:
-          TZ: America/Chicago
+          TZ: ${TIMEZONE}
         networkPolicy:
           enabled: false
         securityContext:

@@ -26,7 +26,7 @@ spec:
       repository: nodered/node-red
       tag: 2.2.2-12-minimal
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       FLOWS: flows.json
       NODE_RED_ENABLE_PROJECTS: "true"
       NODE_RED_ENABLE_SAFE_MODE: "false"

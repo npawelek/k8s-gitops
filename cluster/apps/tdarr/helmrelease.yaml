@@ -31,7 +31,7 @@ spec:
       tag: 2.00.16.3
       pullPolicy: IfNotPresent
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       serverIP: 0.0.0.0
       ffmpegPath: /usr/local/bin/ffmpeg
     podSecurityContext:

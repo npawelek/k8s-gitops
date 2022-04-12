@@ -40,7 +40,7 @@ spec:
           http:
             port: 4181
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       LOG_LEVEL: debug
       LOG_FORMAT: text
       DEFAULT_PROVIDER: google

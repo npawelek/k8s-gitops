@@ -26,7 +26,7 @@ spec:
       repository: esphome/esphome
       tag: 2022.3.2
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       ESPHOME_DASHBOARD_USE_PING: "true"
     hostNetwork: true
     ingress:

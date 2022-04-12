@@ -29,7 +29,7 @@ spec:
       tag: "20220121"
       registry: docker.io
     env:
-      TZ: America/Chicago
+      TZ: ${TIMEZONE}
       # UID: 1024
       # GID: 100
       PHOTOPRISM_PUBLIC: "true"
