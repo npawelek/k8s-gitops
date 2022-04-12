@@ -134,12 +134,8 @@ spec:
         - 10.0.0.0/8
         - 172.16.0.0/12
         - 192.168.0.0/16
-    # ports:
-    # # - port: 501
-    # #   protocol: TCP
-    # # - port: 563
-    # #   protocol: TCP
-    # - port: 51820
-    #   protocol: UDP
-    # - port: 443
-    #   protocol: TCP
+    ports:
+    - port: 51820
+      protocol: UDP
+    - port: 443
+      protocol: TCP
