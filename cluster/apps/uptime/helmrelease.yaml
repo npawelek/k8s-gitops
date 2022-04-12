@@ -27,7 +27,7 @@ spec:
     fullnameOverride: uptime
     image:
       repository: louislam/uptime-kuma
-      tag: 1.13.2-alpine
+      tag: 1.14.0-alpine
     env:
       TZ: America/Chicago
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: 0
