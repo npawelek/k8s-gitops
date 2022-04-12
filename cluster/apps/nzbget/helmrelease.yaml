@@ -69,7 +69,7 @@ spec:
             server: ${RACKNAS_ADDR}
         mountPath: /complete/Temp
     podAnnotations:
-      secret.reloader.stakater.com/reload: pia-secrets
+      secret.reloader.stakater.com/reload: primary-conf16,primary-conf20,primary-conf22
     resources:
       requests:
         memory: 250Mi
@@ -105,61 +105,3 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 60
           failureThreshold: 1
-    # additionalContainers:
-    #   vpn:
-    #     name: vpn
-    #     image: qmcgaw/gluetun:v3.15.0
-    #     securityContext:
-    #       capabilities:
-    #         add:
-    #         - NET_ADMIN
-    #     env:
-    #     - name: OPENVPN_USER
-    #       valueFrom:
-    #         secretKeyRef:
-    #           name: pia-secrets
-    #           key: USERNAME
-    #     - name: OPENVPN_PASSWORD
-    #       valueFrom:
-    #         secretKeyRef:
-    #           name: pia-secrets
-    #           key: PASSWORD
-    #     - name: REGION
-    #       valueFrom:
-    #         secretKeyRef:
-    #           name: pia-secrets
-    #           key: REGION
-    #     - name: PIA_ENCRYPTION
-    #       value: strong
-    #     - name: PROTOCOL
-    #       value: tcp
-    #     - name: FIREWALL_OUTBOUND_SUBNETS
-    #       value: "10.96.0.0/12"
-    #     - name: DOT
-    #       value: "off"
-    #     - name: DNS_KEEP_NAMESERVER
-    #       value: "off"
-    #     - name: DNS_PLAINTEXT_ADDRESS
-    #       value: "10.96.0.10"
-    #     - name: PORT_FORWARDING
-    #       value: "off"
-    #     - name: HTTPPROXY
-    #       value: "off"
-    #     - name: SHADOWSOCKS
-    #       value: "off"
-    #     - name: TZ
-    #       value: America/Chicago
-    #     livenessProbe:
-    #       exec:
-    #         command:
-    #         - "ping"
-    #         - "-W3"
-    #         - "-c1"
-    #         - "-q"
-    #         - "-s8"
-    #         - "1.1.1.1"
-    #       initialDelaySeconds: 20
-    #       failureThreshold: 3
-    #       successThreshold: 1
-    #       periodSeconds: 20
-    #       timeoutSeconds: 5
