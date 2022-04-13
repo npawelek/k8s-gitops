@@ -221,8 +221,6 @@ spec:
       - '||adzooma.com^'
       - '||piwpak.com^'
       - '||test.huedatastore.com^'
-      - '||diag.meethue.com^'
-      - '||diagnostics.meethue.com^'
       - '||web.diagnostic.networking.aws.dev^'
       - '||graph.facebook.com^$ctag=~device_phone'
       - '@@||v.w-x.co^'
