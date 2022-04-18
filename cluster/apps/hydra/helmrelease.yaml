@@ -84,7 +84,7 @@ spec:
       vpn:
         name: vpn
         # image: qmcgaw/gluetun:v3.15.0
-        image: qmcgaw/gluetun:latest
+        image: qmcgaw/gluetun:v3.28.2
         securityContext:
           capabilities:
             add:
