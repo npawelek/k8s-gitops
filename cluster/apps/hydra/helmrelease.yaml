@@ -132,7 +132,7 @@ spec:
           value: "off"
         - name: HTTPPROXY
           value: "on"
-        - name: HTTPPROXY_LISTENING_ADDRESS
+        - name: HTTPPROXY_PORT
           value: "8888"
         - name: HTTPPROXY_STEALTH
           value: "on"
