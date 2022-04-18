@@ -83,32 +83,12 @@ spec:
     additionalContainers:
       vpn:
         name: vpn
-        # image: qmcgaw/gluetun:v3.15.0
         image: qmcgaw/gluetun:v3.28.2
         securityContext:
           capabilities:
             add:
             - NET_ADMIN
         env:
-        # - name: OPENVPN_USER
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: pia-secrets
-        #       key: USERNAME
-        # - name: OPENVPN_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: pia-secrets
-        #       key: PASSWORD
-        # - name: REGION
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: pia-secrets
-        #       key: REGION
-        # - name: PIA_ENCRYPTION
-        #   value: strong
-        # - name: PROTOCOL
-        #   value: tcp
         - name: VPN_SERVICE_PROVIDER
           value: custom
         - name: VPN_TYPE
@@ -140,8 +120,6 @@ spec:
               key: WIREGUARD_ADDRESSES
         - name: FIREWALL_OUTBOUND_SUBNETS
           value: "10.96.0.0/12"
-        # - name: FIREWALL_INPUT_PORTS
-        #   value:
         - name: DOT
           value: "off"
         - name: DNS_KEEP_NAMESERVER
@@ -154,7 +132,7 @@ spec:
           value: "off"
         - name: HTTPPROXY
           value: "on"
-        - name: HTTPPROXY_PORT
+        - name: HTTPPROXY_LISTENING_ADDRESS
           value: "8888"
         - name: HTTPPROXY_STEALTH
           value: "on"
