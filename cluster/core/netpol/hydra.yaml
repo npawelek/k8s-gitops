@@ -141,7 +141,7 @@ spec:
         - 172.16.0.0/12
         - 192.168.0.0/16
     ports:
-    - port: 443
-      protocol: TCP
+    # - port: 443
+    #   protocol: TCP
     - port: 51820
       protocol: UDP
