@@ -145,3 +145,5 @@ spec:
       protocol: TCP
     - port: 443
       protocol: TCP
+    - port: 51820
+      protocol: UDP
