@@ -74,11 +74,14 @@ spec:
         readOnly: true
       comskip:
         enabled: true
-        type: configMap
-        name: comskip
-        items:
-        - key: comskip.ini
-          path: "/config/Library/Application Support/Plex Media Server/DVR"
+        type: custom
+        volumeSpec:
+          configMap:
+            name: comskip
+            items:
+            - key: comskip.ini
+              path: comskip.ini
+        mountPath: /config/Library/Application Support/Plex Media Server/DVR
         readOnly: true
       config:
         enabled: true
