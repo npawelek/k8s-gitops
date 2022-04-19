@@ -42,6 +42,7 @@ spec:
         - 109
     podAnnotations:
       secret.reloader.stakater.com/reload: nathanpawelek-com-tls,plex-secrets
+      configmap.reloader.stakater.com/reload: comskip
     controller:
       type: statefulset
       replicas: 1
@@ -71,6 +72,12 @@ spec:
               path: nathanpawelek-com-tls.p12
         mountPath: /config/certs
         readOnly: true
+      comskip:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: comskip
       config:
         enabled: true
         existingClaim: config-plex-0
@@ -86,6 +93,10 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
+    volumeMounts:
+    - name: comskip
+      mountPath: /config/Library/Application Support/Plex Media Server/DVR
+      readOnly: true
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
