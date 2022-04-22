@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: haveagitgat/tdarr
-      tag: 2.00.16.3
+      tag: 2.00.18
       pullPolicy: IfNotPresent
     env:
       TZ: ${TIMEZONE}
