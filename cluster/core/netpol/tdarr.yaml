@@ -42,6 +42,8 @@ spec:
     ports:
     - protocol: TCP
       port: 8266
+    - protocol: TCP
+      port: 8265
   - from:
     - namespaceSelector:
         matchLabels:
@@ -107,6 +109,8 @@ spec:
     ports:
     - protocol: TCP
       port: 8266
+    - protocol: TCP
+      port: 8265
   - to:
     - namespaceSelector:
         matchLabels:
