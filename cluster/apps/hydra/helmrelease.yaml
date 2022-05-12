@@ -83,7 +83,7 @@ spec:
     additionalContainers:
       vpn:
         name: vpn
-        image: qmcgaw/gluetun:v3.28.2
+        image: qmcgaw/gluetun:v3.29.0
         securityContext:
           capabilities:
             add:
