@@ -25,7 +25,7 @@ spec:
         configmap.reloader.stakater.com/reload: resilio-config-file
     spec:
       containers:
-      - image: linuxserver/resilio-sync:2.7.3.1381-1-ls116
+      - image: linuxserver/resilio-sync:2.7.3.1381-1-ls117
         name: resilio-sync
         env:
         - name: TZ
