@@ -117,7 +117,7 @@ spec:
         command:
         - controller
         env: []
-        image: bitnami/sealed-secrets-controller:v0.17.5
+        image: bitnami/sealed-secrets-controller:v0.18.0
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
