@@ -185,33 +185,49 @@ spec:
         name: AdAway
         id: 2
       - enabled: true
-        url: https://mirror1.malwaredomains.com/files/justdomains
-        name: MalwareDomains
-        id: 3
-      - enabled: true
-        url: https://www.malwaredomainlist.com/hostslist/hosts.txt
-        name: MalwareDomainList.com Hosts List
-        id: 4
-      - enabled: true
         url: http://sysctl.org/cameleon/hosts
         name: Sysctl Hosts List
-        id: 5
+        id: 3
       - enabled: true
         url: https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
         name: Disconnect.me Simple Tracking
-        id: 6
+        id: 4
       - enabled: true
         url: https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
         name: Disconnect.me Simple Ads
-        id: 7
+        id: 5
       - enabled: true
         url: https://raw.githubusercontent.com/evankrob/hosts-filenetrehost/master/ad_servers.txt
         name: Evan K Rob Hosts File (Re-host)
-        id: 8
+        id: 6
       - enabled: true
         url: https://dbl.oisd.nl/
         name: Domain Blocklists (oisd.nl)
-        id: 9
+        id: 7
+      - enabled: true
+        url: https://someonewhocares.org/hosts/zero/hosts
+        name: Dan Pollock's List
+        id: 1656360961
+      - enabled: true
+        url: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/GameConsoleAdblockList.txt
+        name: Game Console Adblock List
+        id: 1656360962
+      - enabled: true
+        url: https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV-AGH.txt
+        name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
+        id: 1656360963
+      - enabled: true
+        url: https://abp.oisd.nl/basic/
+        name: OISD Blocklist Basic
+        id: 1656360964
+      - enabled: true
+        url: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus&showintro=1&mimetype=plaintext
+        name: Peter Lowe's List
+        id: 1656360965
+      - enabled: true
+        url: https://easylist-downloads.adblockplus.org/easylistdutch.txt
+        name: 'NLD: Easylist'
+        id: 1656360966
       whitelist_filters: []
       user_rules:
       - '||metrics.icloud.com^'
