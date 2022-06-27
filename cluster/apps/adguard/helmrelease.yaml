@@ -281,6 +281,7 @@ spec:
       - '@@||kinesis.us-west-2.amazonaws.com^'
       - '@@||app.townsq.io^'
       - '@@||api.townsq.io^'
+      - '@@||local^$important'
       # - '||example.org^ # block'
       # - '||example.org^$ctag=~device_phone' # block for all, except device_phone tag (https://github.com/AdguardTeam/AdGuardHome/wiki/Hosts-Blocklists#ctag)
       # - '@@||example.org^ # unblock'
