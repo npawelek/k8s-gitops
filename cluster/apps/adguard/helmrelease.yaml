@@ -178,11 +178,11 @@ spec:
       filters:
       - enabled: true
         url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
-        name: AdGuard DNS filter
+        name: AdGuard DNS List
         id: 1
       - enabled: true
         url: https://adaway.org/hosts.txt
-        name: AdAway
+        name: Advertising AdAway List
         id: 2
       - enabled: true
         url: http://sysctl.org/cameleon/hosts
@@ -190,15 +190,15 @@ spec:
         id: 3
       - enabled: true
         url: https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-        name: Disconnect.me Simple Tracking
+        name: Tracking Disconnect.me Simple Tracking List
         id: 4
       - enabled: true
         url: https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-        name: Disconnect.me Simple Ads
+        name: Advertising Disconnect.me Simple Ads List
         id: 5
       - enabled: true
         url: https://raw.githubusercontent.com/evankrob/hosts-filenetrehost/master/ad_servers.txt
-        name: Evan K Rob Hosts File (Re-host)
+        name: Evan K Rob Hosts File List
         id: 6
       - enabled: true
         url: https://dbl.oisd.nl/
@@ -228,6 +228,38 @@ spec:
         url: https://easylist-downloads.adblockplus.org/easylistdutch.txt
         name: 'NLD: Easylist'
         id: 1656360966
+      - enabled: true
+        url: https://v.firebog.net/hosts/AdguardDNS.txt
+        name: Advertising Firebog AdguardDNS List
+        id: 1656361435
+      - enabled: true
+        url: https://v.firebog.net/hosts/Admiral.txt
+        name: Advertising Firebog Admiral List
+        id: 1656361436
+      - enabled: true
+        url: https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
+        name: Advertising AnudeepND List
+        id: 1656361437
+      - enabled: true
+        url: https://v.firebog.net/hosts/Easylist.txt
+        name: Advertising Firebog Easylist
+        id: 1656361438
+      - enabled: true
+        url: https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
+        name: Advertising bigdargon List
+        id: 1656361440
+      - enabled: true
+        url: https://v.firebog.net/hosts/Easyprivacy.txt
+        name: Tracking Firebog EasyPrivacy List
+        id: 1656361441
+      - enabled: true
+        url: https://v.firebog.net/hosts/Prigent-Ads.txt
+        name: Tracking Firebog PrigentAds List
+        id: 1656361442
+      - enabled: true
+        url: https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+        name: Tracking Frogeye FirstParty List
+        id: 1656361443
       whitelist_filters: []
       user_rules:
       - '||metrics.icloud.com^'
