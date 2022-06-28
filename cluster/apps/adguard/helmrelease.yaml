@@ -109,19 +109,22 @@ spec:
     config: |-
       bind_host: 0.0.0.0
       bind_port: 3000
+      beta_bind_port: 0
       users: []
+      auth_attempts: 5
+      block_auth_min: 15
       http_proxy: ""
       language: en
-      rlimit_nofile: 0
       debug_pprof: false
       web_session_ttl: 720
       dns:
-        bind_host: 0.0.0.0
+        bind_hosts:
+        - 0.0.0.0
         port: 53
         statistics_interval: 7
         querylog_enabled: true
         querylog_file_enabled: true
-        querylog_interval: 7
+        querylog_interval: 168h
         querylog_size_memory: 1000
         anonymize_client_ip: false
         protection_enabled: true
@@ -137,23 +140,34 @@ spec:
         upstream_dns:
         - tls://1.1.1.1
         - tls://1.0.0.1
+        upstream_dns_file: ""
         bootstrap_dns:
-        - "1.1.1.1"
-        - "1.0.0.1"
+        - 1.1.1.1
+        - 1.0.0.1
         all_servers: false
         fastest_addr: true
+        fastest_timeout: 1s
         allowed_clients: []
         disallowed_clients: []
-        blocked_hosts: []
+        blocked_hosts:
+        - version.bind
+        - id.server
+        - hostname.bind
+        trusted_proxies:
+        - 127.0.0.0/8
+        - ::1/128
         cache_size: 4194304
         cache_ttl_min: 0
         cache_ttl_max: 0
+        cache_optimistic: false
         bogus_nxdomain: []
         aaaa_disabled: false
         enable_dnssec: false
         edns_client_subnet: true
+        max_goroutines: 300
+        ipset: []
         filtering_enabled: true
-        filters_update_interval: 1
+        filters_update_interval: 12
         parental_enabled: false
         safesearch_enabled: false
         safebrowsing_enabled: false
@@ -162,13 +176,27 @@ spec:
         parental_cache_size: 1048576
         cache_time: 30
         rewrites: []
-        blocked_services: []
+        blocked_services:
+        - tinder
+        - ok
+        - mail_ru
+        - vk
+        - weibo
+        - viber
+        - qq
+        upstream_timeout: 10s
+        private_networks: []
+        use_private_ptr_resolvers: true
+        local_ptr_upstreams: []
       tls:
         enabled: false
         server_name: ""
         force_https: true
         port_https: 443
         port_dns_over_tls: 853
+        port_dns_over_quic: 853
+        port_dnscrypt: 0
+        dnscrypt_config_file: ""
         allow_unencrypted_doh: false
         strict_sni_check: false
         certificate_chain: ""
@@ -260,6 +288,26 @@ spec:
         url: https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
         name: Tracking Frogeye FirstParty List
         id: 1656361443
+      - enabled: true
+        url: https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
+        name: Malware OSINT List
+        id: 1656368651
+      - enabled: true
+        url: https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
+        name: Malware Disconnect.me List
+        id: 1656368652
+      - enabled: true
+        url: https://v.firebog.net/hosts/Prigent-Crypto.txt
+        name: Malware Firebog Prigent Crypto List
+        id: 1656368653
+      - enabled: true
+        url: https://phishing.army/download/phishing_army_blocklist_extended.txt
+        name: Malware Phishing Army List
+        id: 1656368654
+      - enabled: true
+        url: https://urlhaus.abuse.ch/downloads/hostfile/
+        name: Malware URLHaus Abuse List
+        id: 1656368655
       whitelist_filters: []
       user_rules:
       - '||metrics.icloud.com^'
@@ -288,77 +336,95 @@ spec:
       dhcp:
         enabled: false
         interface_name: ""
-        gateway_ip: ""
-        subnet_mask: ""
-        range_start: ""
-        range_end: ""
-        lease_duration: 86400
-        icmp_timeout_msec: 1000
+        local_domain_name: ""
+        dhcpv4:
+          gateway_ip: ""
+          subnet_mask: ""
+          range_start: ""
+          range_end: ""
+          lease_duration: 86400
+          icmp_timeout_msec: 1000
+          options: []
+        dhcpv6:
+          range_start: ""
+          lease_duration: 86400
+          ra_slaac_only: false
+          ra_allow_slaac: false
       clients:
-      - name: Jessie
-        tags:
-        - device_phone
-        - user_regular
-        ids:
-        - 192.168.30.201
-        - 192.168.30.202
-        - 192.168.30.203
-        use_global_settings: true
-        filtering_enabled: false
-        parental_enabled: false
-        safesearch_enabled: false
-        safebrowsing_enabled: false
-        use_global_blocked_services: true
-        blocked_services: []
-        upstreams: []
-      - name: Nathan
-        tags:
-        - user_admin
-        ids:
-        - 192.168.30.100
-        - 192.168.30.101
-        - 192.168.30.102
-        use_global_settings: true
-        filtering_enabled: false
-        parental_enabled: false
-        safesearch_enabled: false
-        safebrowsing_enabled: false
-        use_global_blocked_services: true
-        blocked_services: []
-        upstreams: []
-      - name: NoT
-        ids:
-        - 192.168.10.0/24
-        use_global_settings: true
-        filtering_enabled: false
-        parental_enabled: false
-        safesearch_enabled: false
-        safebrowsing_enabled: false
-        use_global_blocked_services: true
-        blocked_services: []
-        upstreams: []
-      - name: IoT
-        ids:
-        - 192.168.20.0/24
-        use_global_settings: true
-        filtering_enabled: false
-        parental_enabled: false
-        safesearch_enabled: false
-        safebrowsing_enabled: false
-        use_global_blocked_services: true
-        blocked_services: []
-        upstreams: []
-      - name: Work
-        ids:
-        - 192.168.40.0/24
-        use_global_settings: true
-        filtering_enabled: false
-        parental_enabled: false
-        safesearch_enabled: false
-        safebrowsing_enabled: false
-        use_global_blocked_services: true
-        blocked_services: []
-        upstreams: []
+        runtime_sources:
+          whois: true
+          arp: true
+          rdns: false
+          dhcp: true
+          hosts: true
+        persistent:
+        - name: IoT
+          tags: []
+          ids:
+          - 192.168.20.0/24
+          blocked_services: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+        - name: Jessie
+          tags:
+          - device_phone
+          - user_regular
+          ids:
+          - 192.168.30.201
+          - 192.168.30.202
+          - 192.168.30.203
+          blocked_services: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+        - name: Nathan
+          tags:
+          - user_admin
+          ids:
+          - 192.168.30.100
+          - 192.168.30.101
+          - 192.168.30.102
+          blocked_services: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+        - name: NoT
+          tags: []
+          ids:
+          - 192.168.10.0/24
+          blocked_services: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+        - name: Work
+          tags: []
+          ids:
+          - 192.168.40.0/24
+          blocked_services: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
       log_compress: false
       log_localtime: true
       log_max_backups: 0
@@ -366,4 +432,8 @@ spec:
       log_max_age: 3
       log_file: ""
       verbose: false
-      schema_version: 10
+      os:
+        group: ""
+        user: ""
+        rlimit_nofile: 0
+      schema_version: 14
