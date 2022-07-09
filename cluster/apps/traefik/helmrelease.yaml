@@ -67,7 +67,7 @@ spec:
     dnsPolicy: ClusterFirst
     logs:
       general:
-        level: WARN
+        level: DEBUG
       access:
         enabled: true
     pilot:
