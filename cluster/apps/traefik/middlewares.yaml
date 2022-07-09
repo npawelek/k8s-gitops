@@ -72,7 +72,7 @@ spec:
   chain:
     middlewares:
     - name: traefik-sso
-    - name: default-headers
+    #- name: default-headers
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
