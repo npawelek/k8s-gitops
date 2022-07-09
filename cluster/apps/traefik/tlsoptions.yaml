@@ -7,9 +7,9 @@ metadata:
 spec:
   sniStrict: true
   minVersion: VersionTLS12
-  curvePreferences:
-  - CurveP521
-  - CurveP384
+  # curvePreferences:
+  # - CurveP521
+  # - CurveP384
   # Ciphers are not configurable for TLS1.3
   # preferServerCipherSuites: true
   # cipherSuites:
