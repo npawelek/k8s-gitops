@@ -6,7 +6,7 @@ metadata:
   namespace: traefik
 spec:
   sniStrict: true
-  minVersion: VersionTLS13
+  minVersion: VersionTLS12
   curvePreferences:
   - CurveP521
   - CurveP384
