@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbhydra2
-      tag: 4.4.0
+      tag: 4.5.0-dev
     env:
       TZ: ${TIMEZONE}
       PUID: "1024"
