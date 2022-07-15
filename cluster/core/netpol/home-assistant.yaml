@@ -209,6 +209,16 @@ spec:
     - port: 32400
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: traefik
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+    - port: 8443
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 192.168.0.1/32
     - ipBlock:
