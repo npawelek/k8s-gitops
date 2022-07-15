@@ -9,6 +9,6 @@ spec:
   minVersion: VersionTLS13
   # Removed due to issue with ffmpeg elliptic curve availability during the handshake
   # https://github.com/home-assistant/core/issues/74764
-  curvePreferences:
-  - CurveP521
-  - CurveP384
+  # curvePreferences:
+  # - CurveP521
+  # - CurveP384
