@@ -63,6 +63,8 @@ spec:
         cidr: 70.114.46.31/32
     - ipBlock:
         cidr: 69.235.244.62/32
+    - ipBlock:
+        cidr: 146.70.58.131/32
     ports:
     - protocol: TCP
       port: 8443
