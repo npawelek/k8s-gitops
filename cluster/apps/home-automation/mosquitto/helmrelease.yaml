@@ -46,6 +46,9 @@ spec:
           mqtt:
             enabled: true
             port: 1883
+          mqtts:
+            enabled: true
+            port: 8883
     persistence:
       data:
         enabled: true
