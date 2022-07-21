@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: home-automation
+spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: home-assistant
+    namespace: home-automation
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: mosquitto
+      version: 4.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: mqtt-nathanpawelek-com-tls,mosquitto-secrets
+    image:
+      repository: ghcr.io/k8s-at-home/eclipse-mosquitto
+      tag: 2.0.14
+    controller:
+      type: statefulset
+      replicas: 1
+    env:
+      TZ: ${TIMEZONE}
+    auth:
+      enabled: true
+    service:
+      main:
+        type: LoadBalancer
+        lannotations:
+          metallb.universe.tf/loadBalancerIPs: ${MOSQUITTO_LB}
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: false
+          mqtt:
+            enabled: true
+            port: 1883
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mosquitto-data
+        mountPath: /mosquitto/data
+      configinc:
+        enabled: true
+        type: configMap
+        mountPath: /mosquitto/configinc
+        name: mosquitto-conf
+      mosquitto-auth:
+        enabled: true
+        type: custom
+        volumeSpec:
+          secret:
+            secretName: mosquitto-secrets
+        mountPath: /mosquitto/configinc/auth
+        readOnly: true
+      mosquitto-tls:
+        enabled: true
+        type: custom
+        volumeSpec:
+          secret:
+            secretName: mqtt-nathanpawelek-com-tls
+        mountPath: /etc/ssl/mosquitto
+        readOnly: true
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 15m
+      limits:
+        memory: 256Mi
