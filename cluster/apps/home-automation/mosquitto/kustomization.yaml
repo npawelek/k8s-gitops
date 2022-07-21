@@ -6,4 +6,4 @@ resources:
 - ./pvc.yaml
 - ./cm.yaml
 - ./secrets.yaml
-# - ./certificate.yaml
+- ./certificate.yaml
