@@ -123,20 +123,6 @@ spec:
     - port: 53
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: home-automation
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: vernemq
-    ports:
-    - protocol: TCP
-      port: 1883
-    - protocol: TCP
-      port: 8443
-    - protocol: TCP
-      port: 8883
-  - to:
     - ipBlock:
         cidr: 192.168.0.14/32
     ports:

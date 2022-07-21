@@ -12,7 +12,7 @@ spec:
     namespace: longhorn-system
   - name: mariadb-galera
     namespace: galera
-  - name: vernemq
+  - name: mosquitto
     namespace: home-automation
   interval: 5m
   chart:
