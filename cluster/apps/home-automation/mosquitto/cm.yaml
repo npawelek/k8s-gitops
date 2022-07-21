@@ -9,7 +9,8 @@ data:
     acl_file /mosquitto/configinc/auth/acl
     password_file /mosquitto/configinc/auth/passwd
     autosave_interval 60
-    listener port 8883
-    cafile /etc/ssl/mosquitto/tls.crt
-    certfile /etc/ssl/mosquitto/tls.crt
-    keyfile /etc/ssl/mosquitto/tls.key
+    # listener 1883 0.0.0.0
+    # listener 8883 0.0.0.0
+    # cafile /etc/ssl/mosquitto/tls.crt
+    # certfile /etc/ssl/mosquitto/tls.crt
+    # keyfile /etc/ssl/mosquitto/tls.key
