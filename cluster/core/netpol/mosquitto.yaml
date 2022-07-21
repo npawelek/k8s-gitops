@@ -24,6 +24,8 @@ spec:
     ports:
     - protocol: TCP
       port: 1883
+    - protocol: TCP
+      port: 8883
   - from:
     - ipBlock:
         cidr: 192.168.10.0/24
@@ -34,12 +36,16 @@ spec:
     ports:
     - protocol: TCP
       port: 1883
+    - protocol: TCP
+      port: 8883
   - from:
     - ipBlock:
         cidr: 192.168.30.100/32
     ports:
     - protocol: TCP
       port: 1883
+    - protocol: TCP
+      port: 8883
   - from:
     - namespaceSelector:
         matchLabels:
@@ -50,6 +56,8 @@ spec:
     ports:
     - protocol: TCP
       port: 1883
+    - protocol: TCP
+      port: 8883
   - from:
     - namespaceSelector:
         matchLabels:
@@ -60,6 +68,8 @@ spec:
     ports:
     - protocol: TCP
       port: 1883
+    - protocol: TCP
+      port: 8883
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

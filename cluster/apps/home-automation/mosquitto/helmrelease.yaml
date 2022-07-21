@@ -6,6 +6,8 @@ metadata:
   namespace: home-automation
 spec:
   dependsOn:
+  - name: metallb
+    namespace: metallb-system
   - name: longhorn
     namespace: longhorn-system
   interval: 15m
