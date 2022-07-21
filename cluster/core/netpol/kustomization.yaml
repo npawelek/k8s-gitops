@@ -16,7 +16,6 @@ resources:
 - ./overseerr.yaml
 - ./resilio.yaml
 - ./home-automation.yaml
-- ./vernemq.yaml
 - ./mosquitto.yaml
 - ./home-assistant.yaml
 - ./esphome.yaml
