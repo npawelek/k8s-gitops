@@ -7,6 +7,8 @@ metadata:
 data:
   comskip.ini: |-
     ; See comskip.txt in the distribution zip file for many settable parameters, read manual.html, tuning.html and debugwindow.html for how to tune and debug comskip
+    ; Any commercial at the end shorter then this amount of seconds will be regarded as show
+    always_keep_last_seconds=120
     ; 1=black frame, 2=logo, 4=scene change, 8=fuzzy logic, 16=closed captions, 32=aspect ration, 64=silence, 128=cutscenes, 255=all
     detect_method=107
     ; Default, set to 0 to force using this clues if selected above.
