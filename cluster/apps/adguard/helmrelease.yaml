@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.107.8
+      tag: v0.107.9
 
     env:
       TZ: ${TIMEZONE}
