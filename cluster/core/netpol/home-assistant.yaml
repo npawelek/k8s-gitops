@@ -205,6 +205,16 @@ spec:
     - port: 8443
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: mosquitto
+    ports:
+    - port: 8883
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 192.168.0.1/32
     - ipBlock:
