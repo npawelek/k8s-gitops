@@ -103,6 +103,12 @@ spec:
         cidr: 192.168.10.100/32
   - to:
     - ipBlock:
+        cidr: 192.168.10.145/32
+    ports:
+    - port: 80
+      protocol: TCP
+  - to:
+    - ipBlock:
         cidr: 192.168.0.1/32
     ports:
     - port: 8443
