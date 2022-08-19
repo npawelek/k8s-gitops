@@ -219,6 +219,8 @@ spec:
         cidr: 192.168.0.1/32
     - ipBlock:
         cidr: 192.168.0.11/32
+    - ipBlock:
+        cidr: 192.168.0.15/32 #required for tts.cloud_say
     ports:
     - port: 443
       protocol: TCP
