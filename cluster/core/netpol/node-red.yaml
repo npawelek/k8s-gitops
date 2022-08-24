@@ -109,6 +109,14 @@ spec:
       protocol: TCP
   - to:
     - ipBlock:
+        cidr: 192.168.10.230/32
+    - ipBlock:
+        cidr: 192.168.10.231/32
+    ports:
+    - port: 16021
+      protocol: TCP
+  - to:
+    - ipBlock:
         cidr: 192.168.0.1/32
     ports:
     - port: 8443
