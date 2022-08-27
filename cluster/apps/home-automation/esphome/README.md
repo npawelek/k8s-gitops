@@ -2,6 +2,10 @@
 
 ## Shelly
 
+### Shelly Plus 1
+
+![shelly1plus pinout](docs/shelly1_plus_pinout.jpg)
+
 ### Shelly 1
 
 ![shelly1 pinout](docs/shelly1_pinout.jpeg)
