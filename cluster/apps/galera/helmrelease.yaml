@@ -28,7 +28,7 @@ spec:
       tag: 10.6.7
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
-    podManagementPolicy: Parallel
+    podManagementPolicy: OrderedReady
     updateStrategy:
       type: RollingUpdate
     replicaCount: 3
