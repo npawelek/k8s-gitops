@@ -37,7 +37,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        lannotations:
+        annotations:
           metallb.universe.tf/loadBalancerIPs: ${MOSQUITTO_LB}
         externalTrafficPolicy: Local
         ports:
