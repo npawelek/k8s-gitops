@@ -26,3 +26,4 @@ resources:
 - ./nginx.yaml
 - ./tdarr.yaml
 - ./uptime.yaml
+- ./emqx.yaml

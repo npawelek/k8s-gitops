@@ -327,6 +327,16 @@ spec:
     - port: 3001
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: emqx
+    ports:
+    - port: 18083
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

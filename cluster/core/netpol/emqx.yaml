@@ -1,0 +1,142 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-emqx-ingress
+  namespace: home-automation
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: emqx
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: emqx
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: traefik
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+    - protocol: TCP
+      port: 18083
+  - from:
+    - ipBlock:
+        cidr: 192.168.0.0/24
+    ports:
+    - protocol: TCP
+      port: 1883
+    - protocol: TCP
+      port: 8883
+  - from:
+    - ipBlock:
+        cidr: 192.168.10.0/24
+    - ipBlock:
+        cidr: 192.168.30.100/32
+    ports:
+    - protocol: TCP
+      port: 1883
+    - protocol: TCP
+      port: 8883
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: home-assistant
+    ports:
+    - protocol: TCP
+      port: 8883
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: node-red
+    ports:
+    - protocol: TCP
+      port: 8883
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: uptime
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: uptime-kuma
+    ports:
+    - protocol: TCP
+      port: 1883
+    - protocol: TCP
+      port: 8883
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-emqx-egress
+  namespace: home-automation
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: emqx
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: adguard
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: adguard-home
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.10/32
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: emqx
+  - to:
+    - ipBlock:
+        cidr: 192.168.0.21/32
+    - ipBlock:
+        cidr: 192.168.0.22/32
+    - ipBlock:
+        cidr: 192.168.0.23/32
+    ports:
+    - port: 6443
+      protocol: TCP
