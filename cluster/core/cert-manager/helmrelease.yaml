@@ -27,14 +27,11 @@ spec:
     webhook:
       replicaCount: 3
       enabled: true
-      extraArgs:
-      - --feature-gates=AdditionalCertificateOutputFormats=true
     cainjector:
       replicaCount: 3
     extraArgs:
     - --dns01-recursive-nameservers-only
     - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
-    - --feature-gates=AdditionalCertificateOutputFormats=true
     # This option will delete tls secrets upon deletion of certificate object
     # - --enable-certificate-owner-ref
     volumeMounts:
