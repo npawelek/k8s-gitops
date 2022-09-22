@@ -82,6 +82,8 @@ spec:
       protocol: TCP
   - to:
     - ipBlock:
+        cidr: 192.168.30.99/32
+    - ipBlock:
         cidr: 192.168.30.100/32
     ports:
     - port: 55555
