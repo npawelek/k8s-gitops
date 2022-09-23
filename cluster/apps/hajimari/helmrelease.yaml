@@ -69,6 +69,8 @@ spec:
           url: https://octopi.${DOMAIN}
         - name: Valetudo (Rosie)
           url: http://192.168.10.145
+        - name: HDHomeRun
+          url: http://192.168.20.98/
     ingress:
       main:
         enabled: true
