@@ -87,7 +87,7 @@ spec:
       # EMQX_LISTENERS__SSL__EXTERNAL__SSL_OPTIONS__CERTFILE: path/mqtt.crt
       EMQX_AUTH__USER__1__USERNAME: iot
     emqxAclConfig: >
-      {allow, {user, "admin"}, all, ["$SYS/#", "#"]}.
+      {allow, {user, "dashboard"}, all, ["$SYS/#", "#"]}.
       {allow, {user, "iot"}, pubsub, ["homeassistant/#"]}.
       {deny, all}.
     emqxLoadedPlugins: >
