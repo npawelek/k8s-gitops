@@ -29,6 +29,7 @@ spec:
       name: "Nathan"
       darkTheme: "chalk"
       defaultSearchProvider: "DuckDuckGo"
+      showAppStatus: "true"
       ## Groups
       # network
       # media
