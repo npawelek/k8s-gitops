@@ -44,7 +44,7 @@ spec:
         - name: traefik
           url: https://in.${DOMAIN}/dashboard/#/
           icon: directions-fork
-      - group: nedia
+      - group: media
         apps:
         - name: plex
           url: https://plex.${DOMAIN}
