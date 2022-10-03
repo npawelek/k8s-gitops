@@ -45,5 +45,5 @@ spec:
         traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
         hajimari.io/enable: "true"
         hajimari.io/icon: cow
-        hajimari.io/group: storage
+        hajimari.io/group: services
         hajimari.io/appName: longhorn

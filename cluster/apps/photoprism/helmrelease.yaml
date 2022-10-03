@@ -59,9 +59,9 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/icon: "camera"
-          hajimari.io/group: media
+          hajimari.io/group: miscellaneous
         hosts:
         - host: photoprism.${DOMAIN}
           paths:

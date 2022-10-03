@@ -10,7 +10,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
     hajimari.io/enable: "true"
     hajimari.io/icon: sync-circle
-    hajimari.io/group: network
+    hajimari.io/group: services
     hajimari.io/appName: resilio
   labels:
     app.kubernetes.io/instance: resilio-sync

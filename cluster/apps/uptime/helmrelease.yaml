@@ -48,7 +48,7 @@ spec:
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
           hajimari.io/icon: robot
-          hajimari.io/group: network
+          hajimari.io/group: services
         hosts:
         - host: uptime.${DOMAIN}
           paths:

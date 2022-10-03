@@ -46,7 +46,7 @@ spec:
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
           hajimari.io/icon: iobroker
-          hajimari.io/group: "home automation"
+          hajimari.io/group: services
           hajimari.io/appName: "emqx"
         hosts:
         - &host "emqx.${DOMAIN}"
