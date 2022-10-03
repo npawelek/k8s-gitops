@@ -27,42 +27,53 @@ spec:
       namespaceSelector:
         any: true
       name: "Nathan"
+      darkTheme: "chalk"
+      defaultSearchProvider: "DuckDuckGo"
+      ## Groups
+      # network
+      # media
+      # downloads
+      # home automation
+      # storage
+      # miscellaneous
       customApps:
-      - name: traefik
-        url: https://in.${DOMAIN}/dashboard/#/
-        icon: directions-fork
-        group: network
-      - name: plex
-        url: https://plex.${DOMAIN}
-        icon: plex
-        group: media
-      groups:
-      - name: code
-        links:
+      - group: network
+        apps:
+        - name: traefik
+          url: https://in.${DOMAIN}/dashboard/#/
+          icon: directions-fork
+      - group: nedia
+        apps:
+        - name: plex
+          url: https://plex.${DOMAIN}
+          icon: plex
+      globalBookmarks:
+      - group: node
+        bookmarks:
         - name: GitOps
           url: https://github.com/npawelek/k8s-gitops
-        - name: Home Assistant Config
-          url: https://github.com/npawelek/hass-config
+        - name: Firmware
+          url: https://github.com/npawelek/firmware
         - name: Renovate
           url: https://app.renovatebot.com/dashboard#github/npawelek/k8s-gitops
         - name: k8s@home Docs
           url: https://docs.k8s-at-home.com
-      - name: network
-        links:
+      - group: network
+        bookmarks:
         - name: UniFi Network
           url: https://udmp.${DOMAIN}/network/default/dashboard
         - name: UniFi Protect
           url: https://udmp.${DOMAIN}/protect/dashboard
         - name: UDM-Pro
           url: https://udmp.${DOMAIN}/settings/updates
-      - name: storage
-        links:
+      - group: storage
+        bookmarks:
         - name: Synology DS1512+
           url: https://derpnas.${DOMAIN}:8079
         - name: Synology RS1221+
           url: https://racknas.${DOMAIN}:8079
-      - name: entertainment
-        links:
+      - group: miscellaneous
+        bookmarks:
         - name: HyperHDR Samsung 55
           url: https://hyp-samsung55.${DOMAIN}
         - name: Octoprint
