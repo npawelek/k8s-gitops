@@ -331,6 +331,8 @@ spec:
       - '||controlv2.nanoleaf.me^$important'
       - '||collector.nanoleaf.me^$important'
       - '||daemon.nanoleaf.me^$important'
+      - '||apollo.nanoleaf.me^$important'
+      - '||iaso.nanoleaf.me^$important'
       - '||www.baidu.com^$important'
       - '@@||v.w-x.co^'
       - '@@||fls-na.amazon.com^'
