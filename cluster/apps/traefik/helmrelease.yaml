@@ -23,8 +23,8 @@ spec:
         namespace: flux-system
   values:
     image:
-      name: ghcr.io/k8s-at-home/traefik
-      tag: v2.6.3
+      name: traefik
+      tag: v2.7.3
     deployment:
       kind: Deployment
       replicas: 2
