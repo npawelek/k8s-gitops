@@ -77,7 +77,7 @@ spec:
       - group: miscellaneous
         bookmarks:
         - name: HyperHDR Samsung 55
-          url: https://hyp-samsung55.${DOMAIN}
+          url: https://hyp-samsung55.${DOMAIN}:8092
         - name: Octoprint
           url: https://octopi.${DOMAIN}
         - name: Valetudo (Rosie)
