@@ -24,7 +24,7 @@ spec:
   values:
     image:
       name: traefik
-      tag: v2.8.8
+      tag: v2.9.1
     deployment:
       kind: Deployment
       replicas: 2
