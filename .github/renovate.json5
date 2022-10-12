@@ -1,11 +1,11 @@
 {
   "extends": [
-    ":enableRenovate",
     "config:base",
+    "docker:enableMajor",
+    ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
     ":separatePatchReleases",
-    "docker:enableMajor",
     "github>npawelek/k8s-gitops//.github/renovate/commitMessage",
     "github>npawelek/k8s-gitops//.github/renovate/labels",
     "github>npawelek/k8s-gitops//.github/renovate/semanticCommits"
@@ -15,10 +15,13 @@
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "assignees": ["@npawelek"],
+  "repositories": ["npawelek/k8s-gitops"],
+  "flux": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
+  },
   // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
   "kubernetes": {
-    "datasourceTemplate": "docker",
-    "fileMatch": ["cluster/.+\\.yaml$"],
+    "fileMatch": ["cluster/.+\\.ya?ml$"],
     "ignorePaths": ["cluster/base/"]
   },
   "helm-values": {
