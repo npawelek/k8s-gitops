@@ -226,3 +226,11 @@ spec:
     ports:
     - port: 443
       protocol: TCP
+  - to:
+    - ipBlock:
+        cidr: 192.168.30.50/32
+    - ipBlock:
+        cidr: 192.168.30.51/32
+    ports:
+    - port: 2323
+      protocol: TCP
