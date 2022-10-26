@@ -31,3 +31,17 @@ SELECT table_schema as `Database`,table_name AS `Table`,round(((data_length + in
     # Shelly Door/Window 2 (SHDW-2) Example
     http --auth $USER:$PASS http://$ADDR/ota?url=http://int.nathanpawelek.com/shelly/SHDW-2/v1.11.8.zip
     ```
+
+## Valetudo
+
+### Valetudo Firmware Update
+
+Valetudo instructions can be found [here](https://valetudo.cloud/pages/general/upgrading.html).
+
+```
+ssh root@192.168.10.145
+killall valetudo
+wget http://int.nathanpawelek.com/valetudo/2022.10.0/valetudo-aarch64 -O /data/valetudo
+
+reboot
+```
