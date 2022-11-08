@@ -336,6 +336,7 @@ spec:
       - '||www.baidu.com^$important'
       - '||analysis.vesync.com^$important'
       - '||polyfill.io^$important'
+      - '||ctupdate.skyport.io^$important'
       - '@@||v.w-x.co^'
       - '@@||fls-na.amazon.com^'
       - '@@||kinesis.us-east-1.amazonaws.com^'
