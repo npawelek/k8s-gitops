@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbget
-      tag: 21.1.20221201
+      tag: 21.1.20221215
     env:
       TZ: ${TIMEZONE}
       PUID: "1024"
