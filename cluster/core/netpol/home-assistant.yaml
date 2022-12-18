@@ -179,26 +179,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: sonarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: sonarr
-    ports:
-    - protocol: TCP
-      port: 8989
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: sonarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: radarr
-    ports:
-    - protocol: TCP
-      port: 7878
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: plex
       podSelector:
         matchLabels:
