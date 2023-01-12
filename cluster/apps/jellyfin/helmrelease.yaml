@@ -49,6 +49,13 @@ spec:
       main:
         enabled: true
         ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: play-network
+          hajimari.io/group: media
         hosts:
         - host: &host jellyfin.nathanpawelek.com
           paths:
@@ -57,6 +64,7 @@ spec:
         tls:
         - hosts:
           - *host
+        - secretName: nathanpawelek-com-tls
 
     persistence:
       config:
