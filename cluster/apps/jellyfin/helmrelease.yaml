@@ -44,6 +44,11 @@ spec:
         ports:
           http:
             port: 8096
+            protocol: TCP
+          https:
+            port: 443
+            targetPort: 8920
+            protocol: TCP
 
     ingress:
       main:
@@ -76,6 +81,14 @@ spec:
         path: /volume1/media
         server: ${RACKNAS_ADDR}
         type: nfs
+      tls:
+        enabled: true
+        type: secret
+        name: nathanpawelek-com-tls
+        readOnly: "true"
+        items:
+        - key: keystore.p12
+          path: nathanpawelek-com-tls.p12
       transcode:
         enabled: true
         type: emptyDir
