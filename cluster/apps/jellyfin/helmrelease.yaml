@@ -62,7 +62,7 @@ spec:
           hajimari.io/icon: play-network
           hajimari.io/group: media
         hosts:
-        - host: &host jellyfin.nathanpawelek.com
+        - host: &host jellyfin-web.nathanpawelek.com
           paths:
           - path: /
             pathType: Prefix
