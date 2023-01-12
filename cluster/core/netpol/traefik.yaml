@@ -343,6 +343,16 @@ spec:
     - port: 18083
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: jellyfin
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyfin
+    ports:
+    - port: 8096
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
