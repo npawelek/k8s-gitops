@@ -21,3 +21,4 @@ resources:
 - tdarr
 - nginx
 - uptime
+- jellyfin

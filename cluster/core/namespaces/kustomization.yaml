@@ -23,3 +23,4 @@ resources:
 - ./tdarr.yaml
 - ./nginx.yaml
 - ./uptime.yaml
+- ./jellyfin.yaml
