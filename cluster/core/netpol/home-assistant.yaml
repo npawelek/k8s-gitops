@@ -187,6 +187,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: jellyfin
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyfin
+    ports:
+    - port: 8096
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: traefik
       podSelector:
         matchLabels:
@@ -211,6 +221,8 @@ spec:
         cidr: 192.168.0.11/32
     - ipBlock:
         cidr: 192.168.0.15/32 #required for tts.cloud_say
+    - ipBlock:
+        cidr: 192.168.0.17/32
     ports:
     - port: 443
       protocol: TCP
