@@ -18,6 +18,8 @@ spec:
   headers:
     browserXssFilter: true
     contentTypeNosniff: true
+    customRequestHeaders:
+      X-Forwarded-Proto: https
     customResponseHeaders:
       server: ""
       x-applicationversion: ""
