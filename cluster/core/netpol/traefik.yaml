@@ -153,18 +153,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: adguard
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: adguard-home2
-    ports:
-    - port: 53
-      protocol: UDP
-    - port: 3000
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: nzbget
       podSelector:
         matchLabels:
@@ -351,6 +339,8 @@ spec:
           app.kubernetes.io/name: jellyfin
     ports:
     - port: 8096
+      protocol: TCP
+    - port: 8920
       protocol: TCP
   - to:
     - ipBlock:

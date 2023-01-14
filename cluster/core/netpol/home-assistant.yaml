@@ -194,6 +194,8 @@ spec:
     ports:
     - port: 8096
       protocol: TCP
+    - port: 8920
+      protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
