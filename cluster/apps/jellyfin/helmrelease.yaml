@@ -38,16 +38,15 @@ spec:
 
     service:
       main:
-        type: LoadBalancer
-        externalTrafficPolicy: Local
-        loadBalancerIP: "${JELLYFIN_ADDR}"
+        # type: LoadBalancer
+        # externalTrafficPolicy: Local
+        # loadBalancerIP: "${JELLYFIN_ADDR}"
         ports:
           http:
             port: 8096
             protocol: TCP
           https:
-            port: 443
-            targetPort: 8920
+            port: 8920
             protocol: TCP
 
     ingress:
@@ -62,7 +61,7 @@ spec:
           hajimari.io/icon: play-network
           hajimari.io/group: media
         hosts:
-        - host: &host jellyfin-web.nathanpawelek.com
+        - host: &host jellyfin.nathanpawelek.com
           paths:
           - path: /
             pathType: Prefix
