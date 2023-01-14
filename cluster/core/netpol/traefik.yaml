@@ -56,6 +56,18 @@ spec:
       port: 8000
   - from:
     - ipBlock:
+        cidr: 192.168.20.50/32
+    - ipBlock:
+        cidr: 192.168.20.51/32
+    - ipBlock:
+        cidr: 192.168.20.52/32
+    - ipBlock:
+        cidr: 192.168.20.53/32
+    ports:
+    - protocol: TCP
+      port: 8443
+  - from:
+    - ipBlock:
         cidr: 192.168.40.101/32
     - ipBlock:
         cidr: 192.168.40.102/32
