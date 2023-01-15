@@ -194,8 +194,6 @@ spec:
     ports:
     - port: 8096
       protocol: TCP
-    - port: 8920
-      protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
@@ -223,8 +221,6 @@ spec:
         cidr: 192.168.0.11/32
     - ipBlock:
         cidr: 192.168.0.15/32 #required for tts.cloud_say
-    - ipBlock:
-        cidr: 192.168.0.17/32
     ports:
     - port: 443
       protocol: TCP
