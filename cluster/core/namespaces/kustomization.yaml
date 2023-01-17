@@ -19,7 +19,6 @@ resources:
 - ./resilio.yaml
 - ./home-automation.yaml
 - ./rclone.yaml
-- ./photoprism.yaml
 - ./tdarr.yaml
 - ./nginx.yaml
 - ./uptime.yaml
