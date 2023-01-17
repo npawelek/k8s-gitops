@@ -22,7 +22,6 @@ resources:
 - ./node-red.yaml
 - ./rclone.yaml
 - ./smt-reader.yaml
-- ./photoprism.yaml
 - ./nginx.yaml
 - ./tdarr.yaml
 - ./uptime.yaml
