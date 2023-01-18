@@ -23,3 +23,4 @@ resources:
 - ./nginx.yaml
 - ./uptime.yaml
 - ./jellyfin.yaml
+- ./unmanic.yaml

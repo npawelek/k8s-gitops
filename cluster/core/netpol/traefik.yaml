@@ -353,6 +353,16 @@ spec:
     - port: 8096
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: unmanic
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: unmanic
+    ports:
+    - port: 8888
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

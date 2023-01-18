@@ -1,0 +1,113 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unmanic
+  namespace: unmanic
+spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: intel-gpu-plugin
+    namespace: kube-system
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    image:
+      repository: josh5/unmanic
+      tag: 0.2.3
+
+    podSecurityContext:
+      # runAsUser: 568
+      # runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      # Required for passthrough of /dev/dri devices from NFD
+      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
+      supplementalGroups:
+      - 44
+      - 109
+      - 65539
+
+    env:
+      TZ: ${TIMEZONE}
+      PUID: 568
+      PGID: 568
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8888
+            protocol: TCP
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: alpha-t-circle
+          hajimari.io/group: media
+        hosts:
+        - host: &host unmanic.nathanpawelek.com
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - *host
+        - secretName: nathanpawelek-com-tls
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: unmanic-config
+      library:
+        enabled: true
+        path: /volume1/media/test
+        server: ${RACKNAS_ADDR}
+        type: nfs
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /tmp/unmanic
+
+    resources:
+      requests:
+        cpu: 100m
+        gpu.intel.com/i915: 1
+        memory: 2048M
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 6G
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: feature.node.kubernetes.io/custom-intel-gpu
+              operator: In
+              values:
+              - "true"
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - nuc
+              - donnager
+              - hammurabi
