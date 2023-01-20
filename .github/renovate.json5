@@ -98,7 +98,6 @@
       "automerge": true,
       "matchPackageNames": [
         "linuxserver/nzbget",
-        "linuxserver/nzbhydra2",
         "linuxserver/resilio-sync"
       ],
       "versioning": "loose"
