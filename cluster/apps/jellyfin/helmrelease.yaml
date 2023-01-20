@@ -5,6 +5,13 @@ metadata:
   name: jellyfin
   namespace: jellyfin
 spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: intel-gpu-plugin
+    namespace: kube-system
   chart:
     spec:
       chart: app-template
@@ -33,6 +40,8 @@ spec:
       - 65539
 
     env:
+      http_proxy: nzbhydra2-proxy.hydra.svc:8888
+      https_proxy: nzbhydra2-proxy.hydra.svc:8888
       TZ: ${TIMEZONE}
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
 

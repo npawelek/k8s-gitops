@@ -59,13 +59,11 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          ns: readarr
+          ns: jellyfin
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: readarr
+          app.kubernetes.io/name: jellyfin
     ports:
-    - protocol: TCP
-      port: 5076
     - protocol: TCP
       port: 8888
   - from:
