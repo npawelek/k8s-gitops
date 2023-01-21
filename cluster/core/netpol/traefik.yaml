@@ -79,6 +79,8 @@ spec:
   - from:
     - ipBlock:
         cidr: 108.230.245.252/32
+    - ipBlock:
+        cidr: 166.205.97.65/32
     ports:
     - protocol: TCP
       port: 8443
@@ -295,16 +297,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: photoprism
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: photoprism
-    ports:
-    - port: 2342
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: tdarr
       podSelector:
         matchLabels:
@@ -372,5 +364,5 @@ spec:
     ports:
     - port: 443
       protocol: TCP
-    - port: 53
-      protocol: UDP
+    # - port: 53
+    #   protocol: UDP
