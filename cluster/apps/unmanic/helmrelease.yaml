@@ -108,6 +108,5 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-              - nuc
               - donnager
               - hammurabi
