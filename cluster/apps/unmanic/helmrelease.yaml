@@ -30,14 +30,14 @@ spec:
     podSecurityContext:
       # runAsUser: 568
       # runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+      # fsGroup: 568
+      # fsGroupChangePolicy: "OnRootMismatch"
       # Required for passthrough of /dev/dri devices from NFD
       # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
       supplementalGroups:
       - 44
       - 109
-      - 65539
+      # - 65539
 
     env:
       TZ: ${TIMEZONE}
