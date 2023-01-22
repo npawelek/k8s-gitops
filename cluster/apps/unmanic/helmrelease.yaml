@@ -33,7 +33,7 @@ spec:
       # fsGroup: 568
       # fsGroupChangePolicy: "OnRootMismatch"
       # Required for passthrough of /dev/dri devices from NFD
-      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
+      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
       supplementalGroups:
       - 44
       - 109
@@ -94,7 +94,7 @@ spec:
         memory: 2048M
       limits:
         gpu.intel.com/i915: 1
-        memory: 6G
+        memory: 8G
 
     affinity:
       nodeAffinity:
