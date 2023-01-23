@@ -105,14 +105,6 @@ spec:
         type: configMap
         name: scripts
         readOnly: true
-      tls:
-        enabled: true
-        type: secret
-        name: nathanpawelek-com-tls
-        readOnly: "true"
-        items:
-        - key: keystore.p12
-          path: nathanpawelek-com-tls.p12
       transcode:
         enabled: true
         type: emptyDir
