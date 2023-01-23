@@ -104,6 +104,7 @@ spec:
         enabled: true
         type: configMap
         name: scripts
+        mountPath: /config/scripts
         readOnly: true
       transcode:
         enabled: true
