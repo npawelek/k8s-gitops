@@ -93,6 +93,7 @@ spec:
         gpu.intel.com/i915: 1
         memory: 2048M
       limits:
+        cpu: 4
         gpu.intel.com/i915: 1
         memory: 8G
 
