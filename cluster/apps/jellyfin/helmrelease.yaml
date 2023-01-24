@@ -106,6 +106,7 @@ spec:
         name: scripts
         mountPath: /config/scripts
         readOnly: true
+        defaultMode: 0755
       transcode:
         enabled: true
         type: emptyDir
