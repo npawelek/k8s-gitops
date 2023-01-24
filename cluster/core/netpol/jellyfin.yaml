@@ -110,3 +110,13 @@ spec:
     ports:
     - port: 8888
       protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: unmanic
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: unmanic
+    ports:
+    - port: 8888
+      protocol: TCP

@@ -45,7 +45,7 @@ spec:
     env:
       http_proxy: nzbhydra2-proxy.hydra.svc:8888
       https_proxy: nzbhydra2-proxy.hydra.svc:8888
-      no_proxy: 192.168.20.98
+      no_proxy: 192.168.20.98,unmanic.unmanic.svc
       TZ: ${TIMEZONE}
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
 
