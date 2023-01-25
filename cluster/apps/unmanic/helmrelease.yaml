@@ -78,7 +78,7 @@ spec:
         existingClaim: unmanic-config
       library:
         enabled: true
-        path: /volume1/media/test
+        path: /volume1/media
         server: ${RACKNAS_ADDR}
         type: nfs
       cache:
