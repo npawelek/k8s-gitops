@@ -95,7 +95,7 @@ spec:
       limits:
         cpu: 4
         gpu.intel.com/i915: 1
-        memory: 8G
+        memory: 16G
 
     affinity:
       nodeAffinity:
