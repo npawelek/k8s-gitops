@@ -45,6 +45,16 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
+          ns: unmanic
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: unmanic
+    ports:
+    - protocol: TCP
+      port: 8989
+  - from:
+    - namespaceSelector:
+        matchLabels:
           ns: uptime
     - podSelector:
         matchLabels:
