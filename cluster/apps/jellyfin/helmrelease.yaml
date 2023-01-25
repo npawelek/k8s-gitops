@@ -115,6 +115,14 @@ spec:
         type: emptyDir
         medium: Memory
 
+    probes:
+      liveness:
+        enabled: true
+        spec:
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 2
+
     resources:
       requests:
         cpu: 100m
