@@ -73,7 +73,7 @@ spec:
         enabled: true
         existingClaim: nzbhydra2-config
     podAnnotations:
-      secret.reloader.stakater.com/reload: secondary-conf13
+      secret.reloader.stakater.com/reload: secondary-conf24
     resources:
       requests:
         memory: 250Mi
@@ -96,27 +96,27 @@ spec:
         - name: VPN_ENDPOINT_IP
           valueFrom:
             secretKeyRef:
-              name: secondary-conf13
+              name: secondary-conf24
               key: VPN_ENDPOINT_IP
         - name: VPN_ENDPOINT_PORT
           valueFrom:
             secretKeyRef:
-              name: secondary-conf13
+              name: secondary-conf24
               key: VPN_ENDPOINT_PORT
         - name: WIREGUARD_PUBLIC_KEY
           valueFrom:
             secretKeyRef:
-              name: secondary-conf13
+              name: secondary-conf24
               key: WIREGUARD_PUBLIC_KEY
         - name: WIREGUARD_PRIVATE_KEY
           valueFrom:
             secretKeyRef:
-              name: secondary-conf13
+              name: secondary-conf24
               key: WIREGUARD_PRIVATE_KEY
         - name: WIREGUARD_ADDRESSES
           valueFrom:
             secretKeyRef:
-              name: secondary-conf13
+              name: secondary-conf24
               key: WIREGUARD_ADDRESSES
         - name: FIREWALL_OUTBOUND_SUBNETS
           value: "10.96.0.0/12"
