@@ -355,6 +355,16 @@ spec:
     - port: 8888
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: ytdl
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ytdl
+    ports:
+    - port: 17442
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
