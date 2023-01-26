@@ -9,19 +9,46 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: youtubedl-material
-      version: 4.4.2
+      chart: app-template
+      version: 1.2.1
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
 
   values:
+    image:
+      repository: docker.io/tzahi12345/youtubedl-material
+      tag: latest
+
     env:
       TZ: "${TIMEZONE}"
       UID: 568
       GID: 568
+      http_proxy: nzbhydra2.hydra.svc:8888
+      https_proxy: nzbhydra2.hydra.svc:8888
+      ytdl_use_local_db: "true"
+      write_ytdl_config: "true"
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ytdl-config
+        mountPath: /app/appdata
+        subPath: youtubedl
+      media:
+        enabled: true
+        mountPath: /data
+        path: /volume1/media/ytdl
+        server: ${RACKNAS_ADDR}
+        type: nfs
+
+    service:
+      main:
+        ports:
+          http:
+            port: 17442
 
     ingress:
       main:
@@ -42,17 +69,6 @@ spec:
         tls:
           - hosts:
               - *host
-
-    persistence:
-      config:
-        enabled: true
-        existingClaim: ytdl-config
-      media:
-        enabled: true
-        mountPath: /data
-        path: /volume1/media/ytdl
-        server: ${RACKNAS_ADDR}
-        type: nfs
 
     resources:
       requests:
