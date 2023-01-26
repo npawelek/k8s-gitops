@@ -26,8 +26,8 @@ spec:
       TZ: "${TIMEZONE}"
       UID: 568
       GID: 568
-      http_proxy: nzbhydra2.hydra.svc:8888
-      https_proxy: nzbhydra2.hydra.svc:8888
+      # http_proxy: nzbhydra2.hydra.svc:8888
+      # https_proxy: nzbhydra2.hydra.svc:8888
       ytdl_use_local_db: "true"
       write_ytdl_config: "true"
 
