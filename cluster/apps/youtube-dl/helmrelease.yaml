@@ -20,14 +20,12 @@ spec:
   values:
     image:
       repository: docker.io/tzahi12345/youtubedl-material
-      tag: latest
+      tag: nightly-2023-01-24
 
     env:
       TZ: "${TIMEZONE}"
       UID: 568
       GID: 568
-      http_proxy: nzbhydra2-proxy.hydra.svc:8888
-      https_proxy: nzbhydra2.hydra.svc:8888
       ytdl_use_local_db: "true"
       write_ytdl_config: "true"
 
@@ -77,3 +75,37 @@ spec:
       limits:
         cpu: 2
         memory: 2048M
+
+    podAnnotations:
+      secret.reloader.stakater.com/reload: tertiary-conf27
+
+    addons:
+      vpn:
+        enabled: true
+        type: wireguard
+        wireguard:
+          image:
+            repository: ghcr.io/k8s-at-home/wireguard
+            tag: v1.0.20210914
+        configFileSecret: tertiary-conf27
+        env:
+          TZ: ${TIMEZONE}
+        networkPolicy:
+          enabled: false
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_MODULE
+        livenessProbe:
+          exec:
+            command:
+            - ping
+            - -W3
+            - -c1
+            - -q
+            - -s8
+            - 1.1.1.1
+          initialDelaySeconds: 30
+          periodSeconds: 60
+          failureThreshold: 1
