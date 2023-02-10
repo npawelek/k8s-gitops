@@ -23,7 +23,6 @@ resources:
 - ./rclone.yaml
 - ./smt-reader.yaml
 - ./nginx.yaml
-- ./tdarr.yaml
 - ./uptime.yaml
 - ./emqx.yaml
 - ./jellyfin.yaml
