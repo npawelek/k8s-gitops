@@ -127,11 +127,10 @@ spec:
     resources:
       requests:
         cpu: 100m
+        memory: 1024M
         gpu.intel.com/i915: 1
-        memory: 4096M
       limits:
         gpu.intel.com/i915: 1
-        memory: 24G
 
     affinity:
       nodeAffinity:
