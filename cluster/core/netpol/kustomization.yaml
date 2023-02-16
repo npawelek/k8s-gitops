@@ -13,6 +13,7 @@ resources:
 - ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
+- ./radarr-trailers.yaml
 - ./overseerr.yaml
 - ./resilio.yaml
 - ./home-automation.yaml

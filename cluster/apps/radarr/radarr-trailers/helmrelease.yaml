@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: radarr-trailers
+  namespace: radarr
+spec:
+  dependsOn:
+    - name: radarr
+      namespace: radarr
+  interval: 30m
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.3.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        schedule: "@daily"
+        ttlSecondsAfterFinished: 86400
+
+    restartPolicy: OnFailure
+
+    image:
+      repository: jauderho/yt-dlp
+      tag: 2023.01.06@sha256:1de26894374327363b9d9e44447a4186ecd7bdc7061975af7005453fd2990b19
+
+    command:
+      - /bin/sh
+      - /scripts/get_trailers.sh
+
+    envFrom:
+      - secretRef:
+          name: radarr-trailers-secrets
+
+    env:
+      TZ: ${TIMEZONE}
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
+      no_proxy: radarr.radarr.svc
+
+    service:
+      main:
+        enabled: false
+
+    persistence:
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /cache
+      config:
+        enabled: false
+      library:
+        enabled: true
+        path: /volume1/media/Movies
+        mountPath: /complete/Movies
+        server: ${RACKNAS_ADDR}
+        type: nfs
+      scripts:
+        enabled: true
+        type: configMap
+        name: trailers-configmap
+        subPath: get_trailers.sh
+        mountPath: /scripts/get_trailers.sh
+        defaultMode: 0775
+        readOnly: true
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
+      limits:
+        memory: 512M
