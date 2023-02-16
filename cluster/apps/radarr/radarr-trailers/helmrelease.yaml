@@ -24,7 +24,7 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "10 */12 * * *"
+        schedule: "10 0,8,16 * * *"
         ttlSecondsAfterFinished: 86400
 
     restartPolicy: OnFailure
