@@ -7,21 +7,17 @@ die () {
 }
 
 # Add packages
-apk add httpie jq
-
-# Define variables
-RADARR_APIKEY="${RADARR_APIKEY}"
-RADARR_URL="${RADARR_URL}"
+apk add jq curl
 
 # Verify environment variables
 [ -n "${RADARR_APIKEY}" ] || die "Environment variable RADARR_APIKEY is required"
 [ -n "${RADARR_URL}" ] || die "Environment variable RADARR_URL is required"
 
 # Iterate through all movies in radarr, skipping any with a null movieId
-for KEY in $(http "${RADARR_URL}/api/v3/movie" X-Api-Key:$RADARR_APIKEY | jq -r '.[].movieFile.movieId | select( . != null)')
+for ID in $(curl -sL "${RADARR_URL}/api/v3/movie" -H "X-Api-Key:$RADARR_APIKEY" | jq -r '.[].movieFile.movieId | select( . != null)')
 do
   # Store movie json
-  MOVIE_DETAIL=$(http "${RADARR_URL}/api/v3/movie/${KEY}" X-Api-Key:$RADARR_APIKEY | jq -r)
+  MOVIE_DETAIL=$(curl -sL "${RADARR_URL}/api/v3/movie/${ID}" -H "X-Api-Key:$RADARR_APIKEY" | jq -r)
 
   # Determine if a -trailer suffix file exists in the movie directory
   MOVIE_PATH=$(echo "${MOVIE_DETAIL}" | jq -r '.movieFile.path')
@@ -47,7 +43,7 @@ do
       cd "${MOVIE_DIRECTORY}"
 
       # Grab the trailer with the best video+audio and store in mkv format
-      echo -e "\n\nID: ${KEY}\tDownloading trailer for ${MOVIE_NAME} ...\n\n"
+      echo -e "\n\nID: ${ID}\tDownloading trailer for ${MOVIE_NAME} ...\n\n"
       yt-dlp -v -f "bestvideo+bestaudio/best" \
         --geo-bypass \
         --retries 10 \
@@ -61,9 +57,9 @@ do
       # Exit movie directory
       cd
     else
-      echo -e "ID: ${KEY}\tSkipping '${MOVIE_NAME}' due to missing YouTube video ID ..."
+      echo -e "ID: ${ID}\tSkipping '${MOVIE_NAME}' due to missing YouTube video ID ..."
     fi
   else
-    echo -e "ID: ${KEY}\tTrailer already exists in ${MOVIE_DIRECTORY} ..."
+    echo -e "ID: ${ID}\tTrailer already exists in ${MOVIE_DIRECTORY} ..."
   fi
 done
