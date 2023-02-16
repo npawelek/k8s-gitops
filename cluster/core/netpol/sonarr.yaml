@@ -132,6 +132,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: jellyfin
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyfin
+    ports:
+    - port: 8096
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: plex
       podSelector:
         matchLabels:

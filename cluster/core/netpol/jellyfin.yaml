@@ -52,6 +52,26 @@ spec:
     ports:
     - protocol: TCP
       port: 8096
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr
+    ports:
+    - protocol: TCP
+      port: 8096
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    ports:
+    - protocol: TCP
+      port: 8096
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
