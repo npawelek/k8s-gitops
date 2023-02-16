@@ -24,7 +24,7 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "@daily"
+        schedule: "10 */12 * * *"
         ttlSecondsAfterFinished: 86400
 
     restartPolicy: OnFailure
@@ -77,6 +77,6 @@ spec:
     resources:
       requests:
         cpu: 100m
-        memory: 128M
+        memory: 64M
       limits:
-        memory: 512M
+        memory: 1024M

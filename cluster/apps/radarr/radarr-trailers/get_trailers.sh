@@ -26,11 +26,8 @@ do
 
   # Check if trailer is missing
   if [ -z "${TRAILER_FILE}" ]; then
-    # Define an output template for yt-dlp
-    MOVIE_FILENAME=$(basename "${MOVIE_PATH}")
-    OUTPUT_TEMPLATE="${MOVIE_FILENAME%\ [*}-trailer.%(ext)s"
-
     # Get movie details
+    MOVIE_FILENAME=$(basename "${MOVIE_PATH}")
     VIDEO_ID=$(echo "${MOVIE_DETAIL}" | jq -r .youTubeTrailerId | tr -d \")
     MOVIE_NAME=$(echo "${MOVIE_DETAIL}" | jq -r '.title')
 
@@ -38,6 +35,9 @@ do
       # Build the YouTube trailer URL
       TRAILER_ID=$(echo "${MOVIE_DETAIL}" | jq .youTubeTrailerId | tr -d \")
       TRAILER_URL="https://www.youtube.com/watch?v=${TRAILER_ID}"
+
+      # Set the yt-dlp output template containing YouTube ID and Jellyfin file suffix
+      OUTPUT_TEMPLATE="${MOVIE_FILENAME%\ [*} [${TRAILER_ID}]-trailer.%(ext)s"
 
       # Enter movie directory
       cd "${MOVIE_DIRECTORY}"
