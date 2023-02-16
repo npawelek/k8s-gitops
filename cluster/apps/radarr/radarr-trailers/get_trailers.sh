@@ -28,12 +28,11 @@ do
   if [ -z "${TRAILER_FILE}" ]; then
     # Get movie details
     MOVIE_FILENAME=$(basename "${MOVIE_PATH}")
-    VIDEO_ID=$(echo "${MOVIE_DETAIL}" | jq -r .youTubeTrailerId | tr -d \")
+    TRAILER_ID=$(echo "${MOVIE_DETAIL}" | jq -r .youTubeTrailerId | tr -d \")
     MOVIE_NAME=$(echo "${MOVIE_DETAIL}" | jq -r '.title')
 
-    if [ -n "${VIDEO_ID}" ]; then
+    if [ -n "${TRAILER_ID}" ]; then
       # Build the YouTube trailer URL
-      TRAILER_ID=$(echo "${MOVIE_DETAIL}" | jq .youTubeTrailerId | tr -d \")
       TRAILER_URL="https://www.youtube.com/watch?v=${TRAILER_ID}"
 
       # Set the yt-dlp output template containing YouTube ID and Jellyfin file suffix
