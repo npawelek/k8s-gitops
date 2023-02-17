@@ -60,14 +60,14 @@ spec:
       config:
         enabled: true
         existingClaim: nzbget-config
-      media:
+      library:
         enabled: true
         type: custom
         volumeSpec:
           nfs:
             path: /volume1/media/Temp
             server: ${RACKNAS_ADDR}
-        mountPath: /complete/Temp
+        mountPath: /library/Temp
     podAnnotations:
       secret.reloader.stakater.com/reload: primary-conf16,primary-conf20,primary-conf22
     resources:
