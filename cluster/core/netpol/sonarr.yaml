@@ -142,6 +142,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: autoscan
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: autoscan
+    ports:
+    - port: 3030
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: plex
       podSelector:
         matchLabels:
