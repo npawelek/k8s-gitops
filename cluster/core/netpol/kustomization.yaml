@@ -27,5 +27,4 @@ resources:
 - ./uptime.yaml
 - ./emqx.yaml
 - ./jellyfin.yaml
-- ./ytdl.yaml
 - ./autoscan.yaml

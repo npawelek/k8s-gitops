@@ -23,5 +23,4 @@ resources:
 - ./uptime.yaml
 - ./jellyfin.yaml
 - ./unmanic.yaml
-- ./ytdl.yaml
 - ./autoscan.yaml
