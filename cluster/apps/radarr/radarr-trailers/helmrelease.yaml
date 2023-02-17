@@ -62,7 +62,7 @@ spec:
       library:
         enabled: true
         path: /volume1/media/Movies
-        mountPath: /complete/Movies
+        mountPath: /library/Movies
         server: ${RACKNAS_ADDR}
         type: nfs
       scripts:
