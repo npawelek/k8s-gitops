@@ -28,3 +28,4 @@ resources:
 - ./emqx.yaml
 - ./jellyfin.yaml
 - ./autoscan.yaml
+- ./ytdl-sub.yaml

@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ytdl-sub
+  namespace: ytdl-sub
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    controller:
+      type: cronjob
+      cronjob:
+        # schedule: "30 0,6,12,18 * * *"
+        schedule: "@daily"
+        ttlSecondsAfterFinished: 86400
+
+    restartPolicy: OnFailure
+
+    image:
+      repository: ghcr.io/jmbannon/ytdl-sub
+      tag: latest@sha256:89fdb62b8fe2b38d8d46f5f937e379a36b5516cfd4221a76e173281bfa880b50
+
+    command:
+      - ytdl-sub
+      - --log-level
+      - debug
+      - -c
+      - /config/config.yaml
+      - sub
+      - /config/subscriptions.yaml
+
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: config
+
+    env:
+      http_proxy: nzbhydra2-proxy.hydra.svc:8888
+      https_proxy: nzbhydra2-proxy.hydra.svc:8888
+      TZ: ${TIMEZONE}
+      PUID: 1024
+      PGID: 100
+
+    service:
+      main:
+        enabled: false
+
+    ingress:
+      main:
+        enabled: false
+
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: config
+        mountPath: /config
+        readOnly: true
+        defaultMode: 0755
+      library:
+        enabled: true
+        mountPath: /library/YouTube
+        path: /volume1/media/YouTube
+        server: ${RACKNAS_ADDR}
+        type: nfs
+      tmp:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        mountPath: /tmp/ytdl-sub
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
+      limits:
+        memory: 8G
