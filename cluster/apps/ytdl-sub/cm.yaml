@@ -15,10 +15,14 @@ data:
           download_strategy: "url"
 
         ytdl_options:
-          format: "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+          format: "bestvideo[ext=webm][height<=1440]+bestaudio[ext=webm]/best[ext=webm]/best"
           ignoreerrors: True
           break_on_existing: True
           break_on_reject: True
+          final_ext: mkv
+
+        file_convert:
+          convert_to: "mkv"
 
         date_range:
           before: "{download_before}"
@@ -114,4 +118,11 @@ data:
         url: "https://www.youtube.com/@veritasium"
       overrides:
         tv_show_name: Veritasium
-        download_after: "20220901"
+        download_after: "20220601"
+    adam_savage_tested_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@tested"
+      overrides:
+        tv_show_name: Adam Savage's Tested
+        download_after: "20220601"
