@@ -20,8 +20,7 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        # schedule: "30 0,6,12,18 * * *"
-        schedule: "@daily"
+        schedule: "30 0,6,12,18 * * *"
         ttlSecondsAfterFinished: 86400
 
     restartPolicy: OnFailure
@@ -32,8 +31,6 @@ spec:
 
     command:
       - ytdl-sub
-      - --log-level
-      - debug
       - -c
       - /config/config.yaml
       - sub
