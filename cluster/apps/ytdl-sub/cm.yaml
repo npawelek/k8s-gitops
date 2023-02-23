@@ -7,7 +7,7 @@ metadata:
 data:
   config.yaml: |-
     configuration:
-      working_directory: '/tmp/ytdl-sub'
+      working_directory: "/tmp/ytdl-sub"
 
     presets:
       yt_video:
@@ -20,6 +20,7 @@ data:
           break_on_existing: True
           break_on_reject: True
           final_ext: mkv
+          cachedir: "/tmp/ytdl-sub"
 
         file_convert:
           convert_to: "mkv"
