@@ -126,3 +126,10 @@ data:
       overrides:
         tv_show_name: Adam Savage's Tested
         download_after: "20220601"
+    smarter_every_day_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@smartereveryday"
+      overrides:
+        tv_show_name: Smarter Every Day
+        download_after: "20220601"
