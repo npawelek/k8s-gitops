@@ -20,8 +20,8 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        # schedule: "30 0,6,12,18 * * *"
-        schedule: "@daily" # enable for testing
+        schedule: "30 0,6,12,18 * * *"
+        # schedule: "@daily" # enable for testing
         ttlSecondsAfterFinished: 86400
 
     restartPolicy: OnFailure
@@ -38,9 +38,6 @@ spec:
       - /config/config.yaml
       - sub
       - /config/subscriptions.yaml
-
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: config
 
     env:
       http_proxy: nzbhydra2-proxy.hydra.svc:8888
