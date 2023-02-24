@@ -80,6 +80,8 @@ spec:
           url: https://hyp-samsung55.${DOMAIN}
         - name: Octoprint
           url: https://octopi.${DOMAIN}
+        - name: Valetudo (Floofeater)
+          url: http://192.168.10.146
         - name: Valetudo (Rosie)
           url: http://192.168.10.145
         - name: HDHomeRun
