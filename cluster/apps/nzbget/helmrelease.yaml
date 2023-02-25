@@ -69,7 +69,7 @@ spec:
             server: ${RACKNAS_ADDR}
         mountPath: /library/Temp
     podAnnotations:
-      secret.reloader.stakater.com/reload: primary-conf17
+      secret.reloader.stakater.com/reload: primary-conf14,primary-conf17
     resources:
       requests:
         memory: 250Mi
@@ -83,7 +83,7 @@ spec:
           image:
             repository: ghcr.io/k8s-at-home/wireguard
             tag: v1.0.20210914
-        configFileSecret: primary-conf17
+        configFileSecret: primary-conf14
         env:
           TZ: ${TIMEZONE}
         networkPolicy:
