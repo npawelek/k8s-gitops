@@ -85,6 +85,47 @@ data:
             year: "{upload_year}"
             aired: "{upload_date_standardized}"
 
+      yt_playlist_reversed:
+        preset: "yt_video"
+
+        ytdl_options:
+          format: "bestvideo[ext=webm][height<=1440]+bestaudio[ext=webm]/best[ext=webm]/best"
+          ignoreerrors: True
+          break_on_existing: True
+          break_on_reject: True
+          final_ext: mkv
+          cachedir: "/tmp/ytdl-sub"
+          playlistreverse: True
+
+        output_options:
+          output_directory: "/library/YouTube/{tv_show_name_sanitized}"
+          file_name: "{episode_path}.{ext}"
+          thumbnail_name: "{episode_path}-thumb.{thumbnail_ext}"
+
+        overrides:
+          tv_show_name: "OVERRIDE IN SUBSCRIPTION"
+          season: "{upload_year}"
+          episode: "{upload_month}{upload_day_padded}"
+          episode_padded: "{upload_month_padded}{upload_day_padded}"
+          episode_file_name: "S{season}E{episode_padded} {title_sanitized}"
+          episode_path: "Season {season}/{episode_file_name}"
+
+        output_directory_nfo_tags:
+          nfo_name: "tvshow.nfo"
+          nfo_root: "tvshow"
+          tags:
+            title: "{tv_show_name}"
+
+        nfo_tags:
+          nfo_name: "{episode_path}.nfo"
+          nfo_root: "episodedetails"
+          tags:
+            title: "{title}"
+            season: "{season}"
+            episode: "{episode}"
+            year: "{upload_year}"
+            aired: "{upload_date_standardized}"
+
       yt_channel:
         preset: "yt_playlist"
 
@@ -102,7 +143,7 @@ data:
             - "!is_live"
   subscriptions.yaml: |-
     t_and_tg_the_last_of_us_playlist:
-      preset: "yt_playlist"
+      preset: "yt_playlist_reversed"
       download:
         url: "https://www.youtube.com/playlist?list=PLJM2Kp2jgqf0WUbFlFvFG4KU3d-kS-XsE"
       overrides:
