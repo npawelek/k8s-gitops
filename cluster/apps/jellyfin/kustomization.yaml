@@ -5,6 +5,7 @@ namespace: jellyfin
 resources:
 - ./pvc.yaml
 - ./helmrelease.yaml
+- ./cm.yaml
 configMapGenerator:
 - name: scripts
   files:

@@ -26,10 +26,10 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.9@sha256:e10ff50f840eb2cb30d8eb676cad09eb7feee49e7463bd10bf91cb174879de4f
+      tag: 10.8.9@sha256:01a6497a1290b73f63251aebe6d01327c15b3413c3e1013c2a396ffe116ced4d
 
     podAnnotations:
-      configmap.reloader.stakater.com/reload: scripts
+      configmap.reloader.stakater.com/reload: scripts,cron
 
     podSecurityContext:
       runAsUser: 568
@@ -41,11 +41,10 @@ spec:
       supplementalGroups:
       - 44
       - 109
-      - 65539
 
     env:
-      http_proxy: nzbhydra2-proxy.hydra.svc:8888
-      https_proxy: nzbhydra2-proxy.hydra.svc:8888
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
       no_proxy: 192.168.20.98,unmanic.unmanic.svc
       TZ: ${TIMEZONE}
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
@@ -69,7 +68,7 @@ spec:
           hajimari.io/icon: play-network
           hajimari.io/group: media
         hosts:
-        - host: &host jellyfin.nathanpawelek.com
+        - host: &host jellyfin.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
@@ -85,7 +84,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
         hosts:
-        - host: &ext video.nathanpawelek.com
+        - host: &ext video.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
@@ -111,18 +110,18 @@ spec:
         mountPath: /config/scripts
         readOnly: true
         defaultMode: 0755
+      cron:
+        enabled: true
+        type: configMap
+        name: cron
+        subPath: transcode-scrubber
+        mountPath: /etc/cron.d/transcode-scrubber
+        readOnly: true
+        defaultMode: 0755
       transcode:
         enabled: true
         type: emptyDir
         medium: Memory
-
-    probes:
-      liveness:
-        enabled: true
-        spec:
-          periodSeconds: 20
-          failureThreshold: 3
-          timeoutSeconds: 2
 
     resources:
       requests:
@@ -131,6 +130,7 @@ spec:
         gpu.intel.com/i915: 1
       limits:
         gpu.intel.com/i915: 1
+        memory: 16G
 
     affinity:
       nodeAffinity:
