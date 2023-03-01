@@ -6,8 +6,5 @@
 while true
 do
   sleep 60
-  if [ -n "$(find /transcode -type f -name '*.ts' -mmin +15)" ]; then
-    date
-    find /transcode -type f -name '*.ts' -mmin +15 -delete -exec echo "  purging {}" \;
-  fi
+  find /transcode -type f -name '*.ts' -mmin +20 -delete -exec echo "$(date +%m-%d-%Y-%T) purging" {} \;
 done
