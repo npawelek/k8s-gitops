@@ -40,8 +40,8 @@ spec:
       - /config/subscriptions.yaml
 
     env:
-      http_proxy: nzbhydra2-proxy.hydra.svc:8888
-      https_proxy: nzbhydra2-proxy.hydra.svc:8888
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
       TZ: ${TIMEZONE}
       PUID: 1024
       PGID: 100

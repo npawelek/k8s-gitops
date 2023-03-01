@@ -6,4 +6,4 @@ metadata:
   namespace: jellyfin
 data:
   transcode-scrubber: |-
-    */5 * * * * kah find /transcode -type f -name '*.ts' -mmin 15 -delete
+    */5 * * * * kah find /transcode -type f -name '*.ts' -mmin +15 -delete
