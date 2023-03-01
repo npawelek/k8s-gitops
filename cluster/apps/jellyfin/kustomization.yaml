@@ -5,12 +5,12 @@ namespace: jellyfin
 resources:
 - ./pvc.yaml
 - ./helmrelease.yaml
-- ./cm.yaml
 configMapGenerator:
 - name: scripts
   files:
   - post-process-wrapper.sh
   - post-process.sh
+  - transcode-cleanup.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

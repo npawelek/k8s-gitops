@@ -110,18 +110,27 @@ spec:
         mountPath: /config/scripts
         readOnly: true
         defaultMode: 0755
-      cron:
-        enabled: true
-        type: configMap
-        name: cron
-        subPath: transcode-scrubber
-        mountPath: /etc/cron.d/transcode-scrubber
-        readOnly: true
-        defaultMode: 0755
       transcode:
         enabled: true
         type: emptyDir
         medium: Memory
+        sizeLimit: 14G
+
+    sidecars:
+      alpine:
+        image: ghcr.io/onedr0p/alpine:3.17.2@sha256:5d973006bf93ba66e38758694dfed6df091a13e712b6a075f7ed7bb6fd8c2189
+        command:
+        - /bin/sh
+        - /scripts/transcode-cleanup.sh
+        env:
+          TZ: ${TIMEZONE}
+        workingDir: /scripts
+        volumeMounts:
+          - name: transcode
+            mountPath: /transcode
+          - name: scripts
+            mountPath: /scripts
+            readOnly: true
 
     resources:
       requests:
@@ -130,7 +139,7 @@ spec:
         gpu.intel.com/i915: 1
       limits:
         gpu.intel.com/i915: 1
-        memory: 16G
+        memory: 4G
 
     affinity:
       nodeAffinity:
