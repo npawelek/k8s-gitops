@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
-  namespace: hydra
+  namespace: prowlarr
 spec:
   podSelector: {}
   policyTypes:
@@ -13,12 +13,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-hydra-ingress
-  namespace: hydra
+  name: allow-prowlarr-ingress
+  namespace: prowlarr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: nzbhydra2
+      app.kubernetes.io/name: prowlarr
   policyTypes:
   - Ingress
   ingress:
@@ -31,7 +31,7 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 5076
+      port: 9696
   - from:
     - namespaceSelector:
         matchLabels:
@@ -41,9 +41,7 @@ spec:
           app.kubernetes.io/name: sonarr
     ports:
     - protocol: TCP
-      port: 5076
-    - protocol: TCP
-      port: 8888
+      port: 9696
   - from:
     - namespaceSelector:
         matchLabels:
@@ -53,19 +51,7 @@ spec:
           app.kubernetes.io/name: radarr
     ports:
     - protocol: TCP
-      port: 5076
-    - protocol: TCP
-      port: 8888
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: jellyfin
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: jellyfin
-    ports:
-    - protocol: TCP
-      port: 8888
+      port: 9696
   - from:
     - namespaceSelector:
         matchLabels:
@@ -75,49 +61,19 @@ spec:
           app.kubernetes.io/name: uptime-kuma
     ports:
     - protocol: TCP
-      port: 5076
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: radarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: radarr-trailers
-    ports:
-    - protocol: TCP
-      port: 8888
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: ytdl-sub
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: ytdl-sub
-    ports:
-    - protocol: TCP
-      port: 8888
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: prowlarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: prowlarr
-    ports:
-    - protocol: TCP
-      port: 8888
+      port: 9696
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-hydra-egress
-  namespace: hydra
+  name: allow-prowlarr-egress
+  namespace: prowlarr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: nzbhydra2
+      app.kubernetes.io/name: prowlarr
   egress:
   - to:
     - namespaceSelector:
@@ -154,6 +110,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: hydra
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: nzbhydra2
+    ports:
+    - port: 8888
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: nzbget
       podSelector:
         matchLabels:
@@ -162,14 +128,22 @@ spec:
     - port: 6789
       protocol: TCP
   - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-        except:
-        - 10.0.0.0/8
-        - 172.16.0.0/12
-        - 192.168.0.0/16
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr
     ports:
-    # - port: 443
-    #   protocol: TCP
-    - port: 51820
-      protocol: UDP
+    - port: 7878
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    ports:
+    - port: 8989
+      protocol: TCP

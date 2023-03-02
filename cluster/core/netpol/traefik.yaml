@@ -297,12 +297,12 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: tdarr
+          ns: prowlarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: tdarr
+          app.kubernetes.io/name: prowlarr
     ports:
-    - port: 8265
+    - port: 9696
       protocol: TCP
   - to:
     - namespaceSelector:

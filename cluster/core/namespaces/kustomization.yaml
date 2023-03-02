@@ -25,3 +25,4 @@ resources:
 - ./unmanic.yaml
 - ./autoscan.yaml
 - ./ytdl-sub.yaml
+- ./prowlarr.yaml
