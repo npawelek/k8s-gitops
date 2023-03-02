@@ -10,7 +10,6 @@ configMapGenerator:
   files:
   - post-process-wrapper.sh
   - post-process.sh
-  - transcode-cleanup.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
