@@ -5,72 +5,117 @@ metadata:
   name: sonarr
   namespace: sonarr
 spec:
-  dependsOn:
-  - name: longhorn
-    namespace: longhorn-system
-  - name: traefik
-    namespace: traefik
-  - name: nzbget
-    namespace: nzbget
-  - name: hydra
-    namespace: hydra
+  interval: 30m
   maxHistory: 3
-  interval: 10m0s
-  suspend: false
-  releaseName: sonarr
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+    - name: traefik
+      namespace: traefik
+    - name: nzbget
+      namespace: nzbget
+    - name: prowlarr
+      namespace: prowlarr
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: sonarr
-      version: 16.3.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 3.0.9.1549
-    env:
-      TZ: ${TIMEZONE}
-    podSecurityContext:
-      runAsUser: 1024
-      supplementalGroups:
-      - 100
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.391@sha256:aa3051cb42c41965b1324eb3ece65614431022423046a8125d915ac414f5b49a
+
     controller:
       type: statefulset
-      replicas: 1
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+
+    env:
+      TZ: ${TIMEZONE}
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
+      no_proxy: ${NO_PROXY}
+
     service:
       main:
+        ports:
+          http:
+            port: &port 8989
+            protocol: TCP
+
+    probes:
+      liveness: &probes
         enabled: true
-        type: ClusterIP
-        port:
-          port: 8989
-          protocol: TCP
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
-          hajimari.io/icon: television-classic
+          hajimari.io/icon: mdi:television-classic
           hajimari.io/group: downloads
         hosts:
-        - host: sonarr.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
+          - host: &host sonarr.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
-        - hosts:
-          - sonarr.${DOMAIN}
-        - secretName: nathanpawelek-com-tls
+          - hosts:
+              - *host
+          - secretName: nathanpawelek-com-tls
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        storageClass: longhorn
+
     persistence:
-      config:
-        enabled: true
-        existingClaim: sonarr-config
-      media:
+      library:
         enabled: true
         type: custom
         volumeSpec:
@@ -78,9 +123,10 @@ spec:
             path: /volume1/media
             server: ${RACKNAS_ADDR}
         mountPath: /library
+
     resources:
       requests:
-        memory: 250Mi
-        cpu: 500m
+        cpu: 100m
+        memory: 128Mi
       limits:
-        memory: 500Mi
+        memory: 1024Mi
