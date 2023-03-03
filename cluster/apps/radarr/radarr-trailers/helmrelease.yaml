@@ -45,7 +45,7 @@ spec:
       TZ: ${TIMEZONE}
       http_proxy: ${HTTP_PROXY}
       https_proxy: ${HTTP_PROXY}
-      no_proxy: radarr.radarr.svc
+      no_proxy: ${NO_PROXY}
 
     service:
       main:
@@ -57,6 +57,7 @@ spec:
         type: emptyDir
         medium: Memory
         mountPath: /cache
+        sizeLimit: 4G
       config:
         enabled: false
       library:
@@ -77,6 +78,6 @@ spec:
     resources:
       requests:
         cpu: 100m
-        memory: 64M
+        memory: 128Mi
       limits:
-        memory: 1024M
+        memory: 1024Mi
