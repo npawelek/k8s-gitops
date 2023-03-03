@@ -61,7 +61,7 @@ spec:
       TZ: ${TIMEZONE}
       http_proxy: ${HTTP_PROXY}
       https_proxy: ${HTTP_PROXY}
-      no_proxy: .cluster.local
+      no_proxy: ${NO_PROXY}
 
     service:
       main:
