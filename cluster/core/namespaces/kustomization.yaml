@@ -26,3 +26,4 @@ resources:
 - ./autoscan.yaml
 - ./ytdl-sub.yaml
 - ./prowlarr.yaml
+- ./recyclarr.yaml

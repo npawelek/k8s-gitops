@@ -16,6 +16,7 @@ resources:
 - prowlarr
 - radarr
 - rclone
+- recyclarr
 - resilio
 - sonarr
 - tautulli

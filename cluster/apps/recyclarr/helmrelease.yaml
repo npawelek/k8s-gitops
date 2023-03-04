@@ -1,0 +1,111 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: recyclarr
+  namespace: recyclarr
+spec:
+  interval: 30m
+  maxHistory: 3
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+    - name: traefik
+      namespace: traefik
+    - name: sonarr
+      namespace: sonarr
+    - name: radarr
+      namespace: radarr
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    image:
+      repository: ghcr.io/recyclarr/recyclarr
+      tag: edge@sha256:96c43de9bd7a8b42554ca257330c6f7d785cba0e412bbb0d90a0a958e10b78b4
+
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    initContainers:
+      01-init-config:
+        image: ghcr.io/onedr0p/alpine:3.17.2@sha256:5d973006bf93ba66e38758694dfed6df091a13e712b6a075f7ed7bb6fd8c2189
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/sh
+          - -c
+          - cp /tmp/config/recyclarr.yml /config/recyclarr.yml
+        volumeMounts:
+          - name: config-file
+            mountPath: /tmp/config
+          - name: config
+            mountPath: /config
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+
+    env:
+      TZ: ${TIMEZONE}
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
+      no_proxy: ${NO_PROXY}
+
+    envFrom:
+      - secretRef:
+          name: recyclarr-secrets
+
+    service:
+      main:
+        enabled: false
+
+    ingress:
+      main:
+        enabled: false
+
+    persistence:
+      config-file:
+        enabled: true
+        type: configMap
+        name: recyclarr-configmap
+        mountPath: "-"
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
+      limits:
+        memory: 512M
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: longhorn
