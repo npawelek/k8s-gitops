@@ -355,6 +355,16 @@ spec:
     - port: 8888
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: sabnzbd
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sabnzbd
+    ports:
+    - port: 8080
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

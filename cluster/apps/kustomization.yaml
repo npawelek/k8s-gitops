@@ -18,6 +18,7 @@ resources:
 - rclone
 - recyclarr
 - resilio
+# - sabnzbd # broken until ipv6 is re-enabled on worker OS
 - sonarr
 - tautulli
 - traefik

@@ -27,3 +27,4 @@ resources:
 - ./ytdl-sub.yaml
 - ./prowlarr.yaml
 - ./recyclarr.yaml
+- ./sabnzbd.yaml
