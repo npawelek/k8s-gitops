@@ -72,17 +72,6 @@ spec:
               path: nathanpawelek-com-tls.p12
         mountPath: /config/certs
         readOnly: true
-      comskip:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: comskip
-            items:
-            - key: comskip.ini
-              path: comskip.ini
-        mountPath: /config/Library/Application Support/Plex Media Server/DVR
-        readOnly: true
       config:
         enabled: true
         existingClaim: config-plex-0
