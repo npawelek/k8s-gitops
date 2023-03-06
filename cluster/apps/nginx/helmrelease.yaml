@@ -16,7 +16,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: nginx
-      version: 13.2.28
+      version: 13.2.29
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
