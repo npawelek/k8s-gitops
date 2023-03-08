@@ -18,5 +18,5 @@ data:
   DERPNAS_ADDR: 192.168.0.150
   RACKNAS_ADDR: 192.168.0.151
   TIMEZONE: America/Chicago
-  HTTP_PROXY: nzbhydra2-proxy.hydra.svc:8888
+  HTTP_PROXY: sabnzbd-proxy.sabnzbd.svc.cluster.local:8888
   NO_PROXY: .cluster.local
