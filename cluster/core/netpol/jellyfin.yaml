@@ -123,10 +123,10 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: hydra
+          ns: sabnzbd
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: nzbhydra2
+          app.kubernetes.io/name: sabnzbd
     ports:
     - port: 8888
       protocol: TCP
