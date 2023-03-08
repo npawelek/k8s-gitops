@@ -96,8 +96,10 @@ spec:
         enabled: true
         type: secret
         name: nathanpawelek-com-tls
-        subPath: nathanpawelek-com-tls.p12
-        mountPath: /config/certs/nathanpawelek-com-tls.p12
+        mountPath: /config/certs
+        items:
+          - key: keystore.p12
+            path: nathanpawelek-com-tls.p12
         readOnly: true
       media:
         enabled: true
