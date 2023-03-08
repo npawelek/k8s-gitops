@@ -5,6 +5,9 @@ metadata:
   name: jellyfin
   namespace: jellyfin
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
@@ -12,6 +15,20 @@ spec:
     namespace: traefik
   - name: intel-gpu-plugin
     namespace: kube-system
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
       # renovate: registryUrl=https://bjw-s.github.io/helm-charts
@@ -22,7 +39,7 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  interval: 30m
+
   values:
     image:
       repository: ghcr.io/onedr0p/jellyfin
@@ -30,9 +47,8 @@ spec:
 
     controller:
       type: statefulset
-
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: scripts
+      annotations:
+        reloader.stakater.com/auto: "true"
 
     podSecurityContext:
       runAsUser: 568
