@@ -11,7 +11,7 @@ resources:
 - hydra
 - jellyfin
 - nginx
-- nzbget
+# - nzbget
 - overseerr
 - plex
 - prowlarr

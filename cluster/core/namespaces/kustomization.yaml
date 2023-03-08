@@ -2,6 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+# - ./authentik.yaml
 - ./cert-manager.yaml
 - ./traefik.yaml
 - ./plex.yaml
@@ -11,7 +12,7 @@ resources:
 - ./hajimari.yaml
 - ./galera.yaml
 - ./tautulli.yaml
-- ./nzbget.yaml
+# - ./nzbget.yaml
 - ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
