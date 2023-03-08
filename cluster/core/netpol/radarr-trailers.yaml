@@ -56,22 +56,22 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: hydra
+          ns: sabnzbd
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: nzbhydra2
+          app.kubernetes.io/name: sabnzbd
     ports:
     - port: 8888
       protocol: TCP
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-        except:
-        - 10.0.0.0/8
-        - 172.16.0.0/12
-        - 192.168.0.0/16
-    ports:
-    - port: 443
-      protocol: TCP
-    - port: 80
-      protocol: TCP
+  # - to:
+  #   - ipBlock:
+  #       cidr: 0.0.0.0/0
+  #       except:
+  #       - 10.0.0.0/8
+  #       - 172.16.0.0/12
+  #       - 192.168.0.0/16
+  #   ports:
+  #   - port: 443
+  #     protocol: TCP
+  #   - port: 80
+  #     protocol: TCP
