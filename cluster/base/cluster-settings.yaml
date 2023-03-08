@@ -19,4 +19,4 @@ data:
   RACKNAS_ADDR: 192.168.0.151
   TIMEZONE: America/Chicago
   HTTP_PROXY: sabnzbd-proxy.sabnzbd.svc.cluster.local:8888
-  NO_PROXY: .cluster.local
+  NO_PROXY: .cluster.local,.nathanpawelek.com

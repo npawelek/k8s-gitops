@@ -64,7 +64,7 @@ spec:
     env:
       http_proxy: ${HTTP_PROXY}
       https_proxy: ${HTTP_PROXY}
-      no_proxy: 192.168.20.98,unmanic.unmanic.svc
+      no_proxy: ${NO_PROXY},192.168.20.98
       TZ: ${TIMEZONE}
       DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
 
