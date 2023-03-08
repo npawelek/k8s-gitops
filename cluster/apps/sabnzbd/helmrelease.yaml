@@ -73,6 +73,15 @@ spec:
         ports:
           http:
             port: *port
+      proxy:
+        enabled: true
+        primary: false
+        type: ClusterIP
+        ports:
+          tinyproxy:
+            enabled: true
+            port: 8888
+            protocol: TCP
 
     probes:
       liveness: &probes
@@ -141,9 +150,8 @@ spec:
           DNS_KEEP_NAMESERVER: "off"
           DNS_ADDRESS: "10.96.0.10"
           BLOCK_MALICIOUS: "off"
-          PORT_FORWARDING: "off"
           HTTPPROXY: "on"
-          HTTPPROXY_PORT: "8888"
+          HTTPPROXY_LISTENING_ADDRESS: ":8888"
           HTTPPROXY_STEALTH: "on"
           HTTPPROXY_LOG: "on"
           SHADOWSOCKS: "off"
