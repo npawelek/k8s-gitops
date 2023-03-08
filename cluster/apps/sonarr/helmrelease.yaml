@@ -12,8 +12,8 @@ spec:
       namespace: longhorn-system
     - name: traefik
       namespace: traefik
-    - name: nzbget
-      namespace: nzbget
+    - name: sabnzbd
+      namespace: sabnzbd
     - name: prowlarr
       namespace: prowlarr
 
