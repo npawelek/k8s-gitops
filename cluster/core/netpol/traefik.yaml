@@ -167,16 +167,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: nzbget
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbget
-    ports:
-    - port: 6789
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: sonarr
       podSelector:
         matchLabels:
@@ -203,16 +193,6 @@ spec:
           app.kubernetes.io/name: tautulli
     ports:
     - port: 8181
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: hydra
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbhydra2
-    ports:
-    - port: 5076
       protocol: TCP
   - to:
     - namespaceSelector:

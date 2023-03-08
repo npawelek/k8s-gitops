@@ -12,8 +12,6 @@ resources:
 - ./hajimari.yaml
 - ./galera.yaml
 - ./tautulli.yaml
-# - ./nzbget.yaml
-- ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
 - ./overseerr.yaml

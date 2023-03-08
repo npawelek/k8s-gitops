@@ -167,16 +167,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: nzbget
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbget
-    ports:
-    - protocol: TCP
-      port: 6789
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: plex
       podSelector:
         matchLabels:

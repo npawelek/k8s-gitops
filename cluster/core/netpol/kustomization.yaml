@@ -10,8 +10,6 @@ resources:
 - ./galera.yaml
 - ./plex.yaml
 - ./tautulli.yaml
-# - ./nzbget.yaml
-- ./hydra.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
 - ./radarr-trailers.yaml
