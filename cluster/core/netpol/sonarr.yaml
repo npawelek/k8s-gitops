@@ -130,22 +130,14 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: nzbget
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbget
-    ports:
-    - port: 6789
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: sabnzbd
       podSelector:
         matchLabels:
           app.kubernetes.io/name: sabnzbd
     ports:
     - port: 8080
+      protocol: TCP
+    - port: 8888
       protocol: TCP
   - to:
     - namespaceSelector:
@@ -160,18 +152,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: hydra
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: nzbhydra2
-    ports:
-    - port: 8888
-      protocol: TCP
-    - port: 5076
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: autoscan
       podSelector:
         matchLabels:
@@ -179,31 +159,15 @@ spec:
     ports:
     - port: 3030
       protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: plex
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: plex
-    ports:
-    - port: 32400
-      protocol: TCP
-  - to:
-    - ipBlock:
-        cidr: 192.168.0.11/32
-    ports:
-    - port: 443
-      protocol: TCP
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-        except:
-        - 10.0.0.0/8
-        - 172.16.0.0/12
-        - 192.168.0.0/16
-    ports:
-    - port: 443
-      protocol: TCP
-    - port: 80
-      protocol: TCP
+  # - to:
+  #   - ipBlock:
+  #       cidr: 0.0.0.0/0
+  #       except:
+  #       - 10.0.0.0/8
+  #       - 172.16.0.0/12
+  #       - 192.168.0.0/16
+  #   ports:
+  #   - port: 443
+  #     protocol: TCP
+  #   - port: 80
+  #     protocol: TCP
