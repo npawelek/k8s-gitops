@@ -43,7 +43,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/plex
-      tag: 1.29.2.6364-6d72b0cf6
+      tag: 1.31.1.6733-bc0674160
       # tag: 1.31.1.6733-bc0674160
 
     controller:
