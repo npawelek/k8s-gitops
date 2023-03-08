@@ -117,12 +117,10 @@ spec:
     persistence:
       library:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            path: /volume1/media
-            server: ${RACKNAS_ADDR}
         mountPath: /library
+        path: /volume1/media
+        server: ${RACKNAS_ADDR}
+        type: nfs
 
     resources:
       requests:
