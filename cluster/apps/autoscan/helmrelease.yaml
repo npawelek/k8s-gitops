@@ -27,9 +27,8 @@ spec:
 
     controller:
       type: statefulset
-
-    podAnnotations:
-      secret.reloader.stakater.com/reload: autoscan-secrets
+      annotations:
+        reloader.stakater.com/auto: "true"
 
     env:
       TZ: ${TIMEZONE}
