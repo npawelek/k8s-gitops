@@ -126,9 +126,41 @@ spec:
         server: ${RACKNAS_ADDR}
         type: nfs
 
+    sidecars:
+      vpn:
+        image: docker.io/qmcgaw/gluetun:latest@sha256:cedf2187ddc12ec88e0213a5911103af62f9233572d733f9223ef3d468f90fe4
+        envFrom:
+          - secretRef:
+              name: primary-conf14
+        env:
+          TZ: ${TIMEZONE}
+          VPN_SERVICE_PROVIDER: custom
+          VPN_TYPE: wireguard
+          FIREWALL_OUTBOUND_SUBNETS: "10.96.0.0/12"
+          DOT: "off"
+          DNS_KEEP_NAMESERVER: "off"
+          DNS_ADDRESS: "10.96.0.10"
+          BLOCK_MALICIOUS: "off"
+          PORT_FORWARDING: "off"
+          HTTPPROXY: "on"
+          HTTPPROXY_PORT: "8888"
+          HTTPPROXY_STEALTH: "on"
+          HTTPPROXY_LOG: "on"
+          SHADOWSOCKS: "off"
+        ports:
+          - containerPort: 8888
+            protocol: TCP
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_MODULE
+
     resources:
       requests:
         cpu: 100m
         memory: 1024Mi
       limits:
-        memory: 3072Mi
+        memory: 4096Mi

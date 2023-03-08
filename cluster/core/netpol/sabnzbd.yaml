@@ -35,12 +35,36 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
+          ns: jellyfin
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyfin
+    ports:
+    - protocol: TCP
+      port: 8888
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: prowlarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prowlarr
+    ports:
+    - port: 8080
+      protocol: TCP
+    - port: 8888
+      protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
           ns: sonarr
       podSelector:
         matchLabels:
           app.kubernetes.io/name: sonarr
     ports:
     - port: 8080
+      protocol: TCP
+    - port: 8888
       protocol: TCP
   - from:
     - namespaceSelector:
@@ -52,16 +76,28 @@ spec:
     ports:
     - port: 8080
       protocol: TCP
+    - port: 8888
+      protocol: TCP
   - from:
     - namespaceSelector:
         matchLabels:
-          ns: prowlarr
+          ns: radarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: prowlarr
+          app.kubernetes.io/name: radarr-trailers
     ports:
-    - port: 8080
+    - port: 8888
       protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: recyclarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: recyclarr
+    ports:
+    - protocol: TCP
+      port: 8888
   - from:
     - namespaceSelector:
         matchLabels:
@@ -72,6 +108,16 @@ spec:
     ports:
     - protocol: TCP
       port: 8080
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: ytdl-sub
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ytdl-sub
+    ports:
+    - protocol: TCP
+      port: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -124,8 +170,6 @@ spec:
         - 10.0.0.0/8
         - 172.16.0.0/12
         - 192.168.0.0/16
-    # ports:
-    # - port: 51820
-    #   protocol: UDP
-    # - port: 443
-    #   protocol: TCP
+    ports:
+    - port: 51820
+      protocol: UDP
