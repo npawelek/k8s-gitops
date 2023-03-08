@@ -47,10 +47,6 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 
-    command:
-    - sleep
-    - infinity
-
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
