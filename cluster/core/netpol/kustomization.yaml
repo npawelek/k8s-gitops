@@ -32,3 +32,4 @@ resources:
 - ./prowlarr.yaml
 - ./recyclarr.yaml
 - ./sabnzbd.yaml
+- ./wizarr.yaml

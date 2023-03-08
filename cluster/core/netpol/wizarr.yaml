@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
-  namespace: jellyfin
+  namespace: wizarr
 spec:
   podSelector: {}
   policyTypes:
@@ -13,12 +13,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-jellyfin-ingress
-  namespace: jellyfin
+  name: allow-wizarr-ingress
+  namespace: wizarr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/name: wizarr
   policyTypes:
   - Ingress
   ingress:
@@ -31,7 +31,7 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 8096
+      port: 5690
   - from:
     - namespaceSelector:
         matchLabels:
@@ -41,49 +41,19 @@ spec:
           app.kubernetes.io/name: uptime-kuma
     ports:
     - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: home-automation
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: home-assistant
-    ports:
-    - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: autoscan
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: autoscan
-    ports:
-    - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: wizarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: wizarr
-    ports:
-    - protocol: TCP
-      port: 8096
+      port: 5690
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-jellyfin-egress
-  namespace: jellyfin
+  name: allow-wizarr-egress
+  namespace: wizarr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/name: wizarr
   egress:
   - to:
     - namespaceSelector:
@@ -118,25 +88,12 @@ spec:
     - port: 53
       protocol: TCP
   - to:
-    - ipBlock:
-        cidr: 192.168.20.98/32
-  - to:
     - namespaceSelector:
         matchLabels:
-          ns: hydra
+          ns: jellyfin
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: nzbhydra2
+          app.kubernetes.io/name: jellyfin
     ports:
-    - port: 8888
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: unmanic
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: unmanic
-    ports:
-    - port: 8888
+    - port: 8096
       protocol: TCP
