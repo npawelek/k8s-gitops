@@ -14,7 +14,7 @@ spec:
   releaseName: traefik
   chart:
     spec:
-      # renovate: registryUrl=https://helm.traefik.io/traefik
+      # renovate: registryUrl=https://traefik.github.io/charts
       chart: traefik
       version: 21.2.0
       sourceRef:
