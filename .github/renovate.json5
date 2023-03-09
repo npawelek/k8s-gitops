@@ -22,6 +22,7 @@
   },
   "kubernetes": {
     "fileMatch": ["cluster/.+\\.ya?ml$"],
+    "ignorePaths": ["cluster/base/"]
   },
   "helm-values": {
     "fileMatch": ["cluster/.+\\.ya?ml$"]
