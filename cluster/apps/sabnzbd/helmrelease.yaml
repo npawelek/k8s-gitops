@@ -82,6 +82,17 @@ spec:
             enabled: true
             port: 8888
             protocol: TCP
+      lb:
+        enabled: true
+        primary: false
+        type: LoadBalancer
+        loadBalancerIP: ${PROXY_LB}
+        externalTrafficPolicy: Local
+        ports:
+          tinyproxy:
+            enabled: true
+            port: 8888
+            protocol: TCP
 
     probes:
       liveness: &probes
@@ -175,4 +186,4 @@ spec:
         cpu: 4
         memory: 1024Mi
       limits:
-        memory: 4096Mi
+        memory: 8192Mi

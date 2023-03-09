@@ -33,6 +33,12 @@ spec:
     - port: 8080
       protocol: TCP
   - from:
+    - ipBlock:
+        cidr: 192.168.30.0/24
+    ports:
+    - port: 8888
+      protocol: TCP
+  - from:
     - namespaceSelector:
         matchLabels:
           ns: jellyfin
