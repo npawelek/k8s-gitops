@@ -40,8 +40,8 @@ spec:
       - /config/subscriptions.yaml
 
     env:
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTP_PROXY}
+      # http_proxy: ${HTTP_PROXY}
+      # https_proxy: ${HTTP_PROXY}
       TZ: ${TIMEZONE}
       PUID: 1024
       PGID: 100
