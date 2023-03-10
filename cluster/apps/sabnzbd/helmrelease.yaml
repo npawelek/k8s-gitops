@@ -82,7 +82,7 @@ spec:
             enabled: true
             port: 8888
             protocol: TCP
-      lb:
+      ext-proxy:
         enabled: true
         primary: false
         type: LoadBalancer
