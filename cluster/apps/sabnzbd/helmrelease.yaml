@@ -148,6 +148,8 @@ spec:
       downloads:
         enabled: true
         type: emptyDir
+        medium: Memory
+        sizeLimit: 30G
         mountPath: /config/Downloads
 
     sidecars:
@@ -183,7 +185,7 @@ spec:
 
     resources:
       requests:
-        cpu: 4
+        cpu: 1
         memory: 1024Mi
       limits:
-        memory: 8192Mi
+        memory: 34Gi
