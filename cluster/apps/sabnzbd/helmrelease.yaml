@@ -149,7 +149,7 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
-        sizeLimit: 30G
+        sizeLimit: 30Gi
         mountPath: /config/Downloads
 
     sidecars:
