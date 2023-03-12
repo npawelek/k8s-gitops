@@ -35,7 +35,7 @@ spec:
   values:
     image:
       repository: ghcr.io/wizarrrr/wizarr
-      tag: 2.1.1@sha256:3bf91686aecc4fa9b6dc1423f1cfe82c43d3594aa7f73cf4b74382e12eac984e
+      tag: 2.1.2@sha256:02fb3e07a22481e43cf498b323b082d6ba627b3a2342bbc37fa13a86d8d5811d
 
     controller:
       type: statefulset
