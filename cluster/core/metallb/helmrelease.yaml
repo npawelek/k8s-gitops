@@ -25,13 +25,3 @@ spec:
         protocol: layer2
         addresses:
         - "${METALLB_ADDR_RANGE}"
-    controller:
-      image:
-        registry: docker.io
-        repository: bitnami/metallb-controller
-        tag: 0.13.9
-    speaker:
-      image:
-        registry: docker.io
-        repository: bitnami/metallb-speaker
-        tag: 0.13.9
