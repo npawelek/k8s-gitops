@@ -34,4 +34,4 @@ spec:
       image:
         registry: docker.io
         repository: bitnami/metallb-speaker
-        tag: 0.12.1
+        tag: 0.13.9
