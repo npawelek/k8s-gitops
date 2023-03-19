@@ -25,7 +25,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/mariadb-galera
-      tag: 10.6.12
+      tag: 10.11.2
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
     podManagementPolicy: OrderedReady
@@ -139,7 +139,8 @@ spec:
       # Enabled for performance per https://mariadb.com/kb/en/innodb-system-variables/#innodb_flush_log_at_trx_commit
       innodb_flush_log_at_trx_commit=2
       # MYISAM REPLICATION SUPPORT #
-      wsrep_replicate_myisam=ON
+      # wsrep_replicate_myisam=ON
+      wsrep_mode=REPLICATE_MYISAM
 
       [mariadb]
       plugin_load_add=auth_pam
