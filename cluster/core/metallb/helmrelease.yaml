@@ -13,15 +13,8 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: metallb
-      version: 3.0.12
+      version: 4.1.21
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
-  values:
-    configInline:
-      address-pools:
-      - name: default
-        protocol: layer2
-        addresses:
-        - "${METALLB_ADDR_RANGE}"
