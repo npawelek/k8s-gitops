@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Auto merge container digests",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["digest"],
+      "matchPackagePattern": [
+        "ghcr.io/onedr0p",
+        "ghcr.io/recyclarr/recyclarr",
+        "ghcr.io/jmbannon/ytdl-sub",
+        "ghcr.io/wizarrrr/wizarr",
+        "docker.io/qmcgaw/gluetun",
+        "jauderho/yt-dlp",
+        "cloudb0x/autoscan"
+      ]
+    },
+    {
+      "description": "Auto merge GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchDatasources": ["github-tags"],
+      "automerge": true,
+      "ignoreTests": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["minor", "patch"]
+    }
+  ]
+}
