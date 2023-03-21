@@ -23,8 +23,8 @@ spec:
         namespace: flux-system
   values:
     image:
-      name: traefik
-      tag: v2.9.6
+      repository: traefik
+      tag: 2.9.6
     deployment:
       kind: Deployment
       replicas: 2
