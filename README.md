@@ -23,9 +23,9 @@ This cluster runs on the following hardware. All nodes are running Ubuntu 22.04 
 | Raspberry Pi 4B     | arm64        | 16GB eMMC    | N/A            | 4GB  | k8s Master |
 | Raspberry Pi 4B     | arm64        | 16GB eMMC    | N/A            | 4GB  | k8s Master |
 | Intel NUC6i5SYH     | amd64        | 120GB SSD    | 512GB NVMe     | 16GB | k8s Worker |
-| ASRockInd BOX-4800U | amd64        | 250GB SSD    | 1TB NVMe       | 32GB | k8s Worker |
-| Intel NUC11TNHi5    | amd64        | 250GB SSD    | 1TB NVMe       | 32GB | k8s Worker |
-| Intel NUC11TNHi5    | amd64        | 250GB SSD    | 1TB NVMe       | 32GB | k8s Worker |
+| ASRockInd BOX-4800U | amd64        | 250GB SSD    | 1TB NVMe       | 64GB | k8s Worker |
+| Intel NUC11TNHi5    | amd64        | 250GB SSD    | 1TB NVMe       | 64GB | k8s Worker |
+| Intel NUC11TNHi5    | amd64        | 250GB SSD    | 1TB NVMe       | 64GB | k8s Worker |
 
 ## Thanks
 
