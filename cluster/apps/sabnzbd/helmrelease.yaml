@@ -154,7 +154,7 @@ spec:
 
     sidecars:
       vpn:
-        image: docker.io/qmcgaw/gluetun:latest@sha256:214084299369a49b9ccfdcc3ba53986742067c2a6ce366570183242324fb3e45
+        image: docker.io/qmcgaw/gluetun:latest@sha256:9efc021256a2762ff3a394ad63bf0cfd05a86aa10dac5565096c12f4f31e852b
         envFrom:
           - secretRef:
               name: primary-conf14
