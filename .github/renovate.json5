@@ -30,53 +30,6 @@
   "helm-values": {
     "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
-  "regexManagers": [
-    {
-      "description": ["Process CRD dependencies - Chart and Github Release are the same version"],
-      "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
-      "matchStrings": [
-        "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-      ],
-      "datasourceTemplate": "helm"
-    }
-    // {
-    //   "fileMatch": ["cluster/.+\\.yaml$"],
-    //   "matchStrings": [
-    //     "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-    //   ],
-    //   "datasourceTemplate": "helm"
-    // },
-    // // regexManager to process sealed-secrets CRD
-    // {
-    //   "fileMatch": [
-    //     "cluster/crds/sealed-secrets/.+\\.yaml$"
-    //   ],
-    //   "matchStrings": [
-    //     "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
-    //   ],
-    //   "datasourceTemplate": "helm"
-    // },
-    // // regexManager to process cert-manager CRD
-    // {
-    //   "fileMatch": [
-    //     "cluster/crds/cert-manager/.+\\.yaml$"
-    //   ],
-    //   "matchStrings": [
-    //     "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
-    //   ],
-    //   "datasourceTemplate": "helm"
-    // },
-    // // regexManager to process Traefik CRD
-    // {
-    //   "fileMatch": [
-    //     "cluster/crds/traefik/.+\\.yaml$"
-    //   ],
-    //   "matchStrings": [
-    //     "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n"
-    //   ],
-    //   "datasourceTemplate": "helm"
-    // },
-  ],
   "packageRules": [
     // Setup datasources
     {
