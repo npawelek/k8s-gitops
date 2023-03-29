@@ -8,10 +8,6 @@ spec:
   interval: 30m
   maxHistory: 3
   dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
-    - name: traefik
-      namespace: traefik
     - name: sonarr
       namespace: sonarr
     - name: radarr
