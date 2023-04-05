@@ -31,31 +31,15 @@
     "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "packageRules": [
-    // Setup datasources
     {
-      "matchDatasources": ["helm"],
-      "ignoreDeprecated": true
-    },
-    {
+      "description": "Loose versioning for one-off packages",
       "matchDatasources": ["docker"],
-      "enabled": true,
-      "commitMessageExtra": "to {{newVersion}}",
-    },
-    {
-      "matchDatasources": ["docker"],
-      "commitMessageTopic": "Docker image {{depName}}",
-      "commitMessageExtra": "{{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      "updateTypes": ["major", "minor", "patch"]
-    },
-    // Version strategies
-    {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "linuxserver/resilio-sync",
-        "ghcr.io/onedr0p/plex",
-        "cloudb0x/autoscan"
-      ],
-      "versioning": "loose"
+      "versioning": "loose",
+      "matchPackagePatterns": [
+        "autoscan",
+        "plex",
+        "resilio"
+      ]
     }
   ]
 }
