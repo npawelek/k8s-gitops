@@ -27,7 +27,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: homeassistant/home-assistant
+      repository: ghcr.io/home-assistant/home-assistant
       tag: 2023.4.2
     env:
       TZ: ${TIMEZONE}

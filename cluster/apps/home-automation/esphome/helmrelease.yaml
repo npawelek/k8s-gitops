@@ -23,7 +23,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: esphome/esphome
+      repository: ghcr.io/esphome/esphome
       tag: 2023.3.2
     env:
       TZ: ${TIMEZONE}
