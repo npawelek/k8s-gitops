@@ -23,7 +23,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: traefik
+      repository: public.ecr.aws/docker/library/traefik
       tag: v2.9.10
     deployment:
       kind: Deployment
