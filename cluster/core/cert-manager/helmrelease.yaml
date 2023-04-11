@@ -9,7 +9,7 @@ spec:
   - name: sealed-secrets
     namespace: kube-system
   maxHistory: 3
-  interval: 10m0s
+  interval: 30m
   suspend: false
   releaseName: cert-manager
   chart:

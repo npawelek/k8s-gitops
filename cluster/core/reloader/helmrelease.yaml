@@ -5,7 +5,7 @@ metadata:
   name: reloader
   namespace: kube-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://stakater.github.io/stakater-charts
@@ -15,4 +15,3 @@ spec:
         kind: HelmRepository
         name: stakater-charts
         namespace: flux-system
-      interval: 5m

@@ -9,7 +9,7 @@ spec:
   - name: longhorn
     namespace: longhorn-system
   maxHistory: 3
-  interval: 10m0s
+  interval: 30m
   suspend: false
   releaseName: mariadb-galera
   chart:

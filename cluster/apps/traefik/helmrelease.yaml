@@ -9,7 +9,7 @@ spec:
   - name: cert-manager
     namespace: cert-manager
   maxHistory: 3
-  interval: 10m0s
+  interval: 30m
   suspend: false
   releaseName: traefik
   chart:

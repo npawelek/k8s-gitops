@@ -10,7 +10,7 @@ spec:
     namespace: metallb-system
   - name: longhorn
     namespace: longhorn-system
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://repos.emqx.io/charts
