@@ -6,7 +6,5 @@ metadata:
   namespace: cert-manager
 data:
   config: |-
-    Host github.com
-      StrictHostKeyChecking no
-    Host udmp.${DOMAIN}
+    Host *
       StrictHostKeyChecking no
