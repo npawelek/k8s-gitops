@@ -10,8 +10,8 @@ spec:
   renewBefore: 576h
   privateKey:
     rotationPolicy: Always
-    size: 4096
-    algorithm: RSA
+    size: 384
+    algorithm: ECDSA
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -35,8 +35,8 @@ spec:
   renewBefore: 576h
   privateKey:
     rotationPolicy: Always
-    size: 4096
-    algorithm: RSA
+    size: 384
+    algorithm: ECDSA
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
