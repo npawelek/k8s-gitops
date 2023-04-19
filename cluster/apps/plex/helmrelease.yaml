@@ -58,9 +58,9 @@ spec:
           - -c
           - |
             apk add openssl
-            openssl pkcs12 -export -out nathanpawelek-com-tls.p12	-certpbe AES-256-CBC -keypbe AES-256-CBC -macalg SHA256 -inkey /cert/tls.key -in /cert/tls.crt -password pass:$PKCS_PASS
-            chown 568:568 nathanpawelek-com-tls.p12
-            chmod 400 nathanpawelek-com-tls.p12
+            openssl pkcs12 -export -out plex-nathanpawelek-com-tls.p12	-certpbe AES-256-CBC -keypbe AES-256-CBC -macalg SHA256 -inkey /cert/tls.key -in /cert/tls.crt -password pass:$PKCS_PASS
+            chown 568:568 plex-nathanpawelek-com-tls.p12
+            chmod 400 plex-nathanpawelek-com-tls.p12
         workingDir: /config/certs/
         volumeMounts:
           - name: config-certs
@@ -119,7 +119,7 @@ spec:
       cert:
         enabled: true
         type: secret
-        name: nathanpawelek-com-tls
+        name: plex-nathanpawelek-com-tls
         mountPath: /cert
         readOnly: true
       config-certs:
