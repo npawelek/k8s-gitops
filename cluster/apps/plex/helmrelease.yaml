@@ -49,6 +49,31 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 
+    initContainers:
+      01-init-cert:
+        image: ghcr.io/onedr0p/alpine:3.17.3@sha256:e6a2407a15b7e557fb6617a592f672b004b6764887438502c047a567ec616e40
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/sh
+          - -c
+          - |
+            apk add openssl
+            openssl pkcs12 -export -out nathanpawelek-com-tls.p12	-certpbe AES-256-CBC -keypbe AES-256-CBC -macalg SHA256 -inkey /cert/tls.key -in /cert/tls.crt -password pass:$PKCS_PASS
+            chown 568:568 nathanpawelek-com-tls.p12
+            chmod 400 nathanpawelek-com-tls.p12
+        workingDir: /config/certs/
+        volumeMounts:
+          - name: config-certs
+            mountPath: /config/certs
+          - name: cert
+            mountPath: /cert
+        envFrom:
+          - secretRef:
+              name: plex-secrets
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 568
+
     env:
       TZ: ${TIMEZONE}
 
@@ -95,11 +120,12 @@ spec:
         enabled: true
         type: secret
         name: nathanpawelek-com-tls
-        mountPath: /config/certs
-        items:
-          - key: keystore.p12
-            path: nathanpawelek-com-tls.p12
+        mountPath: /cert
         readOnly: true
+      config-certs:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/certs
       media:
         enabled: true
         mountPath: /data
