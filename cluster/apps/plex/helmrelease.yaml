@@ -119,7 +119,7 @@ spec:
       cert:
         enabled: true
         type: secret
-        name: plex-nathanpawelek-com-tls
+        name: nathanpawelek-com-tls
         mountPath: /cert
         readOnly: true
       config-certs:
