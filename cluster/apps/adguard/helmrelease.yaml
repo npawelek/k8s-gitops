@@ -42,14 +42,15 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.107.27
+      tag: v0.107.29
 
     args:
-      # - "--config"
-      # - "/opt/adguardhome/conf/AdGuardHome.yaml"
-      - "--work-dir"
-      - "/opt/adguardhome/work"
-      - "--no-check-update"
+      - /opt/adguardhome/AdGuardHome
+      - --config
+      - /opt/adguardhome/conf/AdGuardHome.yaml
+      - --work-dir
+      - /opt/adguardhome/work
+      - --no-check-update
 
     controller:
       annotations:
