@@ -84,18 +84,27 @@ spec:
           http:
             port: 3000
             protocol: TCP
-      dns:
+      dns-tcp:
         enabled: true
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: ${ADGUARD_LB}
+          metallb.universe.tf/allow-shared-ip: adguard-home-dns
         ports:
           dns-tcp:
             enabled: true
             port: &dns-port 53
             protocol: TCP
             targetPort: *dns-port
+      dns-udp:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${ADGUARD_LB}
+          metallb.universe.tf/allow-shared-ip: adguard-home-dns
+        ports:
           dns-udp:
             enabled: true
             port: *dns-port
@@ -131,7 +140,7 @@ spec:
       cm:
         enabled: true
         type: configMap
-        name: adguard-home-config
+        name: adguard-home-conf
         mountPath: "-"
       data:
         enabled: true
