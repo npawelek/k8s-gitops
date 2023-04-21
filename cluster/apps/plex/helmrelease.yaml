@@ -120,7 +120,7 @@ spec:
         enabled: true
         type: secret
         name: nathanpawelek-com-tls
-        mountPath: /cert
+        mountPath: "-"
         readOnly: true
       config-certs:
         enabled: true
