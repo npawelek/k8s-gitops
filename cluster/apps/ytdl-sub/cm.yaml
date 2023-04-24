@@ -161,13 +161,6 @@ data:
       overrides:
         tv_show_name: Veritasium
         download_after: "20220601"
-    adam_savage_tested_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@tested"
-      overrides:
-        tv_show_name: Adam Savage's Tested
-        download_after: "20220601"
     smarter_every_day_channel:
       preset: "yt_channel"
       download:
