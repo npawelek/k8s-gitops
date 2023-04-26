@@ -44,6 +44,8 @@ spec:
     - --global.sendanonymoususage=false
     additionalArguments:
     - --metrics.prometheus.entrypoint=web
+    # - --experimental.plugins.fail2ban.modulename=github.com/tomMoulard/fail2ban
+    # - --experimental.plugins.fail2ban.version=v0.6.6
     ports:
       traefik:
         expose: false

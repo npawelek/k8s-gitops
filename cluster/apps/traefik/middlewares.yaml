@@ -1,5 +1,5 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: redirect-https
@@ -9,7 +9,7 @@ spec:
     scheme: https
     permanent: true
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: default-headers
@@ -34,7 +34,7 @@ spec:
     referrerPolicy: no-referrer
     isDevelopment: false
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: http-headers
@@ -57,7 +57,7 @@ spec:
     referrerPolicy: no-referrer
     isDevelopment: false
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: default-compress
@@ -65,7 +65,7 @@ metadata:
 spec:
   compress: {}
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: default-middlewares-chain
@@ -76,7 +76,7 @@ spec:
     - name: traefik-sso
     - name: default-headers
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: external-middlewares-chain
@@ -87,7 +87,7 @@ spec:
     - name: default-compress
     - name: default-headers
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: int-middlewares-chain
@@ -97,3 +97,48 @@ spec:
     middlewares:
     - name: default-compress
     - name: http-headers
+# ---
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: my-fail2ban
+#   namespace: my-namespace
+# spec:
+#   plugin:
+#     fail2ban:
+#       logLevel: "INFO"
+#       whitelist:
+#         ip:
+#           - ::1
+#           - 127.0.0.1
+#           - 192.168.0.0/24
+#           - 192.168.10.0/24
+#           - 192.168.20.0/24
+#           - 192.168.30.0/24
+#           - 192.168.90.0/24
+#       # blacklist:
+#       #   ip:
+#       #     - 192.168.0.0/24
+#       rules:
+#         action: ""
+#         actionAbuseipdb: ""
+#         backend: ""
+#         banaction: ""
+#         banactionAllports: ""
+#         bantime: 3h
+#         chain: ""
+#         destemail: ""
+#         enabled: "true"
+#         fail2banAgent: ""
+#         filter: ""
+#         findtime: 10m
+#         ignorecommand: ""
+#         logencoding: UTF-8
+#         maxretry: "4"
+#         mode: ""
+#         mta: ""
+#         ports: 0:8000
+#         protocol: ""
+#         sender: ""
+#         urlregexp: ""
+#         usedns: ""
