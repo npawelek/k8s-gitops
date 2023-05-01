@@ -153,7 +153,7 @@ spec:
 
     sidecars:
       vpn:
-        image: ghcr.io/qdm12/gluetun:latest@sha256:767a156ba9a6d7b5b29f2a2ae348344d6b0eb36492d17f3d8c0361907633d6e9
+        image: ghcr.io/qdm12/gluetun:latest@sha256:0d20908531aced0a924b4dad21a41703913316be0b09d14f67ee162527fd82a8
         envFrom:
           - secretRef:
               name: primary-conf14
