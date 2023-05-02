@@ -65,8 +65,10 @@ spec:
             targetPort: *ntp-port
 
     probes:
-      startup:
+      liveness: &probes
         enabled: false
+      readiness: *probes
+      startup: *probes
 
     ingress:
       main:
