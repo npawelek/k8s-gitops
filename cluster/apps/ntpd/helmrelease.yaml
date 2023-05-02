@@ -74,6 +74,20 @@ spec:
       main:
         enabled: false
 
+    persistence:
+      etc:
+        enabled: true
+        type: emptyDir
+        mountPath: /etc/chrony
+      run:
+        enabled: true
+        type: emptyDir
+        mountPath: /run/chrony
+      var:
+        enabled: true
+        type: emptyDir
+        mountPath: /var/lib/chrony
+
     resources:
       requests:
         cpu: 100m
