@@ -31,3 +31,4 @@ resources:
 - ./recyclarr.yaml
 - ./sabnzbd.yaml
 - ./wizarr.yaml
+- ./ntpd.yaml
