@@ -14,7 +14,6 @@ resources:
 - ./radarr.yaml
 - ./radarr-trailers.yaml
 - ./overseerr.yaml
-- ./resilio.yaml
 - ./home-automation.yaml
 - ./mosquitto.yaml
 - ./home-assistant.yaml
