@@ -58,12 +58,15 @@ spec:
       main:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: ${NTP_LB}
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${ADGUARD_LB}
         ports:
-          ntp:
-            port: 123
+          ntpd:
+            enabled: true
+            port: &ntp-port 123
             protocol: UDP
+            targetPort: *ntp-port
 
     ingress:
       main:
