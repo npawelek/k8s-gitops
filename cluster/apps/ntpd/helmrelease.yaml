@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: cturra/ntp
-      tag: latest@sha256:52d4b0b36c68940d44ae71437ca6f02f2085ae0b08af051fdf6fc065159a364b
+      tag: latest
 
     controller:
       type: deployment
@@ -56,11 +56,13 @@ spec:
 
     service:
       main:
+        enabled: false
+      ntp:
         enabled: true
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/loadBalancerIPs: ${ADGUARD_LB}
+          metallb.universe.tf/loadBalancerIPs: ${NTPD_LB}
         ports:
           ntpd:
             enabled: true
