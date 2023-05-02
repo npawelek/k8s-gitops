@@ -45,12 +45,6 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 
-    # podSecurityContext:
-    #   runAsUser: 568
-    #   runAsGroup: 568
-    #   fsGroup: 568
-    #   fsGroupChangePolicy: "OnRootMismatch"
-
     env:
       TZ: ${TIMEZONE}
 
@@ -73,20 +67,6 @@ spec:
     ingress:
       main:
         enabled: false
-
-    persistence:
-      etc:
-        enabled: true
-        type: emptyDir
-        mountPath: /etc/chrony
-      run:
-        enabled: true
-        type: emptyDir
-        mountPath: /run/chrony
-      var:
-        enabled: true
-        type: emptyDir
-        mountPath: /var/lib/chrony
 
     resources:
       requests:
