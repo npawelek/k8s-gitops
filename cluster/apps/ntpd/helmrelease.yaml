@@ -64,6 +64,10 @@ spec:
             protocol: UDP
             targetPort: *ntp-port
 
+    probes:
+      startup:
+        enabled: false
+
     ingress:
       main:
         enabled: false
