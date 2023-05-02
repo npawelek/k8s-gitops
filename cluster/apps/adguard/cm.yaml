@@ -74,7 +74,30 @@ data:
       safesearch_cache_size: 1048576
       parental_cache_size: 1048576
       cache_time: 30
-      rewrites: []
+      # Add critical local DNS entries
+      rewrites:
+        - domain: udmp.nathanpawelek.com
+          answer: 192.168.0.1
+        - domain: adguard.nathanpawelek.com
+          answer: 192.168.0.15
+        - domain: hajimari.nathanpawelek.com
+          answer: 192.168.0.15
+        - domain: hass.nathanpawelek.com
+          answer: 192.168.0.15
+        - domain: hyp-samsung55.nathanpawelek.com
+          answer: 192.168.10.130
+        - domain: in.nathanpawelek.com
+          answer: 192.168.0.15
+        - domain: jellyfin.nathanpawelek.com
+          answer: 192.168.0.15
+        - domain: mqtt.nathanpawelek.com
+          answer: 192.168.0.14
+        - domain: plex.nathanpawelek.com
+          answer: 192.168.0.11
+        - domain: derpnas.nathanpawelek.com
+          answer: 192.168.0.150
+        - domain: racknas.nathanpawelek.com
+          answer: 192.168.0.151
       blocked_services:
       - tinder
       - ok
