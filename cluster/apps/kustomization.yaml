@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - adguard
 # - authentik
+- aws-ddns
 - autoscan
 - galera
 - hajimari

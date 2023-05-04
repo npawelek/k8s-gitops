@@ -28,3 +28,4 @@ resources:
 - ./sabnzbd.yaml
 - ./wizarr.yaml
 - ./ntpd.yaml
+- ./aws-ddns.yaml
