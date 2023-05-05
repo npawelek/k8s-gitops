@@ -38,8 +38,8 @@ spec:
       type: cronjob
       cronjob:
         concurrencyPolicy: Forbid
-        schedule: "*/10 * * * *"
-        successfulJobsHistory: 6
+        schedule: "*/15 * * * *"
+        successfulJobsHistory: 8
 
     image:
       repository: public.ecr.aws/hashicorp/terraform
