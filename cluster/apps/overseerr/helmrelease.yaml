@@ -5,6 +5,9 @@ metadata:
   name: overseerr
   namespace: overseerr
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
@@ -14,27 +17,53 @@ spec:
     namespace: sonarr
   - name: radarr
     namespace: radarr
-  interval: 30m
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: overseerr
-      version: 5.4.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
       repository: ghcr.io/sct/overseerr
       tag: 1.32.5
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     env:
       TZ: ${TIMEZONE}
       LOG_LEVEL: info
+
     service:
       main:
         enabled: true
         type: ClusterIP
+        ports:
+          http:
+            port: 5055
+            protocol: TCP
+
     ingress:
       main:
         enabled: true
@@ -47,13 +76,13 @@ spec:
           hajimari.io/icon: eye-circle
           hajimari.io/group: downloads
         hosts:
-        - host: requests.${DOMAIN}
+        - host: &int requests.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - requests.${DOMAIN}
+          - *int
         - secretName: nathanpawelek-com-tls
       external:
         enabled: true
@@ -63,19 +92,21 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
         hosts:
-        - host: req.${DOMAIN}
+        - host: &ext req.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - req.${DOMAIN}
+          - *ext
         - secretName: nathanpawelek-com-tls
+
     persistence:
       config:
         enabled: true
         existingClaim: overseerr-config
         mountPath: /app/config
+
     resources:
       requests:
         memory: 250Mi
