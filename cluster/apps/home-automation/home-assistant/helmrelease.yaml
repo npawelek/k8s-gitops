@@ -5,6 +5,9 @@ metadata:
   name: home-assistant
   namespace: home-automation
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: metallb
     namespace: metallb-system
@@ -14,36 +17,62 @@ spec:
     namespace: galera
   - name: mosquitto
     namespace: home-automation
-  interval: 30m
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: home-assistant
-      version: 13.4.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2023.5.2
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     env:
       TZ: ${TIMEZONE}
+
     envFrom:
     - secretRef:
         name: home-assistant-env-secrets
+
     service:
       main:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: ${HOME_ASSISTANT_LB}
         externalTrafficPolicy: Local
-    securityContext:
-      privileged: false
+        ports:
+          http:
+            port: 8123
+            protocol: TCP
+
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-headers@kubernetescrd
@@ -53,37 +82,25 @@ spec:
           hajimari.io/group: "home automation"
           hajimari.io/appName: "home assistant"
         hosts:
-        - host: hass.${DOMAIN}
+        - host: &host hass.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - hass.${DOMAIN}
+          - *host
         - secretName: nathanpawelek-com-tls
-    prometheus:
-      serviceMonitor:
-        enabled: false
-    probes:
-      liveness:
-        enabled: true
-      readiness:
-        enabled: true
-      startup:
-        enabled: true
+
     persistence:
       config:
         enabled: true
         existingClaim: home-assistant-config
       sshconfig:
         enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: ssh-config
-    podAnnotations:
-      secret.reloader.stakater.com/reload: home-assistant-env-secrets
-      configmap.reloader.stakater.com/reload: ssh-config
+        type: configMap
+        name: ssh-config
+        mountPath: "-"
+
     addons:
       codeserver:
         enabled: true
@@ -101,6 +118,7 @@ spec:
           HASS_SERVER: http://localhost:8123
         ingress:
           enabled: true
+          ingressClassName: traefik
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
             traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -110,20 +128,23 @@ spec:
             hajimari.io/group: "home automation"
             hajimari.io/appName: "home assistant code"
           hosts:
-          - host: hass-code.${DOMAIN}
+          - host: &code hass-code.${DOMAIN}
             paths:
             - path: /
               pathType: Prefix
           tls:
           - hosts:
-            - hass-code.${DOMAIN}
+            - *code
           - secretName: nathanpawelek-com-tls
         service:
           enabled: true
           type: ClusterIP
-          port:
-            port: 12321
-            protocol: TCP
+          ports:
+            codeserver:
+              port: 12321
+              enabled: true
+              protocol: TCP
+              targetPort: 12321
         volumeMounts:
         - name: config
           mountPath: /config
@@ -131,12 +152,14 @@ spec:
           mountPath: /root/.ssh/config
           subPath: config
           readOnly: true
+
     resources:
       limits:
         memory: 2500Mi
       requests:
         cpu: 100m
         memory: 1000Mi
+
   valuesFrom:
   - kind: Secret
     name: home-assistant-helm-values
