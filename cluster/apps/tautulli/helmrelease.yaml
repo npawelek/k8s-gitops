@@ -5,44 +5,66 @@ metadata:
   name: tautulli
   namespace: tautulli
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
   - name: traefik
     namespace: traefik
-  maxHistory: 3
-  interval: 30m
-  suspend: false
-  releaseName: tautulli
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: tautulli
-      version: 11.4.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
       repository: ghcr.io/onedr0p/tautulli
-      tag: 2.12.3
+      tag: 2.12.3@sha256:873832cec51b99d5fbcf179bad9a7bbe609518d821eb982dab0b297b8c0cfc6a
+
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     env:
       TZ: ${TIMEZONE}
+
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
-    controller:
-      type: statefulset
-      replicas: 1
+      fsGroupChangePolicy: "OnRootMismatch"
+
     service:
       main:
         enabled: true
         type: ClusterIP
-        port:
-          port: 8181
-          protocol: TCP
+        ports:
+          http:
+            port: 8181
+            protocol: TCP
+
     ingress:
       main:
         enabled: true
@@ -55,14 +77,15 @@ spec:
           hajimari.io/icon: graph-outline
           hajimari.io/group: media
         hosts:
-        - host: tautulli.${DOMAIN}
+        - host: &host tautulli.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - tautulli.${DOMAIN}
+          - *host
         - secretName: nathanpawelek-com-tls
+
     persistence:
       config:
         enabled: true
@@ -71,12 +94,14 @@ spec:
         enabled: true
         type: emptyDir
         mountPath: /opt/plex-scripts
+
     resources:
       requests:
         memory: 250Mi
         cpu: 500m
       limits:
         memory: 750Mi
+
     initContainers:
       jbops:
         name: jbops
