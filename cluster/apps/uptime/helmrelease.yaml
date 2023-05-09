@@ -5,43 +5,65 @@ metadata:
   name: uptime
   namespace: uptime
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
   - name: traefik
     namespace: traefik
-  maxHistory: 3
-  interval: 30m
-  suspend: false
-  releaseName: uptime
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: uptime-kuma
-      version: 1.4.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     fullnameOverride: uptime
+
     image:
       repository: louislam/uptime-kuma
       tag: 1.21.3-alpine
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     env:
       TZ: ${TIMEZONE}
       UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: 0
-    controller:
-      type: deployment
-      replicas: 1
+
     service:
       main:
         ports:
           http:
             port: 3001
+            protocol: TCP
+
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -50,19 +72,21 @@ spec:
           hajimari.io/icon: robot
           hajimari.io/group: services
         hosts:
-        - host: uptime.${DOMAIN}
+        - host: &host uptime.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - uptime.${DOMAIN}
+          - *host
         - secretName: nathanpawelek-com-tls
+
     persistence:
       data:
         enabled: true
         existingClaim: uptime-data
         mountPath: /app/data
+
     resources:
       requests:
         memory: 100Mi

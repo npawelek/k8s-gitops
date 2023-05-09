@@ -18,7 +18,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: uptime-kuma
+      app.kubernetes.io/name: uptime
   policyTypes:
   - Ingress
   ingress:
@@ -43,7 +43,7 @@ spec:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: uptime-kuma
+      app.kubernetes.io/name: uptime
   egress:
   - to:
     - namespaceSelector:

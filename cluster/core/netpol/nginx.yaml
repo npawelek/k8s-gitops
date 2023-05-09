@@ -38,7 +38,7 @@ spec:
           ns: uptime
     - podSelector:
         matchLabels:
-          app.kubernetes.io/name: uptime-kuma
+          app.kubernetes.io/name: uptime
     ports:
     - protocol: TCP
       port: 8080
