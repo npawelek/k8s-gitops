@@ -5,32 +5,60 @@ metadata:
   name: esphome
   namespace: home-automation
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
-  - name: home-assistant
-    namespace: home-automation
-  interval: 30m
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: esphome
-      version: 8.4.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
       repository: ghcr.io/esphome/esphome
       tag: 2023.4.4
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+
     env:
       TZ: ${TIMEZONE}
       ESPHOME_DASHBOARD_USE_PING: "true"
-    hostNetwork: true
+
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -39,18 +67,29 @@ spec:
           hajimari.io/icon: car-esp
           hajimari.io/group: "home automation"
         hosts:
-        - host: esphome.${DOMAIN}
+        - host: &host esphome.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - esphome.${DOMAIN}
+          - *host
         - secretName: nathanpawelek-com-tls
+
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    service:
+      main:
+        ports:
+          http:
+            port: 6052
+            protocol: TCP
+
     persistence:
       config:
         enabled: true
         existingClaim: esphome-config
+
     resources:
       requests:
         memory: 250Mi
