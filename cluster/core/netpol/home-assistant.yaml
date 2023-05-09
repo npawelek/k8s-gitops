@@ -167,6 +167,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: piper
+    ports:
+    - protocol: TCP
+      port: 10200
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: plex
       podSelector:
         matchLabels:
