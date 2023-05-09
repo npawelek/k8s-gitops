@@ -34,3 +34,4 @@ resources:
 - ./ntpd.yaml
 - ./aws-ddns.yaml
 - ./piper.yaml
+- ./whisper.yaml

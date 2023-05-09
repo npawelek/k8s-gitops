@@ -177,6 +177,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: whisper
+    ports:
+    - protocol: TCP
+      port: 10300
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: plex
       podSelector:
         matchLabels:
