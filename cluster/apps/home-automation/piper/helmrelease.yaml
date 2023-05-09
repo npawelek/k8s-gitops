@@ -70,12 +70,12 @@ spec:
             port: 10200
             protocol: TCP
 
-    persistence:
-      data:
-        enabled: true
-        type: pvc
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /data
         accessMode: ReadWriteOnce
         size: 5Gi
+        storageClass: longhorn
 
     resources:
       requests:
