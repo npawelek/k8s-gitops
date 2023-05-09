@@ -5,38 +5,71 @@ metadata:
   name: node-red
   namespace: home-automation
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: longhorn
     namespace: longhorn-system
   - name: home-assistant
     namespace: home-automation
-  interval: 30m
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: node-red
-      version: 10.3.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
     image:
       repository: nodered/node-red
       tag: 3.0.2-18-minimal
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+
     env:
       TZ: ${TIMEZONE}
       FLOWS: flows.json
       NODE_RED_ENABLE_PROJECTS: "true"
       NODE_RED_ENABLE_SAFE_MODE: "false"
+
     service:
       main:
-        enabled: true
-    securityContext:
-      privileged: false
+        ports:
+          http:
+            port: 1880
+            protocol: TCP
+
     ingress:
       main:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -46,39 +79,23 @@ spec:
           hajimari.io/group: "home automation"
           hajimari.io/appName: "node red"
         hosts:
-        - host: nodered.${DOMAIN}
+        - host: &host nodered.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - nodered.${DOMAIN}
+          - *host
         - secretName: nathanpawelek-com-tls
-    probes:
-      liveness:
-        enabled: true
-      readiness:
-        enabled: true
-      startup:
-        enabled: true
+
     persistence:
       data:
         enabled: true
         existingClaim: node-red-data
+
     resources:
       limits:
         memory: 1000Mi
       requests:
         cpu: 100m
         memory: 500Mi
-    initContainers:
-      chmod:
-        name: chmod
-        image: ghcr.io/onedr0p/alpine:3.17.3@sha256:999384960b6114496a5e4036e945141c205d064ce23b87326bd3f8d878c5a9d4
-        command:
-        - sh
-        - -c
-        - chown -R 1000:1000 /data
-        volumeMounts:
-        - name: data
-          mountPath: /data
