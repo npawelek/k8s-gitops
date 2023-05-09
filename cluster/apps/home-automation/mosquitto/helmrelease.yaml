@@ -5,34 +5,51 @@ metadata:
   name: mosquitto
   namespace: home-automation
 spec:
+  interval: 30m
+  maxHistory: 3
+
   dependsOn:
   - name: metallb
     namespace: metallb-system
   - name: longhorn
     namespace: longhorn-system
-  interval: 30m
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: mosquitto
-      version: 4.8.2
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
+
   values:
-    podAnnotations:
-      secret.reloader.stakater.com/reload: mqtt-nathanpawelek-com-tls,mosquitto-secrets
     image:
       repository: public.ecr.aws/docker/library/eclipse-mosquitto
       tag: 2.0.15
+
     controller:
       type: statefulset
-      replicas: 1
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     env:
       TZ: ${TIMEZONE}
-    auth:
-      enabled: true
+
     service:
       main:
         type: LoadBalancer
@@ -45,35 +62,40 @@ spec:
           mqtt:
             enabled: true
             port: 1883
+            protocol: TCP
           mqtts:
             enabled: true
             port: 8883
+            protocol: TCP
+
+    ingress:
+      main:
+        enabled: false
+        primary: false
+
     persistence:
+      mosquitto-config:
+        enabled: true
+        type: configMap
+        mountPath: /mosquitto/config
+        name: mosquitto-conf
       data:
         enabled: true
         existingClaim: mosquitto-data
         mountPath: /mosquitto/data
-      configinc:
-        enabled: true
-        type: configMap
-        mountPath: /mosquitto/configinc
-        name: mosquitto-conf
       mosquitto-auth:
         enabled: true
-        type: custom
-        volumeSpec:
-          secret:
-            secretName: mosquitto-secrets
+        type: secret
+        name: mosquitto-secrets
         mountPath: /mosquitto/configinc/auth
         readOnly: true
       mosquitto-tls:
         enabled: true
-        type: custom
-        volumeSpec:
-          secret:
-            secretName: mqtt-nathanpawelek-com-tls
+        type: secret
+        name: mqtt-nathanpawelek-com-tls
         mountPath: /etc/ssl/mosquitto
         readOnly: true
+
     resources:
       requests:
         memory: 128Mi
