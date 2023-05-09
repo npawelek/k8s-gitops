@@ -8,7 +8,7 @@ spec:
   dependsOn:
   - name: node-feature-discovery
     namespace: kube-system
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/

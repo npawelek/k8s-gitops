@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   maxHistory: 3
-  interval: 30m
+  interval: 1h
   suspend: false
   chart:
     spec:

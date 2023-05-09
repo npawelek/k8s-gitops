@@ -9,7 +9,7 @@ spec:
   - name: traefik
     namespace: traefik
   maxHistory: 3
-  interval: 30m
+  interval: 1h
   suspend: false
   releaseName: nginx
   chart:

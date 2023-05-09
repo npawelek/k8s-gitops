@@ -5,7 +5,7 @@ metadata:
   name: overseerr
   namespace: overseerr
 spec:
-  interval: 30m
+  interval: 1h
   maxHistory: 3
 
   dependsOn:

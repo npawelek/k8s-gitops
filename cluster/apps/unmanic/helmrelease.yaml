@@ -21,7 +21,7 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  interval: 30m
+  interval: 1h
   values:
     image:
       repository: josh5/unmanic

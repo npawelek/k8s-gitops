@@ -8,7 +8,7 @@ spec:
   dependsOn:
   - name: traefik
   maxHistory: 3
-  interval: 30m
+  interval: 1h
   suspend: false
   releaseName: traefik-forward-auth
   chart:

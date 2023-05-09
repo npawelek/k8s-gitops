@@ -5,7 +5,7 @@ metadata:
   name: hajimari
   namespace: hajimari
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       # renovate: registryUrl=https://hajimari.io

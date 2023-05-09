@@ -6,7 +6,7 @@ metadata:
   namespace: longhorn-system
 spec:
   releaseName: longhorn
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       # renovate: registryUrl=https://charts.longhorn.io

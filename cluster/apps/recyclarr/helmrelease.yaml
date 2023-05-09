@@ -5,7 +5,7 @@ metadata:
   name: recyclarr
   namespace: recyclarr
 spec:
-  interval: 30m
+  interval: 1h
   maxHistory: 3
   dependsOn:
     - name: sonarr
