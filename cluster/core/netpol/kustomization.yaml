@@ -35,3 +35,4 @@ resources:
 - ./aws-ddns.yaml
 - ./piper.yaml
 - ./whisper.yaml
+- ./libreddit.yaml

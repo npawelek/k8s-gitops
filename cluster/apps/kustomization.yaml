@@ -10,6 +10,7 @@ resources:
 - hajimari
 - home-automation
 - jellyfin
+- libreddit
 - nginx
 - ntpd
 - overseerr

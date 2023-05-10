@@ -1,0 +1,113 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app libreddit
+  namespace: libreddit
+spec:
+  interval: 1h
+  maxHistory: 3
+
+  dependsOn:
+  - name: traefik
+    namespace: traefik
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    image:
+      repository: ghcr.io/auricom/libreddit
+      tag: 0.30.1@sha256:2b396007b0278748271f4b56a161ece5be3ce2aa1378f0db3fe013fb3bffad08
+
+    controller:
+      replicas: 2
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    env:
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
+      no_proxy: ${NO_PROXY}
+      TZ: ${TIMEZONE}
+      LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
+      LIBREDDIT_DEFAULT_WIDE: "on"
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: simple-icons:reddit
+          hajimari.io/group: "home automation"
+        hosts:
+        - host: &host libreddit.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - *host
+        - secretName: nathanpawelek-com-tls
+
+    service:
+      main:
+        ports:
+          http:
+            port: &port 8080
+
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
+
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /settings
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        memory: 250Mi
