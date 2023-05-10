@@ -5,16 +5,11 @@ metadata:
   name: mosquitto-conf
   namespace: home-automation
 data:
-  mosquitto.conf: |-
-    per_listener_settings false
-    listener 1883
-    allow_anonymous false
-    persistence true
-    persistence_location /mosquitto/data
-    autosave_interval 60
+  mqtt.conf: |-
     listener 8883 0.0.0.0
     cafile /etc/ssl/mosquitto/tls.crt
     certfile /etc/ssl/mosquitto/tls.crt
     keyfile /etc/ssl/mosquitto/tls.key
     acl_file /mosquitto/configinc/auth/acl
     password_file /mosquitto/configinc/auth/passwd
+    autosave_interval 60
