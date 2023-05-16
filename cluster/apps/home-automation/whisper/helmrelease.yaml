@@ -62,7 +62,7 @@ spec:
 
     ingress:
       main:
-        enabled: true
+        enabled: false
         primary: false
 
     service:
