@@ -81,6 +81,7 @@ spec:
             enabled: true
             port: 8888
             protocol: TCP
+            targetPort: 8888
       ext-proxy:
         enabled: true
         primary: false
@@ -88,10 +89,11 @@ spec:
         loadBalancerIP: ${PROXY_LB}
         externalTrafficPolicy: Local
         ports:
-          tinyproxy:
+          ext-tinyproxy:
             enabled: true
             port: 8888
             protocol: TCP
+            targetPort: 8888
 
     probes:
       liveness: &probes
@@ -153,7 +155,7 @@ spec:
 
     sidecars:
       vpn:
-        image: ghcr.io/qdm12/gluetun:latest@sha256:b568fab0ee21811fd25189f299f9d420b03c9196590166f6c94962ed365dfb63
+        image: ghcr.io/qdm12/gluetun:v3.33.0@sha256:cadc352ebed5988c9fbc750f2759ea703dc7587f969d70342cc5eff05282024b
         envFrom:
           - secretRef:
               name: primary-conf14
