@@ -43,7 +43,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.488@sha256:cd18e53f4b31c5d2012cead4017e9013d948de3d0274f4ced878771e2671fb97
+      tag: 4.0.0.514@sha256:a35d4e5c27a7e64fc472b154bdee17cceea3db8d5568796f77136c0d6f66ec5f
 
     controller:
       type: statefulset
