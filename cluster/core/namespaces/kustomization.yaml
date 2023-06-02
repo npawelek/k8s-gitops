@@ -29,4 +29,3 @@ resources:
 - ./wizarr.yaml
 - ./ntpd.yaml
 - ./aws-ddns.yaml
-- ./libreddit.yaml
