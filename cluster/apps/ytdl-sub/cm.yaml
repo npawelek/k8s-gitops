@@ -174,3 +174,10 @@ data:
         url: "https://www.youtube.com/@HeyBear"
       overrides:
         tv_show_name: Hey Bear Sensory
+    containers_from_the_couch:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@ContainersfromtheCouch"
+      overrides:
+        tv_show_name: Containers from the Couch
+        download_after: "20220101"
