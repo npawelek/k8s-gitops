@@ -45,11 +45,11 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+    # podSecurityContext:
+    #   runAsUser: 568
+    #   runAsGroup: 568
+    #   fsGroup: 568
+    #   fsGroupChangePolicy: "OnRootMismatch"
 
     env:
       TZ: ${TIMEZONE}
