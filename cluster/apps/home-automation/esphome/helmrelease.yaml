@@ -56,6 +56,8 @@ spec:
       ESPHOME_DASHBOARD_USE_PING: "true"
       PLATFORMIO_CORE_DIR: /config/.platformio
       PLATFORMIO_GLOBALLIB_DIR: /config/piolibs
+      PYTHONUSERBASE: /config/.pybase
+      PIP_CACHE_DIR: /config/.cache
 
     ingress:
       main:
