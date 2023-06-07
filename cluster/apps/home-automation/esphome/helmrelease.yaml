@@ -45,19 +45,9 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
 
-    # podSecurityContext:
-    #   runAsUser: 568
-    #   runAsGroup: 568
-    #   fsGroup: 568
-    #   fsGroupChangePolicy: "OnRootMismatch"
-
     env:
       TZ: ${TIMEZONE}
       ESPHOME_DASHBOARD_USE_PING: "true"
-      # PLATFORMIO_CORE_DIR: /config/.platformio
-      # PLATFORMIO_GLOBALLIB_DIR: /config/piolibs
-      # PYTHONUSERBASE: /config/.pybase
-      # PIP_CACHE_DIR: /config/.cache
 
     ingress:
       main:
