@@ -255,6 +255,7 @@ data:
     - '||daemon.nanoleaf.me^$important'
     - '||apollo.nanoleaf.me^$important'
     - '||iaso.nanoleaf.me^$important'
+    - '||dvz75zw5cearf.cloudfront.net^$important'
     - '||www.baidu.com^$important'
     - '||analysis.vesync.com^$important'
     - '||polyfill.io^$important'
