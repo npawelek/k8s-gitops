@@ -181,3 +181,31 @@ data:
       overrides:
         tv_show_name: Containers from the Couch
         download_after: "20220101"
+    pbs_space_time_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://youtube.com/@pbsspacetime"
+      overrides:
+        tv_show_name: PBS Space Time
+        download_after: "20230101"
+    practical_engineering_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@PracticalEngineeringChannel"
+      overrides:
+        tv_show_name: Practical Engineering
+        download_after: "20230101"
+    extremities_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@Extremities"
+      overrides:
+        tv_show_name: Extremities
+        download_after: "20230101"
+    lemmino_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@LEMMiNO"
+      overrides:
+        tv_show_name: LEMMiNO
+        download_after: "20230101"
