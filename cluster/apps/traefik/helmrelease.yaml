@@ -25,7 +25,7 @@ spec:
     image:
       registry: public.ecr.aws
       repository: docker/library/traefik
-      tag: v2.10.1
+      tag: v2.10.3
     deployment:
       kind: Deployment
       replicas: 2
