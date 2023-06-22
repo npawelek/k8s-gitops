@@ -194,7 +194,7 @@ data:
         url: "https://www.youtube.com/@PracticalEngineeringChannel"
       overrides:
         tv_show_name: Practical Engineering
-        download_after: "20230101"
+        download_after: "20220101"
     extremities_channel:
       preset: "yt_channel"
       download:
