@@ -209,3 +209,17 @@ data:
       overrides:
         tv_show_name: LEMMiNO
         download_after: "20210101"
+    paragraphic_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@PARAGRAPHIC"
+      overrides:
+        tv_show_name: Paragraphic
+        download_after: "20220101"
+    physics_for_the_birds_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@physicsforthebirds"
+      overrides:
+        tv_show_name: Physics for the Birds
+        download_after: "20220101"
