@@ -30,7 +30,7 @@ spec:
 
     image:
       repository: jauderho/yt-dlp
-      tag: 2023.06.22@sha256:a9ea4bf685f2e30f322be5d2d725f8c8f6775555418895d246dce353ac9643cc
+      tag: 2023.06.22@sha256:10c276cb70624a4f7b4d374dad3f82e18622a6d06eb7fead86e44fc7efd6b84f
 
     command:
       - /bin/sh
