@@ -32,6 +32,12 @@ spec:
       defaultReplicaCount: 3
       replicaSoftAntiAffinity: false
       storageMinimalAvailablePercentage: 10
+    longhornConversionWebhook:
+      replicas: 0
+    longhornAdmissionWebhook:
+      replicas: 0
+    longhornRecoveryBackend:
+      replicas: 0
     ingress:
       enabled: true
       host: longhorn.nathanpawelek.com
