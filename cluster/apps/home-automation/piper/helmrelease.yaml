@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: rhasspy/wyoming-piper
-      tag: latest@sha256:e62fa006b6fccda2f1be2f1fd8229bc6c1139b8adeb2e6d479f411e628bb1c90
+      tag: latest@sha256:c9379eda34ee3559c3486d62d88cff47118b1f92b1064e91da7e75788b133c43
 
     controller:
       type: statefulset
