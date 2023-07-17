@@ -210,20 +210,6 @@ data:
       overrides:
         tv_show_name: Practical Engineering
         download_after: "20220101"
-    extremities_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@Extremities"
-      overrides:
-        tv_show_name: Extremities
-        download_after: "20210101"
-    lemmino_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@LEMMiNO"
-      overrides:
-        tv_show_name: LEMMiNO
-        download_after: "20210101"
     paragraphic_channel:
       preset: "yt_channel"
       download:
