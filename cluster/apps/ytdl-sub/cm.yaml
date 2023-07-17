@@ -53,6 +53,22 @@ data:
             year: "{upload_year}"
             aired: "{upload_date_standardized}"
 
+        chapters:
+          embed_chapters: True
+          allow_chapters_from_comments: False
+          remove_chapters_regex:
+            - "Intro"
+            - "Outro"
+          sponsorblock_categories:
+            - "outro"
+            - "selfpromo"
+            - "preview"
+            - "interaction"
+            - "sponsor"
+            - "music_offtopic"
+            - "intro"
+          remove_sponsorblock_categories: "all"
+
       yt_playlist:
         preset: "yt_video"
 
@@ -139,8 +155,7 @@ data:
 
         match_filters:
           filters:
-            - "original_url!*=/shorts/"
-            - "!is_live"
+            - "original_url!*=/shorts/ & !is_live"
   subscriptions.yaml: |-
     t_and_tg_the_last_of_us_playlist:
       preset: "yt_playlist_reversed"
