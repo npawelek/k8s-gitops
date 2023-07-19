@@ -9,6 +9,7 @@ sonarr:
     base_url: http://sonarr.sonarr.svc.cluster.local:8989
     api_key: !env_var SONARR_APIKEY
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
     quality_definition:
       type: series
     quality_profiles:
@@ -72,6 +73,7 @@ sonarr:
     base_url: http://sonarr.sonarr.svc.cluster.local:8989
     api_key: !env_var SONARR_APIKEY
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
     quality_definition:
       type: anime
     quality_profiles:
@@ -174,6 +176,7 @@ radarr:
     base_url: http://radarr.radarr.svc.cluster.local:7878
     api_key: !env_var RADARR_APIKEY
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
     quality_definition:
       type: movie
     quality_profiles:
@@ -243,6 +246,8 @@ radarr:
   anime:  # A custom name used to identify this particular instance.
     base_url: http://radarr.radarr.svc.cluster.local:7878
     api_key: !env_var RADARR_APIKEY
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
     quality_definition:
       type: movie
     quality_profiles:
