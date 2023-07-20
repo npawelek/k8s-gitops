@@ -8,13 +8,13 @@ data:
   AdGuardHome.yaml: |-
     http:
       address: 0.0.0.0:3000
+      session_ttl: 168h
     users: []
     auth_attempts: 5
     block_auth_min: 15
     http_proxy: ""
     language: en
     debug_pprof: false
-    web_session_ttl: 720
     querylog:
       enabled: true
       file_enabled: true
@@ -109,6 +109,8 @@ data:
           - weibo
           - viber
           - qq
+        schedule:
+          time_zone: America/Chicago
       upstream_timeout: 10s
       private_networks: []
       use_private_ptr_resolvers: true
@@ -282,70 +284,100 @@ data:
         rdns: false
         dhcp: false
         hosts: true
-      # persistent:
-      #   - name: IoT
-      #     tags: []
-      #     ids:
-      #       - 192.168.20.0/24
-      #     upstreams: []
-      #     use_global_settings: true
-      #     filtering_enabled: false
-      #     parental_enabled: false
-      #     safesearch_enabled: false
-      #     safebrowsing_enabled: false
-      #     use_global_blocked_services: true
-      #   - name: Jessie
-      #     tags:
-      #       - device_phone
-      #       - user_regular
-      #     ids:
-      #       - 192.168.30.201
-      #       - 192.168.30.202
-      #       - 192.168.30.203
-      #     upstreams: []
-      #     use_global_settings: true
-      #     filtering_enabled: false
-      #     parental_enabled: false
-      #     safesearch_enabled: false
-      #     safebrowsing_enabled: false
-      #     use_global_blocked_services: true
-      #   - name: Nathan
-      #     tags:
-      #       - user_admin
-      #     ids:
-      #       - 192.168.30.99
-      #       - 192.168.30.100
-      #       - 192.168.30.101
-      #       - 192.168.30.102
-      #     upstreams: []
-      #     use_global_settings: true
-      #     filtering_enabled: false
-      #     parental_enabled: false
-      #     safesearch_enabled: false
-      #     safebrowsing_enabled: false
-      #     use_global_blocked_services: true
-      #   - name: NoT
-      #     tags: []
-      #     ids:
-      #       - 192.168.10.0/24
-      #     upstreams: []
-      #     use_global_settings: true
-      #     filtering_enabled: false
-      #     parental_enabled: false
-      #     safesearch_enabled: false
-      #     safebrowsing_enabled: false
-      #     use_global_blocked_services: true
-      #   - name: Work
-      #     tags: []
-      #     ids:
-      #       - 192.168.40.0/24
-      #     upstreams: []
-      #     use_global_settings: true
-      #     filtering_enabled: false
-      #     parental_enabled: false
-      #     safesearch_enabled: false
-      #     safebrowsing_enabled: false
-      #     use_global_blocked_services: true
+      persistent:
+        - name: IoT
+          tags: []
+          ids:
+            - 192.168.20.0/24
+          blocked_services:
+            schedule:
+              time_zone: America/Chicago
+            ids: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          ignore_querylog: false
+          ignore_statistics: false
+        - name: Jessie
+          tags:
+            - device_phone
+            - user_regular
+          ids:
+            - 192.168.30.201
+            - 192.168.30.202
+            - 192.168.30.203
+          blocked_services:
+            schedule:
+              time_zone: America/Chicago
+            ids: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          ignore_querylog: false
+          ignore_statistics: false
+        - name: Nathan
+          tags:
+            - user_admin
+          ids:
+            - 192.168.30.99
+            - 192.168.30.100
+            - 192.168.30.101
+            - 192.168.30.102
+          blocked_services:
+            schedule:
+              time_zone: America/Chicago
+            ids: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          ignore_querylog: false
+          ignore_statistics: false
+        - name: NoT
+          tags: []
+          ids:
+            - 192.168.10.0/24
+          blocked_services:
+            schedule:
+              time_zone: America/Chicago
+            ids: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          ignore_querylog: false
+          ignore_statistics: false
+        - name: Work
+          tags: []
+          ids:
+            - 192.168.40.0/24
+          blocked_services:
+            schedule:
+              time_zone: America/Chicago
+            ids: []
+          upstreams: []
+          use_global_settings: true
+          filtering_enabled: false
+          parental_enabled: false
+          safesearch_enabled: false
+          safebrowsing_enabled: false
+          use_global_blocked_services: true
+          ignore_querylog: false
+          ignore_statistics: false
     log:
       compress: false
       local_time: true
