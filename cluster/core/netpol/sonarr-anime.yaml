@@ -72,7 +72,7 @@ spec:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: sonarr
+      app.kubernetes.io/name: sonarr-anime
   egress:
   - to:
     - namespaceSelector:
