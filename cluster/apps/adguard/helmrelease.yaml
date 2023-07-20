@@ -45,7 +45,7 @@ spec:
       tag: v0.107.34
 
     args:
-      - /opt/adguardhome/AdGuardHome
+      # - /opt/adguardhome/AdGuardHome
       - --config
       - /opt/adguardhome/conf/AdGuardHome.yaml
       - --work-dir
