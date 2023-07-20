@@ -2,23 +2,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny-all
-  namespace: prowlarr
-spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
-  - Egress
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-prowlarr-ingress
-  namespace: prowlarr
+  name: allow-sonarr-anime-ingress
+  namespace: sonarr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: prowlarr
+      app.kubernetes.io/name: sonarr-anime
   policyTypes:
   - Ingress
   ingress:
@@ -31,55 +20,59 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 9696
+      port: 8989
   - from:
     - namespaceSelector:
         matchLabels:
-          ns: sonarr
+          ns: overseerr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: sonarr
-    - namespaceSelector:
-        matchLabels:
-          ns: sonarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: sonarr-anime
+          app.kubernetes.io/name: overseerr
     ports:
     - protocol: TCP
-      port: 9696
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: radarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: radarr
-    ports:
-    - protocol: TCP
-      port: 9696
+      port: 8989
   - from:
     - namespaceSelector:
         matchLabels:
           ns: uptime
-      podSelector:
+    - podSelector:
         matchLabels:
           app.kubernetes.io/name: uptime
     ports:
     - protocol: TCP
-      port: 9696
+      port: 8989
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: prowlarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prowlarr
+    ports:
+    - protocol: TCP
+      port: 8989
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: recyclarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: recyclarr
+    ports:
+    - protocol: TCP
+      port: 8989
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-prowlarr-egress
-  namespace: prowlarr
+  name: allow-sonarr-anime-egress
+  namespace: sonarr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: prowlarr
+      app.kubernetes.io/name: sonarr
   egress:
   - to:
     - namespaceSelector:
@@ -99,7 +92,7 @@ spec:
           ns: adguard
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: adguard-work
+          app.kubernetes.io/name: adguard-home
     ports:
     - port: 53
       protocol: UDP
@@ -128,20 +121,20 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: radarr
+          ns: prowlarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: radarr
+          app.kubernetes.io/name: prowlarr
     ports:
-    - port: 7878
+    - port: 9696
       protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: sonarr
+          ns: autoscan
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: sonarr
+          app.kubernetes.io/name: autoscan
     ports:
-    - port: 8989
+    - port: 3030
       protocol: TCP

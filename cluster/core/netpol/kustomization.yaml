@@ -11,6 +11,7 @@ resources:
 - ./plex.yaml
 - ./tautulli.yaml
 - ./sonarr.yaml
+- ./sonarr-anime.yaml
 - ./radarr.yaml
 - ./radarr-trailers.yaml
 - ./overseerr.yaml

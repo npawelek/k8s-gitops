@@ -67,6 +67,12 @@ spec:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: sonarr
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-anime
     ports:
     - port: 8080
       protocol: TCP

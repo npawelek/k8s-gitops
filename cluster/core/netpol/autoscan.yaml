@@ -26,7 +26,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           ns: uptime
-    - podSelector:
+      podSelector:
         matchLabels:
           app.kubernetes.io/name: uptime
     ports:
@@ -36,7 +36,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           ns: radarr
-    - podSelector:
+      podSelector:
         matchLabels:
           app.kubernetes.io/name: radarr
     ports:
@@ -46,9 +46,15 @@ spec:
     - namespaceSelector:
         matchLabels:
           ns: sonarr
-    - podSelector:
+      podSelector:
         matchLabels:
           app.kubernetes.io/name: sonarr
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-anime
     ports:
     - protocol: TCP
       port: 3030
