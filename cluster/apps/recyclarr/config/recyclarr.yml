@@ -4,6 +4,8 @@
 # https://github.com/recyclarr/recyclarr/wiki/Configuration-Reference
 
 # Configuration specific to Sonarr
+# https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/
+# https://trash-guides.info/Sonarr/sonarr-setup-quality-profiles/#which-quality-profile-should-you-choose
 sonarr:
   main:
     base_url: http://sonarr.sonarr.svc.cluster.local:8989
@@ -161,6 +163,8 @@ sonarr:
   #           score: -10000  # Adjust scoring as desired
 
 # Configuration specific to Radarr.
+# https://trash-guides.info/Radarr/radarr-setup-quality-profiles
+# https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#which-quality-profile-should-you-choose
 radarr:
   main:
     base_url: http://radarr.radarr.svc.cluster.local:7878
@@ -172,17 +176,20 @@ radarr:
     quality_profiles:
       - name: HD-1080p
         reset_unmatched_scores: true
-      - name: Ultra-HD
-        reset_unmatched_scores: true
     custom_formats:
       - trash_ids:
-          - ff5bc9e8ce91d46c997ca3ac6994d6f8 # UHD FraMeSToR (set to 0, 1 or 3200)
-        quality_profiles:
-          - name: HD-1080p
-            score: 1
-          - name: Ultra-HD
-            score: 1
-      - trash_ids:
+          # Movie Versions
+          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
+          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
+          - 0f12c086e289cf966fa5948eac571f44 # Hybrid
+          - eecf3a857724171f968a66cb5719e152 # IMAX
+          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+          - 9d27d9d2181838f76dee150882bdc58c # Masters of Cinema
+          - 09d9dd29a0fc958f9796e65c2a8864b4 # Open Matte
+          - 570bc9ebecd92723d2d21500f4be314c # Remaster
+          - 957d0f44b592285f26449575e8b1167e # Special Edition
+          - e9001909a4c88013a359d0b9920d7bea # Theatrical Cut
+          - db9b4c4b53d312a3ca5f1378f6440fc9 # Vinegar Syndrome
           # Streaming Services
           - b3b3a6ac74ecbd56bcdbefa4799fb9df # AMZN
           - 40e9380490e748672c2522eaaeb692f7 # ATVP
@@ -226,38 +233,11 @@ radarr:
           - 6ba9033150e7896bdc9ec4b44f2b230f # MP3
           - a061e2e700f81932daf888599f8a8273 # Opus
           - e7c2fcae07cbada050a0af3357491d7b # PCM
-          # HDR Formats
-          - 58d6a88f13e2db7f5059c41047876f00 # DV
-          - e23edd2482476e595fb990b12e7c609c # DV HDR10
-          - 55d53828b9d81cbe20b02efd00aa0efd # DV HLG
-          - a3e19f8f627608af0211acd02bf89735 # DV SDR
-          - e61e28db95d22bedcadf030b8f156d96 # HDR
-          - 2a4d9069cc1fe3242ff9bdaebed239bb # HDR (undefined)
-          - dfb86d5941bc9075d6af23b09c2aeecd # HDR10
-          - b974a6cd08c1066250f1f177d7aa1225 # HDR10+
-          - 9364dd386c9b4a1100dde8264690add7 # HLG
-          - 08d6d8834ad9ec87b1dc7ec8148e7a1f # PQ
-          # Movie Versions
-          - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
-          - e0c07d59beb37348e975a930d5e50319 # Criterion Collection
-          - 0f12c086e289cf966fa5948eac571f44 # Hybrid
-          - eecf3a857724171f968a66cb5719e152 # IMAX
-          - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
-          - 9d27d9d2181838f76dee150882bdc58c # Masters of Cinema
-          - 09d9dd29a0fc958f9796e65c2a8864b4 # Open Matte
-          - 570bc9ebecd92723d2d21500f4be314c # Remaster
-          - 957d0f44b592285f26449575e8b1167e # Special Edition
-          - e9001909a4c88013a359d0b9920d7bea # Theatrical Cut
-          - db9b4c4b53d312a3ca5f1378f6440fc9 # Vinegar Syndrome
           # Misc
           - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
           - ae43b294509409a6a13919dedd4764c4 # Repack2
           # Optional
-          - f700d29429c023a5734505e77daeaea7 # DV (FEL)
-          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
-          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
-          - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
           # Unwanted
           - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
           - ed38b889b31be83fda192888e2286d83 # BR-DISK
@@ -266,14 +246,10 @@ radarr:
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         quality_profiles:
           - name: HD-1080p
-          - name: Ultra-HD
       - trash_ids:
           - 4b900e171accbfb172729b63323ea8ca # Optional: Multi
-          - 923b6abef9b17f937fab56cfcf89e1f1 # Optional: DV (WEBDL) without fallback to HDR, set to manual score 0 or -10000
         quality_profiles:
           - name: HD-1080p
-            score: -10000
-          - name: Ultra-HD
             score: -10000
   # anime:  # A custom name used to identify this particular instance.
   #   base_url: http://radarr.radarr.svc.cluster.local:7878
