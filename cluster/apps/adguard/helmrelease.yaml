@@ -42,10 +42,10 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.107.33
+      tag: v0.107.34
 
     args:
-      - /opt/adguardhome/AdGuardHome
+      # - /opt/adguardhome/AdGuardHome
       - --config
       - /opt/adguardhome/conf/AdGuardHome.yaml
       - --work-dir
@@ -156,6 +156,10 @@ spec:
         enabled: true
         existingClaim: adguard-home-data
         mountPath: /opt/adguardhome/work
+      sessions:
+        enabled: true
+        type: emptyDir
+        mountPath: /opt/adguardhome/data
 
     resources:
       requests:
