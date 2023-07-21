@@ -22,7 +22,6 @@ sonarr:
           # Streaming Services
           - d660701077794679fd59e8bdf4ce3a29 # AMZN
           - f67c9ca88f463a48346062e8ad07713f # ATVP
-          - f27d46a831e6b16fa3fee2c4e5d10984 # CANAL+
           - 77a7b25585c18af08f60b1547bb9b4fb # CC
           - 4e9a630db98d5391aec1368a0256e2fe # CRAV
           - 36b72f59f4ea20aad9316f475f2d9fbb # DCU
@@ -38,8 +37,6 @@ sonarr:
           - c67a75ae4a1715f2bb4d492755ba4195 # PMTP
           - 3ac5d84fce98bab1b531393e9c82f467 # QIBI
           - c30d2958827d1867c73318a5a2957eb1 # RED
-          - b0d6195c23ae254932da00512db7e8a8 # RTBF
-          - 0455d6519a550dbf648c97b56e7231d2 # SALTO
           - ae58039e1319178e6be73caab5c42166 # SHO
           - 1efe8da11bfd74fbbcd4d8117ddb9213 # STAN
           - 5d2317d99af813b6529c7ebf01c83533 # VDL
