@@ -173,6 +173,7 @@ sonarr:
           - b4a1b3d705159cdca36d71e57ca86871 # Anime Raws
           - e3515e519f3b1360cbfc17651944354c # Anime LQ Groups
           - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1
+          # - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
           - name: Remux-1080p - Anime
             score: -10000
