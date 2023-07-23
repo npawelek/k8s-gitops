@@ -39,6 +39,12 @@ spec:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: radarr
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-anime
     ports:
     - protocol: TCP
       port: 3030

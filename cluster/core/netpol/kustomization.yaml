@@ -13,6 +13,7 @@ resources:
 - ./sonarr.yaml
 - ./sonarr-anime.yaml
 - ./radarr.yaml
+- ./radarr-anime.yaml
 - ./radarr-trailers.yaml
 - ./overseerr.yaml
 - ./home-automation.yaml
