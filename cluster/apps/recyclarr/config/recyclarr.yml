@@ -203,7 +203,7 @@ radarr:
     quality_definition:
       type: movie
     quality_profiles:
-      - name: HD-1080p
+      - name: HD Bluray + WEB
         reset_unmatched_scores: true
     custom_formats:
       - trash_ids:
@@ -281,11 +281,11 @@ radarr:
           - bfd8eb01832d646a0a89c4deb46f8564 # Upscaled
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         quality_profiles:
-          - name: HD-1080p
+          - name: HD Bluray + WEB
       - trash_ids:
           - 4b900e171accbfb172729b63323ea8ca # Optional: Multi
         quality_profiles:
-          - name: HD-1080p
+          - name: HD Bluray + WEB
             score: -10000
   # Updated: 2023-07-19
   anime:
