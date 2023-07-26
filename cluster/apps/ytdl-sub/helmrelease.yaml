@@ -27,7 +27,7 @@ spec:
 
     image:
       repository: ghcr.io/jmbannon/ytdl-sub
-      tag: latest@sha256:710bf5740598d8826b8baa7606aaeca07d2b6939b95d88f7d4f05f2847e34235
+      tag: latest@sha256:55fc153a35a053ae8f7b9148dfda02e88a083224c96b67811a21007f5419d043
 
     command:
       - ytdl-sub
