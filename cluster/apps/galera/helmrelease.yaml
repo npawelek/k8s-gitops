@@ -108,7 +108,8 @@ spec:
       innodb_autoinc_lock_mode=2
       # Per https://www.percona.com/blog/2006/08/04/innodb-double-write/
       innodb_doublewrite=1
-      innodb_flush_method=O_DIRECT
+      # Deprecated in MariaDB 11: https://mariadb.com/kb/en/innodb-system-variables/#innodb_flush_method
+      # innodb_flush_method=O_DIRECT
       innodb_log_file_size=128M
       innodb_flush_log_at_trx_commit=1
       innodb_file_per_table=1
