@@ -59,10 +59,16 @@ spec:
         sizeLimit: 4G
       config:
         enabled: false
-      library:
+      movies:
         enabled: true
         path: /volume1/media/Movies
         mountPath: /library/Movies
+        server: ${RACKNAS_ADDR}
+        type: nfs
+      movies-anime:
+        enabled: true
+        path: /volume1/media/Movies-Anime
+        mountPath: /library/Movies-Anime
         server: ${RACKNAS_ADDR}
         type: nfs
       scripts:
