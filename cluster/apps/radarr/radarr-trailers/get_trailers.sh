@@ -11,6 +11,7 @@ download_trailer () {
   local TRAILER_URL="https://www.youtube.com/watch?v=${TRAILER_ID}"
 
   # Set the yt-dlp output template containing YouTube ID and Jellyfin file suffix
+  # Unable to set destination dir as it wont stage to tmpfs
   local OUTPUT_TEMPLATE="${MOVIE_FILENAME%\ [*} [${TRAILER_ID}]-trailer.%(ext)s"
 
   echo -e "\n\nID: ${ID}\tDownloading trailer for ${MOVIE_NAME} ...\n\n"
