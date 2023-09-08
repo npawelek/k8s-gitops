@@ -42,7 +42,7 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.107.36
+      tag: v0.107.37
 
     args:
       # - /opt/adguardhome/AdGuardHome
