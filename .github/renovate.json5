@@ -38,7 +38,7 @@
       "matchPackagePatterns": [
         "autoscan",
         "plex",
-        "resilio"
+        "ytdl-sub"
       ]
     }
   ]
