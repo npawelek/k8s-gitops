@@ -231,4 +231,5 @@ data:
       overrides:
         tv_show_name: Drumeo For the First Time
       chapters:
-        sponsorblock_categories: [""]
+        sponsorblock_categories:
+          - "sponsor"
