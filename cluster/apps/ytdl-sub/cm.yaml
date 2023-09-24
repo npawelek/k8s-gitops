@@ -229,4 +229,9 @@ data:
       download:
         url: "https://www.youtube.com/playlist?list=PLThYwnIoLwyWiF5RgHPzOzYNdqQw1-tep"
       overrides:
-        tv_show_name: Drumeo - For the First Time
+        tv_show_name: Drumeo For the First Time
+      chapters:
+        embed_chapters: True
+        allow_chapters_from_comments: False
+        sponsorblock_categories: []
+        remove_sponsorblock_categories: "all"
