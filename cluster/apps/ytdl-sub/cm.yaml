@@ -224,3 +224,9 @@ data:
       overrides:
         tv_show_name: Physics for the Birds
         download_after: "20220101"
+    drumeo_first_time_playlist:
+      preset: "yt_playlist"
+      download:
+        url: "https://www.youtube.com/playlist?list=PLThYwnIoLwyWiF5RgHPzOzYNdqQw1-tep"
+      overrides:
+        tv_show_name: Drumeo - For the First Time
