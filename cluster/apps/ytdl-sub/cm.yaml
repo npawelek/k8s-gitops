@@ -217,13 +217,6 @@ data:
       overrides:
         tv_show_name: Paragraphic
         download_after: "20220101"
-    physics_for_the_birds_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@physicsforthebirds"
-      overrides:
-        tv_show_name: Physics for the Birds
-        download_after: "20220101"
     drumeo_first_time_playlist:
       preset: "yt_playlist"
       download:
@@ -233,3 +226,24 @@ data:
       chapters:
         sponsorblock_categories:
           - "sponsor"
+    the_hookup_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@TheHookUp"
+      overrides:
+        tv_show_name: The Hook Up
+        download_after: "20230101"
+    the_lawn_care_nut_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@Thelawncarenut"
+      overrides:
+        tv_show_name: The Lawn Care Nut
+        download_after: "20230101"
+    hibbert_home_tech_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@paulhibbert"
+      overrides:
+        tv_show_name: Hibbert Home Tech
+        download_after: "20230101"
