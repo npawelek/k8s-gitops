@@ -5,7 +5,7 @@
 
 # Configuration specific to Sonarr
 sonarr:
-  main:
+  tv-main:
     base_url: http://sonarr.sonarr.svc.cluster.local:8989
     api_key: !env_var SONARR_APIKEY
     delete_old_custom_formats: true
@@ -59,7 +59,7 @@ sonarr:
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
         quality_profiles:
           - name: WEB-1080p
-  anime:
+  tv-anime:
     base_url: http://sonarr-anime.sonarr.svc.cluster.local:8989
     api_key: !env_var SONARR_ANIME_APIKEY
     delete_old_custom_formats: true
@@ -197,7 +197,7 @@ sonarr:
 
 radarr:
   # Updated: 2023-07-19
-  main:
+  movies-main:
     base_url: http://radarr.radarr.svc.cluster.local:7878
     api_key: !env_var RADARR_APIKEY
     delete_old_custom_formats: true
@@ -291,7 +291,7 @@ radarr:
           - name: HD Bluray + WEB
             score: -10000
   # Updated: 2023-07-19
-  anime:
+  movies-anime:
     base_url: http://radarr-anime.radarr.svc.cluster.local:7878
     api_key: !env_var RADARR_ANIME_APIKEY
     delete_old_custom_formats: true
