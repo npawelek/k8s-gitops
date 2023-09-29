@@ -14,7 +14,8 @@ sonarr:
       type: series
     quality_profiles:
       - name: WEB-1080p
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
     custom_formats:
       # https://recyclarr.dev/wiki/guide-configs/#web-1080p-v4
       - trash_ids:
@@ -67,7 +68,8 @@ sonarr:
       type: anime
     quality_profiles:
       - name: Remux-1080p - Anime
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
     custom_formats:
       # https://recyclarr.dev/wiki/guide-configs/#anime-sonarr-v4
       - trash_ids:
@@ -204,7 +206,8 @@ radarr:
       type: movie
     quality_profiles:
       - name: HD Bluray + WEB
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
     custom_formats:
       - trash_ids:
           # Movie Versions
@@ -297,7 +300,8 @@ radarr:
       type: movie
     quality_profiles:
       - name: Remux-1080p - Anime
-        reset_unmatched_scores: true
+        reset_unmatched_scores:
+          enabled: true
     custom_formats:
       # Scores from TRaSH json
       - trash_ids:
