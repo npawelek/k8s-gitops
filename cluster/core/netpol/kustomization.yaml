@@ -22,7 +22,6 @@ resources:
 - ./esphome.yaml
 - ./node-red.yaml
 - ./rclone.yaml
-- ./smt-reader.yaml
 - ./nginx.yaml
 - ./uptime.yaml
 - ./emqx.yaml

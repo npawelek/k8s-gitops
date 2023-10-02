@@ -8,5 +8,4 @@ resources:
 - esphome
 - node-red
 - piper
-- smt-reader
 - whisper
