@@ -40,7 +40,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/tautulli
-      tag: 2.13.1@sha256:0a995c25a9c56b609c80dedfd9432c006b0d4835bd4fa2ba911ed112b50c5034
+      tag: 2.13.1@sha256:23fb105a1745680120051af7fe778cd888de57a6838f8ccb6be91d9b47af7237
 
     controller:
       type: statefulset
