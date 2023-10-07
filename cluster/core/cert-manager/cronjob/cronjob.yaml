@@ -17,7 +17,7 @@ spec:
         spec:
           initContainers:
           - name: clone-repo
-            image: ghcr.io/onedr0p/alpine:3.18.4@sha256:a45f246424c791487a44ba5cbe5720ae5318813dce3924c0e04d943e0fd0996d
+            image: ghcr.io/onedr0p/alpine:3.18.4@sha256:640268cbf735904105ec132b1c73556ec3ff29a0c76505e78d077cb22d55e9e7
             command:
             - sh
             - -c
