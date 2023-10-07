@@ -51,7 +51,7 @@ spec:
 
     initContainers:
       01-init-cert:
-        image: ghcr.io/onedr0p/alpine:3.18.4@sha256:640268cbf735904105ec132b1c73556ec3ff29a0c76505e78d077cb22d55e9e7
+        image: ghcr.io/onedr0p/alpine:3.18.4@sha256:01db2e6ff88bf0ce692fb6552ab68f4eb3f77d16ba5d3402e8a7de3f4f8873f1
         imagePullPolicy: IfNotPresent
         command:
           - /bin/sh
