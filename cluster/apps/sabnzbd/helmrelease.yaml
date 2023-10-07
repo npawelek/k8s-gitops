@@ -39,7 +39,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sabnzbd
-      tag: 4.1.0@sha256:d7eabae44168417a6acbc8f6e8510b0187a3f26d648941b3cf61b4c04a904da2
+      tag: 4.1.0@sha256:7bf1340d9ca79d8842e9065259e1c30941e041450b34ca8acd3a938ba069a4f2
 
     controller:
       type: statefulset
