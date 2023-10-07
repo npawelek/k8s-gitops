@@ -5,7 +5,7 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":automergeDigest",
+//    ":automergeDigest",
     ":automergeBranch",
     ":separatePatchReleases",
     "github>npawelek/k8s-gitops//.github/renovate/autoMerge.json5",
