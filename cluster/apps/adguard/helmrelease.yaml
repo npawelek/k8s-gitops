@@ -58,7 +58,7 @@ spec:
 
     initContainers:
       01-config-copy:
-        image: ghcr.io/onedr0p/alpine:3.18.4@sha256:01db2e6ff88bf0ce692fb6552ab68f4eb3f77d16ba5d3402e8a7de3f4f8873f1
+        image: ghcr.io/onedr0p/alpine:3.18.4@sha256:dff22a9c3c326c07d7a82edefdedc6f4e65aae1fa461be06d280e423e5029947
         imagePullPolicy: IfNotPresent
         command:
           - /bin/sh
