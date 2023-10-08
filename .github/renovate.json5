@@ -5,6 +5,7 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
+    ":automergeDisabled",
 //    ":automergeDigest",
     ":automergeBranch",
     ":separatePatchReleases",
