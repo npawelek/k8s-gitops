@@ -248,3 +248,10 @@ data:
       overrides:
         tv_show_name: Hibbert Home Tech
         download_after: "20230101"
+    lon_tv_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@LonSeidman"
+      overrides:
+        tv_show_name: Lon Seidman
+        download_after: "20231001"
