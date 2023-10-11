@@ -12,8 +12,10 @@ resources:
 - ./tautulli.yaml
 - ./sonarr.yaml
 - ./sonarr-anime.yaml
+- ./sonarr-remux.yaml
 - ./radarr.yaml
 - ./radarr-anime.yaml
+- ./radarr-remux.yaml
 - ./radarr-trailers.yaml
 - ./overseerr.yaml
 - ./home-automation.yaml

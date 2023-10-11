@@ -73,6 +73,12 @@ spec:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: sonarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-remux
     ports:
     - port: 8080
       protocol: TCP
@@ -91,6 +97,12 @@ spec:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: radarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-remux
     ports:
     - port: 8080
       protocol: TCP
