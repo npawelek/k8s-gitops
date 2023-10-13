@@ -65,6 +65,8 @@ spec:
         cidr: 192.168.20.53/32
     - ipBlock:
         cidr: 192.168.20.54/32
+    - ipBlock:
+        cidr: 192.168.20.193/32
     ports:
     - protocol: TCP
       port: 8443
