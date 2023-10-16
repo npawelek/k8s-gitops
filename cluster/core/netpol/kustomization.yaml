@@ -38,3 +38,4 @@ resources:
 - ./aws-ddns.yaml
 - ./piper.yaml
 - ./whisper.yaml
+- ./speedtest.yaml

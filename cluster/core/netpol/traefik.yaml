@@ -383,6 +383,16 @@ spec:
     - port: 5690
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: speedtest
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: openspeedtest
+    ports:
+    - port: 3000
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

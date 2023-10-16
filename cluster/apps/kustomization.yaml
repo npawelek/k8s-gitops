@@ -20,6 +20,7 @@ resources:
 - recyclarr
 - sabnzbd
 - sonarr
+- speedtest
 - tautulli
 - traefik
 - traefik-forward-auth

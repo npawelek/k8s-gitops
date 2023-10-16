@@ -97,6 +97,26 @@ spec:
     middlewares:
     - name: default-compress
     - name: http-headers
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: speedtest-buffering
+  namespace: traefik
+spec:
+  buffering:
+    maxRequestBodyBytes: 10000000000
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ext-speedtest-middlewares-chain
+  namespace: traefik
+spec:
+  chain:
+    middlewares:
+    - name: default-headers
+    - name: speedtest-buffering
 # ---
 # apiVersion: traefik.io/v1alpha1
 # kind: Middleware
