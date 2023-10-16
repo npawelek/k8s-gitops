@@ -51,6 +51,25 @@ spec:
           hajimari.io/icon: mdi:speedometer
           hajimari.io/group: network
         hosts:
+          - host: &host speed.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+          - secretName: nathanpawelek-com-tls
+      ext:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: ext-speedtest-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:speedometer
+          hajimari.io/group: network
+        hosts:
           - host: &host ext-speed.${DOMAIN}
             paths:
               - path: /
