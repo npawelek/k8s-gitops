@@ -51,7 +51,7 @@ spec:
           hajimari.io/icon: mdi:speedometer
           hajimari.io/group: network
         hosts:
-          - host: &host speed.${DOMAIN}
+          - host: &host ext-speed.${DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
