@@ -27,6 +27,14 @@ data "http" "ipv4" {
   url = "http://checkip.amazonaws.com"
 }
 
+resource "aws_route53_record" "ext-speed" {
+  zone_id = data.aws_route53_zone.domain.zone_id
+  name    = "ext-speed"
+  type    = "A"
+  ttl     = 300
+  records = [chomp(data.http.ipv4.response_body)]
+}
+
 resource "aws_route53_record" "vpn" {
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = "vpn"
