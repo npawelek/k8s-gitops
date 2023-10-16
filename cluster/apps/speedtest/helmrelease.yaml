@@ -37,7 +37,7 @@ spec:
   values:
     image:
       repository: openspeedtest/latest
-      tag: v2.0.3@sha256:21f6721e85cfee0c0d17caf1b9ce4faf075470a161476f95c5507e435d9ccdd6
+      tag: v2.0.3@sha256:22fb38d47f2def795cc4200ad17c9f5ffa3ba82536706c00c0572da75543afd1
 
     ingress:
       main:
