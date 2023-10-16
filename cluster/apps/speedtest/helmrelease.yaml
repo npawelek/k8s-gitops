@@ -66,9 +66,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-ext-speedtest-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:speedometer
-          hajimari.io/group: network
+          hajimari.io/enable: "false"
         hosts:
           - host: &host ext-speed.${DOMAIN}
             paths:
