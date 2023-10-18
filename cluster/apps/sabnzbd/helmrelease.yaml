@@ -138,6 +138,11 @@ spec:
         accessMode: ReadWriteOnce
         size: 2Gi
         storageClass: longhorn
+      - name: downloads
+        mountPath: /downloads
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        storageClass: longhorn
 
     persistence:
       library:
@@ -146,12 +151,12 @@ spec:
         path: /volume1/media/Temp
         server: ${RACKNAS_ADDR}
         type: nfs
-      downloads:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 30Gi
-        mountPath: /config/Downloads
+      # downloads:
+      #   enabled: true
+      #   type: emptyDir
+      #   medium: Memory
+      #   sizeLimit: 30Gi
+      #   mountPath: /config/Downloads
 
     sidecars:
       vpn:
