@@ -151,12 +151,6 @@ spec:
         path: /volume1/media/Temp
         server: ${RACKNAS_ADDR}
         type: nfs
-      # downloads:
-      #   enabled: true
-      #   type: emptyDir
-      #   medium: Memory
-      #   sizeLimit: 30Gi
-      #   mountPath: /config/Downloads
 
     sidecars:
       vpn:
@@ -194,4 +188,4 @@ spec:
         cpu: 500m
         memory: 1024Mi
       limits:
-        memory: 34Gi
+        memory: 4Gi
