@@ -71,6 +71,12 @@ spec:
         mountPath: /library/Movies-Anime
         server: ${RACKNAS_ADDR}
         type: nfs
+      movies-remux:
+        enabled: true
+        path: /volume1/media/Movies-Remux
+        mountPath: /library/Movies-Remux
+        server: ${RACKNAS_ADDR}
+        type: nfs
       scripts:
         enabled: true
         type: configMap
