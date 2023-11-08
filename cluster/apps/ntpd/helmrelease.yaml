@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: cturra/ntp
-      tag: latest@sha256:2b45b588136be2474d3ff85203b89622945c9f143d14189c76a276ecd709b380
+      tag: latest@sha256:af130711797ed2ed5cb8a1b057000f75da19e4197bb22a193c92813e4399aada
       pullPolicy: Always
 
     controller:
