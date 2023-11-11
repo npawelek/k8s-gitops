@@ -44,6 +44,21 @@ spec:
       enabled: true
       repository: https://github.com/npawelek/firmware.git
       branch: main
+      extraEnvVars:
+      - name: HOME
+        value: "/tmp"
+      gitSync:
+        command:
+        - /bin/bash
+        args:
+        - -ec
+        - |
+          [[ -f "/opt/bitnami/scripts/git/entrypoint.sh" ]] && source "/opt/bitnami/scripts/git/entrypoint.sh"
+          cd /app && git config --global --add safe.directory $(pwd)
+          while true; do
+              cd /app && git pull origin main
+              sleep 60
+          done
     serverBlock: |-
       server {
         server_name int.${DOMAIN};
