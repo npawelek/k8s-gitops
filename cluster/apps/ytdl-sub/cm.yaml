@@ -255,3 +255,10 @@ data:
       overrides:
         tv_show_name: Lon Seidman
         download_after: "20231001"
+    uncle_roger_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@mrnigelng"
+      overrides:
+        tv_show_name: Uncle Roger
+        download_after: "20230101"
