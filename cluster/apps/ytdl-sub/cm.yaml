@@ -255,3 +255,9 @@ data:
       overrides:
         tv_show_name: Lon Seidman
         download_after: "20231001"
+    uncle_roger_food_reviews_playlist:
+      preset: "yt_playlist"
+      download:
+        url: "https://www.youtube.com/playlist?list=PLMz5ytcUjVDaMJxE1qx31f4la4xBq0BKN"
+      overrides:
+        tv_show_name: Uncle Roger
