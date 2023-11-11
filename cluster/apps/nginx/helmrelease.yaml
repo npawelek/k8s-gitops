@@ -40,6 +40,18 @@ spec:
       pathType: Prefix
     serviceAccount:
       create: false
+    gitSync:
+      args:
+      - -ec
+      - |
+        [[ -f "/opt/bitnami/scripts/git/entrypoint.sh" ]] && . /opt/bitnami/scripts/git/entrypoint.sh
+        while true; do
+            cd /app && git config --global --add safe.directory $(pwd) && git pull origin main || true
+            sleep 60
+        done
+      extraEnvVars:
+      - name: HOME
+        value: "/tmp"
     cloneStaticSiteFromGit:
       enabled: true
       repository: https://github.com/npawelek/firmware.git
