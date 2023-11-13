@@ -19,8 +19,8 @@ data:
             min: 9.0
             max: 14.1
           max_downloads_per_subscription:
-            min: 10
-            max: 36
+            min: 18
+            max: 43
           subscription_download_probability: 1.0
 
         download:
@@ -266,9 +266,9 @@ data:
       overrides:
         tv_show_name: Lon Seidman
         download_after: "20231001"
-    uncle_roger_food_reviews_playlist:
-      preset: "yt_playlist"
+    uncle_roger_channel:
+      preset: "yt_channel"
       download:
-        url: "https://www.youtube.com/playlist?list=PLMz5ytcUjVDaMJxE1qx31f4la4xBq0BKN"
+        url: "https://www.youtube.com/@mrnigelng/videos"
       overrides:
         tv_show_name: Uncle Roger
