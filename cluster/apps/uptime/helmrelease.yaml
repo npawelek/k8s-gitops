@@ -42,7 +42,7 @@ spec:
 
     image:
       repository: louislam/uptime-kuma
-      tag: 1.23.4-alpine
+      tag: 1.23.5-alpine
 
     controller:
       type: deployment
