@@ -148,6 +148,16 @@ spec:
     ports:
     - protocol: TCP
       port: 8888
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: ladder
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ladder
+    ports:
+    - protocol: TCP
+      port: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

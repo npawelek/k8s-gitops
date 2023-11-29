@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ladder
+  namespace: ladder
+spec:
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  interval: 1h
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    image:
+      repository: ghcr.io/everywall/ladder
+      tag: v0.0.20@sha256:bfe286be346b60892686102425b4f973ea22489ebe37597125103145506d9625
+
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    env:
+      TZ: ${TIMEZONE}
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTP_PROXY}
+      no_proxy: ${NO_PROXY}
+      RULESET: https://raw.githubusercontent.com/everywall/ladder-rules/main/ruleset.yaml
+
+    service:
+      main:
+        enabled: false
+      lb:
+        enabled: true
+        primary: false
+        type: LoadBalancer
+        loadBalancerIP: ${LADDER_LB}
+        externalTrafficPolicy: Local
+        ports:
+          ext:
+            enabled: true
+            port: 8080
+            protocol: TCP
+            targetPort: 8080
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:access-point-network
+          hajimari.io/group: network
+        hosts:
+        - host: &host ladder.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - *host
+        - secretName: nathanpawelek-com-tls
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
+      limits:
+        memory: 256M

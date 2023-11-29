@@ -10,6 +10,7 @@ resources:
 - hajimari
 - home-automation
 - jellyfin
+- ladder
 - metrics-server
 - nginx
 - ntpd
