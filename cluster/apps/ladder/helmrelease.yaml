@@ -43,7 +43,6 @@ spec:
             port: 8080
             protocol: TCP
 
-
     ingress:
       main:
         enabled: true
