@@ -39,3 +39,4 @@ resources:
 - ./piper.yaml
 - ./whisper.yaml
 - ./speedtest.yaml
+- ./ladder.yaml

@@ -395,6 +395,16 @@ spec:
     - port: 3000
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: ladder
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ladder
+    ports:
+    - port: 8080
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
