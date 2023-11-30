@@ -38,23 +38,32 @@ spec:
 
     service:
       main:
-        enabled: false
-      lb:
-        enabled: true
-        primary: false
-        type: LoadBalancer
-        loadBalancerIP: ${LADDER_LB}
-        externalTrafficPolicy: Local
         ports:
-          ext:
-            enabled: true
+          http:
             port: 8080
             protocol: TCP
-            targetPort: 8080
+
 
     ingress:
       main:
-        enabled: false
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:access-point-network
+          hajimari.io/group: network
+        hosts:
+          - host: &host ladder.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+          - secretName: nathanpawelek-com-tls
 
     resources:
       requests:
