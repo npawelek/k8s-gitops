@@ -23,7 +23,6 @@ resources:
 - sabnzbd
 - sonarr
 - speedtest
-- tautulli
 - traefik
 - traefik-forward-auth
 - unmanic

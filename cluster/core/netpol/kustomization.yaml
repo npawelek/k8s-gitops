@@ -9,7 +9,6 @@ resources:
 - ./hajimari.yaml
 - ./galera.yaml
 - ./plex.yaml
-- ./tautulli.yaml
 - ./sonarr.yaml
 - ./sonarr-anime.yaml
 - ./sonarr-remux.yaml
