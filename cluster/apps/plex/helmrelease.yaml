@@ -112,7 +112,7 @@ spec:
       - name: config
         mountPath: /config
         accessMode: ReadWriteOnce
-        size: 40Gi
+        size: 5Gi
         storageClass: longhorn
 
     persistence:
@@ -126,10 +126,10 @@ spec:
         enabled: true
         type: emptyDir
         mountPath: /config/certs
-      media:
+      library:
         enabled: true
-        mountPath: /data
-        path: /volume1/media
+        mountPath: /library
+        path: "/volume1/media/Recordings Hold"
         server: ${RACKNAS_ADDR}
         type: nfs
       transcode:
