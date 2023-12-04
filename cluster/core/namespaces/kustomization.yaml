@@ -13,7 +13,6 @@ resources:
 - ./galera.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
-- ./overseerr.yaml
 - ./home-automation.yaml
 - ./rclone.yaml
 - ./nginx.yaml

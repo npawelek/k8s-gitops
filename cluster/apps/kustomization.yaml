@@ -15,7 +15,6 @@ resources:
 - metrics-server
 - nginx
 - ntpd
-- overseerr
 - plex
 - prowlarr
 - radarr

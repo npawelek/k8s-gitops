@@ -16,7 +16,6 @@ resources:
 - ./radarr-anime.yaml
 - ./radarr-remux.yaml
 - ./radarr-trailers.yaml
-- ./overseerr.yaml
 - ./home-automation.yaml
 - ./mosquitto.yaml
 - ./home-assistant.yaml
