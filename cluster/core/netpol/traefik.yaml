@@ -217,16 +217,6 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: tautulli
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: tautulli
-    ports:
-    - port: 8181
-      protocol: TCP
-  - to:
-    - namespaceSelector:
-        matchLabels:
           ns: overseerr
       podSelector:
         matchLabels:

@@ -142,16 +142,6 @@ spec:
     - port: 32400
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: tautulli
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: tautulli
-    ports:
-    - port: 8181
-      protocol: TCP
-  - to:
     - ipBlock:
         cidr: 192.168.0.11/32
     ports:
