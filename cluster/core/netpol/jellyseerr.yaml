@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
-  namespace: jellyfin
+  namespace: jellyseerr
 spec:
   podSelector: {}
   policyTypes:
@@ -13,12 +13,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-jellyfin-ingress
-  namespace: jellyfin
+  name: allow-jellyseerr-ingress
+  namespace: jellyseerr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/name: jellyseerr
   policyTypes:
   - Ingress
   ingress:
@@ -26,22 +26,12 @@ spec:
     - namespaceSelector:
         matchLabels:
           ns: traefik
-    - podSelector:
+      podSelector:
         matchLabels:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: jellyseerr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: jellyseerr
-    ports:
-    - protocol: TCP
-      port: 8096
+      port: 5055
   - from:
     - namespaceSelector:
         matchLabels:
@@ -51,49 +41,19 @@ spec:
           app.kubernetes.io/name: uptime
     ports:
     - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: home-automation
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: home-assistant
-    ports:
-    - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: autoscan
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: autoscan
-    ports:
-    - protocol: TCP
-      port: 8096
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: wizarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: wizarr
-    ports:
-    - protocol: TCP
-      port: 8096
+      port: 5055
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-jellyfin-egress
-  namespace: jellyfin
+  name: allow-jellyseerr-egress
+  namespace: jellyseerr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/name: jellyseerr
   egress:
   - to:
     - namespaceSelector:
@@ -128,8 +88,59 @@ spec:
     - port: 53
       protocol: TCP
   - to:
-    - ipBlock:
-        cidr: 192.168.20.98/32
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-remux
+    ports:
+    - port: 8989
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-remux
+    ports:
+    - port: 7878
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: jellyfin
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyfin
+    ports:
+    - port: 8096
+      protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
@@ -141,12 +152,14 @@ spec:
     - port: 8888
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: unmanic
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: unmanic
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
     ports:
-    - port: 8888
+    - port: 443
+      protocol: TCP
+    - port: 80
       protocol: TCP

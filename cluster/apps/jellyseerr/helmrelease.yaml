@@ -1,0 +1,119 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jellyseerr
+  namespace: jellyseerr
+spec:
+  interval: 1h
+  maxHistory: 3
+
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: sonarr
+    namespace: sonarr
+  - name: radarr
+    namespace: radarr
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    image:
+      repository: fallenbagel/jellyseerr
+      tag: 1.7.0@sha256:d6aec40a75672dca505ddfd9ea8ad20627e79cd0cada92c6e629ae2a0181a6d5
+
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    env:
+      # http_proxy: ${HTTP_PROXY}
+      # https_proxy: ${HTTP_PROXY}
+      # no_proxy: ${NO_PROXY}
+      TZ: ${TIMEZONE}
+      LOG_LEVEL: debug
+
+    service:
+      main:
+        enabled: true
+        type: ClusterIP
+        ports:
+          http:
+            port: 5055
+            protocol: TCP
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: eye-circle
+          hajimari.io/group: downloads
+        hosts:
+        - host: &int requests2.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - *int
+        - secretName: nathanpawelek-com-tls
+      external:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+        hosts:
+        - host: &ext req2.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - *ext
+        - secretName: nathanpawelek-com-tls
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /app/config
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: longhorn
+
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 100m
+      limits:
+        memory: 750Mi

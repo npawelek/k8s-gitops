@@ -227,6 +227,16 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
+          ns: jellyseerr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellyseerr
+    ports:
+    - port: 5055
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
           ns: resilio
       podSelector:
         matchLabels:

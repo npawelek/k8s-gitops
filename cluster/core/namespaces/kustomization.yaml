@@ -19,6 +19,7 @@ resources:
 - ./nginx.yaml
 - ./uptime.yaml
 - ./jellyfin.yaml
+- ./jellyseerr.yaml
 - ./unmanic.yaml
 - ./autoscan.yaml
 - ./ytdl-sub.yaml
