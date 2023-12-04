@@ -52,9 +52,6 @@ spec:
         reloader.stakater.com/auto: "true"
 
     env:
-      # http_proxy: ${HTTP_PROXY}
-      # https_proxy: ${HTTP_PROXY}
-      # no_proxy: ${NO_PROXY}
       TZ: ${TIMEZONE}
       LOG_LEVEL: debug
 
@@ -79,7 +76,7 @@ spec:
           hajimari.io/icon: eye-circle
           hajimari.io/group: downloads
         hosts:
-        - host: &int requests2.${DOMAIN}
+        - host: &int requests.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
@@ -95,7 +92,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
         hosts:
-        - host: &ext req2.${DOMAIN}
+        - host: &ext req.${DOMAIN}
           paths:
           - path: /
             pathType: Prefix
