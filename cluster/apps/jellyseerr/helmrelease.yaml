@@ -76,7 +76,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
-          hajimari.io/icon: eye-circle
+          hajimari.io/icon: mdi:jellyfish
           hajimari.io/group: downloads
         hosts:
         - host: &int requests.${DOMAIN}
