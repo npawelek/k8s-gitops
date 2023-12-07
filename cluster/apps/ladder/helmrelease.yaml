@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: ghcr.io/everywall/ladder
-      tag: v0.0.20@sha256:bfe286be346b60892686102425b4f973ea22489ebe37597125103145506d9625
+      tag: v0.0.21@sha256:780c8a611fd5a1cfdebe2ad385dea4af36a158475424fa91aca90f9f96bd545d
 
     controller:
       type: statefulset
