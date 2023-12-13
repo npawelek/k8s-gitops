@@ -85,7 +85,7 @@ spec:
         hostPathType: Directory
         hostPath: /var/lib/kubelet/device-plugins
 
-    # TODO(intel-gpu-plugin): Write probes
+    # TODO(intel-gpu-plugin): Add probes
     probes:
       liveness:
         enabled: false
