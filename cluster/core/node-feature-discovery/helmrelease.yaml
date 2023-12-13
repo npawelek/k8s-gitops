@@ -8,56 +8,38 @@ spec:
   maxHistory: 3
   interval: 1h
   suspend: false
+
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: node-feature-discovery
-      version: 2.1.3
+      version: 0.14.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: node-feature-discovery
         namespace: flux-system
   values:
-    image:
-      repository: raspbernetes/node-feature-discovery
-      tag: v0.11.3
-      pullPolicy: IfNotPresent
-    config: |
-      core:
-        sleepInterval: 60s
+    worker:
+      config:
+        core:
+          sources: ["custom", "pci", "usb"]
         sources:
-        - custom
-      sources:
-        usb:
-          deviceClassWhitelist:
-          - "02"
-          - "03"
-          - "0e"
-          - "ef"
-          - "fe"
-          - "ff"
-          deviceLabelFields:
-          - "class"
-          - "vendor"
-          - "device"
-        custom:
-        - name: "intel-gpu"
-          matchOn:
-          - pciId:
-              class: ["0300"]
-              vendor: ["8086"]
-        - name: "amd-gpu"
-          matchOn:
-          - pciId:
-              class: ["0300"]
-              vendor: ["1002"]
-        - name: "ups-tripplite"
-          matchOn:
-          - usbId:
-              class: ["03"]
-              vendor: ["09ae"]
-              device: ["3015"]
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "node-feature-discovery"
+          usb:
+            deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
+            deviceLabelFields: ["class", "vendor", "device"]
     master:
       replicaCount: 2
