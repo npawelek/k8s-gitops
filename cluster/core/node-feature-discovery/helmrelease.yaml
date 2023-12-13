@@ -42,20 +42,23 @@ spec:
             deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
             deviceLabelFields: ["class", "vendor", "device"]
           custom:
-          # - name: "intel-arc"
-          #   matchOn:
-          #   - pciId:
-          #       class: ["0300"]
-          #       vendor: ["8086"]
+          - name: "intel-arc"
+            matchOn:
+            - pciId:
+                class: ["0300"]
+                vendor: ["8086"]
+                device: ["56a2"]
           - name: "intel-gpu"
             matchOn:
             - pciId:
                 class: ["0300"]
                 vendor: ["8086"]
+                device: ["9a49"]
           - name: "amd-gpu"
             matchOn:
             - pciId:
                 class: ["0300"]
                 vendor: ["1002"]
+                device: ["1636"]
     master:
       replicaCount: 2
