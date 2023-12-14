@@ -58,6 +58,7 @@ spec:
               operator: In
               values:
               - "true"
+          - matchExpressions:
             - key: gpu.intel.com/device-id.0300-9a49.present
               operator: In
               values:
