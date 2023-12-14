@@ -45,7 +45,6 @@ spec:
       strategy: RollingUpdate
 
     args:
-      - -resource-manager
       - -shared-dev-num
       - "2"
 
