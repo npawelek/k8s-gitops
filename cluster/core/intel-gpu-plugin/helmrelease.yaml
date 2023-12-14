@@ -45,6 +45,7 @@ spec:
       strategy: RollingUpdate
 
     args:
+      - -resource-manager
       - -shared-dev-num
       - "2"
 
@@ -53,11 +54,11 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: feature.node.kubernetes.io/intel-arc
+            - key: gpu.intel.com/device-id.0300-56a2.present
               operator: In
               values:
               - "true"
-            - key: feature.node.kubernetes.io/intel-igpu
+            - key: gpu.intel.com/device-id.0300-9a49.present
               operator: In
               values:
               - "true"
