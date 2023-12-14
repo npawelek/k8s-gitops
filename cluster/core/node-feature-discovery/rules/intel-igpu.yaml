@@ -8,7 +8,7 @@ spec:
   rules:
     - name: intel.igpu
       labels:
-        gpu.intel.com/device-id.0300-9a49.present: "true"
+        intel.feature.node.kubernetes.io/igpu: "true"
       matchFeatures:
         - feature: pci.device
           matchExpressions:

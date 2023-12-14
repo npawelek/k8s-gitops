@@ -54,12 +54,12 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: gpu.intel.com/device-id.0300-56a2.present
+            - key: intel.feature.node.kubernetes.io/igpu
               operator: In
               values:
               - "true"
           - matchExpressions:
-            - key: gpu.intel.com/device-id.0300-9a49.present
+            - key: intel.feature.node.kubernetes.io/arc
               operator: In
               values:
               - "true"

@@ -8,7 +8,7 @@ spec:
   rules:
     - name: intel.arc
       labels:
-        gpu.intel.com/device-id.0300-56a2.present: "true"
+        intel.feature.node.kubernetes.io/arc: "true"
       matchFeatures:
         - feature: pci.device
           matchExpressions:
