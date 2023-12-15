@@ -97,7 +97,7 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: intel.feature.node.kubernetes.io/igpu
+            - key: intel.feature.node.kubernetes.io/arc
               operator: In
               values:
               - "true"
