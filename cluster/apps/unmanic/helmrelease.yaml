@@ -32,6 +32,7 @@ spec:
       # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
       supplementalGroups:
       - 44
+      - 104
       - 109
 
     env:

@@ -90,6 +90,7 @@ spec:
       # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-focal.html
       supplementalGroups:
         - 44
+        - 104
         - 109
 
     service:
