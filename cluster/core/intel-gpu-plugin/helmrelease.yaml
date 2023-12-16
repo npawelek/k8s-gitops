@@ -46,7 +46,7 @@ spec:
 
     args:
       - -shared-dev-num
-      - "3"
+      - "2"
 
     affinity:
       nodeAffinity:
