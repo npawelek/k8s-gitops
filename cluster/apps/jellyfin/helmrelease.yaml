@@ -86,7 +86,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
-          hajimari.io/icon: play-network
+          hajimari.io/icon: simple-icons:jellyfin
           hajimari.io/group: media
         hosts:
         - host: &host jellyfin.${DOMAIN}

@@ -120,7 +120,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:download-circle
+          hajimari.io/icon: mdi:download
           hajimari.io/group: downloads
         hosts:
           - host: &host sabnzbd.${DOMAIN}

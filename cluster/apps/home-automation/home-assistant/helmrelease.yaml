@@ -78,7 +78,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-headers@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
           hajimari.io/enable: "true"
-          hajimari.io/icon: home-automation
+          hajimari.io/icon: mdi:home-assistant
           hajimari.io/group: "home automation"
           hajimari.io/appName: "home assistant"
         hosts:
