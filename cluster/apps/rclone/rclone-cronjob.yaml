@@ -24,7 +24,7 @@ spec:
         spec:
           containers:
           - name: rclone
-            image: rclone/rclone:1.65.0
+            image: rclone/rclone:1.65.1
             workingDir: /data
             command:
             - rclone
