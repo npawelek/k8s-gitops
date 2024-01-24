@@ -43,7 +43,7 @@ spec:
 
     image:
       repository: public.ecr.aws/hashicorp/terraform
-      tag: 1.7.0@sha256:b584652ed1b9bc0411174f911eba895809d68324cb2b151e3aca27e912a178d0
+      tag: 1.7.1@sha256:d3e3361a3a16885c859976bd8868368a38ecfc7f731a8f06b7e44264a26f23a6
 
     command:
       - /bin/sh
