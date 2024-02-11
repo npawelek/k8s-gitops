@@ -26,6 +26,7 @@ spec:
       backupTarget: nfs://${RACKNAS_ADDR}:/volume1/LonghornBackupstore
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
+      guaranteedInstanceManagerCPU: 6
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       defaultDataPath: /var/lib/longhorn
