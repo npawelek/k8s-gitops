@@ -39,3 +39,4 @@ resources:
 - ./whisper.yaml
 - ./speedtest.yaml
 - ./ladder.yaml
+- ./bazarr.yaml

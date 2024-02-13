@@ -2,12 +2,23 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-radarr-remux-ingress
-  namespace: radarr
+  name: default-deny-all
+  namespace: bazarr
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-bazarr-ingress
+  namespace: bazarr
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: radarr-remux
+      app.kubernetes.io/name: bazarr
   policyTypes:
   - Ingress
   ingress:
@@ -20,17 +31,7 @@ spec:
           app.kubernetes.io/name: traefik
     ports:
     - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: jellyseerr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: jellyseerr
-    ports:
-    - protocol: TCP
-      port: 7878
+      port: 6767
   - from:
     - namespaceSelector:
         matchLabels:
@@ -40,59 +41,19 @@ spec:
           app.kubernetes.io/name: uptime
     ports:
     - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: radarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: radarr-trailers
-    ports:
-    - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: prowlarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: prowlarr
-    ports:
-    - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: recyclarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: recyclarr
-    ports:
-    - protocol: TCP
-      port: 7878
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          ns: bazarr
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: bazarr
-    ports:
-    - protocol: TCP
-      port: 7878
+      port: 6767
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-radarr-remux-egress
-  namespace: radarr
+  name: allow-bazarr-egress
+  namespace: bazarr
 spec:
   policyTypes:
   - Egress
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: radarr-remux
+      app.kubernetes.io/name: bazarr
   egress:
   - to:
     - namespaceSelector:
@@ -134,27 +95,61 @@ spec:
         matchLabels:
           app.kubernetes.io/name: sabnzbd
     ports:
-    - port: 8080
-      protocol: TCP
     - port: 8888
       protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: prowlarr
+          ns: radarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: prowlarr
+          app.kubernetes.io/name: radarr
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: radarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: radarr-remux
     ports:
-    - port: 9696
+    - port: 7878
       protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
-          ns: autoscan
+          ns: sonarr
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: autoscan
+          app.kubernetes.io/name: sonarr
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-anime
+    - namespaceSelector:
+        matchLabels:
+          ns: sonarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: sonarr-remux
     ports:
-    - port: 3030
+    - port: 8989
       protocol: TCP
+  # - to:
+  #   - ipBlock:
+  #       cidr: 0.0.0.0/0
+  #       except:
+  #       - 10.0.0.0/8
+  #       - 172.16.0.0/12
+  #       - 192.168.0.0/16
+  #   ports:
+  #   - port: 443
+  #     protocol: TCP
+  #   - port: 80
+  #     protocol: TCP

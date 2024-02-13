@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: bazarr
+resources:
+  - ./helmrelease.yaml
+# configMapGenerator:
+#   - name: bazarr-scripts
+#     files:
+#       - ./scripts/post-process.sh
+# generatorOptions:
+#   disableNameSuffixHash: true

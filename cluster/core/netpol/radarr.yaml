@@ -82,6 +82,16 @@ spec:
     ports:
     - protocol: TCP
       port: 7878
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          ns: bazarr
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: bazarr
+    ports:
+    - protocol: TCP
+      port: 7878
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
