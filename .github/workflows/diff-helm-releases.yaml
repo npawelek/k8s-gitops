@@ -49,7 +49,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Setup Kubernetes Tools
-        uses: yokawasa/action-setup-kube-tools@v0.9.3
+        uses: yokawasa/action-setup-kube-tools@v0.10.0
         with:
           setup-tools: |
             helmv3
