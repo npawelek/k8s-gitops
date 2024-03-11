@@ -272,3 +272,10 @@ data:
         url: "https://www.youtube.com/@mrnigelng/videos"
       overrides:
         tv_show_name: Uncle Roger
+    what_bitcoin_did_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@WhatBitcoinDid"
+      overrides:
+        tv_show_name: What Bitcoin Did
+        download_after: "20230101"
