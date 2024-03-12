@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: rhasspy/wyoming-whisper
-      tag: latest@sha256:4a00a4f34adb45b769943369b047d91bbef535a22971f464b06c07afe5a8a3fe
+      tag: latest@sha256:ceaa162ec05e53b8fa883182cdbceb72e6a1422740ec35be038c9faa278323b3
 
     controller:
       type: statefulset
