@@ -73,6 +73,18 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
+          ns: home-automation
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fireboard2mqtt
+    ports:
+    - protocol: TCP
+      port: 1883
+    - protocol: TCP
+      port: 8883
+  - from:
+    - namespaceSelector:
+        matchLabels:
           ns: uptime
     - podSelector:
         matchLabels:

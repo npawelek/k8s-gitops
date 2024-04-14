@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fireboard2mqtt
+  namespace: home-automation
+spec:
+  interval: 1h
+  maxHistory: 3
+
+  dependsOn:
+  - name: mosquitto
+    namespace: home-automation
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    image:
+      repository: gordlea/fireboard2mqtt
+      tag: latest@sha256:5a3578d11b5f6bf3bcb35f2f0ec060dea1976cb509095a84163bbf76268213c8
+
+    controller:
+      type: deployment
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+
+    env:
+      TZ: ${TIMEZONE}
+      RUST_LOG: "fireboard2mqtt=trace"
+      FB2MQTT_FIREBOARD_ENABLE_DRIVE: "true"
+
+    envFrom:
+      - secretRef:
+          name: fireboard2mqtt-secrets
+
+    ingress:
+      main:
+        enabled: false
+
+    service:
+      main:
+        enabled: false
+
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 100m
+      limits:
+        memory: 256Mi

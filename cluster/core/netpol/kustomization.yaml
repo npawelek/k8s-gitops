@@ -40,3 +40,4 @@ resources:
 - ./speedtest.yaml
 - ./ladder.yaml
 - ./bazarr.yaml
+- ./fireboard2mqtt.yaml
