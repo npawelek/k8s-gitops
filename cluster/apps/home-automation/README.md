@@ -45,3 +45,43 @@ wget http://int.nathanpawelek.com/valetudo/2022.10.0/valetudo-aarch64 -O /data/v
 
 reboot
 ```
+
+## Pentair ESP32 Controller
+
+###
+
+Steps to utilize an ESP32 and MAX485 to interface with the existing COM port on the EasyTouch controller. Here are the steps used to build it.
+
+### Install Steps
+
+1. Install esp-idf (release/v4.4). esp-idf must be >= v4.2 and <= v5.x
+2. Pull down esp32-pentair-controller
+3. Update MQTT settings
+4. Wire up ESP32 and MAX485
+
+![pentair wiring](esphome/docs/esp32_pentair_controller_wiring.png)
+
+5. Compile and flash ESP32
+6. Connect to esp32 SSID with default password (esp32pwd)
+7. Configure wifi settings based on your network
+8. Shut off power to the controller and wire up (use ethernet to controller)
+
+### Log
+
+```
+cd github
+git clone -b release/v4.4 --recursive https://github.com/espressif/esp-idf.git
+cd esp-idf
+./install.sh esp32
+alias get_idf='. $HOME/github/esp-idf/export.sh'
+get_idf
+cd ..
+git clone https://github.com/michaelusner/esp32-pentair-controller.git
+cd esp32-pentair-controller
+# Update MQTT settings in main.c
+idf.py set-target esp32
+idf.py menuconfig
+idf.py -p /dev/cu.usbserial-0001 build flash monitor
+# Must place the device in download mode (When the device goes to flash, press EN and other button simultaneously; after a few seconds, release the EN button. Let go when flashing begins)
+# Use ctrl+] to escape the serial log
+```
