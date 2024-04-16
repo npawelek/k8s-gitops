@@ -40,10 +40,10 @@ spec:
       repository: gordlea/fireboard2mqtt
       tag: latest@sha256:5a3578d11b5f6bf3bcb35f2f0ec060dea1976cb509095a84163bbf76268213c8
 
-    command:
-      - /bin/bash
-      - -c
-      - "sleep infinity"
+    # command:
+    #   - /bin/bash
+    #   - -c
+    #   - "sleep infinity"
 
     controller:
       type: deployment
