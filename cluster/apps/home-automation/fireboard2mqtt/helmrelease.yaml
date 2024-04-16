@@ -53,7 +53,7 @@ spec:
 
     env:
       TZ: ${TIMEZONE}
-      RUST_LOG: "fireboard2mqtt=trace"
+      RUST_LOG: "fireboard2mqtt=debug"
       FB2MQTT_FIREBOARD_ENABLE_DRIVE: "true"
       FB2MQTT_MQTT_BASE_TOPIC: "homeassistant/fireboard2mqtt"
 
