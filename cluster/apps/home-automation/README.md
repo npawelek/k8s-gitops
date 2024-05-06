@@ -46,6 +46,23 @@ wget http://int.nathanpawelek.com/valetudo/2022.10.0/valetudo-aarch64 -O /data/v
 reboot
 ```
 
+### Maploader binary
+
+```
+ssh root@192.168.10.145
+wget http://int.nathanpawelek.com/maploader/v1.8.1/maploader-arm64 -O /data/maploader-binary
+chmod +x /data/maploader-binary
+
+# Verify it is loaded at boot (second line in the if block)
+vi /data/_root_postboot.sh
+if [[ -f /data/valetudo ]]; then
+        VALETUDO_CONFIG_PATH=/data/valetudo_config.json /data/valetudo > /dev/null 2>&1 &
+        VALETUDO_CONFIG_PATH=/data/valetudo_config.json /data/maploader-binary > /dev/null 2>&1 &
+fi
+
+reboot
+```
+
 ## Pentair ESP32 Controller
 
 ###
