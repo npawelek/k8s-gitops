@@ -78,4 +78,4 @@ spec:
         cpu: 100m
         memory: 128M
       limits:
-        memory: 12G
+        memory: 32G
