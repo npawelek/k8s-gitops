@@ -222,13 +222,6 @@ data:
       overrides:
         tv_show_name: Practical Engineering
         download_after: "20220101"
-    paragraphic_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@PARAGRAPHIC"
-      overrides:
-        tv_show_name: Paragraphic
-        download_after: "20220101"
     drumeo_first_time_playlist:
       preset: "yt_playlist"
       download:
