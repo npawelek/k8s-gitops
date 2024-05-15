@@ -37,7 +37,7 @@ spec:
   values:
     image:
       repository: docker.io/intel/intel-gpu-plugin
-      tag: 0.28.0@sha256:a5f4bd2ebd62a57d59907ef3fb8bf56066f3ee27f20d9f03f0dd060090ff90b1
+      tag: 0.30.0@sha256:e96c9955e5aced52f215f7eff77f679c4c400a16a42b1f2c0e8ed9ba76cae3c4
       pullPolicy: IfNotPresent
 
     controller:
