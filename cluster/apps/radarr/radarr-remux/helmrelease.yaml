@@ -43,7 +43,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/radarr-develop
-      tag: 5.7.0.8882@sha256:d6a11184848cc5309b9c0024cf33b40bb6a3613a5b15613bcc51864b23839015
+      tag: 5.4.4.8688@sha256:1f6df3f2ab278644811f8984d0108f27005f4bc63665efebec5169184b9db527
 
     controller:
       type: statefulset
