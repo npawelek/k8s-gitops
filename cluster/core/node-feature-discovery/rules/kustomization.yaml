@@ -5,3 +5,4 @@ resources:
 - ./amd-igpu.yaml
 - ./intel-arc.yaml
 - ./intel-igpu.yaml
+- ./broadcom-ble.yaml
