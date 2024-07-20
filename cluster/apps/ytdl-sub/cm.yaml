@@ -6,6 +6,7 @@ metadata:
   namespace: ytdl-sub
 data:
   config.yaml: |-
+    ---
     configuration:
       working_directory: "/tmp/ytdl-sub"
 
@@ -22,9 +23,6 @@ data:
             min: 18
             max: 43
           subscription_download_probability: 1.0
-
-        download:
-          download_strategy: "url"
 
         ytdl_options:
           format: "bestvideo[ext=webm][height<=1440]+bestaudio[ext=webm]/best[ext=webm]/best"
@@ -80,6 +78,14 @@ data:
             - "music_offtopic"
             - "intro"
           remove_sponsorblock_categories: "all"
+
+        subtitles:
+          subtitles_name: "{video_path}.{lang}.{subtitles_ext}"
+          subtitles_type: "srt"
+          embed_subtitles: False
+          languages:
+            - "en"  # supports multiple languages
+          allow_auto_generated_subtitles: False
 
       yt_playlist:
         preset: "yt_video"
@@ -157,18 +163,11 @@ data:
       yt_channel:
         preset: "yt_playlist"
 
-        download:
-          download_strategy: "url"
-          playlist_thumbnails:
-            - name: "official-poster.jpg"
-              uid: "avatar_uncropped"
-            - name: "official-banner.jpg"
-              uid: "banner_uncropped"
-
         match_filters:
           filters:
             - "original_url!*=/shorts/ & !is_live"
   subscriptions.yaml: |-
+    ---
     t_and_tg_the_last_of_us_playlist:
       preset: "yt_playlist_reversed"
       download:
@@ -208,13 +207,6 @@ data:
       overrides:
         tv_show_name: Containers from the Couch
         download_after: "20220101"
-    pbs_space_time_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://youtube.com/@pbsspacetime"
-      overrides:
-        tv_show_name: PBS Space Time
-        download_after: "20230101"
     practical_engineering_channel:
       preset: "yt_channel"
       download:
@@ -222,15 +214,6 @@ data:
       overrides:
         tv_show_name: Practical Engineering
         download_after: "20220101"
-    drumeo_first_time_playlist:
-      preset: "yt_playlist"
-      download:
-        url: "https://www.youtube.com/playlist?list=PLThYwnIoLwyWiF5RgHPzOzYNdqQw1-tep"
-      overrides:
-        tv_show_name: Drumeo For the First Time
-      chapters:
-        sponsorblock_categories:
-          - "sponsor"
     the_hookup_channel:
       preset: "yt_channel"
       download:
@@ -245,13 +228,6 @@ data:
       overrides:
         tv_show_name: The Lawn Care Nut
         download_after: "20230101"
-    hibbert_home_tech_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@paulhibbert"
-      overrides:
-        tv_show_name: Hibbert Home Tech
-        download_after: "20230101"
     lon_tv_channel:
       preset: "yt_channel"
       download:
@@ -265,10 +241,3 @@ data:
         url: "https://www.youtube.com/@mrnigelng/videos"
       overrides:
         tv_show_name: Uncle Roger
-    what_bitcoin_did_channel:
-      preset: "yt_channel"
-      download:
-        url: "https://www.youtube.com/@WhatBitcoinDid"
-      overrides:
-        tv_show_name: What Bitcoin Did
-        download_after: "20230101"
