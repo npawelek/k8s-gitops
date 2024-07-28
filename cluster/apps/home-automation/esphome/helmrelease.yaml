@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2024.7.2
+      tag: 2024.6.6
 
     controller:
       type: deployment
@@ -99,9 +99,56 @@ spec:
         enabled: true
         existingClaim: esphome-config
 
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: ghcr.io/coder/code-server
+          tag: 4.91.1
+        workingDir: /config
+        args:
+        - --user-data-dir
+        - /config/.vscode
+        - --auth
+        - none
+        env:
+          TZ: ${TIMEZONE}
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+            traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+            hajimari.io/enable: "true"
+            hajimari.io/icon: microsoft-visual-studio-code
+            hajimari.io/group: "home automation"
+            hajimari.io/appName: "esphome code"
+          hosts:
+          - host: &code esphome-code.${DOMAIN}
+            paths:
+            - path: /
+              pathType: Prefix
+          tls:
+          - hosts:
+            - *code
+          - secretName: nathanpawelek-com-tls
+        service:
+          enabled: true
+          type: ClusterIP
+          ports:
+            codeserver:
+              port: 12321
+              enabled: true
+              protocol: TCP
+              targetPort: 12321
+        volumeMounts:
+        - name: config
+          mountPath: /config
+
     resources:
       requests:
         memory: 250Mi
         cpu: 100m
       limits:
-        memory: 2048Mi
+        memory: 3072Mi
