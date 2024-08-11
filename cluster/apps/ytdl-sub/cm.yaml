@@ -119,6 +119,13 @@ data:
             year: "{upload_year}"
             aired: "{upload_date_standardized}"
 
+        download:
+          playlist_thumbnails:
+            - name: "poster.jpg"
+              uid: "avatar_uncropped"
+            - name: "banner.jpg"
+              uid: "banner_uncropped"
+
       yt_playlist_reversed:
         preset: "yt_video"
 
@@ -241,3 +248,16 @@ data:
         url: "https://www.youtube.com/@mrnigelng/videos"
       overrides:
         tv_show_name: Uncle Roger
+    meat_church_guest_pitmasters_playlist:
+      preset: "yt_playlist"
+      download:
+        url: "https://www.youtube.com/playlist?list=PLLlcC6gl4PGLGoWiDmoTCpO5f8X-bixi_"
+      overrides:
+        tv_show_name: Meat Church Guest Pitmasters
+    meat_church_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@MeatChurchBBQ/videos"
+      overrides:
+        tv_show_name: Meat Church
+        download_after: "20230101"
