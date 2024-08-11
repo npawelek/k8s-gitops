@@ -25,7 +25,7 @@ data:
           subscription_download_probability: 1.0
 
         ytdl_options:
-          format: "bestvideo[ext=webm][height<=1440]+bestaudio[ext=webm]/best[ext=webm]/best"
+          format: "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)"
           ignoreerrors: True
           break_on_existing: True
           break_on_reject: True
@@ -130,7 +130,7 @@ data:
         preset: "yt_video"
 
         ytdl_options:
-          format: "bestvideo[ext=webm][height<=1440]+bestaudio[ext=webm]/best[ext=webm]/best"
+          format: "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)"
           ignoreerrors: True
           break_on_existing: True
           break_on_reject: True
