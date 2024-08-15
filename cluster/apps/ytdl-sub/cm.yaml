@@ -20,8 +20,8 @@ data:
             min: 9.0
             max: 14.1
           max_downloads_per_subscription:
-            min: 18
-            max: 43
+            min: 30
+            max: 78
           subscription_download_probability: 1.0
 
         ytdl_options:
@@ -260,4 +260,3 @@ data:
         url: "https://www.youtube.com/@MeatChurchBBQ/videos"
       overrides:
         tv_show_name: Meat Church
-        download_after: "20230101"
