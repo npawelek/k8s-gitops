@@ -19,7 +19,7 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "30 6,10,14,18 * * *"
+        schedule: "05 23 * * *"
         # schedule: "@daily" # enable for testing
         ttlSecondsAfterFinished: 86400
 
