@@ -260,3 +260,10 @@ data:
         url: "https://www.youtube.com/@MeatChurchBBQ/videos"
       overrides:
         tv_show_name: Meat Church
+    chuds_bbq_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@ChudsBbq/videos"
+      overrides:
+        tv_show_name: Chud's BBQ
+        download_after: "20231231"
