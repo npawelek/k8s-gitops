@@ -41,7 +41,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/bazarr
-      tag: 1.4.3@sha256:50229885dbf647f22215787c9e0611ea91afb9552642e02035d008d52f366c58
+      tag: 1.4.3@sha256:f8d3c093f801ff31669ed30400281200ac913e3b46047b36c3b5e5f02e253b13
 
     controller:
       type: statefulset
