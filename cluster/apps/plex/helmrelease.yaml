@@ -42,7 +42,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/plex
-      tag: 1.40.5.8921-836b34c27@sha256:154636521a4ea14b3b0720443e7714f53318aeacb569fc00f4221969e2978b7b
+      tag: 1.40.5.8921-836b34c27@sha256:2886d64fef292298d160e1521035c529d90cf9578014d5cbb34ceeb433a49548
 
     controller:
       type: statefulset
