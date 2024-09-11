@@ -266,3 +266,9 @@ data:
         url: "https://www.youtube.com/@ChudsBbq/videos"
       overrides:
         tv_show_name: Chud's BBQ
+    chuds_bbq_sausage_playlist:
+      preset: "yt_playlist"
+      download:
+        url: "https://www.youtube.com/playlist?list=PLmrZantoFPM-JTKOmyBzQqA_B2lcmWBFr"
+      overrides:
+        tv_show_name: Chud's BBQ Sausage Making
