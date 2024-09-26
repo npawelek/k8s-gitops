@@ -272,3 +272,16 @@ data:
         url: "https://www.youtube.com/playlist?list=PLmrZantoFPM-JTKOmyBzQqA_B2lcmWBFr"
       overrides:
         tv_show_name: Chud's BBQ Sausage Making
+    al_frugoni_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@alfrugoniofc/videos"
+      overrides:
+        tv_show_name: Al Frugoni
+    brian_lagerstrom_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@BrianLagerstrom/videos"
+      overrides:
+        tv_show_name: Brian Lagerstrom
+        download_after: "20231231"
