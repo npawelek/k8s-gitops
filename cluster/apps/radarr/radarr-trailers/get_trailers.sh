@@ -20,7 +20,7 @@ download_trailer () {
   cd "${MOVIE_DIRECTORY}"
 
   # Grab the trailer with the best video+audio and store in mkv format
-  yt-dlp -v -f "bestvideo+bestaudio/best" \
+  yt-dlp -v -f "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)" \
     --geo-bypass \
     --retries 10 \
     --paths temp:/cache \
