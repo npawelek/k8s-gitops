@@ -44,7 +44,7 @@ spec:
       # repository: ghcr.io/onedr0p/jellyfin
       # tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
       repository: jellyfin/jellyfin
-      tag: 10.9.11@sha256:fc1b51f4be3fba725e42dae2022d9c6a5b069acce01bef04d32fdee025dc511e
+      tag: 10.10.0@sha256:b15266bad088e3d793401be5845f2453233edd826c02cd7155910055133fb581
 
     controller:
       type: statefulset
