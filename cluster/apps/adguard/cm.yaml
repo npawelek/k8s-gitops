@@ -127,8 +127,6 @@ data:
           answer: 192.168.0.14
         - domain: ntp.nathanpawelek.com
           answer: 192.168.0.12
-        - domain: plex.nathanpawelek.com
-          answer: 192.168.0.11
         - domain: racknas.nathanpawelek.com
           answer: 192.168.0.151
         - domain: auth.itscontained.dev

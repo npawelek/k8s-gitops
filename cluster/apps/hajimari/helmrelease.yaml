@@ -43,11 +43,6 @@ spec:
         - name: traefik
           url: https://in.${DOMAIN}/dashboard/#/
           icon: directions-fork
-      - group: media
-        apps:
-        - name: plex
-          url: https://plex.${DOMAIN}
-          icon: plex
       globalBookmarks:
       - group: node
         bookmarks:
@@ -73,6 +68,10 @@ spec:
           url: https://derpnas.${DOMAIN}:8079
         - name: Synology RS1221+
           url: https://racknas.${DOMAIN}:8079
+        - name: Syncthing (studio)
+          url: https://192.168.30.99
+        - name: Syncthing (wraith)
+          url: https://192.168.30.100
       - group: miscellaneous
         bookmarks:
         - name: HyperHDR Samsung 55

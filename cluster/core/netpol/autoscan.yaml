@@ -132,16 +132,6 @@ spec:
     - port: 8096
       protocol: TCP
   - to:
-    - namespaceSelector:
-        matchLabels:
-          ns: plex
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: plex
-    ports:
-    - port: 32400
-      protocol: TCP
-  - to:
     - ipBlock:
         cidr: 192.168.0.11/32
     ports:
