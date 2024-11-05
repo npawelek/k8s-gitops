@@ -16,7 +16,6 @@ resources:
 - metrics-server
 - nginx
 - ntpd
-- plex
 - prowlarr
 - radarr
 - rclone

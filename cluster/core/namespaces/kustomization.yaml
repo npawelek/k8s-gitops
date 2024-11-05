@@ -5,7 +5,6 @@ resources:
 # - ./authentik.yaml
 - ./cert-manager.yaml
 - ./traefik.yaml
-- ./plex.yaml
 - ./metallb.yaml
 - ./longhorn-system.yaml
 - ./adguard.yaml
