@@ -69,9 +69,9 @@ spec:
         - name: Synology RS1221+
           url: https://racknas.${DOMAIN}:8079
         - name: Syncthing (studio)
-          url: https://192.168.30.99
+          url: https://192.168.30.99:8384
         - name: Syncthing (wraith)
-          url: https://192.168.30.100
+          url: https://192.168.30.100:8384
       - group: miscellaneous
         bookmarks:
         - name: HyperHDR Samsung 55
