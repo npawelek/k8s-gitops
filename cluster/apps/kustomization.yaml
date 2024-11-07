@@ -12,7 +12,6 @@ resources:
 - home-automation
 - jellyfin
 - jellyseerr
-- ladder
 - metrics-server
 - nginx
 - ntpd

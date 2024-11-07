@@ -27,5 +27,4 @@ resources:
 - ./ntpd.yaml
 - ./aws-ddns.yaml
 - ./speedtest.yaml
-- ./ladder.yaml
 - ./bazarr.yaml
