@@ -40,7 +40,7 @@ spec:
   values:
     image:
       repository: nodered/node-red
-      tag: 4.0.5-18-minimal@sha256:5c5945e6b6d30cbf11ab58b4c9e084eb5a45b8931b21f393b3eac8d44f5cc7d9
+      tag: 4.0.5-18-minimal@sha256:cf4512f202cb70f94b28977b866687ea5148706541fb92db556f418fbe182832
 
     controller:
       type: deployment
