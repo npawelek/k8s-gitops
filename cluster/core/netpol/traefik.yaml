@@ -30,6 +30,8 @@ spec:
     - ipBlock:
         cidr: 192.168.30.51/32
     - ipBlock:
+        cidr: 192.168.30.98/32
+    - ipBlock:
         cidr: 192.168.30.99/32
     - ipBlock:
         cidr: 192.168.30.100/32
