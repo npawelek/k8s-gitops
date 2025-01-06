@@ -88,7 +88,7 @@ spec:
     - ipBlock:
         cidr: 108.230.245.252/32
     - ipBlock:
-        cidr: 166.205.97.65/32
+        cidr: 107.201.253.242/32
     - ipBlock:
         cidr: 70.114.34.157/32
     ports:
