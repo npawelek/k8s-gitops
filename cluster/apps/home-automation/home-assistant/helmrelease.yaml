@@ -44,7 +44,7 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2025.1.0
+      tag: 2025.1.2
 
     controller:
       type: deployment
