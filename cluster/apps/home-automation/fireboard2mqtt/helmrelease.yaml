@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: gordlea/fireboard2mqtt
-      tag: latest@sha256:79c0d8b456974b9cd3b94230b68256f7db990f7f86b30229ff11f0ebf1a9e523
+      tag: latest@sha256:b826af466b354ff54b8056f40732c367a629c01a02c0e12d84ac27b1de4e8ab0
 
     controller:
       type: deployment
