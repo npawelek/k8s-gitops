@@ -38,8 +38,8 @@ spec:
 
   values:
     image:
-      repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.32.2.4987@sha256:f3c0edbd19d744c8306ae8f72e75f0fb54ff662e9f7b22a4d9029e5c0b7f075c
+      repository: ghcr.io/home-operations/prowlarr
+      tag: 1.34.0.5016@sha256:a32029de92518c0b23ce94c5df90ccd693a111d9e0f3087c87b2bff1397309da
 
     controller:
       type: statefulset
