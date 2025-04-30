@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: cloudb0x/autoscan
-      tag: master@sha256:133c1f0db4c556139a8b9488bb1703b3cc5166523ff6bc26967e9c13cf81df6d
+      tag: master@sha256:3df536844063c3bdc73fb36793e24a7cb116032af97dcc74fc03c478deded831
 
     controller:
       type: statefulset
