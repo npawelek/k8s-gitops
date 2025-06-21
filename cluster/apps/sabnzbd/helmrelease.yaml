@@ -157,7 +157,7 @@ spec:
         image: ghcr.io/qdm12/gluetun:v3.35.0@sha256:a98d1ec99e09a1b806aff7f0c3d8a133a8ede7d3d7a250b62029a39a61f01525
         envFrom:
           - secretRef:
-              name: primary-conf160
+              name: primary-conf156
         env:
           TZ: ${TIMEZONE}
           VPN_SERVICE_PROVIDER: custom
