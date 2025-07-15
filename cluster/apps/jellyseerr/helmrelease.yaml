@@ -44,7 +44,7 @@ spec:
   values:
     image:
       repository: fallenbagel/jellyseerr
-      tag: 2.6.0@sha256:8f320036d937d84c385ea5800f87d69ba16ec4d3770fccf6cad803b5e8d66a52
+      tag: 2.7.1@sha256:c9d751b5a0c1cb8e2e32aee9a983c811a439f0ab13582c6bdd13d93f86a61954
 
     controller:
       type: statefulset
