@@ -259,6 +259,7 @@ data:
       - '||analysis.vesync.com^$important'
       - '||polyfill.io^$important'
       - '||html-load.com^'
+      - '||content-loader.com^'
       - '@@||v.w-x.co^'
       - '@@||fls-na.amazon.com^'
       - '@@||kinesis.us-east-1.amazonaws.com^'
