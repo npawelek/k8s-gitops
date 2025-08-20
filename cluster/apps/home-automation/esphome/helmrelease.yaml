@@ -38,7 +38,7 @@ spec:
   values:
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2025.7.5
+      tag: 2025.8.0
 
     controller:
       type: deployment
