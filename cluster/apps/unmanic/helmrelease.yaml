@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: josh5/unmanic
-      tag: latest@sha256:e947af2fa434908317cd69132469c11de80f0d57478edd54144ca82e323ed90c
+      tag: latest@sha256:411a0d9561bf1a71a41044651b36dce164f92f70310d0171c3c051728b321291
 
     podSecurityContext:
       # Required for passthrough of /dev/dri devices from NFD
