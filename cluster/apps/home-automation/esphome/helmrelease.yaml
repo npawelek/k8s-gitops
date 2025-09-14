@@ -9,8 +9,8 @@ spec:
   maxHistory: 3
 
   dependsOn:
-  - name: longhorn
-    namespace: longhorn-system
+    - name: longhorn
+      namespace: longhorn-system
 
   install:
     createNamespace: true
@@ -27,41 +27,85 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: ghcr.io/esphome/esphome
-      tag: 2025.8.4
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    controller:
-      type: deployment
-      annotations:
-        reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2025.8.4
 
-    # podSecurityContext:
-    #   runAsUser: 568
-    #   runAsGroup: 568
-    #   fsGroup: 568
-    #   fsGroupChangePolicy: "OnRootMismatch"
+            env:
+              TZ: ${TIMEZONE}
+              ESPHOME_DASHBOARD_USE_PING: "true"
+              PLATFORMIO_CORE_DIR: /cache/platformio
+              PLATFORMIO_GLOBALLIB_DIR: /cache/platformio/lib
+              PLATFORMIO_SETTING_ENABLE_TELEMETRY: No
 
-    env:
-      TZ: ${TIMEZONE}
-      ESPHOME_DASHBOARD_USE_PING: "true"
-      PLATFORMIO_CORE_DIR: /cache/platformio
-      PLATFORMIO_GLOBALLIB_DIR: /cache/platformio/lib
-      PLATFORMIO_SETTING_ENABLE_TELEMETRY: No
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 100m
+              limits:
+                memory: 3072Mi
+
+        # podSecurityContext:
+        #   runAsUser: 568
+        #   runAsGroup: 568
+        #   fsGroup: 568
+        #   fsGroupChangePolicy: "OnRootMismatch"
+
+      codeserver:
+        type: deployment
+        containers:
+          codeserver:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.103.2
+            workingDir: /config
+            args:
+              - --user-data-dir
+              - /config/.vscode
+              - --auth
+              - none
+            env:
+              TZ: ${TIMEZONE}
+
+    defaultPodOptions:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 6052
+            protocol: TCP
+      codeserver:
+        controller: codeserver
+        ports:
+          http:
+            port: 12321
+            protocol: TCP
 
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -70,85 +114,51 @@ spec:
           hajimari.io/icon: simple-icons:esphome
           hajimari.io/group: "home automation"
         hosts:
-        - host: &host esphome.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
+          - host: &host esphome.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: main
+                  port: http
         tls:
-        - hosts:
-          - *host
-        - secretName: nathanpawelek-com-tls
-
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
-    service:
-      main:
-        ports:
-          http:
-            port: 6052
-            protocol: TCP
+          - hosts:
+              - *host
+            secretName: nathanpawelek-com-tls
+      codeserver:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: microsoft-visual-studio-code
+          hajimari.io/group: "home automation"
+          hajimari.io/appName: "esphome code"
+        hosts:
+          - host: &code esphome-code.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: codeserver
+                  port: http
+        tls:
+          - hosts:
+              - *code
+            secretName: nathanpawelek-com-tls
 
     persistence:
       cache:
-        enabled: true
-        type: pvc
+        type: persistentVolumeClaim
         size: 10Gi
         accessMode: ReadWriteOnce
         storageClass: longhorn
+        globalMounts:
+          - path: /cache
       config:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: esphome-config
-
-    addons:
-      codeserver:
-        enabled: true
-        image:
-          repository: ghcr.io/coder/code-server
-          tag: 4.103.2
-        workingDir: /config
-        args:
-        - --user-data-dir
-        - /config/.vscode
-        - --auth
-        - none
-        env:
-          TZ: ${TIMEZONE}
-        ingress:
-          enabled: true
-          ingressClassName: traefik
-          annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
-            traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
-            hajimari.io/enable: "true"
-            hajimari.io/icon: microsoft-visual-studio-code
-            hajimari.io/group: "home automation"
-            hajimari.io/appName: "esphome code"
-          hosts:
-          - host: &code esphome-code.${DOMAIN}
-            paths:
-            - path: /
-              pathType: Prefix
-          tls:
-          - hosts:
-            - *code
-          - secretName: nathanpawelek-com-tls
-        service:
-          enabled: true
-          type: ClusterIP
-          ports:
-            codeserver:
-              port: 12321
-              enabled: true
-              protocol: TCP
-              targetPort: 12321
-        volumeMounts:
-        - name: config
-          mountPath: /config
-
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 100m
-      limits:
-        memory: 3072Mi
+        globalMounts:
+          - path: /config
