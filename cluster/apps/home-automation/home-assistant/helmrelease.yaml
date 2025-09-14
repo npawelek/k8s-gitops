@@ -78,8 +78,6 @@ spec:
             - /config/.vscode
             - --auth
             - none
-            - --bind-addr
-            - 0.0.0.0:8080
             env:
               TZ: ${TIMEZONE}
               HASS_SERVER: http://localhost:8123
