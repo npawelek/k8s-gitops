@@ -68,6 +68,7 @@ spec:
                 memory: 3072Mi
 
           codeserver:
+            dependsOn: main
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.103.2
@@ -97,18 +98,18 @@ spec:
     service:
       main:
         controller: main
+        type: ClusterIP
         ports:
           http:
             port: 6052
             protocol: TCP
-            targetPort: 6052
       codeserver:
         controller: main
+        type: ClusterIP
         ports:
           http:
             port: 12321
             protocol: TCP
-            targetPort: 12321
 
     ingress:
       main:
