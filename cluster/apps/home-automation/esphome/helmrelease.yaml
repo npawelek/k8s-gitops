@@ -62,15 +62,6 @@ spec:
               limits:
                 memory: 3072Mi
 
-        # podSecurityContext:
-        #   runAsUser: 568
-        #   runAsGroup: 568
-        #   fsGroup: 568
-        #   fsGroupChangePolicy: "OnRootMismatch"
-
-      codeserver:
-        type: deployment
-        containers:
           codeserver:
             image:
               repository: ghcr.io/coder/code-server
@@ -84,6 +75,12 @@ spec:
             env:
               TZ: ${TIMEZONE}
 
+        # podSecurityContext:
+        #   runAsUser: 568
+        #   runAsGroup: 568
+        #   fsGroup: 568
+        #   fsGroupChangePolicy: "OnRootMismatch"
+
     defaultPodOptions:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
@@ -95,12 +92,14 @@ spec:
           http:
             port: 6052
             protocol: TCP
+            targetPort: 6052
       codeserver:
-        controller: codeserver
+        controller: main
         ports:
           http:
             port: 12321
             protocol: TCP
+            targetPort: 12321
 
     ingress:
       main:
