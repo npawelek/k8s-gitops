@@ -28,63 +28,75 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: ghcr.io/home-operations/prowlarr
-      tag: 2.1.0.5180@sha256:5915438f7226ab8390503cc9f7288412b4584fc80e444faa224ccf2055d5f812
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
 
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.1.0.5180@sha256:5915438f7226ab8390503cc9f7288412b4584fc80e444faa224ccf2055d5f812
 
-    env:
-      TZ: ${TIMEZONE}
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTP_PROXY}
-      no_proxy: ${NO_PROXY}
+            env:
+              TZ: ${TIMEZONE}
+              http_proxy: ${HTTP_PROXY}
+              https_proxy: ${HTTP_PROXY}
+              no_proxy: ${NO_PROXY}
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: 9696
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 1024Mi
 
     service:
       main:
+        controller: main
         ports:
           http:
-            port: &port 9696
+            port: 9696
             protocol: TCP
-
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
 
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -97,21 +109,19 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  identifier: main
+                  port: http
         tls:
           - hosts:
               - *host
-          - secretName: nathanpawelek-com-tls
+            secretName: nathanpawelek-com-tls
 
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
+    persistence:
+      config:
+        type: persistentVolumeClaim
         size: 1Gi
+        accessMode: ReadWriteOnce
         storageClass: longhorn
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128Mi
-      limits:
-        memory: 1024Mi
+        globalMounts:
+          - path: /config
