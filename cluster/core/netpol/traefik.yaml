@@ -260,7 +260,7 @@ spec:
     ports:
     - port: 8123
       protocol: TCP
-    - port: 12321
+    - port: 8080
       protocol: TCP
   - to:
     - namespaceSelector:
