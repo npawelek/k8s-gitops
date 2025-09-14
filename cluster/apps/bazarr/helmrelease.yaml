@@ -109,11 +109,11 @@ spec:
         existingClaim: bazarr-config
         globalMounts:
           - path: /config
-      configOrig:
+      orig:
         type: persistentVolumeClaim
         existingClaim: config-bazarr-0
         globalMounts:
-          - path: /configOrig
+          - path: /orig
       library:
         type: nfs
         server: ${RACKNAS_ADDR}
