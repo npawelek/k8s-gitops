@@ -27,59 +27,61 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: rhasspy/wyoming-piper
-      tag: latest@sha256:40670d2ff08562814bbcef1a20369ee22d0197709d78cce9c47c8d9458d0b89e
-
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    args:
-      - --voice
-      - en-us-libritts-high
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-
-    env:
-      TZ: ${TIMEZONE}
-
-    ingress:
+    controllers:
       main:
-        enabled: false
-        primary: false
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+        
+        containers:
+          main:
+            image:
+              repository: rhasspy/wyoming-piper
+              tag: latest@sha256:40670d2ff08562814bbcef1a20369ee22d0197709d78cce9c47c8d9458d0b89e
+            
+            args:
+              - --voice
+              - en-us-libritts-high
+            
+            env:
+              TZ: ${TIMEZONE}
+            
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 500m
+              limits:
+                memory: 500Mi
 
     service:
       main:
+        controller: main
         ports:
           http:
             port: 10200
             protocol: TCP
 
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
+    persistence:
+      data:
+        type: persistentVolumeClaim
         size: 5Gi
+        accessMode: ReadWriteOnce
         storageClass: longhorn
-
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 500Mi
+        globalMounts:
+          - path: /data

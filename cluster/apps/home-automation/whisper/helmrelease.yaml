@@ -27,61 +27,63 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: rhasspy/wyoming-whisper
-      tag: latest@sha256:f03456914affe8076fc7688c0890f4c708d93ebfac7340b0b2467f721412012d
-
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    args:
-      - --model
-      - small
-      - --language
-      - en
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-
-    env:
-      TZ: ${TIMEZONE}
-
-    ingress:
+    controllers:
       main:
-        enabled: false
-        primary: false
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+        
+        containers:
+          main:
+            image:
+              repository: rhasspy/wyoming-whisper
+              tag: latest@sha256:f03456914affe8076fc7688c0890f4c708d93ebfac7340b0b2467f721412012d
+            
+            args:
+              - --model
+              - small
+              - --language
+              - en
+            
+            env:
+              TZ: ${TIMEZONE}
+            
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 500m
+              limits:
+                memory: 2500Mi
 
     service:
       main:
+        controller: main
         ports:
           http:
             port: 10300
             protocol: TCP
 
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
+    persistence:
+      data:
+        type: persistentVolumeClaim
         size: 5Gi
+        accessMode: ReadWriteOnce
         storageClass: longhorn
-
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 2500Mi
+        globalMounts:
+          - path: /data
