@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bazarr-config-0
+  name: config-bazarr-0
   namespace: home-automation
 spec:
   accessModes:

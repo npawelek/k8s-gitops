@@ -106,7 +106,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        existingClaim: bazarr-config-0
+        existingClaim: config-bazarr-0
         globalMounts:
           - path: /config
       library:
