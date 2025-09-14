@@ -55,6 +55,11 @@ spec:
               PLATFORMIO_GLOBALLIB_DIR: /cache/platformio/lib
               PLATFORMIO_SETTING_ENABLE_TELEMETRY: No
 
+            ports:
+              - name: http
+                containerPort: 6052
+                protocol: TCP
+
             resources:
               requests:
                 memory: 250Mi
@@ -74,6 +79,10 @@ spec:
               - none
             env:
               TZ: ${TIMEZONE}
+            ports:
+              - name: http
+                containerPort: 12321
+                protocol: TCP
 
         # podSecurityContext:
         #   runAsUser: 568
