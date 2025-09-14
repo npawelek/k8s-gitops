@@ -106,9 +106,7 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        size: 15Gi
-        accessMode: ReadWriteOnce
-        storageClass: longhorn
+        existingClaim: bazarr-config-0
         globalMounts:
           - path: /config
       library:

@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: bazarr
 resources:
   - ./helmrelease.yaml
+  - ./pvc.yaml
 # configMapGenerator:
 #   - name: bazarr-scripts
 #     files:
