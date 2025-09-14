@@ -106,9 +106,14 @@ spec:
     persistence:
       config:
         type: persistentVolumeClaim
-        existingClaim: config-bazarr-0
+        existingClaim: bazarr-config
         globalMounts:
           - path: /config
+      configOrig:
+        type: persistentVolumeClaim
+        existingClaim: config-bazarr-0
+        globalMounts:
+          - path: /configOrig
       library:
         type: nfs
         server: ${RACKNAS_ADDR}
