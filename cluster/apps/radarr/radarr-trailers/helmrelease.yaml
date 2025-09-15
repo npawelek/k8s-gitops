@@ -11,84 +11,87 @@ spec:
   interval: 1h
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    controller:
-      type: cronjob
-      cronjob:
-        schedule: "10 0,8,16 * * *"
-        ttlSecondsAfterFinished: 86400
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "10 0,8,16 * * *"
+          ttlSecondsAfterFinished: 86400
 
-    restartPolicy: OnFailure
+        pod:
+          restartPolicy: OnFailure
 
-    image:
-      repository: jauderho/yt-dlp
-      tag: 2025.09.05@sha256:548c31a23557a6724a35600a69710130e08126b6277f149baf88935463404d02
+        containers:
+          main:
+            image:
+              repository: jauderho/yt-dlp
+              tag: 2025.09.05@sha256:548c31a23557a6724a35600a69710130e08126b6277f149baf88935463404d02
 
-    command:
-      - /bin/sh
-      - /scripts/get_trailers.sh
+            command:
+              - /bin/sh
+              - /scripts/get_trailers.sh
 
-    envFrom:
-      - secretRef:
-          name: radarr-trailers-secrets
+            envFrom:
+              - secretRef:
+                  name: radarr-trailers-secrets
 
-    env:
-      TZ: ${TIMEZONE}
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTP_PROXY}
-      no_proxy: ${NO_PROXY}
+            env:
+              TZ: ${TIMEZONE}
+              http_proxy: ${HTTP_PROXY}
+              https_proxy: ${HTTP_PROXY}
+              no_proxy: ${NO_PROXY}
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 1024Mi
 
     service:
       main:
+        controller: main
         enabled: false
 
     persistence:
       cache:
-        enabled: true
         type: emptyDir
         medium: Memory
-        mountPath: /cache
         sizeLimit: 4G
-      config:
-        enabled: false
+        globalMounts:
+          - path: /cache
       movies:
-        enabled: true
+        type: nfs
+        server: ${RACKNAS_ADDR}
         path: /volume1/media/Movies
-        mountPath: /library/Movies
-        server: ${RACKNAS_ADDR}
-        type: nfs
+        globalMounts:
+          - path: /library/Movies
       movies-anime:
-        enabled: true
+        type: nfs
+        server: ${RACKNAS_ADDR}
         path: /volume1/media/Movies-Anime
-        mountPath: /library/Movies-Anime
-        server: ${RACKNAS_ADDR}
-        type: nfs
+        globalMounts:
+          - path: /library/Movies-Anime
       movies-remux:
-        enabled: true
-        path: /volume1/media/Movies-Remux
-        mountPath: /library/Movies-Remux
-        server: ${RACKNAS_ADDR}
         type: nfs
+        server: ${RACKNAS_ADDR}
+        path: /volume1/media/Movies-Remux
+        globalMounts:
+          - path: /library/Movies-Remux
       scripts:
-        enabled: true
         type: configMap
         name: trailers-configmap
-        subPath: get_trailers.sh
-        mountPath: /scripts/get_trailers.sh
         defaultMode: 0775
-        readOnly: true
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128Mi
-      limits:
-        memory: 1024Mi
+        globalMounts:
+          - path: /scripts/get_trailers.sh
+            subPath: get_trailers.sh
+            readOnly: true
