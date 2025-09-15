@@ -28,79 +28,75 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: ghcr.io/recyclarr/recyclarr
-      tag: 7.4.1@sha256:759540877f95453eca8a26c1a93593e783a7a824c324fbd57523deffb67f48e1
-
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    initContainers:
-      01-init-config:
-        image: docker.io/library/alpine:3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
-        imagePullPolicy: IfNotPresent
-        command:
-          - /bin/sh
-          - -c
-          - cp /tmp/config/recyclarr.yml /config/recyclarr.yml
-        volumeMounts:
-          - name: config-file
-            mountPath: /tmp/config
-          - name: config
-            mountPath: /config
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-
-    env:
-      TZ: ${TIMEZONE}
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTP_PROXY}
-      no_proxy: ${NO_PROXY}
-
-    envFrom:
-      - secretRef:
-          name: recyclarr-secrets
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+        
+        initContainers:
+          init-config:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - cp /tmp/config/recyclarr.yml /config/recyclarr.yml
+        
+        containers:
+          main:
+            image:
+              repository: ghcr.io/recyclarr/recyclarr
+              tag: 7.4.1@sha256:759540877f95453eca8a26c1a93593e783a7a824c324fbd57523deffb67f48e1
+            
+            env:
+              TZ: ${TIMEZONE}
+              http_proxy: ${HTTP_PROXY}
+              https_proxy: ${HTTP_PROXY}
+              no_proxy: ${NO_PROXY}
+            
+            envFrom:
+              - secretRef:
+                  name: recyclarr-secrets
+            
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128M
+              limits:
+                memory: 256M
 
     service:
       main:
-        enabled: false
-
-    ingress:
-      main:
+        controller: main
         enabled: false
 
     persistence:
       config-file:
-        enabled: true
         type: configMap
         name: recyclarr-configmap
-        mountPath: "-"
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128M
-      limits:
-        memory: 256M
-
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: longhorn
+        globalMounts:
+          - path: /tmp/config
+      config:
+        type: persistentVolumeClaim
+        existingClaim: recyclarr-config
+        globalMounts:
+          - path: /config
