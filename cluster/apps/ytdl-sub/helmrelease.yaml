@@ -8,74 +8,75 @@ spec:
   interval: 1h
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   values:
-    controller:
-      type: cronjob
-      cronjob:
-        schedule: "22 18 * * *"
-        # schedule: "@daily" # enable for testing
-        ttlSecondsAfterFinished: 86400
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "22 18 * * *"
+          # schedule: "@daily" # enable for testing
+          ttlSecondsAfterFinished: 86400
 
-    restartPolicy: OnFailure
+        pod:
+          restartPolicy: OnFailure
 
-    image:
-      repository: ghcr.io/jmbannon/ytdl-sub
-      tag: 2025.09.13@sha256:a7a8a454be507efb0b764be6f92e0549db4325faf2b0fbf66805992aac0e48e9
+        containers:
+          main:
+            image:
+              repository: ghcr.io/jmbannon/ytdl-sub
+              tag: 2025.09.13@sha256:a7a8a454be507efb0b764be6f92e0549db4325faf2b0fbf66805992aac0e48e9
 
-    command:
-      - ytdl-sub
-      - --log-level
-      - debug
-      - -c
-      - /config/config.yaml
-      - sub
-      - /config/subscriptions.yaml
+            command:
+              - ytdl-sub
+              - --log-level
+              - debug
+              - -c
+              - /config/config.yaml
+              - sub
+              - /config/subscriptions.yaml
 
-    env:
-      # http_proxy: ${HTTP_PROXY}
-      # https_proxy: ${HTTP_PROXY}
-      TZ: ${TIMEZONE}
-      PUID: 1024
-      PGID: 100
+            env:
+              # http_proxy: ${HTTP_PROXY}
+              # https_proxy: ${HTTP_PROXY}
+              TZ: ${TIMEZONE}
+              PUID: 1024
+              PGID: 100
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128M
+              limits:
+                memory: 32G
 
     service:
       main:
-        enabled: false
-
-    ingress:
-      main:
+        controller: main
         enabled: false
 
     persistence:
       config:
-        enabled: true
         type: configMap
         name: config
-        mountPath: /config
-        readOnly: true
         defaultMode: 0755
+        globalMounts:
+          - path: /config
+            readOnly: true
       library:
-        enabled: true
-        mountPath: /library/YouTube
-        path: /volume1/media/YouTube
-        server: ${RACKNAS_ADDR}
         type: nfs
+        server: ${RACKNAS_ADDR}
+        path: /volume1/media/YouTube
+        globalMounts:
+          - path: /library/YouTube
       tmp:
-        enabled: true
         type: emptyDir
         medium: Memory
-        mountPath: /tmp/ytdl-sub
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128M
-      limits:
-        memory: 32G
+        globalMounts:
+          - path: /tmp/ytdl-sub
