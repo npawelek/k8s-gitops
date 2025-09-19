@@ -23,61 +23,66 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    restartPolicy: OnFailure
-
-    controller:
-      type: cronjob
-      cronjob:
-        concurrencyPolicy: Forbid
-        schedule: "*/15 * * * *"
-        successfulJobsHistory: 8
-
-    image:
-      repository: public.ecr.aws/hashicorp/terraform
-      tag: 1.13.3@sha256:dfb1889a8ee74ada3ddacc48f89b8a0d69f3e114de3d8a2ce15f6a8d3dbfdbe2
-
-    command:
-      - /bin/sh
-      - /app/aws-ddns.sh
-
-    envFrom:
-      - secretRef:
-          name: aws-ddns-secrets
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          concurrencyPolicy: Forbid
+          schedule: "*/15 * * * *"
+          successfulJobsHistory: 8
+        
+        pod:
+          restartPolicy: OnFailure
+        
+        containers:
+          main:
+            image:
+              repository: public.ecr.aws/hashicorp/terraform
+              tag: 1.13.3@sha256:dfb1889a8ee74ada3ddacc48f89b8a0d69f3e114de3d8a2ce15f6a8d3dbfdbe2
+            
+            command:
+              - /bin/sh
+              - /app/aws-ddns.sh
+            
+            envFrom:
+              - secretRef:
+                  name: aws-ddns-secrets
 
     service:
       main:
+        controller: main
         enabled: false
 
     persistence:
       config:
-        enabled: true
         type: configMap
         name: aws-ddns-configmap
-        subPath: aws-ddns.sh
-        mountPath: /app/aws-ddns.sh
         defaultMode: 0775
-        readOnly: true
+        globalMounts:
+          - path: /app/aws-ddns.sh
+            subPath: aws-ddns.sh
+            readOnly: true
       terraform:
-        enabled: true
         type: configMap
         name: tf-configmap
-        subPath: main.tf
-        mountPath: /app/main.tf
         defaultMode: 0644
-        readOnly: true
+        globalMounts:
+          - path: /app/main.tf
+            subPath: main.tf
+            readOnly: true
       backend:
-        enabled: true
         type: secret
         name: aws-ddns-tf-backend
-        subPath: backend.tf
-        mountPath: /app/backend.tf
-        readOnly: true
+        globalMounts:
+          - path: /app/backend.tf
+            subPath: backend.tf
+            readOnly: true
