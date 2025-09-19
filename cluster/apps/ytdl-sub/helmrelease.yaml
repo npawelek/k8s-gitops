@@ -37,10 +37,10 @@ spec:
               - ytdl-sub
               - --log-level
               - debug
-              - -c
-              - /config/config.yaml
               - --working-directory
               - /tmp/ytdl-sub
+              - -c
+              - /config/config.yaml
               - sub
               - /config/subscriptions.yaml
 
