@@ -39,6 +39,8 @@ spec:
               - debug
               - -c
               - /config/config.yaml
+              - --working-directory
+              - /tmp/ytdl-sub
               - sub
               - /config/subscriptions.yaml
 
