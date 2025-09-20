@@ -37,8 +37,6 @@ spec:
               - ytdl-sub
               - --log-level
               - debug
-              - --working-directory
-              - /tmp/ytdl-sub
               - -c
               - /config/config.yaml
               - sub
@@ -69,8 +67,10 @@ spec:
         name: config
         defaultMode: 0755
         globalMounts:
-          - path: /config
-            readOnly: true
+          - path: /config/config.yaml
+            subPath: config.yaml
+          - path: /config/subscriptions.yaml
+            subPath: subscriptions.yaml
       library:
         type: nfs
         server: ${RACKNAS_ADDR}
