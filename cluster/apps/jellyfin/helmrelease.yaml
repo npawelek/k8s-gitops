@@ -31,47 +31,61 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      # repository: ghcr.io/onedr0p/jellyfin
-      # tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
-      repository: jellyfin/jellyfin
-      tag: 10.10.7@sha256:7ae36aab93ef9b6aaff02b37f8bb23df84bb2d7a3f6054ec8fc466072a648ce2
-
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      # Required for passthrough of /dev/dri devices from NFD
-      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
-      supplementalGroups:
-      - 44
-      - 104
-      - 109
-
-    env:
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTP_PROXY}
-      no_proxy: ${NO_PROXY},192.168.20.98
-      TZ: ${TIMEZONE}
-      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+            # Required for passthrough of /dev/dri devices from NFD
+            # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
+            supplementalGroups:
+            - 44
+            - 104
+            - 109
+        
+        containers:
+          main:
+            image:
+              # repository: ghcr.io/onedr0p/jellyfin
+              # tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
+              repository: jellyfin/jellyfin
+              tag: 10.10.7@sha256:7ae36aab93ef9b6aaff02b37f8bb23df84bb2d7a3f6054ec8fc466072a648ce2
+            
+            env:
+              http_proxy: ${HTTP_PROXY}
+              https_proxy: ${HTTP_PROXY}
+              no_proxy: ${NO_PROXY},192.168.20.98
+              TZ: ${TIMEZONE}
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+            
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1024M
+                gpu.intel.com/i915: 1
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 6G
 
     service:
       main:
+        controller: main
         ports:
           http:
             port: 8096
@@ -80,7 +94,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
@@ -93,13 +107,16 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: http
         tls:
         - hosts:
           - *host
-        - secretName: nathanpawelek-com-tls
+          secretName: nathanpawelek-com-tls
       ext:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-external-middlewares-chain@kubernetescrd
@@ -109,37 +126,33 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: http
         tls:
         - hosts:
           - *ext
-        - secretName: nathanpawelek-com-tls
+          secretName: nathanpawelek-com-tls
 
     persistence:
       config:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: config-jellyfin-0
+        globalMounts:
+          - path: /config
       library:
-        enabled: true
-        mountPath: /library
-        path: /volume1/media
-        server: ${RACKNAS_ADDR}
         type: nfs
+        server: ${RACKNAS_ADDR}
+        path: /volume1/media
+        globalMounts:
+          - path: /library
       scripts:
-        enabled: true
         type: configMap
         name: scripts
-        mountPath: /config/scripts
-        readOnly: true
         defaultMode: 0755
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 1024M
-        gpu.intel.com/i915: 1
-      limits:
-        gpu.intel.com/i915: 1
-        memory: 6G
+        globalMounts:
+          - path: /config/scripts
+            readOnly: true
 
     affinity:
       nodeAffinity:
