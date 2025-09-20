@@ -53,7 +53,7 @@ spec:
           main:
             image:
               repository: gordlea/fireboard2mqtt
-              tag: latest@sha256:b826af466b354ff54b8056f40732c367a629c01a02c0e12d84ac27b1de4e8ab0
+              tag: 3.1.5-beta.0@sha256:8fffc550b56eeedd90f70298835632fa094fcbfc13dde7d139f1221559d03842
             
             env:
               TZ: ${TIMEZONE}
