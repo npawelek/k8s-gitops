@@ -11,63 +11,65 @@ spec:
   interval: 1h
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: cloudb0x/autoscan
-      tag: master@sha256:3df536844063c3bdc73fb36793e24a7cb116032af97dcc74fc03c478deded831
-
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    env:
-      TZ: ${TIMEZONE}
-      PUID: "1024"
-      PGID: "100"
-      AUTOSCAN_VERBOSITY: 1
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        containers:
+          main:
+            image:
+              repository: cloudb0x/autoscan
+              tag: master@sha256:3df536844063c3bdc73fb36793e24a7cb116032af97dcc74fc03c478deded831
+            
+            env:
+              TZ: ${TIMEZONE}
+              PUID: "1024"
+              PGID: "100"
+              AUTOSCAN_VERBOSITY: 1
+            
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128M
+              limits:
+                memory: 512M
 
     service:
       main:
+        controller: main
         ports:
           http:
             port: 3030
             protocol: TCP
 
-    ingress:
-      main:
-        enabled: false
-
     persistence:
       config:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: config-autoscan-0
+        globalMounts:
+          - path: /config
       config-secret:
-        enabled: true
         type: secret
         name: autoscan-secrets
-        subPath: config.yml
-        mountPath: /config/config.yml
-        readOnly: true
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
       library:
-        enabled: true
-        mountPath: /library
-        path: /volume1/media
-        server: ${RACKNAS_ADDR}
         type: nfs
-        readOnly: true
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128M
-      limits:
-        memory: 512M
+        server: ${RACKNAS_ADDR}
+        path: /volume1/media
+        globalMounts:
+          - path: /library
+            readOnly: true
