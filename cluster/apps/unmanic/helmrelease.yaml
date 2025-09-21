@@ -14,34 +14,50 @@ spec:
     namespace: kube-system
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
   interval: 1h
   values:
-    image:
-      repository: josh5/unmanic
-      tag: 0.3.0@sha256:3e2957543b9f23caccf17cdf22f2a71957d8e6c42722809b8b392018c8bdf264
-
-    podSecurityContext:
-      # Required for passthrough of /dev/dri devices from NFD
-      # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
-      supplementalGroups:
-      - 44
-      - 104
-      - 109
-
-    env:
-      TZ: ${TIMEZONE}
-      PUID: 568
-      PGID: 568
+    controllers:
+      main:
+        pod:
+          securityContext:
+            # Required for passthrough of /dev/dri devices from NFD
+            # https://dgpu-docs.intel.com/installation-guides/ubuntu/ubuntu-jammy-legacy.html
+            supplementalGroups:
+            - 44
+            - 104
+            - 109
+        
+        containers:
+          main:
+            image:
+              repository: josh5/unmanic
+              tag: 0.3.0@sha256:3e2957543b9f23caccf17cdf22f2a71957d8e6c42722809b8b392018c8bdf264
+            
+            env:
+              TZ: ${TIMEZONE}
+              PUID: 568
+              PGID: 568
+            
+            resources:
+              requests:
+                cpu: 100m
+                gpu.intel.com/i915: 1
+                memory: 2048M
+              limits:
+                cpu: 4
+                gpu.intel.com/i915: 1
+                memory: 16G
 
     service:
       main:
+        controller: main
         ports:
           http:
             port: 8888
@@ -50,7 +66,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -63,35 +79,31 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: http
         tls:
         - hosts:
           - *host
-        - secretName: nathanpawelek-com-tls
+          secretName: nathanpawelek-com-tls
 
     persistence:
       config:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: unmanic-config
+        globalMounts:
+          - path: /config
       library:
-        enabled: true
-        path: /volume1/media
-        server: ${RACKNAS_ADDR}
         type: nfs
+        server: ${RACKNAS_ADDR}
+        path: /volume1/media
+        globalMounts:
+          - path: /library
       cache:
-        enabled: true
         type: emptyDir
         medium: Memory
-        mountPath: /tmp/unmanic
-
-    resources:
-      requests:
-        cpu: 100m
-        gpu.intel.com/i915: 1
-        memory: 2048M
-      limits:
-        cpu: 4
-        gpu.intel.com/i915: 1
-        memory: 16G
+        globalMounts:
+          - path: /tmp/unmanic
 
     affinity:
       nodeAffinity:
