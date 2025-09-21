@@ -7,6 +7,9 @@ metadata:
 data:
   AdGuardHome.yaml: |-
     http:
+      pprof:
+        port: 6060
+        enabled: false
       address: 0.0.0.0:3000
       session_ttl: 167h
     users: []
@@ -14,28 +17,15 @@ data:
     block_auth_min: 15
     http_proxy: ""
     language: en
-    debug_pprof: false
-    querylog:
-      enabled: true
-      file_enabled: true
-      interval: 168h
-      size_memory: 1000
-    statistics:
-      enabled: true
-      interval: 168h
+    theme: auto
     dns:
       bind_hosts:
         - 0.0.0.0
       port: 53
       anonymize_client_ip: false
-      protection_enabled: true
-      blocking_mode: default
-      blocking_ipv4: ""
-      blocking_ipv6: ""
-      blocked_response_ttl: 300
-      parental_block_host: family-block.dns.adguard.com
-      safebrowsing_block_host: standard-block.dns.adguard.com
-      ratelimit: 0
+      ratelimit: 50
+      ratelimit_subnet_len_ipv4: 24
+      ratelimit_subnet_len_ipv6: 56
       ratelimit_whitelist: []
       refuse_any: true
       upstream_dns:
@@ -45,6 +35,7 @@ data:
       bootstrap_dns:
         - 1.1.1.1
         - 1.0.0.1
+      fallback_dns: []
       all_servers: false
       fastest_addr: true
       fastest_timeout: 1s
@@ -60,37 +51,28 @@ data:
       cache_size: 4194304
       cache_ttl_min: 0
       cache_ttl_max: 0
-      cache_optimistic: false
+      cache_optimistic: true
       bogus_nxdomain: []
       aaaa_disabled: false
       enable_dnssec: false
+      edns_client_subnet:
+        custom_ip: ""
+        enabled: false
+        use_custom: false
       max_goroutines: 300
+      handle_ddr: true
       ipset: []
-      filtering_enabled: true
-      filters_update_interval: 12
-      parental_enabled: false
-      safesearch_enabled: false
-      safebrowsing_enabled: false
-      safebrowsing_cache_size: 1048576
-      safesearch_cache_size: 1048576
-      parental_cache_size: 1048576
-      cache_time: 30
-      blocked_services:
-        ids:
-          - tinder
-          - onlyfans
-          - ok
-          - mail_ru
-          - vk
-          - weibo
-          - viber
-          - qq
-        schedule:
-          time_zone: America/Chicago
+      ipset_file: ""
+      bootstrap_prefer_ipv6: false
       upstream_timeout: 10s
       private_networks: []
       use_private_ptr_resolvers: true
       local_ptr_upstreams: []
+      use_dns64: false
+      dns64_prefixes: []
+      serve_http3: false
+      use_http3_upstreams: false
+      serve_plain_dns: true
     tls:
       enabled: false
       server_name: ""
@@ -101,13 +83,30 @@ data:
       port_dnscrypt: 0
       dnscrypt_config_file: ""
       allow_unencrypted_doh: false
-      strict_sni_check: false
       certificate_chain: ""
       private_key: ""
       certificate_path: ""
       private_key_path: ""
+      strict_sni_check: false
+    querylog:
+      dir_path: ""
+      ignored: []
+      interval: 168h
+      size_memory: 1000
+      enabled: true
+      file_enabled: true
+    statistics:
+      dir_path: ""
+      ignored: []
+      interval: 168h
+      enabled: true
     filtering:
-      # Add minimal local DNS entries
+      blocking_ipv4: ""
+      blocking_ipv6: ""
+      blocking_mode: default
+      blocked_response_ttl: 300
+      parental_block_host: family-block.dns.adguard.com
+      safebrowsing_block_host: standard-block.dns.adguard.com
       rewrites:
         - domain: udmp.nathanpawelek.com
           answer: 192.168.0.1
@@ -131,6 +130,28 @@ data:
           answer: 192.168.0.151
         - domain: auth.itscontained.dev
           answer: 192.168.0.20
+      blocked_services:
+        schedule:
+          time_zone: America/Chicago
+        ids:
+          - tinder
+          - onlyfans
+          - ok
+          - mail_ru
+          - vk
+          - weibo
+          - viber
+          - qq
+      protection_enabled: true
+      filtering_enabled: true
+      filters_update_interval: 12
+      parental_enabled: false
+      safesearch_enabled: false
+      safebrowsing_enabled: false
+      safebrowsing_cache_size: 1048576
+      safesearch_cache_size: 1048576
+      parental_cache_size: 1048576
+      cache_time: 30
     filters:
       - enabled: true
         url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
@@ -284,7 +305,7 @@ data:
       runtime_sources:
         whois: true
         arp: true
-        rdns: false
+        rdns: true
         dhcp: false
         hosts: true
       persistent:
@@ -382,15 +403,15 @@ data:
           ignore_querylog: false
           ignore_statistics: false
     log:
-      compress: false
-      local_time: true
+      file: ""
       max_backups: 0
       max_size: 100
       max_age: 3
-      file: ""
+      compress: false
+      local_time: true
       verbose: false
     os:
       group: ""
       user: ""
       rlimit_nofile: 0
-    schema_version: 27
+    schema_version: 28
