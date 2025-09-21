@@ -270,6 +270,7 @@ data:
       - '||test.huedatastore.com^'
       - '||web.diagnostic.networking.aws.dev^'
       - '||graph.facebook.com^$ctag=~device_phone'
+      - '/.*\.fallback\..*\.facebook\.com$/'
       - '||lkt.is^$important'
       - '||lookout.com^$important'
       - '||crashlytics.com^$important'
