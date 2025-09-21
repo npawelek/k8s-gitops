@@ -12,6 +12,11 @@ spec:
   interval: 1h
   suspend: false
   releaseName: mariadb-galera
+  timeout: 20m
+  install:
+    timeout: 20m
+  upgrade:
+    timeout: 20m
   chart:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
