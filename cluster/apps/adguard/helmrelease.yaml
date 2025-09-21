@@ -31,71 +31,79 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: adguard/adguardhome
-      tag: v0.107.45
-
-    args:
-      # - /opt/adguardhome/AdGuardHome
-      - --config
-      - /opt/adguardhome/conf/AdGuardHome.yaml
-      - --work-dir
-      - /opt/adguardhome/work
-      - --no-check-update
-
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    initContainers:
-      01-config-copy:
-        image: docker.io/library/alpine:3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
-        imagePullPolicy: IfNotPresent
-        command:
-          - /bin/sh
-          - -c
-          - |
-            cp -v /tmp/AdGuardHome.yaml /config/AdGuardHome.yaml
-            chmod 0644 /config/AdGuardHome.yaml
-        volumeMounts:
-          - name: cm
-            mountPath: /tmp
-          - name: config
-            mountPath: /config
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-
-    securityContext:
-      capabilities:
-        add:
-          - NET_BIND_SERVICE
-          - NET_RAW
-
-    env:
-      TZ: ${TIMEZONE}
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+        
+        initContainers:
+          config-copy:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - |
+                cp -v /tmp/AdGuardHome.yaml /config/AdGuardHome.yaml
+                chmod 0644 /config/AdGuardHome.yaml
+        
+        containers:
+          main:
+            image:
+              repository: adguard/adguardhome
+              tag: v0.107.45
+            
+            args:
+              # - /opt/adguardhome/AdGuardHome
+              - --config
+              - /opt/adguardhome/conf/AdGuardHome.yaml
+              - --work-dir
+              - /opt/adguardhome/work
+              - --no-check-update
+            
+            securityContext:
+              capabilities:
+                add:
+                  - NET_BIND_SERVICE
+                  - NET_RAW
+            
+            env:
+              TZ: ${TIMEZONE}
+            
+            resources:
+              requests:
+                memory: 750Mi
+                cpu: 100m
+              limits:
+                memory: 1000Mi
 
     service:
       main:
-        enabled: true
+        controller: main
         ports:
           http:
             port: 3000
             protocol: TCP
       dns-tcp:
-        enabled: true
+        controller: main
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
@@ -103,12 +111,11 @@ spec:
           metallb.universe.tf/allow-shared-ip: adguard-home-dns
         ports:
           dns-tcp:
-            enabled: true
-            port: &dns-port 53
+            port: 53
             protocol: TCP
-            targetPort: *dns-port
+            targetPort: 53
       dns-udp:
-        enabled: true
+        controller: main
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
@@ -116,14 +123,14 @@ spec:
           metallb.universe.tf/allow-shared-ip: adguard-home-dns
         ports:
           dns-udp:
-            enabled: true
-            port: *dns-port
+            port: 53
             protocol: UDP
-            targetPort: *dns-port
+            targetPort: 53
 
     ingress:
       main:
         enabled: true
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
@@ -137,33 +144,30 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: http
         tls:
         - hosts:
           - *host
-        - secretName: nathanpawelek-com-tls
+          secretName: nathanpawelek-com-tls
 
     persistence:
       config:
-        enabled: true
         type: emptyDir
-        mountPath: /opt/adguardhome/conf
+        globalMounts:
+          - path: /opt/adguardhome/conf
       cm:
-        enabled: true
         type: configMap
         name: adguard-home-conf
-        mountPath: "-"
+        globalMounts:
+          - path: /tmp
       data:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: adguard-home-data
-        mountPath: /opt/adguardhome/work
+        globalMounts:
+          - path: /opt/adguardhome/work
       sessions:
-        enabled: true
         type: emptyDir
-        mountPath: /opt/adguardhome/data
-
-    resources:
-      requests:
-        memory: 750Mi
-        cpu: 100m
-      limits:
-        memory: 1000Mi
+        globalMounts:
+          - path: /opt/adguardhome/data
