@@ -38,7 +38,7 @@ data:
         - 1.1.1.1
         - 1.0.0.1
       fallback_dns: []
-      all_servers: false
+      all_servers: true
       fastest_addr: true
       fastest_timeout: 1s
       allowed_clients: []
@@ -66,7 +66,7 @@ data:
       ipset: []
       ipset_file: ""
       bootstrap_prefer_ipv6: false
-      upstream_timeout: 10s
+      upstream_timeout: 3s
       private_networks: []
       use_private_ptr_resolvers: true
       local_ptr_upstreams: []
