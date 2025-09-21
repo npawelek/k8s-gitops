@@ -6,8 +6,8 @@ metadata:
   namespace: galera
 spec:
   dependsOn:
-  - name: longhorn
-    namespace: longhorn-system
+    - name: longhorn
+      namespace: longhorn-system
   maxHistory: 3
   interval: 1h
   suspend: false
@@ -16,7 +16,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: mariadb-galera
-      version: 10.0.0
+      version: 16.0.1
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -25,7 +25,7 @@ spec:
     image:
       registry: public.ecr.aws
       repository: bitnami/mariadb-galera
-      tag: 11.0.4
+      tag: 11.4.4@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
     podManagementPolicy: OrderedReady
@@ -40,14 +40,14 @@ spec:
     serviceAccount:
       create: false
     extraEnvVars:
-    - name: TZ
-      value: America/Chicago
+      - name: TZ
+        value: ${TIMEZONE}
     persistence:
       enabled: true
       mountPath: /bitnami/mariadb
       storageClass: longhorn
       accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
       size: 20Gi
     mariadbConfiguration: |-
       [client]
@@ -160,7 +160,7 @@ spec:
     nodeSelector:
       kubernetes.io/arch: amd64
   valuesFrom:
-  - kind: Secret
-    name: galera-helm-values
-    valuesKey: values.yaml
-    optional: false
+    - kind: Secret
+      name: galera-helm-values
+      valuesKey: values.yaml
+      optional: false
