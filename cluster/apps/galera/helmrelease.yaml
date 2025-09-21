@@ -42,18 +42,24 @@ spec:
     extraEnvVars:
       - name: TZ
         value: ${TIMEZONE}
-    livenessProbe:
+    startupProbe:
       enabled: true
-      initialDelaySeconds: 300
+      initialDelaySeconds: 30
       periodSeconds: 30
       timeoutSeconds: 10
-      failureThreshold: 5
+      failureThreshold: 20
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 3
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 120
+      initialDelaySeconds: 30
       periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 10
+      failureThreshold: 3
     persistence:
       enabled: true
       mountPath: /bitnami/mariadb
