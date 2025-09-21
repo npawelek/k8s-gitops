@@ -26,27 +26,73 @@ spec:
 
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
       chart: app-template
-      version: 1.5.1
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
 
   values:
-    image:
-      repository: docker.io/intel/intel-gpu-plugin
-      tag: 0.28.0@sha256:a5f4bd2ebd62a57d59907ef3fb8bf56066f3ee27f20d9f03f0dd060090ff90b1
-      pullPolicy: IfNotPresent
+    controllers:
+      main:
+        type: daemonset
+        strategy: RollingUpdate
+        
+        containers:
+          main:
+            image:
+              repository: docker.io/intel/intel-gpu-plugin
+              tag: 0.28.0@sha256:a5f4bd2ebd62a57d59907ef3fb8bf56066f3ee27f20d9f03f0dd060090ff90b1
+              pullPolicy: IfNotPresent
+            
+            args:
+              - -shared-dev-num
+              - "2"
+            
+            # TODO(intel-gpu-plugin): Add probes
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64M
+              limits:
+                memory: 64M
 
-    controller:
-      type: daemonset
-      strategy: RollingUpdate
+    service:
+      main:
+        controller: main
+        enabled: false
 
-    args:
-      - -shared-dev-num
-      - "2"
+    persistence:
+      devfs:
+        type: hostPath
+        hostPath: /dev/dri
+        hostPathType: Directory
+        globalMounts:
+          - path: /dev/dri
+            readOnly: true
+      sysfs:
+        type: hostPath
+        hostPath: /sys/class/drm
+        hostPathType: Directory
+        globalMounts:
+          - path: /sys/class/drm
+            readOnly: true
+      kubeletsockets:
+        type: hostPath
+        hostPath: /var/lib/kubelet/device-plugins
+        hostPathType: Directory
+        globalMounts:
+          - path: /var/lib/kubelet/device-plugins
 
     affinity:
       nodeAffinity:
@@ -62,46 +108,3 @@ spec:
               operator: In
               values:
               - "true"
-
-    service:
-      main:
-        enabled: false
-
-    ingress:
-      main:
-        enabled: false
-
-    persistence:
-      devfs:
-        enabled: true
-        type: hostPath
-        hostPath: /dev/dri
-        hostPathType: Directory
-        readOnly: true
-      sysfs:
-        enabled: true
-        type: hostPath
-        hostPath: /sys/class/drm
-        hostPathType: Directory
-        readOnly: true
-      kubeletsockets:
-        enabled: true
-        type: hostPath
-        hostPathType: Directory
-        hostPath: /var/lib/kubelet/device-plugins
-
-    # TODO(intel-gpu-plugin): Add probes
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-
-    resources:
-      requests:
-        cpu: 15m
-        memory: 64M
-      limits:
-        memory: 64M
