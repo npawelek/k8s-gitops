@@ -146,13 +146,6 @@ spec:
         path: /volume1/media
         globalMounts:
           - path: /library
-      scripts:
-        type: configMap
-        name: scripts
-        defaultMode: 0755
-        globalMounts:
-          - path: /config/scripts
-            readOnly: true
 
     affinity:
       nodeAffinity:
