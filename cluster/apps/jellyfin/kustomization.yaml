@@ -5,12 +5,3 @@ namespace: jellyfin
 resources:
 - ./pvc.yaml
 - ./helmrelease.yaml
-configMapGenerator:
-- name: scripts
-  files:
-  - post-process-wrapper.sh
-  - post-process.sh
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
