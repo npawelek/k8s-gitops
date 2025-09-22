@@ -4,3 +4,4 @@ stage/
 *.retry
 Thumbs.db
 bin/
+.stfolder
