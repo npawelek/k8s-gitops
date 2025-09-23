@@ -9,7 +9,9 @@ spec:
   task: filesystem-trim
   groups:
     - default
-  retain: 1
+  labels: {}
+  name: trim-filesystem
+  retain: 0
   concurrency: 1
 ---
 apiVersion: longhorn.io/v1beta2
@@ -67,5 +69,7 @@ spec:
   task: snapshot-cleanup
   groups:
     - default
+  labels: {}
+  name: snapshot-cleanup
   retain: 1
   concurrency: 2
