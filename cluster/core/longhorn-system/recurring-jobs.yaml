@@ -6,7 +6,7 @@ metadata:
   namespace: longhorn-system
 spec:
   cron: "0 3 * * *"
-  task: "filesystem-trim"
+  task: filesystem-trim
   groups:
     - default
   retain: 1
@@ -19,11 +19,13 @@ metadata:
   namespace: longhorn-system
 spec:
   cron: "15 3,9,15,21 * * *"
-  task: "backup"
+  task: backup
+  groups: []
+  name: backup-6h
   retain: 112
   concurrency: 4
   labels:
-    backup-frequency: "6h"
+    backup-frequency: 6h
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -32,11 +34,13 @@ metadata:
   namespace: longhorn-system
 spec:
   cron: "15 8,20 * * *"
-  task: "backup"
+  task: backup
+  groups: []
+  name: backup-12h
   retain: 56
   concurrency: 4
   labels:
-    backup-frequency: "12h"
+    backup-frequency: 12h
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -45,11 +49,13 @@ metadata:
   namespace: longhorn-system
 spec:
   cron: "15 7 * * *"
-  task: "backup"
+  task: backup
+  groups: []
+  name: backup-24h
   retain: 28
   concurrency: 4
   labels:
-    backup-frequency: "24h"
+    backup-frequency: 24h
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -58,7 +64,7 @@ metadata:
   namespace: longhorn-system
 spec:
   cron: "45 9 3,17 * *"
-  task: "snapshot-cleanup"
+  task: snapshot-cleanup
   groups:
     - default
   retain: 1
