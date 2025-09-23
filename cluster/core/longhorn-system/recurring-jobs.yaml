@@ -20,7 +20,6 @@ metadata:
 spec:
   cron: "15 3,9,15,21 * * *"
   task: "backup"
-  groups: []
   retain: 112
   concurrency: 4
   labels:
@@ -34,7 +33,6 @@ metadata:
 spec:
   cron: "15 8,20 * * *"
   task: "backup"
-  groups: []
   retain: 56
   concurrency: 4
   labels:
@@ -48,7 +46,6 @@ metadata:
 spec:
   cron: "15 7 * * *"
   task: "backup"
-  groups: []
   retain: 28
   concurrency: 4
   labels:
