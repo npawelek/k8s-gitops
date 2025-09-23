@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: esphome-config
   namespace: home-automation
+  labels:
+    backup-frequency: 6h
+    recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:
   - ReadWriteOnce
