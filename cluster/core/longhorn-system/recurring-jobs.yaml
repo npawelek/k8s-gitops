@@ -22,7 +22,7 @@ spec:
   task: backup
   groups: []
   name: backup-6h
-  retain: 112
+  retain: 100
   concurrency: 4
   labels:
     backup-frequency: 6h
