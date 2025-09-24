@@ -5,7 +5,7 @@ metadata:
   name: data-whisper-0
   namespace: home-automation
   labels:
-    backup-frequency: 24h
+    recurring-job-group.longhorn.io/backup-24h: enabled
     recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:

@@ -5,7 +5,7 @@ metadata:
   name: mosquitto-data
   namespace: home-automation
   labels:
-    backup-frequency: 12h
+    recurring-job-group.longhorn.io/backup-12h: enabled
     recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:

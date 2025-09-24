@@ -5,7 +5,7 @@ metadata:
   name: node-red-data
   namespace: home-automation
   labels:
-    backup-frequency: 6h
+    recurring-job-group.longhorn.io/backup-6h: enabled
     recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:
