@@ -7,12 +7,12 @@ metadata:
 spec:
   cron: "15 3,9,15,21 * * *"
   task: backup
-  groups: []
+  groups:
+    - backup-6h
   name: backup-6h
   retain: 100
   concurrency: 4
-  labels:
-    backup-frequency: 6h
+  labels: {}
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -22,12 +22,12 @@ metadata:
 spec:
   cron: "15 8,20 * * *"
   task: backup
-  groups: []
+  groups:
+    - backup-12h
   name: backup-12h
   retain: 56
   concurrency: 4
-  labels:
-    backup-frequency: 12h
+  labels: {}
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -37,12 +37,12 @@ metadata:
 spec:
   cron: "15 7 * * *"
   task: backup
-  groups: []
+  groups:
+    - backup-24h
   name: backup-24h
   retain: 28
   concurrency: 4
-  labels:
-    backup-frequency: 24h
+  labels: {}
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
