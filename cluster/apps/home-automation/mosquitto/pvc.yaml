@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mosquitto-data
   namespace: home-automation
+  labels:
+    backup-frequency: 12h
+    recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:
   - ReadWriteOnce

@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: radarr-config
   namespace: radarr
+  labels:
+    backup-frequency: 24h
+    recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:
   - ReadWriteOnce

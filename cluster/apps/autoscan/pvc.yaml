@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: config-autoscan-0
   namespace: autoscan
+  labels:
+    backup-frequency: 24h
+    recurring-job-group.longhorn.io/default: disabled
 spec:
   accessModes:
   - ReadWriteOnce
