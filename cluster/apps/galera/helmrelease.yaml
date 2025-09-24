@@ -182,6 +182,12 @@ spec:
     podAntiAffinityPreset: hard
     nodeSelector:
       kubernetes.io/arch: amd64
+    resourcesPreset: "none"
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        memory: 1Gi
   valuesFrom:
     - kind: Secret
       name: galera-helm-values
