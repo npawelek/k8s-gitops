@@ -285,3 +285,17 @@ data:
       overrides:
         tv_show_name: Brian Lagerstrom
         download_after: "20231231"
+    bellular_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@Bellular.Warcraft/videos"
+      overrides:
+        tv_show_name: Bellular Warcraft
+        download_after: "20250901"
+    taliesin_evitel_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@TaliesinEvitel/videos"
+      overrides:
+        tv_show_name: Taliesin & Evitel
+        download_after: "20250901"
