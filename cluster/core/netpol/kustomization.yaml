@@ -23,7 +23,6 @@ resources:
 - ./rclone.yaml
 - ./nginx.yaml
 - ./uptime.yaml
-- ./emqx.yaml
 - ./jellyfin.yaml
 - ./jellyseerr.yaml
 - ./autoscan.yaml
