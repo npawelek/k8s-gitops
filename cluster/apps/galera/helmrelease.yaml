@@ -72,6 +72,9 @@ spec:
       accessModes:
         - ReadWriteOnce
       size: 20Gi
+      labels:
+        recurring-job-group.longhorn.io/backup-12h: enabled
+        recurring-job-group.longhorn.io/default: enabled
     mariadbConfiguration: |-
       [client]
       port=3306

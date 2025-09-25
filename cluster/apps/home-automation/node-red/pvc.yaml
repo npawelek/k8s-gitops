@@ -6,7 +6,7 @@ metadata:
   namespace: home-automation
   labels:
     recurring-job-group.longhorn.io/backup-6h: enabled
-    recurring-job-group.longhorn.io/default: disabled
+    recurring-job-group.longhorn.io/default: enabled
 spec:
   accessModes:
   - ReadWriteOnce

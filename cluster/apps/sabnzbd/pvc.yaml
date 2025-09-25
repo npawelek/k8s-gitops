@@ -6,7 +6,7 @@ metadata:
   namespace: sabnzbd
   labels:
     recurring-job-group.longhorn.io/backup-24h: enabled
-    recurring-job-group.longhorn.io/default: disabled
+    recurring-job-group.longhorn.io/default: enabled
 spec:
   accessModes:
   - ReadWriteOnce
