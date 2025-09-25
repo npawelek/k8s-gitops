@@ -288,7 +288,7 @@ data:
     bellular_channel:
       preset: "yt_channel"
       download:
-        url: "https://www.youtube.com/@Bellular.Warcraft/videos"
+        url: "https://www.youtube.com/channel/UCwiaPYufmQOq5F1TI-FzQhw"
       overrides:
         tv_show_name: Bellular Warcraft
         download_after: "20250901"
