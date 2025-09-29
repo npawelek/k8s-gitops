@@ -83,7 +83,7 @@ spec:
           main:
             image:
               repository: adguard/adguardhome
-              tag: v0.107.66
+              tag: v0.107.67
 
             args:
               # - /opt/adguardhome/AdGuardHome
