@@ -299,3 +299,10 @@ data:
       overrides:
         tv_show_name: Taliesin & Evitel
         download_after: "20250901"
+    quazii_channel:
+      preset: "yt_channel"
+      download:
+        url: "https://www.youtube.com/@quaziiwow/videos"
+      overrides:
+        tv_show_name: Quazii
+        download_after: "20250901"
