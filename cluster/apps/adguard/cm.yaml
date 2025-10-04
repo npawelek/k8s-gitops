@@ -261,6 +261,7 @@ data:
         id: 1656368655
     whitelist_filters: []
     user_rules:
+      - '||ctupdate.skyport.io^'
       - '||metrics.icloud.com^'
       - '||collector.tinybeans.com^'
       - '||min-api.cryptocompare.com^'
