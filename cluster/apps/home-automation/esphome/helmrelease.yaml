@@ -85,11 +85,13 @@ spec:
                 containerPort: 8080
                 protocol: TCP
 
-        # podSecurityContext:
-        #   runAsUser: 568
-        #   runAsGroup: 568
-        #   fsGroup: 568
-        #   fsGroupChangePolicy: "OnRootMismatch"
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+
+        podSecurityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: "OnRootMismatch"
 
     defaultPodOptions:
       hostNetwork: true
