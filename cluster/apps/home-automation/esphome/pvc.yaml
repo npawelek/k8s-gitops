@@ -14,3 +14,19 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: esphome-cache
+  namespace: home-automation
+  labels:
+    recurring-job-group.longhorn.io/backup-24h: enabled
+    recurring-job-group.longhorn.io/default: enabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 15Gi
+  storageClassName: longhorn

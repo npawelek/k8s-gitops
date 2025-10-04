@@ -161,9 +161,7 @@ spec:
     persistence:
       cache:
         type: persistentVolumeClaim
-        size: 10Gi
-        accessMode: ReadWriteOnce
-        storageClass: longhorn
+        existingClaim: esphome-cache
         globalMounts:
           - path: /cache
       config:
