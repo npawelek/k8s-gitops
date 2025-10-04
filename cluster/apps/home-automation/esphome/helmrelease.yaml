@@ -93,13 +93,12 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
 
-        podSecurityContext:
-          fsGroup: 1000
-          fsGroupChangePolicy: "Always"
-
     defaultPodOptions:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "Always"
 
     service:
       main:
