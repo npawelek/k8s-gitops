@@ -52,19 +52,20 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
 
         initContainers:
-          init-dirs:
+          init-config:
             image:
-              repository: docker.io/library/alpine
-              tag: 3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
-              pullPolicy: IfNotPresent
-            securityContext:
-              runAsUser: 0
+              repository: busybox
+              tag: latest
             command:
               - /bin/sh
               - -c
               - |
                 mkdir -p /config/extras/yt-dlp-configs
+                cp /tmp/configmap-data/*.txt /config/extras/yt-dlp-configs/
                 chown -R 568:568 /config/extras
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
 
         containers:
           main:
@@ -132,8 +133,5 @@ spec:
       yt-dlp-config:
         type: configMap
         name: pinchflat-custom-config
-        advancedMounts:
-          main:
-            yt-dlp-config:
-              - path: /config/extras/yt-dlp-configs/media-profile-1-config.txt
-                subPath: media-profile-1-config.txt
+        globalMounts:
+          - path: /tmp/configmap-data
