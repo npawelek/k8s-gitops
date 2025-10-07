@@ -7,4 +7,5 @@ metadata:
 data:
   media-profile-1-config.txt: |-
     --format "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)"
+    --format-sort "codec:h264:h265:vp9:av01"
     --ignore-errors
