@@ -78,14 +78,12 @@ spec:
         - port: 53
           protocol: TCP
     - to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
-            except:
-            - 10.0.0.0/8
-            - 172.16.0.0/12
-            - 192.168.0.0/16
+        - namespaceSelector:
+            matchLabels:
+              ns: sabnzbd
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: sabnzbd
       ports:
-        - port: 80
-          protocol: TCP
-        - port: 443
+        - port: 8888
           protocol: TCP
