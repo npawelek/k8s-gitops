@@ -5,6 +5,6 @@ metadata:
   name: pinchflat-custom-config
   namespace: pinchflat
 data:
-  base-config.txt: |-
-    # Force H.264/H.265 codecs, avoid VP9/AV1
+  media-profile-1-config.txt: |-
     --format "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)"
+    --ignore-errors
