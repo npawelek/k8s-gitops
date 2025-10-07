@@ -61,6 +61,7 @@ spec:
               - -c
               - |
                 mkdir -p /config/extras/yt-dlp-configs
+                rm -f /config/extras/yt-dlp-configs/*.txt
                 cp /tmp/configmap-data/*.txt /config/extras/yt-dlp-configs/
                 chown -R 568:568 /config/extras
             securityContext:
@@ -133,5 +134,7 @@ spec:
       yt-dlp-config:
         type: configMap
         name: pinchflat-custom-config
-        globalMounts:
-          - path: /tmp/configmap-data
+        advancedMounts:
+          main:
+            init-config:
+              - path: /tmp/configmap-data
