@@ -114,3 +114,9 @@ spec:
         path: /volume1/media/youtube2
         globalMounts:
           - path: /downloads
+      yt-dlp-config:
+        type: configMap
+        name: pinchflat-custom-config
+        globalMounts:
+          - path: /config/extras/yt-dlp-configs/base-config.txt
+            subPath: base-config.txt
