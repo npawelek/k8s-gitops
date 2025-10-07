@@ -51,6 +51,19 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
 
+        initContainers:
+          init-dirs:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.22.1@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - |
+                mkdir -p /config/extras/yt-dlp-configs
+                chown -R 568:568 /config/extras
+
         containers:
           main:
             image:
