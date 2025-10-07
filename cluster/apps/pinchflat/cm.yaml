@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pinchflat-custom-config
+  namespace: pinchflat
+data:
+  base-config.txt: |-
+    # Force H.264/H.265 codecs, avoid VP9/AV1
+    --format "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)"
