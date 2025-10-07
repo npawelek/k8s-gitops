@@ -15,6 +15,7 @@ resources:
 - metrics-server
 - nginx
 - ntpd
+- pinchflat
 - prowlarr
 - radarr
 - rclone

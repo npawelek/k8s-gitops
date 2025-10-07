@@ -409,6 +409,16 @@ spec:
     - port: 6767
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: pinchflat
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: pinchflat
+    ports:
+    - port: 8945
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

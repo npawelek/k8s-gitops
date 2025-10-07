@@ -25,6 +25,7 @@ resources:
 - ./recyclarr.yaml
 - ./sabnzbd.yaml
 - ./ntpd.yaml
+- ./pinchflat.yaml
 - ./aws-ddns.yaml
 - ./speedtest.yaml
 - ./bazarr.yaml
