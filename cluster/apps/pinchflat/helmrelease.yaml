@@ -134,5 +134,6 @@ spec:
         name: pinchflat-custom-config
         advancedMounts:
           main:
-            - path: /config/extras/yt-dlp-configs/media-profile-1-config.txt
-              subPath: media-profile-1-config.txt
+            yt-dlp-config:
+              - path: /config/extras/yt-dlp-configs/media-profile-1-config.txt
+                subPath: media-profile-1-config.txt
