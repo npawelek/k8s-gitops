@@ -51,23 +51,6 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
 
-        initContainers:
-          init-config:
-            image:
-              repository: busybox
-              tag: latest
-            command:
-              - /bin/sh
-              - -c
-              - |
-                mkdir -p /config/extras/yt-dlp-configs
-                rm -f /config/extras/yt-dlp-configs/*.txt
-                cp /tmp/configmap-data/*.txt /config/extras/yt-dlp-configs/
-                chown -R 568:568 /config/extras
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-
         containers:
           main:
             image:
@@ -131,10 +114,3 @@ spec:
         path: /volume1/media/youtube2
         globalMounts:
           - path: /downloads
-      yt-dlp-config:
-        type: configMap
-        name: pinchflat-custom-config
-        advancedMounts:
-          main:
-            init-config:
-              - path: /tmp/configmap-data

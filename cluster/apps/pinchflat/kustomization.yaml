@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: pinchflat
 resources:
 - ./pvc.yaml
-- ./cm.yaml
 - ./helmrelease.yaml

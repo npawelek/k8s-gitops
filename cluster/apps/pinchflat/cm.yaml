@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: pinchflat-custom-config
-  namespace: pinchflat
-data:
-  media-profile-1-config.txt: |-
-    -f "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)" --format-sort "vcodec:h264:h265:vp9:av01" --ignore-errors
