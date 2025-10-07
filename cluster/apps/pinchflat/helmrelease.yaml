@@ -58,6 +58,9 @@ spec:
               tag: latest@sha256:01b4f98aabaf3f5fe394213f7a32578c9e84e42080f52e2f8334021a4473b202
 
             env:
+              http_proxy: ${HTTP_PROXY}
+              https_proxy: ${HTTP_PROXY}
+              no_proxy: ${NO_PROXY}
               TZ: ${TIMEZONE}
 
             resources:
@@ -65,7 +68,7 @@ spec:
                 cpu: 100m
                 memory: 128M
               limits:
-                memory: 32G
+                memory: 8G
 
     service:
       main:
@@ -105,14 +108,9 @@ spec:
         existingClaim: pinchflat-config
         globalMounts:
           - path: /config
-      library:
+      downloads:
         type: nfs
         server: ${RACKNAS_ADDR}
         path: /volume1/media/youtube2
-        globalMounts:
-          - path: /library/youtube2
-      downloads:
-        type: emptyDir
-        medium: Memory
         globalMounts:
           - path: /downloads
