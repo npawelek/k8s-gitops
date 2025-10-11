@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloudnative-pg
+  labels:
+    name: cloudnative-pg
