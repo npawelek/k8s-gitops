@@ -25,7 +25,7 @@ spec:
     image:
       registry: public.ecr.aws
       repository: bitnami/nginx
-      tag: 1.25.4
+      tag: 1.29.2
     replicaCount: 1
     service:
       type: ClusterIP
