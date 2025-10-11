@@ -6,7 +6,7 @@ resources:
 - sealed-secrets
 - flux
 - cert-manager
-- cloudnative-pg
+- cnpg-system
 - metallb
 - netpol
 - node-feature-discovery

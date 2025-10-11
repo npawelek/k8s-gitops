@@ -7,7 +7,7 @@ resources:
 - ./traefik.yaml
 - ./metallb.yaml
 - ./longhorn-system.yaml
-- ./cloudnative-pg.yaml
+- ./cnpg-system.yaml
 - ./adguard.yaml
 - ./hajimari.yaml
 - ./galera.yaml
