@@ -80,8 +80,6 @@ spec:
     persistence:
       data:
         type: persistentVolumeClaim
-        size: 5Gi
-        accessMode: ReadWriteOnce
-        storageClass: longhorn
+        existingClaim: piper-data
         globalMounts:
           - path: /data
