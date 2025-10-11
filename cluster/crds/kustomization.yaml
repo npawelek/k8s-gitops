@@ -5,3 +5,4 @@ resources:
 - sealed-secrets
 - cert-manager
 - traefik
+- cloudnative-pg
