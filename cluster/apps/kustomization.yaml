@@ -8,6 +8,7 @@ resources:
 - autoscan
 - bazarr
 - galera
+- pg
 - hajimari
 - home-automation
 - jellyfin
