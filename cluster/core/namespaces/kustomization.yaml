@@ -30,3 +30,4 @@ resources:
 - ./aws-ddns.yaml
 - ./speedtest.yaml
 - ./bazarr.yaml
+- ./pg.yaml
