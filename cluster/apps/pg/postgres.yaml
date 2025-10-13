@@ -27,7 +27,6 @@ spec:
       max_wal_size: "4GB"
       log_statement: "none"
       log_min_duration_statement: "500"
-      ssl: "on"
       password_encryption: "scram-sha-256"
 
     pg_hba:
@@ -46,9 +45,6 @@ spec:
       owner: hass
       secret:
         name: credentials-hass
-
-  certificates:
-    serverTLSSecret: nathanpawelek-com-tls
 
   enableSuperuserAccess: true
   superuserSecret:
