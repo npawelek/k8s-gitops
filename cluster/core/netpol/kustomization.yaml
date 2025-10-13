@@ -8,6 +8,7 @@ resources:
 - ./adguard.yaml
 - ./hajimari.yaml
 - ./galera.yaml
+- ./ghostfolio.yaml
 - ./sonarr.yaml
 - ./sonarr-anime.yaml
 - ./sonarr-remux.yaml
