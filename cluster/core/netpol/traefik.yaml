@@ -419,6 +419,16 @@ spec:
     - port: 8945
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: ghostfolio
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ghostfolio
+    ports:
+    - port: 3333
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
