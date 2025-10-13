@@ -1,0 +1,24 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-tls
+spec:
+  secretName: postgres-tls
+  duration: 2160h
+  renewBefore: 576h
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
+  usages:
+    - server auth
+  dnsNames:
+    - postgres-external-rw.${DOMAIN}
+    - postgres-rw
+    - postgres-rw.pg
+    - postgres-rw.pg.svc
+    - postgres-rw.pg.svc.cluster.local

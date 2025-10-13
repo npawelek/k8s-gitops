@@ -28,6 +28,7 @@ spec:
       log_statement: "none"
       log_min_duration_statement: "500"
       password_encryption: "scram-sha-256"
+      ssl_min_protocol_version: "TLSv1.2"
 
     pg_hba:
       - local all all scram-sha-256
@@ -45,6 +46,10 @@ spec:
       owner: hass
       secret:
         name: credentials-hass
+
+  certificates:
+    serverTLSSecret: postgres-tls
+    serverCASecret: postgres-tls
 
   enableSuperuserAccess: true
   superuserSecret:
