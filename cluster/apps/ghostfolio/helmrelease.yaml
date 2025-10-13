@@ -55,7 +55,7 @@ spec:
           main:
             image:
               repository: ghostfolio/ghostfolio
-              tag: 2.130.0
+              tag: 2.208.0
 
             env:
               TZ: ${TIMEZONE}
