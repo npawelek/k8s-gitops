@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./postgres.yaml
   - ./secrets.yaml
-  - ./service.yaml
