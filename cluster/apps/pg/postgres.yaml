@@ -45,6 +45,7 @@ spec:
       secret:
         name: credentials-hass
 
+  enableSuperuserAccess: true
   superuserSecret:
     name: credentials-admin
 
