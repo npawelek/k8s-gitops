@@ -47,10 +47,6 @@ spec:
       secret:
         name: credentials-hass
 
-  certificates:
-    serverTLSSecret: postgres-tls
-    serverCASecret: postgres-tls
-
   enableSuperuserAccess: true
   superuserSecret:
     name: credentials-admin
