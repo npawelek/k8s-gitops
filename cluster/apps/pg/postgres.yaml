@@ -38,6 +38,13 @@ spec:
       - host all all 192.168.30.99/32 md5
       - host all all 192.168.30.100/32 md5
 
+  bootstrap:
+    initdb:
+      database: hass
+      owner: hass
+      secret:
+        name: credentials-hass
+
   enableSuperuserAccess: true
   superuserSecret:
     name: credentials-admin
