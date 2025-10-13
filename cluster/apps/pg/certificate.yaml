@@ -3,6 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: postgres-tls
+  namespace: pg
 spec:
   secretName: postgres-tls
   duration: 2160h
