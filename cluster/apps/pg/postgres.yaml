@@ -38,13 +38,6 @@ spec:
       - host all all 192.168.30.99/32 md5
       - host all all 192.168.30.100/32 md5
 
-  bootstrap:
-    initdb:
-      database: hass
-      owner: hass
-      secret:
-        name: credentials-hass
-
   enableSuperuserAccess: true
   superuserSecret:
     name: credentials-admin
@@ -54,6 +47,58 @@ spec:
     storageClass: longhorn
 
   managed:
+    roles:
+      - name: hass
+        ensure: present
+        passwordSecret:
+          name: credentials-hass
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+      - name: authentik
+        ensure: present
+        passwordSecret:
+          name: credentials-authentik
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+      - name: jellystat
+        ensure: present
+        passwordSecret:
+          name: credentials-jellystat
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+      - name: immich
+        ensure: present
+        passwordSecret:
+          name: credentials-immich
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+      - name: ghostfolio
+        ensure: present
+        passwordSecret:
+          name: credentials-ghostfolio
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+
     services:
       disabledDefaultServices: ["ro", "r"]
       additional:
