@@ -27,16 +27,18 @@ spec:
       max_wal_size: "4GB"
       log_statement: "none"
       log_min_duration_statement: "500"
+      ssl: "on"
+      password_encryption: "scram-sha-256"
 
     pg_hba:
-      - local all all md5
-      - host all all 127.0.0.1/32 md5
-      - host all all ::1/128 md5
-      - host all all 10.32.0.0/12 md5
-      - host all all 192.168.0.0/24 md5
-      - host all all 192.168.30.98/32 md5
-      - host all all 192.168.30.99/32 md5
-      - host all all 192.168.30.100/32 md5
+      - local all all scram-sha-256
+      - hostssl all all 127.0.0.1/32 scram-sha-256
+      - hostssl all all ::1/128 scram-sha-256
+      - hostssl all all 10.32.0.0/12 scram-sha-256
+      - hostssl all all 192.168.0.0/24 scram-sha-256
+      - hostssl all all 192.168.30.98/32 scram-sha-256
+      - hostssl all all 192.168.30.99/32 scram-sha-256
+      - hostssl all all 192.168.30.100/32 scram-sha-256
 
   bootstrap:
     initdb:
@@ -44,6 +46,9 @@ spec:
       owner: hass
       secret:
         name: credentials-hass
+
+  certificates:
+    serverTLSSecret: nathanpawelek-com-tls
 
   enableSuperuserAccess: true
   superuserSecret:
