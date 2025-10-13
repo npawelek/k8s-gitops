@@ -53,6 +53,20 @@ spec:
     size: 30Gi
     storageClass: longhorn
 
+  managed:
+    services:
+      disabledDefaultServices: ["ro", "r"]
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: "postgres-external-rw"
+              annotations:
+                metallb.universe.tf/loadBalancerIPs: ${CNPG_LB}
+            spec:
+              type: LoadBalancer
+              externalTrafficPolicy: Local
+
   monitoring:
     enablePodMonitor: false
 
