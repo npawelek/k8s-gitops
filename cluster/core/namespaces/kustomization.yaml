@@ -21,7 +21,6 @@ resources:
 - ./jellyseerr.yaml
 - ./unmanic.yaml
 - ./autoscan.yaml
-- ./ytdl-sub.yaml
 - ./prowlarr.yaml
 - ./recyclarr.yaml
 - ./sabnzbd.yaml

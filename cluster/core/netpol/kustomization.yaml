@@ -26,7 +26,6 @@ resources:
 - ./jellyfin.yaml
 - ./jellyseerr.yaml
 - ./autoscan.yaml
-- ./ytdl-sub.yaml
 - ./prowlarr.yaml
 - ./recyclarr.yaml
 - ./sabnzbd.yaml
