@@ -11,7 +11,6 @@ resources:
 - ./adguard.yaml
 - ./hajimari.yaml
 - ./galera.yaml
-- ./ghostfolio.yaml
 - ./sonarr.yaml
 - ./radarr.yaml
 - ./home-automation.yaml
