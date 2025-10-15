@@ -97,16 +97,6 @@ spec:
         createrole: false
         replication: false
         bypassrls: false
-      - name: ghostfolio
-        ensure: present
-        passwordSecret:
-          name: credentials-ghostfolio
-        login: true
-        createdb: true
-        superuser: false
-        createrole: false
-        replication: false
-        bypassrls: false
 
     services:
       disabledDefaultServices: ["ro", "r"]
