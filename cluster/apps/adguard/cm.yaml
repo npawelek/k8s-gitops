@@ -355,10 +355,12 @@ data:
           tags:
             - user_admin
           ids:
+            - 192.168.30.98
             - 192.168.30.99
             - 192.168.30.100
             - 192.168.30.101
             - 192.168.30.102
+            - 192.168.30.103
           blocked_services:
             schedule:
               time_zone: America/Chicago
