@@ -87,16 +87,6 @@ spec:
         createrole: false
         replication: false
         bypassrls: false
-      - name: immich
-        ensure: present
-        passwordSecret:
-          name: credentials-immich
-        login: true
-        createdb: true
-        superuser: false
-        createrole: false
-        replication: false
-        bypassrls: false
 
     services:
       disabledDefaultServices: ["ro", "r"]
