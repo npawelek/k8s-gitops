@@ -1,0 +1,98 @@
+---
+# https://cloudnative-pg.io/documentation/1.18/samples/cluster-example-full.yaml
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: immich
+spec:
+  instances: 2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.5.3@sha256:bc5fbeba82a75de3f25d06b1dda8a7de42711ab2a0adcfca140d8344bf4d1b62
+  primaryUpdateStrategy: unsupervised
+  startDelay: 300
+
+  postgresql:
+    parameters:
+      autovacuum_vacuum_scale_factor: "0.1"
+      autovacuum_analyze_scale_factor: "0.05"
+      autovacuum_vacuum_cost_limit: "1000"
+      max_connections: "200"
+      shared_buffers: "512MB"
+      effective_cache_size: "2GB"
+      maintenance_work_mem: "128MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "32MB"
+      wal_compression: "on"
+      default_statistics_target: "100"
+      random_page_cost: "1.0"
+      effective_io_concurrency: "200"
+      work_mem: "16MB"
+      min_wal_size: "1GB"
+      max_wal_size: "5GB"
+      log_statement: "none"
+      log_min_duration_statement: "500"
+      password_encryption: "scram-sha-256"
+      ssl_min_protocol_version: "TLSv1.2"
+      search_path: '"$user", public'
+    shared_preload_libraries:
+      - "vchord.so"
+
+    pg_hba:
+      - local all all scram-sha-256
+      - hostssl all all 127.0.0.1/32 scram-sha-256
+      - hostssl all all ::1/128 scram-sha-256
+      - hostssl all all 10.32.0.0/12 scram-sha-256
+      - hostssl all all 192.168.0.0/24 scram-sha-256
+      - hostssl all all 192.168.30.98/32 scram-sha-256
+      - hostssl all all 192.168.30.99/32 scram-sha-256
+      - hostssl all all 192.168.30.100/32 scram-sha-256
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      secret:
+        name: credentials-immich
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: credentials-admin
+
+  storage:
+    size: 15Gi
+    storageClass: longhorn
+
+  managed:
+    roles:
+      - name: immich
+        ensure: present
+        passwordSecret:
+          name: credentials-immich
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
+
+    services:
+      disabledDefaultServices: ["ro", "r"]
+
+  monitoring:
+    enablePodMonitor: false
+
+  affinity:
+    enablePodAntiAffinity: true
+    podAntiAffinityType: required
+    topologyKey: kubernetes.io/hostname
+
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+    limits:
+      memory: 4Gi
+      cpu: 2000m

@@ -30,3 +30,4 @@ resources:
 - ./speedtest.yaml
 - ./bazarr.yaml
 - ./pg.yaml
+- ./immich.yaml

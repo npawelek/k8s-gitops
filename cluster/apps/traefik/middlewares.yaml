@@ -73,8 +73,8 @@ metadata:
 spec:
   chain:
     middlewares:
-    - name: traefik-sso
-    - name: default-headers
+      - name: traefik-sso
+      - name: default-headers
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -84,8 +84,8 @@ metadata:
 spec:
   chain:
     middlewares:
-    - name: default-compress
-    - name: default-headers
+      - name: default-compress
+      - name: default-headers
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -95,8 +95,8 @@ metadata:
 spec:
   chain:
     middlewares:
-    - name: default-compress
-    - name: http-headers
+      - name: default-compress
+      - name: http-headers
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -110,13 +110,22 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: immich-body-size
+  namespace: traefik
+spec:
+  buffering:
+    maxRequestBodyBytes: 0 # Remove body size limit for photo uploads
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: ext-speedtest-middlewares-chain
   namespace: traefik
 spec:
   chain:
     middlewares:
-    - name: default-headers
-    - name: speedtest-buffering
+      - name: default-headers
+      - name: speedtest-buffering
 # ---
 # apiVersion: traefik.io/v1alpha1
 # kind: Middleware

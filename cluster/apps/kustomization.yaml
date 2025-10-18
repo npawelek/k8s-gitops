@@ -2,29 +2,30 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- adguard
-# - authentik
-- aws-ddns
-- autoscan
-- bazarr
-- galera
-- pg
-- hajimari
-- home-automation
-- jellyfin
-- jellyseerr
-- metrics-server
-- nginx
-- ntpd
-- pinchflat
-- prowlarr
-- radarr
-- rclone
-- recyclarr
-- sabnzbd
-- sonarr
-- speedtest
-- traefik
-- traefik-forward-auth
-- unmanic
-- uptime
+  - adguard
+  # - authentik
+  - aws-ddns
+  - autoscan
+  - bazarr
+  - galera
+  - pg
+  - hajimari
+  - home-automation
+  - immich
+  - jellyfin
+  - jellyseerr
+  - metrics-server
+  - nginx
+  - ntpd
+  - pinchflat
+  - prowlarr
+  - radarr
+  - rclone
+  - recyclarr
+  - sabnzbd
+  - sonarr
+  - speedtest
+  - traefik
+  - traefik-forward-auth
+  - unmanic
+  - uptime

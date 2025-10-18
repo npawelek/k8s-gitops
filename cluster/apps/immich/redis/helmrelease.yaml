@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich-redis
+  namespace: immich
+spec:
+  interval: 1h
+  maxHistory: 3
+
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          main:
+            image:
+              repository: valkey/valkey
+              tag: 8.1.4-alpine@sha256:e706d1213aaba6896c162bb6a3a9e1894e1a435f28f8f856d14fab2e10aa098b
+
+            env:
+              TZ: ${TIMEZONE}
+
+            command:
+              - valkey-server
+              - --bind
+              - "0.0.0.0"
+              - --aclfile
+              - /etc/redis/users.acl
+              - --save
+              - "60"
+              - "1"
+              - --loglevel
+              - warning
+
+            resources:
+              requests:
+                cpu: 50m
+                memory: 64M
+              limits:
+                memory: 512M
+
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 6379
+            protocol: TCP
+
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        existingClaim: immich-redis-data
+        globalMounts:
+          - path: /data
+      acl-config:
+        type: secret
+        name: immich-redis-acl
+        globalMounts:
+          - path: /etc/redis/users.acl
+            subPath: users.acl
+            readOnly: true

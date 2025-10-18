@@ -421,6 +421,26 @@ spec:
     - port: 8945
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: immich
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: immich-server
+    ports:
+    - port: 2283
+      protocol: TCP
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: immich
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: immich-pgadmin
+    ports:
+    - port: 80
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

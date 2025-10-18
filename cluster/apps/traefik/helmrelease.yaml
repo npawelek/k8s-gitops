@@ -61,6 +61,11 @@ spec:
         exposedPort: 443
         port: 8443
         protocol: TCP
+        # Increase timeout for large file uploads (like Immich videos)
+        respondingTimeouts:
+          readTimeout: 600s
+          writeTimeout: 600s
+          idleTimeout: 600s
     service:
       enabled: true
       type: LoadBalancer
