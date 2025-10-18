@@ -64,7 +64,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               IMMICH_ENV: production
-              IMMICH_LOG_LEVEL: log
+              IMMICH_LOG_LEVEL: debug
               IMMICH_PORT: 2283
 
             envFrom:
