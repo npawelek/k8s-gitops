@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: immich
   labels:
-    name: immich
+    ns: immich
