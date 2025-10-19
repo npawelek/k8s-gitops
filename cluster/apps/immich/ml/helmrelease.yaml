@@ -79,6 +79,8 @@ spec:
               MACHINE_LEARNING_CACHE_FOLDER: /cache
               MACHINE_LEARNING_REQUEST_THREADS: 4
               MACHINE_LEARNING_MAX_BATCH_SIZE__FACIAL_RECOGNITION: 1
+              MACHINE_LEARNING_MODEL_TTL: 300
+              MACHINE_LEARNING_WORKERS: 1
 
             resources:
               requests:
@@ -86,7 +88,7 @@ spec:
                 memory: 1G
                 gpu.intel.com/i915: 1
               limits:
-                memory: 6G
+                memory: 8G
                 cpu: 4000m
                 gpu.intel.com/i915: 1
 
@@ -104,3 +106,13 @@ spec:
         existingClaim: immich-ml-cache
         globalMounts:
           - path: /cache
+      dot-cache:
+        type: persistentVolumeClaim
+        existingClaim: immich-ml-dot-cache
+        globalMounts:
+          - path: /.cache
+      dot-config:
+        type: persistentVolumeClaim
+        existingClaim: immich-ml-dot-config
+        globalMounts:
+          - path: /.config
