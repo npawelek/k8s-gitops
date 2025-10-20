@@ -54,6 +54,11 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
+            # Required for passthrough of /dev/dri devices from NFD
+            supplementalGroups:
+              - 44 # video group
+              - 104 # render group
+              - 109 # render group (additional)
 
         containers:
           main:
@@ -77,7 +82,7 @@ spec:
                 memory: 512M
                 gpu.intel.com/i915: 1
               limits:
-                memory: 2G
+                memory: 4G
                 gpu.intel.com/i915: 1
 
     service:
