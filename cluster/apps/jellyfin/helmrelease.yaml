@@ -65,7 +65,7 @@ spec:
               # repository: ghcr.io/onedr0p/jellyfin
               # tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
               repository: jellyfin/jellyfin
-              tag: 10.11.0@sha256:59417f441213e236a9f907d4e71a13472042409d85f9e9310dbdd87ee33d7bd4
+              tag: 10.10.7@sha256:7ae36aab93ef9b6aaff02b37f8bb23df84bb2d7a3f6054ec8fc466072a648ce2
             
             env:
               http_proxy: ${HTTP_PROXY}
