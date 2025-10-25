@@ -42,7 +42,7 @@ spec:
   values:
     controllers:
       main:
-        type: deployment
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -113,8 +113,6 @@ spec:
     persistence:
       backup:
         type: persistentVolumeClaim
-        size: 5Gi
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
+        existingClaim: backup-jellystat-0
         globalMounts:
           - path: /app/backend/backup-location

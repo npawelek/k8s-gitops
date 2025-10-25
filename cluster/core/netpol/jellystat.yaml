@@ -93,7 +93,7 @@ spec:
               ns: pg
           podSelector:
             matchLabels:
-              postgresql: postgres
+              cnpg.io/cluster: postgres
       ports:
         - port: 5432
           protocol: TCP
