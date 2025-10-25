@@ -42,10 +42,10 @@ spec:
 
   bootstrap:
     initdb:
-      database: hass
-      owner: hass
+      database: postgres
+      owner: postgres
       secret:
-        name: credentials-hass
+        name: credentials-admin
 
   enableSuperuserAccess: true
   superuserSecret:
