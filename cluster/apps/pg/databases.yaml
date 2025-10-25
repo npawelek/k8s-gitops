@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: jellystat
+  namespace: pg
+spec:
+  name: jellystat
+  owner: jellystat
+  cluster:
+    name: postgres
