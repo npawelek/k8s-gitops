@@ -13,6 +13,7 @@ resources:
   - home-automation
   - immich
   - jellyfin
+  - jellystat
   - jellyseerr
   - metrics-server
   - nginx

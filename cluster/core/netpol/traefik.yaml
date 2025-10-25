@@ -441,6 +441,16 @@ spec:
     - port: 80
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: jellystat
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jellystat
+    ports:
+    - port: 3000
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

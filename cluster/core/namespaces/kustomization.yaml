@@ -31,3 +31,4 @@ resources:
 - ./bazarr.yaml
 - ./pg.yaml
 - ./immich.yaml
+- ./jellystat.yaml

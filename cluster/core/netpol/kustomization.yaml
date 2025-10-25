@@ -37,3 +37,4 @@ resources:
 - ./speedtest.yaml
 - ./bazarr.yaml
 - ./fireboard2mqtt.yaml
+- ./jellystat.yaml
