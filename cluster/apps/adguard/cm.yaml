@@ -109,29 +109,47 @@ data:
       blocked_response_ttl: 300
       parental_block_host: family-block.dns.adguard.com
       safebrowsing_block_host: standard-block.dns.adguard.com
+      rewrites_enabled: true
       rewrites:
         - domain: udmp.nathanpawelek.com
           answer: 192.168.0.1
+          enabled: true
         - domain: adguard.nathanpawelek.com
           answer: 192.168.0.15
+          enabled: true
         - domain: hajimari.nathanpawelek.com
           answer: 192.168.0.15
+          enabled: true
         - domain: hass.nathanpawelek.com
           answer: 192.168.0.15
+          enabled: true
         - domain: hyp-samsung55.nathanpawelek.com
           answer: 192.168.10.130
+          enabled: true
         - domain: in.nathanpawelek.com
           answer: 192.168.0.15
+          enabled: true
         - domain: jellyfin.nathanpawelek.com
           answer: 192.168.0.15
+          enabled: true
+        - domain: immich.nathanpawelek.com
+          answer: 192.168.0.15
+          enabled: true
         - domain: mqtt.nathanpawelek.com
           answer: 192.168.0.14
+          enabled: true
         - domain: ntp.nathanpawelek.com
           answer: 192.168.0.12
+          enabled: true
+        - domain: postgres-external-rw.nathanpawelek.com
+          answer: 192.168.0.11
+          enabled: true
         - domain: racknas.nathanpawelek.com
           answer: 192.168.0.151
+          enabled: true
         - domain: auth.itscontained.dev
           answer: 192.168.0.20
+          enabled: true
       blocked_services:
         schedule:
           time_zone: America/Chicago
@@ -420,4 +438,4 @@ data:
       group: ""
       user: ""
       rlimit_nofile: 0
-    schema_version: 28
+    schema_version: 31
