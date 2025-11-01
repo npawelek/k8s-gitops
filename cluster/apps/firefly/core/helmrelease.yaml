@@ -51,7 +51,7 @@ spec:
           main:
             image:
               repository: fireflyiii/core
-              tag: version-6.4.3@sha256:bffec48c08cee69460deed6e132b8c73b5cedbff91c0c53a5b3e7042385d26bd
+              tag: version-6.4.3@sha256:7b4858314e746998559e435c35bd1e04a8317d3906f74992b3337fb75c453759
             
             env:
               TZ: ${TIMEZONE}
