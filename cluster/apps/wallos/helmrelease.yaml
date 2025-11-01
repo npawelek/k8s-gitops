@@ -95,8 +95,13 @@ spec:
           secretName: nathanpawelek-com-tls
 
     persistence:
+      db:
+        type: persistentVolumeClaim
+        existingClaim: wallos-db
+        globalMounts:
+          - path: /var/www/html/db
       data:
         type: persistentVolumeClaim
-        existingClaim: wallos-data
+        existingClaim: wallos-logos
         globalMounts:
-          - path: /var/www/html
+          - path: /var/www/html/images/uploads/logos
