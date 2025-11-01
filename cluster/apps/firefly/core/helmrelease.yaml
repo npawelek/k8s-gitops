@@ -13,8 +13,6 @@ spec:
     namespace: longhorn-system
   - name: traefik
     namespace: traefik
-  - name: galera
-    namespace: galera
 
   install:
     createNamespace: true
