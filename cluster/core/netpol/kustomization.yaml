@@ -38,3 +38,4 @@ resources:
 - ./bazarr.yaml
 - ./fireboard2mqtt.yaml
 - ./jellystat.yaml
+- ./wallos.yaml

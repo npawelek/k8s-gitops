@@ -32,3 +32,4 @@ resources:
 - ./pg.yaml
 - ./immich.yaml
 - ./jellystat.yaml
+- ./wallos.yaml

@@ -30,3 +30,4 @@ resources:
   - traefik-forward-auth
   - unmanic
   - uptime
+  - wallos
