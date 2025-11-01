@@ -87,6 +87,16 @@ spec:
         createrole: false
         replication: false
         bypassrls: false
+      - name: firefly
+        ensure: present
+        passwordSecret:
+          name: credentials-firefly
+        login: true
+        createdb: true
+        superuser: false
+        createrole: false
+        replication: false
+        bypassrls: false
 
     services:
       disabledDefaultServices: ["ro", "r"]
