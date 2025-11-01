@@ -1,0 +1,124 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: firefly
+  namespace: firefly
+spec:
+  interval: 1h
+  maxHistory: 3
+
+  dependsOn:
+  - name: longhorn
+    namespace: longhorn-system
+  - name: traefik
+    namespace: traefik
+  - name: galera
+    namespace: galera
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  uninstall:
+    keepHistory: false
+
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s-labs.github.io/helm-charts
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    fullnameOverride: firefly
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        containers:
+          main:
+            image:
+              repository: fireflyiii/core
+              tag: version-6.4.3@sha256:bffec48c08cee69460deed6e132b8c73b5cedbff91c0c53a5b3e7042385d26bd
+            
+            env:
+              TZ: ${TIMEZONE}
+              APP_ENV: production
+              APP_DEBUG: false
+              APP_LOG_LEVEL: notice
+              DEFAULT_LANGUAGE: en_US
+              DEFAULT_LOCALE: equal
+              TRUSTED_PROXIES: '**'
+              SEND_ERROR_MESSAGE: true
+              VALID_URL_PROTOCOLS: https
+              SEND_REPORT_JOURNALS: true
+              ENABLE_EXTERNAL_MAP: false
+              ENABLE_EXCHANGE_RATES: false
+              ENABLE_EXTERNAL_RATES: false
+              DKR_CHECK_SQLITE: false
+              USE_RUNNING_BALANCE: false
+              FIREFLY_III_LAYOUT: v1
+              QUERY_PARSER_IMPLEMENTATION: new
+              APP_URL: https://budget.${DOMAIN}
+
+            envFrom:
+              - secretRef:
+                  name: firefly-secrets
+
+            resources:
+              requests:
+                memory: 256Mi
+                cpu: 100m
+              limits:
+                memory: 1Gi
+
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 8080
+            protocol: TCP
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-default-middlewares-chain@kubernetescrd
+          traefik.ingress.kubernetes.io/router.tls.options: traefik-secure-tlsoptions@kubernetescrd
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:fire
+          hajimari.io/group: services
+        hosts:
+        - host: &host budget.${DOMAIN}
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+        tls:
+        - hosts:
+          - *host
+          secretName: nathanpawelek-com-tls
+
+    persistence:
+      upload:
+        type: persistentVolumeClaim
+        existingClaim: firefly-upload
+        globalMounts:
+          - path: /var/www/html/storage/upload

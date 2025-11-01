@@ -33,3 +33,4 @@ resources:
 - ./immich.yaml
 - ./jellystat.yaml
 - ./wallos.yaml
+- ./firefly.yaml

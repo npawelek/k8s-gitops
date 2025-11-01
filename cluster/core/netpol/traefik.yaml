@@ -461,6 +461,22 @@ spec:
     - port: 80
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: firefly
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: firefly
+    - namespaceSelector:
+        matchLabels:
+          ns: firefly
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: firefly-importer
+    ports:
+    - port: 8080
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:

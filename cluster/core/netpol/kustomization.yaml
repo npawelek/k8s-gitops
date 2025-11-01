@@ -39,3 +39,4 @@ resources:
 - ./fireboard2mqtt.yaml
 - ./jellystat.yaml
 - ./wallos.yaml
+- ./firefly.yaml
