@@ -43,7 +43,8 @@ spec:
       main:
         type: statefulset
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: true
+          secret.reloader.stakater.com/reload: firefly-secrets
         
         containers:
           main:

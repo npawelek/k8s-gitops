@@ -9,12 +9,12 @@ spec:
   maxHistory: 3
 
   dependsOn:
-  - name: longhorn
-    namespace: longhorn-system
-  - name: traefik
-    namespace: traefik
-  - name: firefly
-    namespace: firefly
+    - name: longhorn
+      namespace: longhorn-system
+    - name: traefik
+      namespace: traefik
+    - name: firefly
+      namespace: firefly
 
   install:
     createNamespace: true
@@ -46,14 +46,15 @@ spec:
       main:
         type: deployment
         annotations:
-          reloader.stakater.com/auto: "true"
-        
+          reloader.stakater.com/auto: true
+          secret.reloader.stakater.com/reload: firefly-importer-secrets
+
         containers:
           main:
             image:
               repository: fireflyiii/data-importer
               tag: version-1.9.1@sha256:40c843927de8fc92bc636394f7c6d9714ba45efbadbd840eb0b3aec7025b3ba1
-            
+
             env:
               TZ: ${TIMEZONE}
               FALLBACK_LOCALE: en_US
@@ -93,14 +94,14 @@ spec:
           hajimari.io/icon: mdi:database-import
           hajimari.io/group: services
         hosts:
-        - host: &host firefly-importer.${DOMAIN}
-          paths:
-          - path: /
-            pathType: Prefix
-            service:
-              identifier: main
-              port: http
+          - host: &host firefly-importer.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: main
+                  port: http
         tls:
-        - hosts:
-          - *host
-          secretName: nathanpawelek-com-tls
+          - hosts:
+              - *host
+            secretName: nathanpawelek-com-tls
