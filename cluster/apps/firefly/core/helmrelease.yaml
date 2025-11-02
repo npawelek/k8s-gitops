@@ -43,8 +43,8 @@ spec:
       main:
         type: statefulset
         annotations:
-          reloader.stakater.com/auto: true
-          secret.reloader.stakater.com/reload: firefly-secrets
+          reloader.stakater.com/auto: "true"
+          secret.reloader.stakater.com/reload: "firefly-secrets"
         
         containers:
           main:
@@ -54,23 +54,23 @@ spec:
             
             env:
               TZ: ${TIMEZONE}
-              APP_ENV: production
-              APP_DEBUG: false
-              APP_LOG_LEVEL: notice
-              DEFAULT_LANGUAGE: en_US
-              DEFAULT_LOCALE: equal
-              TRUSTED_PROXIES: '**'
-              SEND_ERROR_MESSAGE: true
-              VALID_URL_PROTOCOLS: https
-              SEND_REPORT_JOURNALS: true
-              ENABLE_EXTERNAL_MAP: false
-              ENABLE_EXCHANGE_RATES: false
-              ENABLE_EXTERNAL_RATES: false
-              DKR_CHECK_SQLITE: false
-              USE_RUNNING_BALANCE: false
-              FIREFLY_III_LAYOUT: v1
-              QUERY_PARSER_IMPLEMENTATION: new
-              APP_URL: https://budget.${DOMAIN}
+              APP_ENV: "production"
+              APP_DEBUG: "false"
+              APP_LOG_LEVEL: "notice"
+              DEFAULT_LANGUAGE: "en_US"
+              DEFAULT_LOCALE: "equal"
+              TRUSTED_PROXIES: "**"
+              SEND_ERROR_MESSAGE: "true"
+              VALID_URL_PROTOCOLS: "https"
+              SEND_REPORT_JOURNALS: "true"
+              ENABLE_EXTERNAL_MAP: "false"
+              ENABLE_EXCHANGE_RATES: "false"
+              ENABLE_EXTERNAL_RATES: "false"
+              DKR_CHECK_SQLITE: "false"
+              USE_RUNNING_BALANCE: "false"
+              FIREFLY_III_LAYOUT: "v1"
+              QUERY_PARSER_IMPLEMENTATION: "new"
+              APP_URL: "https://budget.${DOMAIN}"
 
             envFrom:
               - secretRef:
