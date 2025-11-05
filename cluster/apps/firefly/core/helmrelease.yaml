@@ -45,13 +45,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
           secret.reloader.stakater.com/reload: "firefly-secrets"
-        
+
         containers:
           main:
             image:
               repository: fireflyiii/core
               tag: version-6.4.3@sha256:7b4858314e746998559e435c35bd1e04a8317d3906f74992b3337fb75c453759
-            
+
             env:
               TZ: ${TIMEZONE}
               APP_ENV: "production"

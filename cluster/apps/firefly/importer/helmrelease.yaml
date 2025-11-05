@@ -58,7 +58,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               FALLBACK_LOCALE: en_US
-              LOG_LEVEL: notice
+              LOG_LEVEL: debug
               TRUSTED_PROXIES: "**"
               IGNORE_DUPLICATE_ERRORS: "false"
               IGNORE_NOT_FOUND_TRANSACTIONS: "false"
