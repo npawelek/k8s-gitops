@@ -111,6 +111,6 @@ spec:
       downloads:
         type: nfs
         server: ${RACKNAS_ADDR}
-        path: /volume1/media/youtube2
+        path: /volume1/media/Youtube
         globalMounts:
           - path: /downloads
