@@ -17,6 +17,7 @@ resources:
   - jellyseerr
   - metrics-server
   - nginx
+  - netbootxyz
   - ntpd
   - pinchflat
   - prowlarr

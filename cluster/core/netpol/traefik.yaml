@@ -477,6 +477,16 @@ spec:
     - port: 8080
       protocol: TCP
   - to:
+    - namespaceSelector:
+        matchLabels:
+          ns: netboot
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: netbootxyz
+    ports:
+    - port: 3000
+      protocol: TCP
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
         except:
