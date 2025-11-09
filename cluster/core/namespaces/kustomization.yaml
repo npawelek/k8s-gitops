@@ -16,6 +16,7 @@ resources:
 - ./home-automation.yaml
 - ./rclone.yaml
 - ./nginx.yaml
+- ./netboot.yaml
 - ./uptime.yaml
 - ./jellyfin.yaml
 - ./jellyseerr.yaml
