@@ -33,12 +33,12 @@ spec:
         - protocol: TCP
           port: 3000
     - from:
-      - ipBlock:
-          cidr: 10.32.0.0/12
-      - ipBlock:
-          cidr: 10.96.0.0/12
-      - ipBlock:
-          cidr: 192.168.0.0/16
+        - ipBlock:
+            cidr: 10.32.0.0/12
+        - ipBlock:
+            cidr: 10.96.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
       ports:
         - protocol: UDP
           port: 69
@@ -97,3 +97,13 @@ spec:
           protocol: TCP
         - port: 443
           protocol: TCP
+    - to:
+        - ipBlock:
+            cidr: 192.168.0.0/24
+      ports:
+        - protocol: UDP
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+      ports:
+        - protocol: UDP
