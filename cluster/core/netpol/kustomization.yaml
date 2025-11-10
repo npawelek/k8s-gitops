@@ -40,4 +40,3 @@ resources:
 - ./jellystat.yaml
 - ./wallos.yaml
 - ./firefly.yaml
-- ./netboot.yaml
