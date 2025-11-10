@@ -92,18 +92,13 @@ spec:
     - to:
         - ipBlock:
             cidr: 0.0.0.0/0
-      ports:
-        - port: 80
-          protocol: TCP
-        - port: 443
-          protocol: TCP
-    - to:
-        - ipBlock:
-            cidr: 192.168.0.0/24
-      ports:
-        - protocol: UDP
-    - to:
-        - ipBlock:
-            cidr: 10.0.0.0/8
-      ports:
-        - protocol: UDP
+    #   ports:
+    #     - port: 80
+    #       protocol: TCP
+    #     - port: 443
+    #       protocol: TCP
+    # - to:
+    #     - ipBlock:
+    #         cidr: 192.168.0.0/16
+    #     - ipBlock:
+    #         cidr: 10.0.0.0/8
