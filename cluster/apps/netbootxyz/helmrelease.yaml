@@ -55,8 +55,6 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
-              MENU_VERSION: 2.0.89
-              TFTPD_OPTS: "--tftp-single-port"
 
             probes:
               liveness: &probes
