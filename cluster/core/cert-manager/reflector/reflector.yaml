@@ -39,7 +39,7 @@ spec:
           done
         env:
         - name: EXCLUDED_NS
-          value: "cert-manager kube-system kube-node-lease kube-public default rclone metallb-system intel-gpu flux-system"
+          value: "cert-manager kube-system kube-node-lease kube-public default metallb-system intel-gpu flux-system"
         resources:
           limits:
             memory: 128Mi
@@ -67,7 +67,7 @@ spec:
           done
         env:
         - name: EXCLUDED_NS
-          value: "cert-manager kube-system kube-node-lease kube-public default rclone metallb-system intel-gpu flux-system"
+          value: "cert-manager kube-system kube-node-lease kube-public default metallb-system intel-gpu flux-system"
         resources:
           limits:
             memory: 128Mi

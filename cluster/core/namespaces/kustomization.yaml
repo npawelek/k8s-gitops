@@ -14,7 +14,6 @@ resources:
 - ./sonarr.yaml
 - ./radarr.yaml
 - ./home-automation.yaml
-- ./rclone.yaml
 - ./nginx.yaml
 - ./uptime.yaml
 - ./jellyfin.yaml

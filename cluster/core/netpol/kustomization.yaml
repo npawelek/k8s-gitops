@@ -20,7 +20,6 @@ resources:
 - ./home-assistant.yaml
 - ./esphome.yaml
 - ./node-red.yaml
-- ./rclone.yaml
 - ./nginx.yaml
 - ./uptime.yaml
 - ./jellyfin.yaml

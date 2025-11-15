@@ -21,7 +21,6 @@ resources:
   - pinchflat
   - prowlarr
   - radarr
-  - rclone
   - recyclarr
   - sabnzbd
   - sonarr
