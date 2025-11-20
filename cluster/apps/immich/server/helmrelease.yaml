@@ -64,7 +64,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v2.3.0@sha256:bb00c61f51b2e9082ec87f443751561291d10fe6067ba9aeae15dc600fbff005
+              tag: v2.3.1@sha256:f8d06a32b1b2a81053d78e40bf8e35236b9faefb5c3903ce9ca8712c9ed78445
 
             env:
               TZ: ${TIMEZONE}
