@@ -91,6 +91,16 @@ spec:
       protocol: TCP
   - to:
     - ipBlock:
+        cidr: 9.9.9.9/32
+    - ipBlock:
+        cidr: 149.112.112.112/32
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  - to:
+    - ipBlock:
         cidr: 0.0.0.0/0
         except:
         - 10.0.0.0/8
