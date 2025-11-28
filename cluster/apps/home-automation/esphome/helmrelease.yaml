@@ -46,7 +46,7 @@ spec:
           main:
             image:
               repository: ghcr.io/esphome/esphome
-              tag: 2025.11.1
+              tag: 2025.11.2
 
             env:
               TZ: ${TIMEZONE}
