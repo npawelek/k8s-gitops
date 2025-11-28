@@ -35,7 +35,7 @@ data:
       upstream_dns_file: ""
       bootstrap_dns:
         - 9.9.9.9
-        - 142.112.112.112
+        - 149.112.112.112
       fallback_dns: []
       all_servers: true
       fastest_addr: true
