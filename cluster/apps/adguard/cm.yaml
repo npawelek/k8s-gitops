@@ -31,6 +31,7 @@ data:
       upstream_dns:
         - tls://dns.quad9.net
         - tls://dns.mullvad.net
+        - tls://p0.freedns.controld.com
       upstream_dns_file: ""
       bootstrap_dns:
         - 9.9.9.9
