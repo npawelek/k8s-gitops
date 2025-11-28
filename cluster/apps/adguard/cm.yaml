@@ -29,14 +29,12 @@ data:
       ratelimit_whitelist: []
       refuse_any: true
       upstream_dns:
-        - tls://1.1.1.1
-        - tls://1.0.0.1
         - tls://dns.quad9.net
-        - tls://unfiltered.adguard-dns.com
+        - tls://dns.mullvad.net
       upstream_dns_file: ""
       bootstrap_dns:
-        - 1.1.1.1
-        - 1.0.0.1
+        - 9.9.9.9
+        - 142.112.112.112
       fallback_dns: []
       all_servers: true
       fastest_addr: true
