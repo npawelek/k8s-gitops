@@ -92,14 +92,14 @@ data:
     querylog:
       dir_path: ""
       ignored: []
-      interval: 168h
+      interval: 336h
       size_memory: 1000
       enabled: true
       file_enabled: true
     statistics:
       dir_path: ""
       ignored: []
-      interval: 168h
+      interval: 336h
       enabled: true
     filtering:
       blocking_ipv4: ""
@@ -309,7 +309,7 @@ data:
       - '||conviva.com^$important'
       - '||moengage.com^$important'
       - '||slinganalytics.movetv.com^$important'
-      - '||googleads.g.doubleclick.net^$important'
+      - '||g.doubleclick.net^$important'
       - '||cta-service-cms2.hubspot.com^$important'
       - '||b2b.joindeleteme.com^$important'
       - '||fb932ef8f8198290a60f66427df19f8905aa69b6.ack.me.sony.com^$important'
@@ -320,6 +320,16 @@ data:
       - '||rechargeapps.com^$important'
       - '||workers.dev^$important'
       - '||analytics.alpha.3kit.com^$important'
+      - '||pp-prod-ads.ue2.breadgateway.net^$important'
+      - '||ads.amazon.dev^$important'
+      - '||ads.vungle.com^$important'
+      - '||adsmoloco.com^$important'
+      - '||amazon-adsystem.com^$important'
+      - '||adthrive.com^$important'
+      - '||tk-adsystem.a2z.com^$important'
+      - '||teads.tv^$important'
+      - '||pubmatic.com^$important'
+      - '||adsensecustomsearchads.com^$important'
       - '@@||v.w-x.co^'
       - '@@||fls-na.amazon.com^'
       - '@@||kinesis.us-east-1.amazonaws.com^'
