@@ -283,6 +283,8 @@ data:
       # Block rules (||)
       - '||ads-serve.brave.com^'
       - '||ads.amazon.dev^$important'
+      - '||cloudflare-dns.com^$client=192.168.20.49'
+      - '||dns.google^$client=192.168.20.49'
       - '||ads.vungle.com^$important'
       - '||adsensecustomsearchads.com^$important'
       - '||adsmoloco.com^$important'
