@@ -181,10 +181,6 @@ data:
         name: Advertising AdAway List
         id: 2
       - enabled: true
-        url: http://sysctl.org/cameleon/hosts
-        name: Sysctl Hosts List
-        id: 3
-      - enabled: true
         url: https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
         name: Tracking Disconnect.me Simple Tracking List
         id: 4
@@ -196,10 +192,6 @@ data:
         url: https://raw.githubusercontent.com/evankrob/hosts-filenetrehost/master/ad_servers.txt
         name: Evan K Rob Hosts File List
         id: 6
-      - enabled: true
-        url: https://dbl.oisd.nl/
-        name: Domain Blocklists (oisd.nl)
-        id: 7
       - enabled: true
         url: https://someonewhocares.org/hosts/zero/hosts
         name: Dan Pollock's List
@@ -225,53 +217,21 @@ data:
         name: 'NLD: Easylist'
         id: 1656360966
       - enabled: true
-        url: https://v.firebog.net/hosts/AdguardDNS.txt
-        name: Advertising Firebog AdguardDNS List
+        url: https://filters.adtidy.org/extension/chromium/filters/15.txt
+        name: Adtidy Chromium Filters
         id: 1656361435
       - enabled: true
-        url: https://v.firebog.net/hosts/Admiral.txt
-        name: Advertising Firebog Admiral List
+        url: https://raw.githubusercontent.com/LanikSJ/ubo-filters/main/filters/getadmiral-domains.txt
+        name: LanikSJ Admiral List
         id: 1656361436
-      - enabled: true
-        url: https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
-        name: Advertising AnudeepND List
-        id: 1656361437
-      - enabled: true
-        url: https://v.firebog.net/hosts/Easylist.txt
-        name: Advertising Firebog Easylist
-        id: 1656361438
       - enabled: true
         url: https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
         name: Advertising bigdargon List
         id: 1656361440
       - enabled: true
-        url: https://v.firebog.net/hosts/Easyprivacy.txt
-        name: Tracking Firebog EasyPrivacy List
-        id: 1656361441
-      - enabled: true
-        url: https://v.firebog.net/hosts/Prigent-Ads.txt
-        name: Tracking Firebog PrigentAds List
-        id: 1656361442
-      - enabled: true
         url: https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
         name: Tracking Frogeye FirstParty List
         id: 1656361443
-      - enabled: true
-        url: https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
-        name: Malware OSINT List
-        id: 1656368651
-      - enabled: true
-        url: https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
-        name: Malware Disconnect.me List
-        id: 1656368652
-      - enabled: true
-        url: https://v.firebog.net/hosts/Prigent-Crypto.txt
-        name: Malware Firebog Prigent Crypto List
-        id: 1656368653
-      - enabled: true
-        url: https://phishing.army/download/phishing_army_blocklist_extended.txt
-        name: Malware Phishing Army List
-        id: 1656368654
       - enabled: true
         url: https://urlhaus.abuse.ch/downloads/hostfile/
         name: Malware URLHaus Abuse List
