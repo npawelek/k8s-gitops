@@ -292,6 +292,7 @@ data:
       - '||lkt.is^$important'
       - '||lookout.com^$important'
       - '||medallia.com^$important'
+      - '||monitor.mozilla.org^$important'
       - '||metrics.icloud.com^'
       - '||min-api.cryptocompare.com^'
       - '||moengage.com^$important'
@@ -313,6 +314,10 @@ data:
       - '||www.baidu.com^$important'
       - '||www.clkmc.com^$important'
       # Whitelist rules (@@)
+      - '@@||api.nzbgeek.info^$important'
+      - '@@||checkip.amazonaws.com^$important'
+      - '@@||drunkenslug.com^$important'
+      - '@@||feed.animetosho.org^$important'
       - '@@||fls-na.amazon.com^'
       - '@@||kinesis.us-east-1.amazonaws.com^'
       - '@@||kinesis.us-west-2.amazonaws.com^'
