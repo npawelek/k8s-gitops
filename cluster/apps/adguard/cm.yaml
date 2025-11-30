@@ -177,65 +177,81 @@ data:
         name: AdGuard DNS List
         id: 1
       - enabled: true
-        url: https://adaway.org/hosts.txt
-        name: Advertising AdAway List
-        id: 2
-      - enabled: true
-        url: https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-        name: Tracking Disconnect.me Simple Tracking List
-        id: 4
-      - enabled: true
-        url: https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-        name: Advertising Disconnect.me Simple Ads List
-        id: 5
-      - enabled: true
-        url: https://raw.githubusercontent.com/evankrob/hosts-filenetrehost/master/ad_servers.txt
-        name: Evan K Rob Hosts File List
-        id: 6
-      - enabled: true
-        url: https://someonewhocares.org/hosts/zero/hosts
-        name: Dan Pollock's List
-        id: 1656360961
-      - enabled: true
-        url: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/GameConsoleAdblockList.txt
-        name: Game Console Adblock List
-        id: 1656360962
-      - enabled: true
         url: https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV-AGH.txt
         name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
         id: 1656360963
       - enabled: true
-        url: https://abp.oisd.nl/basic/
-        name: OISD Blocklist Basic
-        id: 1656360964
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+        name: AdGuard DNS filter
+        id: 1764462984
       - enabled: true
-        url: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus&showintro=1&mimetype=plaintext
-        name: Peter Lowe's List
-        id: 1656360965
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_48.txt
+        name: HaGeZi's Pro Blocklist
+        id: 1764462985
       - enabled: true
-        url: https://easylist-downloads.adblockplus.org/easylistdutch.txt
-        name: 'NLD: Easylist'
-        id: 1656360966
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_27.txt
+        name: OISD Blocklist Big
+        id: 1764462986
       - enabled: true
-        url: https://filters.adtidy.org/extension/chromium/filters/15.txt
-        name: Adtidy Chromium Filters
-        id: 1656361435
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt
+        name: Dandelion Sprout's Anti-Malware List
+        id: 1764462987
       - enabled: true
-        url: https://raw.githubusercontent.com/LanikSJ/ubo-filters/main/filters/getadmiral-domains.txt
-        name: LanikSJ Admiral List
-        id: 1656361436
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt
+        name: HaGeZi's Threat Intelligence Feeds
+        id: 1764462988
       - enabled: true
-        url: https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
-        name: Advertising bigdargon List
-        id: 1656361440
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt
+        name: ShadowWhisperer's Malware List
+        id: 1764462989
       - enabled: true
-        url: https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
-        name: Tracking Frogeye FirstParty List
-        id: 1656361443
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_46.txt
+        name: HaGeZi's Anti-Piracy Blocklist
+        id: 1764462990
       - enabled: true
-        url: https://urlhaus.abuse.ch/downloads/hostfile/
-        name: Malware URLHaus Abuse List
-        id: 1656368655
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_67.txt
+        name: HaGeZi's Apple Tracker Blocklist
+        id: 1764462991
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_7.txt
+        name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
+        id: 1764462992
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_57.txt
+        name: ShadowWhisperer's Dating List
+        id: 1764462993
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt
+        name: HaGeZi's Badware Hoster Blocklist
+        id: 1764462994
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt
+        name: HaGeZi's DynDNS Blocklist
+        id: 1764462995
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_69.txt
+        name: ShadowWhisperer Tracking List
+        id: 1764462997
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_39.txt
+        name: Dandelion Sprout's Anti Push Notifications
+        id: 1764462998
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_6.txt
+        name: Dandelion Sprout's Game Console Adblock List
+        id: 1764462999
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_45.txt
+        name: HaGeZi's Allowlist Referral
+        id: 1764463000
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_63.txt
+        name: HaGeZi's Windows/Office Tracker Blocklist
+        id: 1764463001
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_60.txt
+        name: HaGeZi's Xiaomi Tracker Blocklist
+        id: 1764463002
     whitelist_filters: []
     user_rules:
       # Regex rules
