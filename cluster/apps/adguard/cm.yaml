@@ -316,7 +316,7 @@ data:
       # Whitelist rules (@@)
       - '# Enable FindMy'
       - '@@/.*-ssl\.ls\.apple\.com$/'
-      - '@@||avs-alexa-14-na.amazon.com^$important'
+      - '@@/^avs-alexa-.*-na\.amazon\.com$/'
       - '@@||checkip.amazonaws.com^$important'
       - '@@||fls-na.amazon.com^'
       - '@@||kinesis.us-east-1.amazonaws.com^'
