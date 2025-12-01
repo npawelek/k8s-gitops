@@ -314,6 +314,8 @@ data:
       - '||www.baidu.com^$important'
       - '||www.clkmc.com^$important'
       # Whitelist rules (@@)
+      - '# Enable FindMy'
+      - '@@/.*-ssl\.ls\.apple\.com$/'
       - '@@||avs-alexa-14-na.amazon.com^$important'
       - '@@||checkip.amazonaws.com^$important'
       - '@@||fls-na.amazon.com^'
