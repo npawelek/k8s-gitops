@@ -46,7 +46,7 @@ spec:
           main:
             image:
               repository: valkey/valkey
-              tag: 8.1.4-alpine@sha256:e706d1213aaba6896c162bb6a3a9e1894e1a435f28f8f856d14fab2e10aa098b
+              tag: 8.1.5-alpine@sha256:70aa61b8e741ee66d8976eab1418d408067df3624c3a3732d91f95fdddd4f0e8
 
             env:
               TZ: ${TIMEZONE}
