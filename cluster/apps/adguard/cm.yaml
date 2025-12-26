@@ -254,6 +254,7 @@ data:
     user_rules:
       # Regex rules
       - '/.*\.fallback\..*\.facebook\.com$/'
+      - '||*^$client=192.168.20.193'
       # Block rules (||)
       - '||ads-serve.brave.com^'
       - '||ads.amazon.dev^$important'
