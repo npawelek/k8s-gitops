@@ -1,46 +1,60 @@
 {
-  "extends": [
-    "config:base",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-//    ":automergeDisabled",
-    ":automergeDigest",
-    ":automergeBranch",
-    ":separatePatchReleases",
-    "github>npawelek/k8s-gitops//.github/renovate/autoMerge.json5",
-    "github>npawelek/k8s-gitops//.github/renovate/commitMessage.json5",
-    "github>npawelek/k8s-gitops//.github/renovate/labels.json5",
-    "github>npawelek/k8s-gitops//.github/renovate/semanticCommits.json5"
+  extends: [
+    'config:recommended',
+    'docker:enableMajor',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    ':automergeDigest',
+    ':automergeBranch',
+    ':separatePatchReleases',
+    'github>npawelek/k8s-gitops//.github/renovate/autoMerge.json5',
+    'github>npawelek/k8s-gitops//.github/renovate/commitMessage.json5',
+    'github>npawelek/k8s-gitops//.github/renovate/labels.json5',
+    'github>npawelek/k8s-gitops//.github/renovate/semanticCommits.json5',
   ],
-  "timezone": "America/Chicago",
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "rebaseWhen": "conflicted",
-  "assignees": ["@npawelek"],
-  "repositories": ["npawelek/k8s-gitops"],
-  // Standard manifest files (https://docs.renovatebot.com/modules/manager/kubernetes/)
-  "flux": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+  timezone: 'America/Chicago',
+  dependencyDashboardTitle: 'Renovate Dashboard',
+  suppressNotifications: [
+    'prIgnoreNotification',
+  ],
+  rebaseWhen: 'conflicted',
+  assignees: [
+    '@npawelek',
+  ],
+  repositories: [
+    'npawelek/k8s-gitops',
+  ],
+  flux: {
+    managerFilePatterns: [
+      '/cluster/.+\\.ya?ml$/',
+    ],
   },
-  "kubernetes": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"],
-    "ignorePaths": ["cluster/base/"]
+  kubernetes: {
+    managerFilePatterns: [
+      '/cluster/.+\\.ya?ml$/',
+    ],
+    ignorePaths: [
+      'cluster/base/',
+    ],
   },
-  "helm-values": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+  'helm-values': {
+    managerFilePatterns: [
+      '/cluster/.+\\.ya?ml$/',
+    ],
   },
-  "packageRules": [
+  packageRules: [
     {
-      "description": "Loose versioning for one-off packages",
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackagePatterns": [
-        "autoscan",
-        "plex",
-        "ytdl-sub"
-      ]
-    }
-  ]
+      description: 'Loose versioning for one-off packages',
+      matchDatasources: [
+        'docker',
+      ],
+      versioning: 'loose',
+      matchPackageNames: [
+        '/autoscan/',
+        '/plex/',
+        '/ytdl-sub/',
+      ],
+    },
+  ],
 }
