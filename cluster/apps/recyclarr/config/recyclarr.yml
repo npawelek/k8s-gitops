@@ -92,6 +92,13 @@ sonarr:
           - name: WEB-2160p
             score: 300
 
+      # ——— HDR (Reduce score to prioritize DV w/o HDR fallback) ———
+      - trash_ids:
+          - 505d871304820ba7106b693be6fe4a9e # HDR
+        assign_scores_to:
+          - name: WEB-2160p
+            score: 200
+
       # ——— Optional: Quality Control ———
       - trash_ids:
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
@@ -335,6 +342,13 @@ radarr:
         assign_scores_to:
           - name: UHD Bluray + WEB
             score: 300
+
+      # ——— HDR (Reduce score to prioritize DV w/o HDR fallback) ———
+      - trash_ids:
+          - 493b6d1dbec3c3364c59d7607f7e3405 # HDR
+        assign_scores_to:
+          - name: UHD Bluray + WEB
+            score: 200
 
       # ——— Block SDR ———
       - trash_ids:
