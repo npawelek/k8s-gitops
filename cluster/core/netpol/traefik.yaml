@@ -274,6 +274,8 @@ spec:
     ports:
     - port: 6052
       protocol: TCP
+    - port: 8080
+      protocol: TCP
   - to:
     - namespaceSelector:
         matchLabels:
