@@ -6,7 +6,7 @@ resources:
   # - authentik
   - aws-ddns
   - autoscan
-  - bazarr
+  # - bazarr
   - galera
   - pg
   - hajimari
@@ -18,12 +18,12 @@ resources:
   - metrics-server
   - nginx
   - ntpd
-  - pinchflat
-  - prowlarr
-  - radarr
-  - recyclarr
-  - sabnzbd
-  - sonarr
+  # - pinchflat
+  # - prowlarr
+  # - radarr
+  # - recyclarr
+  # - sabnzbd
+  # - sonarr
   - speedtest
   - traefik
   - traefik-forward-auth
