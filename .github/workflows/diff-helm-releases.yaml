@@ -21,7 +21,7 @@ jobs:
       files: "${{ steps.extract.outputs.files }}"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -56,13 +56,13 @@ jobs:
             yq
 
       - name: Checkout live branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ env.conf_live_branch }}
           path: live
 
       - name: Checkout PR branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: pr
 
