@@ -22,9 +22,9 @@ resources:
   # - prowlarr
   # - radarr
   # - recyclarr
-  # - sabnzbd
+  - sabnzbd
   # - sonarr
-  - speedtest
+  # - speedtest
   - traefik
   - traefik-forward-auth
   - unmanic
