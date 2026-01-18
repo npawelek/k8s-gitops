@@ -5,16 +5,16 @@ resources:
   - adguard
   # - authentik
   - aws-ddns
-  - autoscan
+  # - autoscan
   # - bazarr
   - galera
   - pg
   - hajimari
   - home-automation
   - immich
-  - jellyfin
-  - jellystat
-  - jellyseerr
+  # - jellyfin
+  # - jellystat
+  # - jellyseerr
   - metrics-server
   - nginx
   - ntpd
@@ -27,7 +27,7 @@ resources:
   # - speedtest
   - traefik
   - traefik-forward-auth
-  - unmanic
+  # - unmanic
   - uptime
   - wallos
   - firefly
