@@ -6,5 +6,4 @@ resources:
 - ./certificates.yaml
 - ./helmrelease.yaml
 - ./issuers.yaml
-- cronjob
 - reflector
