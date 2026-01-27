@@ -8,34 +8,34 @@ resources:
 - ./adguard.yaml
 - ./hajimari.yaml
 - ./galera.yaml
-- ./sonarr.yaml
-- ./sonarr-anime.yaml
-- ./sonarr-remux.yaml
-- ./radarr.yaml
-- ./radarr-anime.yaml
-- ./radarr-remux.yaml
-- ./radarr-trailers.yaml
+# - ./sonarr.yaml
+# - ./sonarr-anime.yaml
+# - ./sonarr-remux.yaml
+# - ./radarr.yaml
+# - ./radarr-anime.yaml
+# - ./radarr-remux.yaml
+# - ./radarr-trailers.yaml
 - ./home-automation.yaml
 - ./mosquitto.yaml
 - ./home-assistant.yaml
 - ./esphome.yaml
 - ./node-red.yaml
 - ./nginx.yaml
-- ./uptime.yaml
-- ./jellyfin.yaml
-- ./jellyseerr.yaml
-- ./autoscan.yaml
-- ./prowlarr.yaml
-- ./recyclarr.yaml
-- ./sabnzbd.yaml
+# - ./uptime.yaml
+# - ./jellyfin.yaml
+# - ./jellyseerr.yaml
+# - ./autoscan.yaml
+# - ./prowlarr.yaml
+# - ./recyclarr.yaml
+# - ./sabnzbd.yaml
 - ./ntpd.yaml
-- ./pinchflat.yaml
+# - ./pinchflat.yaml
 - ./aws-ddns.yaml
 - ./piper.yaml
 - ./whisper.yaml
-- ./speedtest.yaml
-- ./bazarr.yaml
+# - ./speedtest.yaml
+# - ./bazarr.yaml
 - ./fireboard2mqtt.yaml
-- ./jellystat.yaml
-- ./wallos.yaml
-- ./firefly.yaml
+# - ./jellystat.yaml
+# - ./wallos.yaml
+# - ./firefly.yaml
