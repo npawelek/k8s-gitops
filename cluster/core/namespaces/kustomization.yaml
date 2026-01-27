@@ -11,25 +11,25 @@ resources:
 - ./adguard.yaml
 - ./hajimari.yaml
 - ./galera.yaml
-- ./sonarr.yaml
-- ./radarr.yaml
+# - ./sonarr.yaml
+# - ./radarr.yaml
 - ./home-automation.yaml
 - ./nginx.yaml
-- ./uptime.yaml
-- ./jellyfin.yaml
-- ./jellyseerr.yaml
-- ./unmanic.yaml
-- ./autoscan.yaml
-- ./prowlarr.yaml
-- ./recyclarr.yaml
-- ./sabnzbd.yaml
+# - ./uptime.yaml
+# - ./jellyfin.yaml
+# - ./jellyseerr.yaml
+# - ./unmanic.yaml
+# - ./autoscan.yaml
+# - ./prowlarr.yaml
+# - ./recyclarr.yaml
+# - ./sabnzbd.yaml
 - ./ntpd.yaml
-- ./pinchflat.yaml
+# - ./pinchflat.yaml
 - ./aws-ddns.yaml
-- ./speedtest.yaml
-- ./bazarr.yaml
+# - ./speedtest.yaml
+# - ./bazarr.yaml
 - ./pg.yaml
 - ./immich.yaml
-- ./jellystat.yaml
-- ./wallos.yaml
-- ./firefly.yaml
+# - ./jellystat.yaml
+# - ./wallos.yaml
+# - ./firefly.yaml
