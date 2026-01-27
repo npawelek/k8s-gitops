@@ -22,12 +22,12 @@ resources:
   # - prowlarr
   # - radarr
   # - recyclarr
-  - sabnzbd
+  # - sabnzbd
   # - sonarr
   # - speedtest
   - traefik
   - traefik-forward-auth
   # - unmanic
-  - uptime
-  - wallos
-  - firefly
+  # - uptime
+  # - wallos
+  # - firefly
