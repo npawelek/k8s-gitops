@@ -11,7 +11,7 @@ resources:
   - pg
   - hajimari
   - home-automation
-  - immich
+  # - immich
   # - jellyfin
   # - jellystat
   # - jellyseerr
