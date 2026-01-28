@@ -8,7 +8,7 @@ resources:
   # - autoscan
   # - bazarr
   - galera
-  - pg
+  # - pg
   - hajimari
   - home-automation
   # - immich

@@ -28,8 +28,8 @@ resources:
 - ./aws-ddns.yaml
 # - ./speedtest.yaml
 # - ./bazarr.yaml
-- ./pg.yaml
-- ./immich.yaml
+# - ./pg.yaml
+# - ./immich.yaml
 # - ./jellystat.yaml
 # - ./wallos.yaml
 # - ./firefly.yaml
