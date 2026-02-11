@@ -55,7 +55,7 @@ spec:
           main:
             image:
               repository: nodered/node-red
-              tag: 4.1.3-18-minimal@sha256:507e36ee3684b50adc066f49c8b1481a716a9b017b7575fae31ac463d1c6b23e
+              tag: 4.1.5-18-minimal@sha256:2bad3240a218c81c2406654ee70187ea402240dccbf7621257d4a14d2d98872f
             
             env:
               TZ: ${TIMEZONE}
