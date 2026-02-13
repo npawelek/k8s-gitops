@@ -76,7 +76,7 @@ spec:
           codeserver:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.107.1
+              tag: 4.109.2
             workingDir: /config
             args:
               - --user-data-dir
