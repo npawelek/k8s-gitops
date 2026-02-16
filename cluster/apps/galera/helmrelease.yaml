@@ -30,7 +30,7 @@ spec:
     image:
       registry: public.ecr.aws
       repository: bitnami/mariadb-galera
-      tag: 11.6.2
+      tag: 12.2.2
     clusterDomain: cluster.local
     # Parallel to force bootstrap a specific node, OrderedReady to start normally
     podManagementPolicy: OrderedReady
