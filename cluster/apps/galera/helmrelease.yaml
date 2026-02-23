@@ -42,6 +42,25 @@ spec:
       port: 3306
       # headless:
       #   publishNotReadyAddresses: true
+    extraDeploy:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: mariadb-galera-lb
+          namespace: galera
+          annotations:
+            metallb.universe.tf/loadBalancerIPs: 192.168.0.11
+        spec:
+          type: LoadBalancer
+          externalTrafficPolicy: Local
+          selector:
+            app.kubernetes.io/name: mariadb-galera
+            app.kubernetes.io/instance: mariadb-galera
+          ports:
+            - name: mysql
+              port: 3306
+              targetPort: 3306
+              protocol: TCP
     serviceAccount:
       create: false
     extraEnvVars:
