@@ -4,20 +4,20 @@ kind: Kustomization
 resources:
   - adguard
   # - authentik
-  - aws-ddns
+  # - aws-ddns
   # - autoscan
   # - bazarr
   - galera
   # - pg
-  - hajimari
-  - home-automation
+  # - hajimari
+  # - home-automation
   # - immich
   # - jellyfin
   # - jellystat
   # - jellyseerr
   - metrics-server
-  - nginx
-  - ntpd
+  # - nginx
+  # - ntpd
   # - pinchflat
   # - prowlarr
   # - radarr
